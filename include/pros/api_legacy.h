@@ -3,29 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-16T23:51:32+08:00
- */
-
-
-
-/**
- * \file pros/api_legacy.h
- *
- * PROS 2 Legacy API header
- *
- * Contains declarations for functions that are name-compatible with the PROS 2
- * API. Some functions from the PROS 2 API are not useful or cannot be
- * implemented in PROS 3, but most common functions are available.
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
- * All rights reserved.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Last modified time: 2018-09-17T20:44:08+08:00
  */
 
 #ifndef _PROS_API_LEGACY_H_

@@ -3,31 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-16T00:47:38+08:00
- */
-
-
-
-/**
- * \file pros/apix.h
- *
- * PROS Extended API header
- *
- * Contains additional declarations for use by advaned users of PROS. These
- * functions do not typically have as much error handling or require deeper
- * knowledge of real time operating systems.
- *
- * Visit https://pros.cs.purdue.edu/v5/extended/api.html to learn more.
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
- * All rights reserved.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Last modified time: 2018-09-17T20:52:25+08:00
  */
 
 #ifndef _PROS_API_EXTENDED_H_
@@ -62,6 +38,7 @@ extern "C"
  * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#abort_delay for
  * details.
  */
+
     bool task_abort_delay(task_t task);
 
     /**

@@ -1,18 +1,14 @@
-/*
- * \file pros/colors.h
- *
- * Contains macro definitions of colors (as `uint32_t`)
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * Copyright (c) 2017-2018 Purdue University ACM SIGBots.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License v. 2.0. If a copy of the MPL was not distributed with this
- * file You can obtain one at http://mozilla.org/MPL/2.0/.
+/**
+ * @Author: 陈昱安
+ * @Date:   2018-09-16T00:20:58+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-09-17T21:03:32+08:00
  */
 
+/**
+ * 颜色传感器的宏定义文件 不要修改!
+ */
 #ifndef _PROS_COLORS_H_
 #define _PROS_COLORS_H_
 
@@ -168,4 +164,4 @@
 #define COLOR_LIGHT_SLATE_GREY COLOR_LIGHT_SLATE_GRAY
 #define COLOR_SLATE_GREY COLOR_SLATE_GRAY
 
-#endif  // _PROS_COLORS_H_
+#endif // _PROS_COLORS_H_
