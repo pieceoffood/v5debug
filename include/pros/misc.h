@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-17T21:41:12+08:00
+ * @Last modified time: 2018-09-18T23:01:24+08:00
  */
 
 //杂项函数库
@@ -56,18 +56,18 @@ extern "C"
 
     typedef enum
     {
-        E_CONTROLLER_MASTER = 0,
-        E_CONTROLLER_PARTNER
+        E_CONTROLLER_MASTER = 0, //主要遥控器值为0
+        E_CONTROLLER_PARTNER     //副遥控器值为1
     } controller_id_e_t;
 
     typedef enum
     {
-        E_CONTROLLER_ANALOG_LEFT_X = 0,
-        E_CONTROLLER_ANALOG_LEFT_Y,
-        E_CONTROLLER_ANALOG_RIGHT_X,
-        E_CONTROLLER_ANALOG_RIGHT_Y
+        E_CONTROLLER_ANALOG_LEFT_X = 0, //以前的CH4 0
+        E_CONTROLLER_ANALOG_LEFT_Y,     //以前CH3  1
+        E_CONTROLLER_ANALOG_RIGHT_X,    //以前的CH1 2
+        E_CONTROLLER_ANALOG_RIGHT_Y     //以前的CH2 3
     } controller_analog_e_t;
-
+    //遥控器的按钮
     typedef enum
     {
         E_CONTROLLER_DIGITAL_L1 = 6,

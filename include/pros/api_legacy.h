@@ -3,9 +3,10 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-17T20:44:08+08:00
+ * @Last modified time: 2018-09-18T23:03:57+08:00
  */
 
+//这里主要包装了下函数 让PROSV5里面可以使用PROS2的函数名字
 #ifndef _PROS_API_LEGACY_H_
 #define _PROS_API_LEGACY_H_
 

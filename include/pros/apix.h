@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-17T20:52:25+08:00
+ * @Last modified time: 2018-09-18T22:23:57+08:00
  */
 
 #ifndef _PROS_API_EXTENDED_H_
@@ -22,10 +22,10 @@ extern "C"
 #endif
 
     /******************************************************************************/
-    /**                             RTOS FACILITIES                              **/
+    /**                             RTOS 的库函数                                 **/
     /**                                                                          **/
     /**                                                                          **/
-    /**See https://pros.cs.purdue.edu/v5/extended/multitasking.html to learn more**/
+    /**打开 https://pros.cs.purdue.edu/v5/extended/multitasking.html 以便更多的学习**/
     /******************************************************************************/
 
     typedef void *queue_t;
