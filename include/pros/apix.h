@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-18T22:23:57+08:00
+ * @Last modified time: 2018-09-24T08:09:28+08:00
  */
 
 #ifndef _PROS_API_EXTENDED_H_
@@ -32,293 +32,144 @@ extern "C"
     typedef void *sem_t;
 
     /**
- * Unblocks a task in the Blocked state (e.g. waiting for a delay, on a
- * semaphore, etc.).
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#abort_delay for
- * details.
+ * 解锁阻止状态的任务（例如，等待延迟，信号量等）
+ * @param  task 任务的句柄
+ * @return      [description]
  */
 
     bool task_abort_delay(task_t task);
 
     /**
- * Creates a recursive mutex which can be locked recursively by the owner.
- *
- * See
- * https://pros.cs.purdue.edu/v5/extended/multitasking.html#recursive_mutexes
- * for details.
- *
- * \return A newly created recursive mutex.
+ * 创建一个递归互斥锁，可以由所有者递归锁定。
+ * @return  新创建的递归互斥锁。
  */
     mutex_t mutex_recursive_create(void);
-
     /**
- * Takes a recursive mutex.
- *
- * See
- * https://pros.cs.purdue.edu/v5/extended/multitasking.html#recursive_mutexes
- * for details.
- *
- * \param mutex
- *        A mutex handle created by mutex_recursive_create
- * \param wait_time
- *        Amount of time to wait before timing out
- *
- * \return 1 if the mutex was obtained, 0 otherwise
+ * 采用递归互斥量。
+ * @param  mutex   要使用的互斥量。
+ * @param  timeout 在互斥锁可用之前等待的时间。超时0可用于轮询互斥锁。TIMEOUT_MAX可用于无限期阻止。
+ * @return         如果获得互斥锁，则返回 1，否则返回 0
  */
     bool mutex_recursive_take(mutex_t mutex, uint32_t timeout);
 
     /**
- * Gives a recursive mutex.
- *
- * See
- * https://pros.cs.purdue.edu/v5/extended/multitasking.html#recursive_mutexes
- * for details.
- *
- * \param mutex
- *        A mutex handle created by mutex_recursive_create
- *
- * \return 1 if the mutex was obtained, 0 otherwise
+ * 给出一个递归的互斥量。
+ * @param  mutex 要解锁的互斥锁
+ * @return       [description]
  */
     bool mutex_recursive_give(mutex_t mutex);
 
     /**
- * Returns a handle to the current owner of a mutex.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#extra for
- * details.
- *
- * \param mutex
- *        A mutex handle
- *
- * \return A handle to the current task that owns the mutex, or NULL if the
- * mutex isn't owned.
+ * 返回互斥锁所有者的句柄。
+ * @param  mutex 要检查的互斥锁
+ * @return       [description]
  */
     task_t mutex_get_owner(mutex_t mutex);
 
     /**
- * Creates a counting sempahore.
- *
- * See https://pros.cs.purdue.edu/v5/tutorials/multitasking.html#semaphores for
- *details.
- *
- * \param max_count
- *        The maximum count value that can be reached.
- * \param init_count
- *        The initial count value assigned to the new semaphore.
- *
- * \return A newly created semaphore. If an error occurred, NULL will be
- * returned and errno can be checked for hints as to why sem_create failed.
+ * 创建计数信号量。
+ * @param  max_count  可以达到的最大计数值
+ * @param  init_count 分配给新信号量的初始计数值
+ * @return            新创建的信号量。如果发生错误，将返回NULL并errno可以检查有关sem_create失败原因的提示。
  */
     sem_t sem_create(uint32_t max_count, uint32_t init_count);
-
     /**
- * Deletes a semaphore (or binary semaphore)
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#semaphores for
- * details.
- *
- * \param sem
- * 			  Semaphore to delete
+ * 删除计数信号量
+ * @param sem 要删除的对象
  */
     void sem_delete(sem_t sem);
 
     /**
- * Creates a binary semaphore.
- *
- * See
- * https://pros.cs.purdue.edu/v5/extended/multitasking#.htmlbinary_semaphores
- * for details.
- *
- * \return A newly created semaphore.
+ *  创建二进制信号量。
+ * @return  新创建的信号量。
  */
     sem_t sem_binary_create(void);
 
     /**
- * Waits for the semaphore's value to be greater than 0. If the value is already
- * greater than 0, this function immediately returns.
- *
- * See https://pros.cs.purdue.edu/v5/tutorials/multitasking.html#semaphores for
- * details.
- *
- * \param sem
- *        Semaphore to wait on
- * \param timeout
- *        Time to wait before the semaphore's becomes available. A timeout of 0
- *        can be used to poll the sempahore. TIMEOUT_MAX can be used to block
- *        indefinitely.
- *
- * \return True if the semaphore was successfully take, false otherwise. If
- * false is returned, then errno is set with a hint about why the sempahore
- * couldn't be taken.
+ * 等待信号量的值大于0.如果该值大于0，则此函数立即返回。
+ * @param  sem     要等待的信号量。
+ * @param  timeout 在信号量可用之前等待的时间。超时0可用于轮询信号量。TIMEOUT_MAX可用于无限期阻止。
+ * @return         返回：如果成功获取信号量，则返回 true，否则返回 false。如果返回false，则设置errno，提示为什么不能采取sempahore。
  */
     bool sem_wait(sem_t sem, uint32_t timeout);
-
     /**
- * Increments a semaphore's value.
- *
- * See https://pros.cs.purdue.edu/v5/tutorials/multitasking.html#semaphores for
- * details.
- *
- * \param sem
- *        Semaphore to post
- *
- * \return True if the value was incremented, false otherwise. If false is
- * returned, then errno is set with a hint about why the semaphore couldn't be
- * taken.
+ * 增加信号量的值。
+ * @param  sem 	要发布的信号量。
+ * @return     返回：如果值增加，则返回 true，否则返回 false。如果返回false，则errno设置一个提示，说明无法获取信号量的原因。
  */
     bool sem_post(sem_t sem);
-
     /**
- * Returns the current value of the semaphore.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#extra for
- * details.
- *
- * \param sem
- *        A semaphore handle
- *
- * \return The current value of the semaphore (e.g. the number of resources
- * available)
+ * 返回信号量的当前值。
+ * @param  sem 要检查的信号量
+ * @return     返回：信号量的当前值（例如，可用资源的数量）
  */
     uint32_t sem_get_count(sem_t sem);
 
     /**
- * Creates a queue.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param length
- *        The maximum number of items that the queue can contain.
- * \param item_size
- *        The number of bytes each item in the queue will require.
- *
- * \return A handle to a newly created queue, or NULL if the queue cannot be
- * created.
+ * 创建一个队列。
+ * @param  length    队列可以包含的最大项目数。
+ * @param  item_size 	队列中每个项目所需的字节数。
+ * @return           新创建的队列的句柄，如果无法创建队列，则返回 NULL。
  */
     queue_t queue_create(uint32_t length, uint32_t item_size);
-
     /**
- * Posts an item to the front of a queue. The item is queued by copy, not by
- * reference.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        The queue handle
- * \param item
- *        A pointer to the item that will be placed on the queue.
- * \param timeout
- *        Time to wait for space to become available. A timeout of 0 can be used
- *        to attempt to post without blocking. TIMEOUT_MAX can be used to block
- *        indefinitely.
- *
- * \return True if the item was preprended, false otherwise.
+ * 将项目发布到队列的前面。该项目按副本排队，而不是按引用排队。
+ * @param  queue   队列句柄
+ * @param  item    指向将放置在队列中的项的指针。
+ * @param  timeout 	是时候等待空间变得可用了。超时为0可用于尝试发布而不阻塞。TIMEOUT_MAX可用于无限期阻止。
+ * @return         true如果项目已预先生成，false则返回。
  */
     bool queue_prepend(queue_t queue, const void *item, uint32_t timeout);
-
     /**
- * Posts an item to the end of a queue. The item is queued by copy, not by
- * reference.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        The queue handle
- * \param item
- *        A pointer to the item that will be placed on the queue.
- * \param timeout
- *        Time to wait for space to become available. A timeout of 0 can be used
- *        to attempt to post without blocking. TIMEOUT_MAX can be used to block
- *        indefinitely.
- *
- * \return True if the item was preprended, false otherwise.
+ * 将项目发布到队列末尾。该项目按副本排队，而不是按引用排队
+ * @param  queue   	队列句柄
+ * @param  item    指向将放置在队列中的项的指针。
+ * @param  timeout 是时候等待空间变得可用了。超时为0可用于尝试发布而不阻塞。TIMEOUT_MAX可用于无限期阻止。
+ * @return          true如果项目已预先生成，false则返回。
  */
     bool queue_append(queue_t queue, const void *item, uint32_t timeout);
 
     /**
- * Receive an item from a queue without removing the item from the queue.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        The queue handle
- * \param buffer
- *        Pointer to a buffer to which the received item will be copied
- * \param timeout
- *        Time to wait for space to become available. A timeout of 0 can be used
- *        to attempt to post without blocking. TIMEOUT_MAX can be used to block
- *        indefinitely.
- *
- * \return True if an item was copied into the buffer, false otherwise.
+ * 从队列中接收项目而不从队列中删除项目。
+ * @param  queue   队列句柄
+ * @param  buffer  指向要将所接收项目复制到的缓冲区的指针
+ * @param  timeout 是时候等待空间变得可用了。超时为0可用于尝试发布而不阻塞。TIMEOUT_MAX可用于无限期阻止。
+ * @return         true如果项目已复制到缓冲区中，false否则返回。
  */
     bool queue_peek(queue_t queue, void *const buffer, uint32_t timeout);
 
     /**
- * Receive an item from the queue.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        The queue handle
- * \param buffer
- *        Pointer to a buffer to which the received item will be copied
- * \param timeout
- *        Time to wait for space to become available. A timeout of 0 can be used
- *        to attempt to post without blocking. TIMEOUT_MAX can be used to block
- *        indefinitely.
- *
- * \return True if an item was copied into the buffer, false otherwise.
+ * 从队列中接收项目。
+ * @param  queue   队列句柄
+ * @param  buffer  指向要将所接收项目复制到的缓冲区的指针
+ * @param  timeout 是时候等待空间变得可用了。超时为0可用于尝试发布而不阻塞。TIMEOUT_MAX可用于无限期阻止。
+ * @return         true如果项目已复制到缓冲区中，false否则返回。
  */
     bool queue_recv(queue_t queue, void *const buffer, uint32_t timeout);
 
     /**
- * Return the number of messages stored in a queue.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        The queue handle.
- *
- * \return The number of messages available in the queue.
+ * 返回存储在队列中的消息数
+ * @param  queue 队列句柄
+ * @return       队列中可用消息的数量。
  */
     uint32_t queue_get_waiting(const queue_t queue);
 
     /**
- * Return the number of spaces left in a queue.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        The queue handle.
- *
- * \return The number of spaces available in the queue.
+ * 返回队列中剩余的空格数。
+ * @param  queue 队列句柄
+ * @return       队列中剩余的空格数。
  */
     uint32_t queue_get_available(const queue_t queue);
 
     /**
- * Delete a queue.
- *
- * See https://pros.cs.purdue.edu/v5/extended/multitasking.html#queues for
- * details.
- *
- * \param queue
- *        Queue handle to delete
+ * 删除队列。
+ * @param queue 要删除的队列句柄
  */
     void queue_delete(queue_t queue);
 
     /**
- * Resets a queue to an empty state
- *
- * \param queue
- *        Queue handle to reset
+ * 将队列重置为空状态。
+ * @param queue 要重置的队列句柄
  */
     void queue_reset(queue_t queue);
 
@@ -327,10 +178,7 @@ extern "C"
     /******************************************************************************/
 
     /*
- * List of possible v5 devices
- *
- * This list contains all current V5 Devices, and mirrors V5_DeviceType from the
- * api.
+*表示正在与之通信的设备类型。
  */
     typedef enum v5_device_e
     {
@@ -343,169 +191,59 @@ extern "C"
         E_DEVICE_UNDEFINED = 255
     } v5_device_e_t;
 
-    /*
- * Registers a device in the given port
- *
- * Registers a device of the given type in the given port into the registry, if
- * that type of device is detected to be plugged in to that port.
- *
- * This function uses the following values of errno when an error state is
- * reached:
- * EINVAL - The given value is not within the range of V5 ports (1-21), or a
- * a different device than specified is plugged in.
- * EADDRINUSE - The port is already registered to another device.
- *
- * \param port
- *        The port number to register the device
- * \param device
- *        The type of device to register
- *
- * \return 1 upon success, PROS_ERR upon failure
+    /**
+ * 如果检测到该类型的设备插入该端口，则将给定端口中给定类型的设备注册到注册表中。
+ * @param  port        	注册设备的端口号
+ * @param  device_type 要注册的设备类型
+ * @return             成功时返回 1，失败时返回 PROS_ERR
  */
     int registry_bind_port(uint8_t port, v5_device_e_t device_type);
 
-    /*
- * Deregisters a devices from the given port
- *
- * Removes the device registed in the given port, if there is one.
- *
- * This function uses the following values of errno when an error state is
- * reached:
- * EINVAL - The given value is not within the range of V5 ports (1-21).
- *
- * \param port
- *        The port number to deregister
- *
- * \return 1 upon success, PROS_ERR upon failure
+    /**
+ * 删除给定端口中注册的设备（如果有）。
+ * @param  port 取消注册的端口号
+ * @return      成功时返回 1，失败时返回 PROS_ERR
  */
     int registry_unbind_port(uint8_t port);
 
     /******************************************************************************/
-    /**                               Filesystem                                 **/
+    /**                               文件系统                                 **/
     /******************************************************************************/
     /**
- * Control settings of the serial driver.
- *
- * \param action
- * 			An action to perform on the serial driver. See the SERCTL_* macros for
- * 			details on the different actions.
- * \param extra_arg
- * 			An argument to pass in based on the action
+ * 控制串行驱动程序的设置。
+ * @param  action    要对串行驱动程序执行的操作。有关不同操作的详细信息，请参阅SERCTL_ *宏。
+ * @param  extra_arg 根据操作传入的参数。
+ * @return           [description]
  */
     int32_t serctl(const uint32_t action, void *const extra_arg);
-
     /**
- * Control settings of the microSD card driver.
- *
- * \param action
- * 			An action to perform on the microSD card driver. See the USDCTL_* macros
- *      for details on the different actions.
- * \param extra_arg
- * 		   	An argument to pass in based on the action
- */
-    // Not yet implemented
-    // int32_t usdctl(const uint32_t action, void* const extra_arg);
-
-    /**
- * Control settings of the way the file's driver treats the file
- *
- * \param file
- * 			A valid file descriptor number
- * \param action
- * 			An action to perform on the file's driver. See the *CTL_* macros for
- * 			details on the different actions. Note that the action passed in must
- *      match the correct driver (e.g. don't perform a SERCTL_* action on a
- *      microSD card file)
- * \param extra_arg
- * 		  	An argument to pass in based on the action
+ * 控制文件驱动程序处理文件的方式的设置。
+ * @param  file      有效的文件描述符编号
+ * @param  action    要对文件驱动程序执行的操作。有关不同操作的详细信息，
+ * 请参阅CTL_宏。请注意，传入的操作必须与正确的驱动程序匹配（例如，不要对microSD卡文件执行SERCTL_ *操作）。
+ * @param  extra_arg 	根据操作传入的参数。
+ * @return           [description]
  */
     int32_t fdctl(int file, const uint32_t action, void *const extra_arg);
 
 /**
- * Action macro to pass into serctl or fdctl that activates the stream
- * identifier.
- *
- * When used with serctl, the extra argument must be the little endian
- * representation of the stream identifier (e.g. "sout" -> 0x74756f73)
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/filesystem.html#serial
- * to learn more.
+*
  */
-#define SERCTL_ACTIVATE 10
+#define SERCTL_ACTIVATE 10 //Action宏传递到激活流标识符的serctl或fdctl。当与serctl一起使用时，额外参数必须是流标识符的小端表示（例如“sout” - > 0x74756f73）
 
-/**
- * Action macro to pass into serctl or fdctl that deactivates the stream
- * identifier.
- *
- * When used with serctl, the extra argument must be the little endian
- * representation of the stream identifier (e.g. "sout" -> 0x74756f73)
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/filesystem.html#serial
- * to learn more.
- */
-#define SERCTL_DEACTIVATE 11
+#define SERCTL_DEACTIVATE 11 //要传递给停用流标识符的serctl或fdctl的 Action宏。当与serctl一起使用时，额外参数必须是流标识符的小端表示（例如“sout” - > 0x74756f73）
 
-/**
- * Action macro to pass into fdctl that enables blocking writes for the file
- *
- * The extra argument is not used with this action, provide any value (e.g.
- * NULL) instead
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/filesystem.html#serial
- * to learn more.
- */
-#define SERCTL_BLKWRITE 12
+#define SERCTL_BLKWRITE 12 //要传递到fdctl的 Action宏，它允许阻止对文件的写入。额外参数不与此操作一起使用，而是提供任何值（例如NULL）。
 
-/**
- * Action macro to pass into fdctl that makes writes non-blocking for the file
- *
- * The extra argument is not used with this action, provide any value (e.g.
- * NULL) instead
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/filesystem.html#serial
- * to learn more.
- */
-#define SERCTL_NOBLKWRITE 13
+#define SERCTL_NOBLKWRITE 13 //动作宏传递到fdctl，使文件的写入无阻.动作宏传递到fdctl，使文件的写入无阻
 
-/**
- * Action macro to pass into serctl that enables advanced stream multiplexing
- * capabilities
- *
- * The extra argument is not used with this action, provide any value (e.g.
- * NULL) instead
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/filesystem.html#serial
- * to learn more.
- */
-#define SERCTL_ENABLE_COBS 14
+#define SERCTL_ENABLE_COBS 14 //Action宏传递到serctl，启用高级流复用功能。额外参数不与此操作一起使用，而是提供任何值（例如NULL）。
 
-/**
- * Action macro to pass into serctl that disables advanced stream multiplexing
- * capabilities
- *
- * The extra argument is not used with this action, provide any value (e.g.
- * NULL) instead
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/filesystem.html#serial
- * to learn more.
- */
-#define SERCTL_DISABLE_COBS 15
+#define SERCTL_DISABLE_COBS 15 //Action宏传递到serctl，禁用高级流复用功能。额外参数不与此操作一起使用，而是提供任何值（例如NULL）。
 
-/**
- * Action macro to check if there is data available from the Generic Serial
- * Device
- *
- * The extra argument is not used with this action, provide any value (e.g.
- * NULL) instead
- */
-#define DEVCTL_FIONREAD 16
+#define DEVCTL_FIONREAD 16 //动作宏，用于检查通用串行设备是否有可用数据。额外参数不与此操作一起使用，而是提供任何值（例如NULL）。
 
-/**
- * Action macro to set the Generic Serial Device's baudrate.
- *
- * The extra argument is the baudrate.
- */
-#define DEVCTL_SET_BAUDRATE 17
+#define DEVCTL_SET_BAUDRATE 17 //动作宏以设置通用串行设备的波特率。动作宏以设置通用串行设备的波特率。
 
 #ifdef __cplusplus
 }
