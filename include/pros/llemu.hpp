@@ -1,9 +1,23 @@
-/**
- * @Author: 陈昱安
- * @Date:   2018-09-16T00:20:58+08:00
- * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-17T21:00:04+08:00
+/*
+ * \file pros/llemu.hpp
+ *
+ * Legacy LCD Emulator
+ *
+ * This file defines a high-level API for emulating the three-button, UART-based
+ * VEX LCD, containing a set of functions that facilitate the use of a software-
+ * emulated version of the classic VEX LCD module.
+ *
+ * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/llemu.html to learn
+ * more.
+ *
+ * This file should not be modified by users, since it gets replaced whenever
+ * a kernel upgrade occurs.
+ *
+ * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 #ifndef _PROS_LLEMU_HPP_
@@ -13,47 +27,50 @@
 #include <string>
 
 #include "pros/llemu.h"
-/**
- * 老式液晶屏的库函数 没必要翻译
- */
-namespace pros
-{
-namespace lcd
-{
 
+namespace pros {
+namespace lcd {
 /**
- * 检查液晶屏是否被初始化
- * @return  是被初始化了返回TRUE 否则 返回FALSE
+ * Checks whether the emulated three-button LCD has already been initialized.
+ *
+ * \return True if the LCD has been initialized or false if not.
  */
 bool is_initialized(void);
 
 /**
- * 将显示初始化为基于UART的三键VEX LCD的仿真。
- * @return  true LCD是否已成功初始化，或者false是否已初始化。
+ * Creates an emulation of the three-button, UART-based VEX LCD on the display.
+ *
+ * \return True if the LCD was successfully initialized, or false if it has
+ * already been initialized.
  */
 bool initialize(void);
 
 /**
- * 关闭传统LCD仿真器
- * 调用此函数将清除整个显示，并且在另一次初始化调用之前，您将无法再调用任何LLEMU函数。
- * @return  true如果操作成功，或者false以其他方式设置 errno上面指定的值。
+ * Turns off the Legacy LCD Emulator.
+ *
+ * Calling this function will clear the entire display, and you will not be able
+ * to call any further LLEMU functions until another call to lcd_initialize.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * ENXIO - The LCD has not been initialized. Call lcd_initialize() first.
+ *
+ * \return True if the operation was successful, or false otherwise, setting
+ * errno values as specified above.
  */
 bool shutdown(void);
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-function"
-namespace
-{
+namespace {
 template <typename T>
-T convert_args(T arg)
-{
-    return arg;
+T convert_args(T arg) {
+	return arg;
 }
-const char *convert_args(const std::string &arg)
-{
-    return arg.c_str();
+const char* convert_args(const std::string& arg) {
+	return arg.c_str();
 }
-} // namespace
+}  // namespace
 #pragma GCC diagnostic pop
 
 /**
@@ -75,9 +92,8 @@ const char *convert_args(const std::string &arg)
  * errno values as specified above.
  */
 template <typename... Params>
-bool print(std::int16_t line, const char *fmt, Params... args)
-{
-    return pros::c::lcd_print(line, fmt, convert_args(args)...);
+bool print(std::int16_t line, const char* fmt, Params... args) {
+	return pros::c::lcd_print(line, fmt, convert_args(args)...);
 }
 
 /**
@@ -99,8 +115,15 @@ bool print(std::int16_t line, const char *fmt, Params... args)
 bool set_text(std::int16_t line, std::string text);
 
 /**
- * 清除模拟三键液晶屏上的文字。
- * @return  true如果操作成功，或者false以其他方式设置 errno上面指定的值。
+ * Clears the contents of the emulated three-button LCD screen.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * ENXIO  - The LCD has not been initialized. Call lcd_initialize() first.
+ * EINVAL - The line number specified is not in the range [0-7]
+ *
+ * \return True if the operation was successful, or false otherwise, setting
+ * errno values as specified above.
  */
 bool clear(void);
 
@@ -170,7 +193,7 @@ void register_btn2_cb(lcd_btn_cb_fn_t cb);
  * \return The buttons pressed as a bit mask
  */
 std::uint8_t read_buttons(void);
-} // namespace lcd
-} // namespace pros
+}  // namespace lcd
+}  // namespace pros
 
-#endif // _PROS_LLEMU_HPP_
+#endif  // _PROS_LLEMU_HPP_

@@ -1,12 +1,22 @@
 /**
- * @Author: 陈昱安
- * @Date:   2018-09-16T00:20:58+08:00
- * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-18T23:01:24+08:00
+ * \file pros/misc.h
+ *
+ * Contains prototypes for miscellaneous functions pertaining to the controller,
+ * battery, and competition control.
+ *
+ * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/controller.html to
+ * learn more.
+ *
+ * This file should not be modified by users, since it gets replaced whenever
+ * a kernel upgrade occurs.
+ *
+ * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
+ * All rights reservered.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
-//杂项函数库
 
 #ifndef _PROS_MISC_H_
 #define _PROS_MISC_H_
@@ -22,22 +32,21 @@
 #define COMPETITION_AUTONOMOUS (1 << 1)
 #define COMPETITION_CONNECTED (1 << 2)
 
-#ifdef __cplusplus
-extern "C"
-{
-    namespace pros
-    {
-    namespace c
-    {
-#endif
-    /**
- * 监测场控状态。
- * @return 以比特为掩码的竞争控制状态 竞争{{启用、自治、连接}。
+/**
+ * Get the current status of the competition control.
+ *
+ * \return The competition control status as a mask of bits with
+ * COMPETITION_{ENABLED,AUTONOMOUS,CONNECTED}.
  */
-    uint8_t competition_get_status(void);
 #ifdef __cplusplus
-    }
-    }
+extern "C" {
+namespace pros {
+namespace c {
+#endif
+uint8_t competition_get_status(void);
+#ifdef __cplusplus
+}
+}
 }
 #endif
 #define competition_is_disabled() ((competition_get_status() & COMPETITION_DISABLED) != 0)
@@ -48,41 +57,33 @@ extern "C"
 /**                              V5 Controller                               **/
 /******************************************************************************/
 #ifdef __cplusplus
-extern "C"
-{
-    namespace pros
-    {
+extern "C" {
+namespace pros {
 #endif
 
-    typedef enum
-    {
-        E_CONTROLLER_MASTER = 0, //主要遥控器值为0
-        E_CONTROLLER_PARTNER     //副遥控器值为1
-    } controller_id_e_t;
+typedef enum { E_CONTROLLER_MASTER = 0, E_CONTROLLER_PARTNER } controller_id_e_t;
 
-    typedef enum
-    {
-        E_CONTROLLER_ANALOG_LEFT_X = 0, //以前的CH4 0
-        E_CONTROLLER_ANALOG_LEFT_Y,     //以前CH3  1
-        E_CONTROLLER_ANALOG_RIGHT_X,    //以前的CH1 2
-        E_CONTROLLER_ANALOG_RIGHT_Y     //以前的CH2 3
-    } controller_analog_e_t;
-    //遥控器的按钮
-    typedef enum
-    {
-        E_CONTROLLER_DIGITAL_L1 = 6,
-        E_CONTROLLER_DIGITAL_L2,
-        E_CONTROLLER_DIGITAL_R1,
-        E_CONTROLLER_DIGITAL_R2,
-        E_CONTROLLER_DIGITAL_UP,
-        E_CONTROLLER_DIGITAL_DOWN,
-        E_CONTROLLER_DIGITAL_LEFT,
-        E_CONTROLLER_DIGITAL_RIGHT,
-        E_CONTROLLER_DIGITAL_X,
-        E_CONTROLLER_DIGITAL_B,
-        E_CONTROLLER_DIGITAL_Y,
-        E_CONTROLLER_DIGITAL_A
-    } controller_digital_e_t;
+typedef enum {
+	E_CONTROLLER_ANALOG_LEFT_X = 0,
+	E_CONTROLLER_ANALOG_LEFT_Y,
+	E_CONTROLLER_ANALOG_RIGHT_X,
+	E_CONTROLLER_ANALOG_RIGHT_Y
+} controller_analog_e_t;
+
+typedef enum {
+	E_CONTROLLER_DIGITAL_L1 = 6,
+	E_CONTROLLER_DIGITAL_L2,
+	E_CONTROLLER_DIGITAL_R1,
+	E_CONTROLLER_DIGITAL_R2,
+	E_CONTROLLER_DIGITAL_UP,
+	E_CONTROLLER_DIGITAL_DOWN,
+	E_CONTROLLER_DIGITAL_LEFT,
+	E_CONTROLLER_DIGITAL_RIGHT,
+	E_CONTROLLER_DIGITAL_X,
+	E_CONTROLLER_DIGITAL_B,
+	E_CONTROLLER_DIGITAL_Y,
+	E_CONTROLLER_DIGITAL_A
+} controller_digital_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -127,121 +128,256 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
-    namespace c
-    {
+namespace c {
 #endif
 
-    /**
- * 检查遥控器是否连接。
- * @param  id 遥控器的ID（主遥CONTROLLER_MASTER 或 副遥CONTROLLER_PARTNER）。
- * @return    如果遥控器连接，返回1，否则为0
+/**
+ * Checks if the controller is connected.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EINVAL - A value other than E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER is
+ * given.
+ * EACCES - Another resource is currently trying to access the controller port.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ *
+ * \return 1 if the controller is connected, 0 otherwise
  */
-    int32_t controller_is_connected(controller_id_e_t id);
+int32_t controller_is_connected(controller_id_e_t id);
 
-    /**
- * 获得遥控器上模拟通道（操纵杆）的值。
- * @param  id      遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @param  channel 得到的模拟通道。必须是ANALOG_LEFT_X，ANALOG_LEFT_Y， ANALOG_RIGHT_X，ANALOG_RIGHT_Y之一
- * @return         模拟通道的当前读数：[ - 127,127]。如果遥控器未连接，则返回0
+/**
+ * Gets the value of an analog channel (joystick) on a controller.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EINVAL - A value other than E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER is
+ * given.
+ * EACCES - Another resource is currently trying to access the controller port.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ * \param channel
+ *        The analog channel to get.
+ *        Must be one of ANALOG_LEFT_X, ANALOG_LEFT_Y, ANALOG_RIGHT_X,
+ *        ANALOG_RIGHT_Y
+ *
+ * \return The current reading of the analog channel: [-127, 127].
+ * If the controller was not connected, then 0 is returned
  */
-    int32_t controller_get_analog(controller_id_e_t id, controller_analog_e_t channel);
+int32_t controller_get_analog(controller_id_e_t id, controller_analog_e_t channel);
 
-    /**
- * 获取给定遥控器的电池容量。
- * @param  id 遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @return   遥控器的电池容量。
+/**
+ * Gets the battery capacity of the given controller.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EINVAL - A value other than E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER is
+ * given.
+ * EACCES - Another resource is currently trying to access the controller port.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER
+ *
+ * \return The controller's battery capacity
  */
-    int32_t controller_get_battery_capacity(controller_id_e_t id);
+int32_t controller_get_battery_capacity(controller_id_e_t id);
 
-    /**
- *获取给定遥控器的电池电量。
- * @param  id 遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @return   遥控器的电池电量。
+/**
+ * Gets the battery level of the given controller.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EINVAL - A value other than E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER is
+ * given.
+ * EACCES - Another resource is currently trying to access the controller port.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER
+ *
+ * \return The controller's battery level
  */
-    int32_t controller_get_battery_level(controller_id_e_t id);
-    /**
- * 获取遥控器上数字通道（按钮）的值。
- * @param  id     遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @param  button 要读的按钮。必须是DIGITAL_ {RIGHT，DOWN，LEFT，UP，A，B，Y，X，R1，R2，L1，L2}之一
- * @return        如果按下遥控器上的按钮，则返回 1。如果遥控器未连接，则返回0
- */
-    int32_t controller_get_digital(controller_id_e_t id, controller_digital_e_t button);
+int32_t controller_get_battery_level(controller_id_e_t id);
 
-    /**
- * 返回遥控器按钮按下的上升边框。
- * 此功能不是线程安全的。轮询单个按钮的多个任务在相同的情况下可能会返回不同的结果，
- * 因此只有一个任务应该为任何给定的按钮调用此函数。
- * 例如，任务A为按钮1和2调用此功能。任务B可以为按钮3调用此功能，但不应该为按钮1或2调用此函数。
- * 此功能的典型用例是调用opcontrol内部以检测新按钮按下，而不是任何其他任务。
- * @param  id     遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @param  button 要读的按钮。必须是DIGITAL_ {RIGHT，DOWN，LEFT，UP，A，B，Y，X，R1，R2，L1，L2}之一
- * @return        如果按下遥控器上的按钮并且上次调用此函数时没有按下，则返回 1，否则返回 0。
+/**
+ * Checks if a digital channel (button) on the controller is currently pressed.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EINVAL - A value other than E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER is
+ * given.
+ * EACCES - Another resource is currently trying to access the controller port.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ * \param button
+ *        The button to read.
+ *        Must be one of DIGITAL_{RIGHT,DOWN,LEFT,UP,A,B,Y,X,R1,R2,L1,L2}
+ *
+ * \return 1 if the button on the controller is pressed.
+ * If the controller was not connected, then 0 is returned
  */
-    int32_t controller_get_digital_new_press(controller_id_e_t id, controller_digital_e_t button);
-    /**
- * 将文本设置到遥控器LCD屏幕。用法类似printf
- * @param  id      遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @param  line    显示文本的行号[0-2]。
- * @param  col     显示文本的列号[0-14]。
- * @param  fmt     要打印到遥控器的格式字符串
- * @param  VARARGS 格式字符串的参数列表
- * @return         如果操作成功则返回 1，PROS_ERR否则返回。
- */
-    int32_t controller_print(controller_id_e_t id, uint8_t line, uint8_t col, const char *fmt, ...);
+int32_t controller_get_digital(controller_id_e_t id, controller_digital_e_t button);
 
-    /**
- * 将文本设置到遥控器LCD屏幕。
- * 遥控器文本设置是一个缓慢的过程，因此在有线连接上或在Vexnet上50ms的更新速度不会超过10ms，也不会应用于遥控器。
- * @param  id   遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @param  line 显示文本的行号[0-2]。
- * @param  col  显示文本的列号[0-14]。
- * @param  str  要打印到遥控器的预格式化字符串。
- * @return      如果操作成功则返回 1，PROS_ERR否则返回。
+/**
+ * Returns a rising-edge case for a controller button press.
+ *
+ * This function is not thread-safe.
+ * Multiple tasks polling a single button may return different results under the
+ * same circumstances, so only one task should call this function for any given
+ * button. E.g., Task A calls this function for buttons 1 and 2. Task B may call
+ * this function for button 3, but should not for buttons 1 or 2. A typical
+ * use-case for this function is to call inside opcontrol to detect new button
+ * presses, and not in any other tasks.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EINVAL - A value other than E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER is
+ * given.
+ * EACCES - Another resource is currently trying to access the controller port.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ * \param button
+ * 			  The button to read. Must be one of
+ *        DIGITAL_{RIGHT,DOWN,LEFT,UP,A,B,Y,X,R1,R2,L1,L2}
+ *
+ * \return 1 if the button on the controller is pressed and had not been pressed
+ * the last time this function was called, 0 otherwise.
  */
-    int32_t controller_set_text(controller_id_e_t id, uint8_t line, uint8_t col, const char *str);
+int32_t controller_get_digital_new_press(controller_id_e_t id, controller_digital_e_t button);
 
-    /**
- * 清除遥控器屏幕的单独一行。
- * @param  id    遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @param  line  要清除的行号[0-2]
- * @return      如果操作成功则返回 1，PROS_ERR否则返回。
+/**
+ * Sets text to the controller LCD screen.
+ *
+ * \note Controller text setting is currently in beta, so  continuous, fast
+ * updates will not work well.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ * \param line
+ *        The line number at which the text will be displayed [0-2]
+ * \param col
+ *        The column number at which the text will be displayed [0-14]
+ * \param fmt
+ *        The format string to print to the controller
+ * \param ...
+ *        The argument list for the format string
+ *
+ * \return 1 if the operation was successful or PROS_ERR if the operation
+ * failed, setting errno.
  */
-    int32_t controller_clear_line(controller_id_e_t id, uint8_t line);
+int32_t controller_print(controller_id_e_t id, uint8_t line, uint8_t col, const char* fmt, ...);
 
-    /**
- * 清除遥控器屏幕的所有行。
- * @param  id  遥控器的ID（例如主遥控器或伙伴遥控器）。必须是CONTROLLER_MASTER或CONTROLLER_PARTNER之一
- * @return    如果操作成功则返回 1，PROS_ERR否则返回。
+/**
+ * Sets text to the controller LCD screen.
+ *
+ * \note Controller text setting is currently in beta, so  continuous, fast
+ * updates will not work well.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ * \param line
+ *        The line number at which the text will be displayed [0-2]
+ * \param col
+ *        The column number at which the text will be displayed [0-14]
+ * \param str
+ *        The pre-formatted string to print to the controller
+ *
+ * \return 1 if the operation was successful or PROS_ERR if the operation
+ * failed, setting errno.
  */
-    int32_t controller_clear(controller_id_e_t id);
-    /**
- * 获取VEXos报告的电池当前电压。
- * @return  电池的当前电压。
- */
-    int32_t battery_get_voltage(void);
+int32_t controller_set_text(controller_id_e_t id, uint8_t line, uint8_t col, const char* str);
 
-    /**
- * 获取VEXos报告的电池当前电流。
- * @return  电池的当前电流。
+/**
+ * Clears an individual line of the controller screen.
+ *
+ * \note Controller text setting is currently in beta, so  continuous, fast
+ * updates will not work well.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ * \param line
+ *        The line number to clear [0-2]
+ *
+ * \return 1 if the operation was successful or PROS_ERR if the operation
+ * failed, setting errno.
  */
-    int32_t battery_get_current(void);
+int32_t controller_clear_line(controller_id_e_t id, uint8_t line);
 
-    /**
- * 获取VEXos报告的电池当前温度。
- * @return  电池的当前温度。
+/**
+ * Clears all of the lines on the controller screen.
+ *
+ * \note Controller text setting is currently in beta, so  continuous, fast
+ * updates will not work well.
+ *
+ * \param id
+ *        The ID of the controller (e.g. the master or partner controller).
+ *        Must be one of CONTROLLER_MASTER or CONTROLLER_PARTNER
+ *
+ * \return 1 if the operation was successful or PROS_ERR if the operation
+ * failed, setting errno.
  */
-    double battery_get_temperature(void);
+int32_t controller_clear(controller_id_e_t id);
 
-    /**
- * 获取VEXos报告的电池当前容量。
- * @return  电池的当前容量。
+/**
+ * Gets the current voltage of the battery, as reported by VEXos.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EACCES - Another resource is currently trying to access the battery port.
+ *
+ * \return The current voltage of the battery
  */
-    double battery_get_capacity(void);
+int32_t battery_get_voltage(void);
+
+/**
+ * Gets the current current of the battery, as reported by VEXos.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EACCES - Another resource is currently trying to access the battery port.
+ *
+ * \return The current current of the battery
+ */
+int32_t battery_get_current(void);
+
+/**
+ * Gets the current temperature of the battery, as reported by VEXos.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EACCES - Another resource is currently trying to access the battery port.
+ *
+ * \return The current temperature of the battery
+ */
+double battery_get_temperature(void);
+
+/**
+ * Gets the current capacity of the battery, as reported by VEXos.
+ *
+ * This function uses the following values of errno when an error state is
+ * reached:
+ * EACCES - Another resource is currently trying to access the battery port.
+ *
+ * \return The current capacity of the battery
+ */
+double battery_get_capacity(void);
 
 #ifdef __cplusplus
-    }
-    }
+}
+}
 }
 #endif
 
-#endif // _PROS_MISC_H_
+#endif  // _PROS_MISC_H_
