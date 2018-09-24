@@ -1,23 +1,11 @@
 /**
- * \file pros/api_legacy.h
- *
- * PROS 2 Legacy API header
- *
- * Contains declarations for functions that are name-compatible with the PROS 2
- * API. Some functions from the PROS 2 API are not useful or cannot be
- * implemented in PROS 3, but most common functions are available.
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
- * All rights reserved.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Author: 陈昱安
+ * @Date:   2018-09-24T21:24:39+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-09-24T21:43:16+08:00
  */
-
+//这里主要包装了下函数 让PROSV5里面可以使用PROS2的函数名字
 #ifndef _PROS_API_LEGACY_H_
 #define _PROS_API_LEGACY_H_
 
@@ -78,7 +66,7 @@ typedef _CNAMESPACE adi_ultrasonic_t Ultrasonic;
  * From rtos.h
  */
 #define taskCreate(taskCode, stackDepth, parameters, priority) \
-	task_create(taskCode, parameters, priority, stackDepth, "")
+    task_create(taskCode, parameters, priority, stackDepth, "")
 #define taskDelete(task) task_delete(task)
 #define taskDelay task_delay
 #define taskDelayUntil(previousWakeTime, cycleTime) task_delay_until(previousWakeTime, cycleTime)
@@ -105,4 +93,4 @@ typedef _NAMESPACE mutex_t Mutex;
 #undef _NAMESPACE
 #undef _CNAMESPACE
 
-#endif  // _PROS_API_LEGACY_H_
+#endif // _PROS_API_LEGACY_H_

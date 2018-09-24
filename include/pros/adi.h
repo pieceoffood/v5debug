@@ -1,18 +1,9 @@
 /**
- * \file pros/adi.h
- *
- * Contains prototypes for interfacing with the ADI.
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/adi.html to learn more.
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Author: 陈昱安
+ * @Date:   2018-09-24T21:24:39+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-09-24T21:32:31+08:00
  */
 
 #ifndef _PROS_ADI_H_
@@ -24,38 +15,41 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
-namespace pros {
+extern "C"
+{
+    namespace pros
+    {
 #endif
 
-/**
- * Represents the port type for an ADI port.
+    /**
+ * 表示ADI端口的端口类型。
  */
-typedef enum adi_port_config_e {
-	E_ADI_ANALOG_IN = 0,
-	E_ADI_ANALOG_OUT,
-	E_ADI_DIGITAL_IN,
-	E_ADI_DIGITAL_OUT,
+    typedef enum adi_port_config_e
+    {
+        E_ADI_ANALOG_IN = 0, //模拟输入
+        E_ADI_ANALOG_OUT,    //模拟输出
+        E_ADI_DIGITAL_IN,    //数字输入
+        E_ADI_DIGITAL_OUT,   //数字输出
 
-	E_ADI_SMART_BUTTON,
-	E_ADI_SMART_POT,
+        E_ADI_SMART_BUTTON, //智能按钮?
+        E_ADI_SMART_POT,    //?
 
-	E_ADI_LEGACY_BUTTON,
-	E_ADI_LEGACY_POT,
-	E_ADI_LEGACY_LINE_SENSOR,
-	E_ADI_LEGACY_LIGHT_SENSOR,
-	E_ADI_LEGACY_GYRO,
-	E_ADI_LEGACY_ACCELEROMETER,
+        E_ADI_LEGACY_BUTTON,        //??
+        E_ADI_LEGACY_POT,           //??
+        E_ADI_LEGACY_LINE_SENSOR,   //巡线传感器
+        E_ADI_LEGACY_LIGHT_SENSOR,  //光线传感器
+        E_ADI_LEGACY_GYRO,          //陀螺仪
+        E_ADI_LEGACY_ACCELEROMETER, //加速度
 
-	E_ADI_LEGACY_SERVO,
-	E_ADI_LEGACY_PWM,
+        E_ADI_LEGACY_SERVO, //伺服马达
+        E_ADI_LEGACY_PWM,   //普通老马达
 
-	E_ADI_LEGACY_ENCODER,
-	E_ADI_LEGACY_ULTRASONIC,
+        E_ADI_LEGACY_ENCODER,    //编码器
+        E_ADI_LEGACY_ULTRASONIC, //超声波
 
-	E_ADI_TYPE_UNDEFINED = 255,
-	E_ADI_ERR = PROS_ERR
-} adi_port_config_e_t;
+        E_ADI_TYPE_UNDEFINED = 255, //??
+        E_ADI_ERR = PROS_ERR        //返回错误
+    } adi_port_config_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -102,16 +96,17 @@ typedef enum adi_port_config_e {
 #define NUM_ADI_PORTS 8
 
 #ifdef __cplusplus
-namespace c {
+    namespace c
+    {
 #endif
 
-/******************************************************************************/
-/**                         General ADI Use Functions                        **/
-/**                                                                          **/
-/**       These functions allow for interaction with any ADI port type       **/
-/******************************************************************************/
+    /******************************************************************************/
+    /**                         General ADI Use Functions                        **/
+    /**                                                                          **/
+    /**       These functions allow for interaction with any ADI port type       **/
+    /******************************************************************************/
 
-/**
+    /**
  * Gets the configuration for the given ADI port.
  *
  * This function uses the following values of errno when an error state is
@@ -125,9 +120,9 @@ namespace c {
  *
  * \return The ADI configuration for the given port
  */
-adi_port_config_e_t adi_port_get_config(uint8_t port);
+    adi_port_config_e_t adi_port_get_config(uint8_t port);
 
-/**
+    /**
  * Gets the value for the given ADI port.
  *
  * This function uses the following values of errno when an error state is
@@ -141,9 +136,9 @@ adi_port_config_e_t adi_port_get_config(uint8_t port);
  *
  * \return The value stored for the given port
  */
-int32_t adi_port_get_value(uint8_t port);
+    int32_t adi_port_get_value(uint8_t port);
 
-/**
+    /**
  * Configures an ADI port to act as a given sensor type.
  *
  * This function uses the following values of errno when an error state is
@@ -159,9 +154,9 @@ int32_t adi_port_get_value(uint8_t port);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_port_set_config(uint8_t port, adi_port_config_e_t type);
+    int32_t adi_port_set_config(uint8_t port, adi_port_config_e_t type);
 
-/**
+    /**
  * Sets the value for the given ADI port.
  *
  * This only works on ports configured as outputs, and the behavior will change
@@ -181,12 +176,12 @@ int32_t adi_port_set_config(uint8_t port, adi_port_config_e_t type);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_port_set_value(uint8_t port, int32_t value);
+    int32_t adi_port_set_value(uint8_t port, int32_t value);
 
 /******************************************************************************/
-/**                      PROS 2 Compatibility Functions                      **/
+/**                         PROS 2兼容功能    				                  **/
 /**                                                                          **/
-/**     These functions provide similar functionality to the PROS 2 API      **/
+/**      这些功能为PROS 2 API提供了类似的功能。  							    **/
 /******************************************************************************/
 
 /**
@@ -221,7 +216,7 @@ int32_t adi_port_set_value(uint8_t port, int32_t value);
  */
 #define OUTPUT_ANALOG 0x03
 
-/**
+    /**
  * Calibrates the analog sensor on the specified port and returns the new
  * calibration value.
  *
@@ -246,9 +241,9 @@ int32_t adi_port_set_value(uint8_t port, int32_t value);
  *
  * \return The average sensor value computed by this function
  */
-int32_t adi_analog_calibrate(uint8_t port);
+    int32_t adi_analog_calibrate(uint8_t port);
 
-/**
+    /**
  * Gets the 12-bit value of the specified port.
  *
  * The value returned is undefined if the analog pin has been switched to a
@@ -267,9 +262,9 @@ int32_t adi_analog_calibrate(uint8_t port);
  * \return The analog sensor value, where a value of 0 reflects an input voltage
  * of nearly 0 V and a value of 4095 reflects an input voltage of nearly 5 V
  */
-int32_t adi_analog_read(uint8_t port);
+    int32_t adi_analog_read(uint8_t port);
 
-/**
+    /**
  * Gets the 12 bit calibrated value of an analog input port.
  *
  * The adi_analog_calibrate() function must be run first. This function is
@@ -290,9 +285,9 @@ int32_t adi_analog_read(uint8_t port);
  * \return The difference of the sensor value from its calibrated default from
  * -4095 to 4095
  */
-int32_t adi_analog_read_calibrated(uint8_t port);
+    int32_t adi_analog_read_calibrated(uint8_t port);
 
-/**
+    /**
  * Gets the 16 bit calibrated value of an analog input port.
  *
  * The adi_analog_calibrate() function must be run first. This is intended for
@@ -318,9 +313,9 @@ int32_t adi_analog_read_calibrated(uint8_t port);
  * \return The difference of the sensor value from its calibrated default from
  * -16384 to 16384
  */
-int32_t adi_analog_read_calibrated_HR(uint8_t port);
+    int32_t adi_analog_read_calibrated_HR(uint8_t port);
 
-/**
+    /**
  * Gets the digital value (1 or 0) of a port configured as a digital input.
  *
  * If the port is configured as some other mode, the digital value which
@@ -339,9 +334,9 @@ int32_t adi_analog_read_calibrated_HR(uint8_t port);
  *
  * \return True if the pin is HIGH, or false if it is LOW
  */
-int32_t adi_digital_read(uint8_t port);
+    int32_t adi_digital_read(uint8_t port);
 
-/**
+    /**
  * Gets a rising-edge case for a digital button press.
  *
  * This function is not thread-safe.
@@ -364,9 +359,9 @@ int32_t adi_digital_read(uint8_t port);
  * \return 1 if the button is pressed and had not been pressed
  * the last time this function was called, 0 otherwise.
  */
-int32_t adi_digital_get_new_press(uint8_t port);
+    int32_t adi_digital_get_new_press(uint8_t port);
 
-/**
+    /**
  * Sets the digital value (1 or 0) of a port configured as a digital output.
  *
  * If the port is configured as some other mode, behavior is undefined.
@@ -386,9 +381,9 @@ int32_t adi_digital_get_new_press(uint8_t port);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_digital_write(uint8_t port, const bool value);
+    int32_t adi_digital_write(uint8_t port, const bool value);
 
-/**
+    /**
  * Configures the port as an input or output with a variety of settings.
  *
  * This function uses the following values of errno when an error state is
@@ -404,9 +399,9 @@ int32_t adi_digital_write(uint8_t port, const bool value);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_pin_mode(uint8_t port, uint8_t mode);
+    int32_t adi_pin_mode(uint8_t port, uint8_t mode);
 
-/**
+    /**
  * Sets the speed of the motor on the given port.
  *
  * This function uses the following values of errno when an error state is
@@ -424,9 +419,9 @@ int32_t adi_pin_mode(uint8_t port, uint8_t mode);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_motor_set(uint8_t port, int8_t speed);
+    int32_t adi_motor_set(uint8_t port, int8_t speed);
 
-/**
+    /**
  * Gets the last set speed of the motor on the given port.
  *
  * This function uses the following values of errno when an error state is
@@ -440,9 +435,9 @@ int32_t adi_motor_set(uint8_t port, int8_t speed);
  *
  * \return The last set speed of the motor on the given port
  */
-int32_t adi_motor_get(uint8_t port);
+    int32_t adi_motor_get(uint8_t port);
 
-/**
+    /**
  * Stops the motor on the given port.
  *
  * This function uses the following values of errno when an error state is
@@ -457,17 +452,17 @@ int32_t adi_motor_get(uint8_t port);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_motor_stop(uint8_t port);
+    int32_t adi_motor_stop(uint8_t port);
 
-/**
+    /**
  * Reference type for an initialized encoder.
  *
  * This merely contains the port number for the encoder, unlike its use as an
  * object to store encoder data in PROS 2.
  */
-typedef int32_t adi_encoder_t;
+    typedef int32_t adi_encoder_t;
 
-/**
+    /**
  * Gets the number of ticks recorded by the encoder.
  *
  * There are 360 ticks in one revolution.
@@ -484,9 +479,9 @@ typedef int32_t adi_encoder_t;
  * \return The signed and cumulative number of counts since the last start or
  * reset
  */
-int32_t adi_encoder_get(adi_encoder_t enc);
+    int32_t adi_encoder_get(adi_encoder_t enc);
 
-/**
+    /**
  * Creates an encoder object and configures the specified ports accordingly.
  *
  * This function uses the following values of errno when an error state is
@@ -506,9 +501,9 @@ int32_t adi_encoder_get(adi_encoder_t enc);
  * \return An adi_encoder_t object to be stored and used for later calls to
  * encoder functions
  */
-adi_encoder_t adi_encoder_init(uint8_t port_top, uint8_t port_bottom, const bool reverse);
+    adi_encoder_t adi_encoder_init(uint8_t port_top, uint8_t port_bottom, const bool reverse);
 
-/**
+    /**
  * Sets the encoder value to zero.
  *
  * It is safe to use this method while an encoder is enabled. It is not
@@ -526,9 +521,9 @@ adi_encoder_t adi_encoder_init(uint8_t port_top, uint8_t port_bottom, const bool
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_encoder_reset(adi_encoder_t enc);
+    int32_t adi_encoder_reset(adi_encoder_t enc);
 
-/**
+    /**
  * Disables the encoder and voids the configuration on its ports.
  *
  * This function uses the following values of errno when an error state is
@@ -543,17 +538,17 @@ int32_t adi_encoder_reset(adi_encoder_t enc);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_encoder_shutdown(adi_encoder_t enc);
+    int32_t adi_encoder_shutdown(adi_encoder_t enc);
 
-/**
+    /**
  * Reference type for an initialized ultrasonic.
  *
  * This merely contains the port number for the ultrasonic, unlike its use as an
  * object to store ultrasonic data in PROS 2.
  */
-typedef int32_t adi_ultrasonic_t;
+    typedef int32_t adi_ultrasonic_t;
 
-/**
+    /**
  * Gets the current ultrasonic sensor value in centimeters.
  *
  * If no object was found, zero is returned. If the ultrasonic sensor was never
@@ -571,9 +566,9 @@ typedef int32_t adi_ultrasonic_t;
  *
  * \return The distance to the nearest object in centimeters
  */
-int32_t adi_ultrasonic_get(adi_ultrasonic_t ult);
+    int32_t adi_ultrasonic_get(adi_ultrasonic_t ult);
 
-/**
+    /**
  * Creates an ultrasonic object and configures the specified ports accordingly.
  *
  * This function uses the following values of errno when an error state is
@@ -592,9 +587,9 @@ int32_t adi_ultrasonic_get(adi_ultrasonic_t ult);
  * \return An adi_ultrasonic_t object to be stored and used for later calls to
  * ultrasonic functions
  */
-adi_ultrasonic_t adi_ultrasonic_init(uint8_t port_echo, uint8_t port_ping);
+    adi_ultrasonic_t adi_ultrasonic_init(uint8_t port_echo, uint8_t port_ping);
 
-/**
+    /**
  * Disables the ultrasonic sensor and voids the configuration on its ports.
  *
  * This function uses the following values of errno when an error state is
@@ -609,17 +604,17 @@ adi_ultrasonic_t adi_ultrasonic_init(uint8_t port_echo, uint8_t port_ping);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_ultrasonic_shutdown(adi_ultrasonic_t ult);
+    int32_t adi_ultrasonic_shutdown(adi_ultrasonic_t ult);
 
-/**
+    /**
  * Reference type for an initialized gyroscope.
  *
  * This merely contains the port number for the gyroscope, unlike its use as an
  * object to store gyro data in PROS 2.
  */
-typedef int32_t adi_gyro_t;
+    typedef int32_t adi_gyro_t;
 
-/**
+    /**
  * Gets the current gyro angle in tenths of a degree. Unless a multiplier is
  * applied to the gyro, the return value will be a whole number representing
  * the number of degrees of rotation times 10.
@@ -638,9 +633,9 @@ typedef int32_t adi_gyro_t;
  *
  * \return The gyro angle in degrees.
  */
-double adi_gyro_get(adi_gyro_t gyro);
+    double adi_gyro_get(adi_gyro_t gyro);
 
-/**
+    /**
  * Initializes a gyroscope on the given port. If the given port has not
  * previously been configured as a gyro, then this function starts a 1 second
  * calibration period.
@@ -662,9 +657,9 @@ double adi_gyro_get(adi_gyro_t gyro);
  * \return An adi_gyro_t object containing the given port, or PROS_ERR if the
  * initialization failed.
  */
-adi_gyro_t adi_gyro_init(uint8_t port, double multiplier);
+    adi_gyro_t adi_gyro_init(uint8_t port, double multiplier);
 
-/**
+    /**
  * Resets the gyroscope value to zero.
  *
  * This function uses the following values of errno when an error state is
@@ -679,9 +674,9 @@ adi_gyro_t adi_gyro_init(uint8_t port, double multiplier);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_gyro_reset(adi_gyro_t gyro);
+    int32_t adi_gyro_reset(adi_gyro_t gyro);
 
-/**
+    /**
  * Disables the gyro and voids the configuration on its port.
  *
  * This function uses the following values of errno when an error state is
@@ -696,12 +691,12 @@ int32_t adi_gyro_reset(adi_gyro_t gyro);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t adi_gyro_shutdown(adi_gyro_t gyro);
+    int32_t adi_gyro_shutdown(adi_gyro_t gyro);
 
 #ifdef __cplusplus
-}  // namespace c
-}  // namespace pros
+    } // namespace c
+    } // namespace pros
 }
 #endif
 
-#endif  // _PROS_ADI_H_
+#endif // _PROS_ADI_H_
