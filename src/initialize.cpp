@@ -3,34 +3,16 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-16T21:21:04+08:00
+ * @Last modified time: 2018-10-04T00:30:58+08:00
  */
 
 #include "main.h"
-
-void on_center_button()
-{
-    static bool pressed = false;
-    pressed = !pressed;
-    if (pressed)
-    {
-        pros::lcd::set_text(2, "I was pressed!");
-    }
-    else
-    {
-        pros::lcd::clear_line(2);
-    }
-}
 
 /**
  * 初始化函数
  */
 void initialize()
 {
-    pros::lcd::initialize();
-    pros::lcd::set_text(1, "Hello PROS User!");
-
-    pros::lcd::register_btn1_cb(on_center_button);
 }
 
 /**
