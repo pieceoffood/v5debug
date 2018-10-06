@@ -31,7 +31,7 @@
             "bin/autonomous.cpp.o",
             "src\\autonomous.cpp"
         ],
-        "directory": "C:\\Users\\aresp\\Downloads\\Program\\TurningPointV5",
+        "directory": "C:\\Users\\aresp\\source\\TurningPointV5",
         "file": "src\\autonomous.cpp"
     },
     {
@@ -66,7 +66,7 @@
             "bin/opcontrol.cpp.o",
             "src\\opcontrol.cpp"
         ],
-        "directory": "C:\\Users\\aresp\\Downloads\\Program\\TurningPointV5",
+        "directory": "C:\\Users\\aresp\\source\\TurningPointV5",
         "file": "src\\opcontrol.cpp"
     },
     {
@@ -101,7 +101,7 @@
             "bin/initialize.cpp.o",
             "src\\initialize.cpp"
         ],
-        "directory": "C:\\Users\\aresp\\Downloads\\Program\\TurningPointV5",
+        "directory": "C:\\Users\\aresp\\source\\TurningPointV5",
         "file": "src\\initialize.cpp"
     }
 ]
