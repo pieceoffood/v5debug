@@ -7,26 +7,19 @@
  */
 
 #include "main.h"
-using namespace pros::literals; //pros命令空间内包含的literals命名空间
-using namespace pros;
 /**
 *手动模式
  */
+using namespace okapi;
 void opcontrol()
 {
-    Controller master(pros::E_CONTROLLER_MASTER);
-    auto left_mtr = 1_mtr;
-    Motor right_mtr(2);
+    auto chassis = ChassisControllerFactory::create(1, -2, -3, 4, AbstractMotor::gearset::green,
+                                                    {4.00_in, 11.5_in}); //创建底盘构造函数 XDRIVE
+    Controller controller;                                               //创建遥控器构造函数
+
     while (true)
     {
-        lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-                   (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-                   (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-        int left = master.get_analog(ANALOG_LEFT_Y);
-        int right = master.get_analog(ANALOG_RIGHT_Y);
-
-        left_mtr = left;
-        right_mtr = right;
+        chassis.arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX)); //普通ARCAD控制
         pros::delay(20);
     }
 }
