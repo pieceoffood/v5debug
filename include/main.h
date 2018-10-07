@@ -22,6 +22,7 @@
 // using namespace okapi;
 //这里可以添加更多的头文件
 #include "okapi/api.hpp"
+#include "userapi/userDisplay.hpp"
 //#include "pros/api_legacy.h"
 
 #ifdef __cplusplus

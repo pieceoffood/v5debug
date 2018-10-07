@@ -8,17 +8,18 @@
 
 #include "main.h"
 /**
-*手动模式
- */
+*手动模式*/
 using namespace okapi;
 void opcontrol()
 {
     auto chassis = ChassisControllerFactory::create(1, -2, -3, 4, AbstractMotor::gearset::green,
                                                     {4.00_in, 11.5_in}); //创建底盘构造函数 XDRIVE
     Controller controller;                                               //创建遥控器构造函数
-
+    UserDisplay display;
+    display.lv_tutorial_styles();
     while (true)
     {
+
         chassis.arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX)); //普通ARCAD控制
         pros::delay(20);
     }
