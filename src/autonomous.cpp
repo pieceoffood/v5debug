@@ -12,5 +12,5 @@
  */
 void autonomous()
 {
-    userDisplay.setLabel("robot autonomousing...");
+    userDisplay.autonomous();
 }

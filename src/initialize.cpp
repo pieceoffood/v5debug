@@ -12,7 +12,7 @@
  */
 void initialize()
 {
-    userDisplay.setLabel("robot Initialization...");
+    userDisplay.initialize();
 }
 
 /**
@@ -20,7 +20,7 @@ void initialize()
  */
 void disabled()
 {
-    userDisplay.setLabel("competition disabled...");
+    userDisplay.disabled();
 }
 
 /**
@@ -32,6 +32,6 @@ void disabled()
  */
 void competition_initialize()
 {
-    userDisplay.setLabel("competition Initialization...");
+    userDisplay.competition_initialize();
 }
 UserDisplay userDisplay;
