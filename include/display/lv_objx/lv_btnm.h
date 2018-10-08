@@ -50,7 +50,7 @@ extern "C"
  *按下按钮矩阵
  *参数：按钮矩阵，已释放按钮的文本
  *如果按钮矩阵被删除，则返回LV_ACTION_RES_INV
-*LV_ACTION_RES_OK* /
+*LV_ACTION_RES_OK*/
  typedef lv_res_t (*lv_btnm_action_t)(lv_obj_t *, const char *txt);
 
 /*按钮矩阵的数据*/
