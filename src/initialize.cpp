@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T13:41:15+08:00
+ * @Last modified time: 2018-10-08T15:06:47+08:00
  */
 
 #include "main.h"
@@ -12,7 +12,7 @@
  */
 void initialize()
 {
-    std::cout << "init" << std::endl;
+    userDisplay.setLabel("robot Initialization...");
 }
 
 /**
@@ -20,7 +20,7 @@ void initialize()
  */
 void disabled()
 {
-    std::cout << "disabled" << std::endl;
+    userDisplay.setLabel("competition disabled...");
 }
 
 /**
@@ -32,5 +32,6 @@ void disabled()
  */
 void competition_initialize()
 {
-    std::cout << " competition_initialize" << std::endl;
+    userDisplay.setLabel("competition Initialization...");
 }
+UserDisplay userDisplay;
