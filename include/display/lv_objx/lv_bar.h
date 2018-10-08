@@ -1,13 +1,17 @@
 /**
- * @file lv_bar.h
- *
+ * @Author: yan
+ * @Date:   2018-10-08T14:08:09+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-08T17:26:54+08:00
  */
 
 #ifndef LV_BAR_H
 #define LV_BAR_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*********************
@@ -21,111 +25,114 @@ extern "C" {
 #include "lv_cont.h"
 #include "lv_label.h"
 
-/*********************
+    /*********************
  *      DEFINES
  *********************/
 
-/**********************
+    /**********************
  *      TYPEDEFS
  **********************/
 
-/*Data of bar*/
-typedef struct {
-  /*No inherited ext*/ /*Ext. of ancestor*/
-  /*New data for this type */
-  int16_t cur_value;       /*Current value of the bar*/
-  int16_t min_value;       /*Minimum value of the bar*/
-  int16_t max_value;       /*Maximum value of the bar*/
-  lv_style_t *style_indic; /*Style of the indicator*/
-} lv_bar_ext_t;
+    /*条形数据*/
+    typedef struct
+    {
+        /*没有继承的ext */
+        /* Ext。祖先*/
+        /*此类型的新数据*/
+        int16_t cur_value;       /*条的当前值*/
+        int16_t min_value;       /*条的最小值*/
+        int16_t max_value;       /*栏的最大值*/
+        lv_style_t *style_indic; /*指标的样式*/
+    } lv_bar_ext_t;
 
-typedef enum {
-  LV_BAR_STYLE_BG,
-  LV_BAR_STYLE_INDIC,
-} lv_bar_style_t;
+    typedef enum
+    {
+        LV_BAR_STYLE_BG,
+        LV_BAR_STYLE_INDIC,
+    } lv_bar_style_t;
 
-/**********************
- * GLOBAL PROTOTYPES
+    /**********************
+ * 全局模型
  **********************/
 
-/**
- * Create a bar objects
- * @param par pointer to an object, it will be the parent of the new bar
- * @param copy pointer to a bar object, if not NULL then the new object will be
- * copied from it
- * @return pointer to the created bar
+    /**
+    *创建一个条形对象
+   * @param par指向一个对象的指针，它将是新条形图的父级
+   * @param复制指向bar对象的指针，如果不是NULL，那么新对象将是
+   *从中复制
+   * @return指向创建栏的指针
  */
-lv_obj_t *lv_bar_create(lv_obj_t *par, lv_obj_t *copy);
+    lv_obj_t *lv_bar_create(lv_obj_t *par, lv_obj_t *copy);
 
-/*=====================
- * Setter functions
+    /*=====================
+ *Setter功能
  *====================*/
 
-/**
- * Set a new value on the bar
- * @param bar pointer to a bar object
- * @param value new value
+    /**
+    *在栏上设置新值
+    * @param指向条形对象的指针
+    * @param值新值
  */
-void lv_bar_set_value(lv_obj_t *bar, int16_t value);
+    void lv_bar_set_value(lv_obj_t *bar, int16_t value);
 
-/**
- * Set a new value with animation on the bar
- * @param bar pointer to a bar object
- * @param value new value
- * @param anim_time animation time in milliseconds
+    /**
+    *在栏上设置动画的新值
+    * @param指向条形对象的指针
+    * @param值新值
+    * @param anim_time动画时间，以毫秒为单位
  */
-void lv_bar_set_value_anim(lv_obj_t *bar, int16_t value, uint16_t anim_time);
+    void lv_bar_set_value_anim(lv_obj_t *bar, int16_t value, uint16_t anim_time);
 
-/**
- * Set minimum and the maximum values of a bar
- * @param bar pointer to the bar object
- * @param min minimum value
- * @param max maximum value
+    /**
+    *设置条形的最小值和最大值
+   * @param指向条形对象的指针
+   * @param min最小值
+   * @param max最大值
  */
-void lv_bar_set_range(lv_obj_t *bar, int16_t min, int16_t max);
+    void lv_bar_set_range(lv_obj_t *bar, int16_t min, int16_t max);
 
-/**
- * Set a style of a bar
- * @param bar pointer to a bar object
- * @param type which style should be set
- * @param style pointer to a style
+    /**
+    *设置一个酒吧的风格
+     * @param指向条形对象的指针
+     * @param类型应该设置哪种样式
+     * @param样式指针指向一个样式
  */
-void lv_bar_set_style(lv_obj_t *bar, lv_bar_style_t type, lv_style_t *style);
+    void lv_bar_set_style(lv_obj_t *bar, lv_bar_style_t type, lv_style_t *style);
 
-/*=====================
- * Getter functions
+    /*=====================
+ * 吸气功能
  *====================*/
 
-/**
- * Get the value of a bar
- * @param bar pointer to a bar object
- * @return the value of the bar
+    /**
+    *获得一个酒吧的价值
+     * @param指向条形对象的指针
+     * @return栏的值
  */
-int16_t lv_bar_get_value(lv_obj_t *bar);
+    int16_t lv_bar_get_value(lv_obj_t *bar);
 
-/**
- * Get the minimum value of a bar
- * @param bar pointer to a bar object
- * @return the minimum value of the bar
+    /**
+    *获得一个酒吧的最小值
+   * @param指向条形对象的指针
+   * @return栏的最小值
  */
-int16_t lv_bar_get_min_value(lv_obj_t *bar);
+    int16_t lv_bar_get_min_value(lv_obj_t *bar);
 
-/**
- * Get the maximum value of a bar
- * @param bar pointer to a bar object
- * @return the maximum value of the bar
+    /**
+    *获得酒吧的最大价值
+   * @param指向条形对象的指针
+   * @return栏的最大值
  */
-int16_t lv_bar_get_max_value(lv_obj_t *bar);
+    int16_t lv_bar_get_max_value(lv_obj_t *bar);
 
-/**
- * Get a style of a bar
- * @param bar pointer to a bar object
- * @param type which style should be get
- * @return style pointer to a style
+    /**
+    *获得一个酒吧的风格
+     * @param指向条形对象的指针
+     * @param类型应该获得哪种风格
+     * @return样式指针指向一个样式
  */
-lv_style_t *lv_bar_get_style(lv_obj_t *bar, lv_bar_style_t type);
+    lv_style_t *lv_bar_get_style(lv_obj_t *bar, lv_bar_style_t type);
 
-/**********************
+    /**********************
  *      MACROS
  **********************/
 

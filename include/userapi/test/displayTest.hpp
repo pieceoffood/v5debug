@@ -3,43 +3,13 @@
  * @Date:   2018-10-08T10:28:31+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T13:24:32+08:00
+ * @Last modified time: 2018-10-08T15:42:33+08:00
  */
 
 #ifndef DISPLAYTEST_HPP_
 #define DISPLAYTEST_HPP_
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
-static lv_res_t btn_rel_action(lv_obj_t *btn);
-static lv_res_t ddlist_action(lv_obj_t *ddlist);
-
-/**
-*在按钮释放时调用
-*@ PARAM BTN指向释放按钮的指针
-*@返回LVHRESIOK，因为在这个函数中没有删除对象
-*/
-static lv_res_t btn_rel_action(lv_obj_t *btn)
-{
-    /*增加按钮宽度*/
-    lv_coord_t width = lv_obj_get_width(btn);
-    lv_obj_set_width(btn, width + 20);
-
-    return LV_RES_OK;
-}
-/**
-*在下拉列表中选择新选项时调用
-*@ PARAM-DDLIST指针指向下拉列表
-*@返回LVHRESIOK，因为在这个函数中没有删除对象
-*/
-static lv_res_t ddlist_action(lv_obj_t *ddlist)
-{
-    uint16_t opt = lv_ddlist_get_selected(ddlist); /*获取选定选项的ID*/
-
-    lv_obj_t *slider = static_cast<lv_obj_t *>(lv_obj_get_free_ptr(ddlist)); /*获取保存的滑块*/
-    lv_slider_set_value(slider, (opt * 100) / 4);                            /*根据选择修改滑块值*/
-
-    return LV_RES_OK;
-}
 
 class DisplayTest
 {
@@ -69,7 +39,33 @@ class DisplayTest
         lv_obj_align(label2, NULL, LV_ALIGN_CENTER, 0, 20);
         lv_obj_align(label3, NULL, LV_ALIGN_CENTER, 0, 40);
     }
+    /**
+    *在按钮释放时调用
+    *@ PARAM BTN指向释放按钮的指针
+    *@返回LVHRESIOK，因为在这个函数中没有删除对象
+    */
+    static lv_res_t btn_rel_action(lv_obj_t *btn)
+    {
+        /*增加按钮宽度*/
+        lv_coord_t width = lv_obj_get_width(btn);
+        lv_obj_set_width(btn, width + 20);
 
+        return LV_RES_OK;
+    }
+    /**
+    *在下拉列表中选择新选项时调用
+    *@ PARAM-DDLIST指针指向下拉列表
+    *@返回LVHRESIOK，因为在这个函数中没有删除对象
+    */
+    static lv_res_t ddlist_action(lv_obj_t *ddlist)
+    {
+        uint16_t opt = lv_ddlist_get_selected(ddlist); /*获取选定选项的ID*/
+
+        lv_obj_t *slider = static_cast<lv_obj_t *>(lv_obj_get_free_ptr(ddlist)); /*获取保存的滑块*/
+        lv_slider_set_value(slider, (opt * 100) / 4);                            /*根据选择修改滑块值*/
+
+        return LV_RES_OK;
+    }
     /**
  * 创建一些对象
  */
