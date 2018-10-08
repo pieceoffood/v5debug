@@ -1,5 +1,13 @@
-#ifndef USERDISPLAY_HPP_
-#define USERDISPLAY_HPP_
+/**
+ * @Author: yan
+ * @Date:   2018-10-08T10:28:31+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-08T13:24:32+08:00
+ */
+
+#ifndef DISPLAYTEST_HPP_
+#define DISPLAYTEST_HPP_
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
 static lv_res_t btn_rel_action(lv_obj_t *btn);
@@ -32,11 +40,15 @@ static lv_res_t ddlist_action(lv_obj_t *ddlist)
 
     return LV_RES_OK;
 }
-class UserDisplay
+
+class DisplayTest
 {
   private:
   public:
-    UserDisplay() {}
+    DisplayTest() {}
+    void onlineTest()
+    {
+    }
     /**
  * 创建一个简单的“你好世界”！标签
  */
@@ -242,5 +254,144 @@ class UserDisplay
         lv_obj_set_size(bar, 200, 30);
         lv_obj_align(bar, obj1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 20);
     }
+    /**
+ * 初始化主题并创建相同的对象，如 "lv_tutorial_objects'
+ */
+    void lv_tutorial_themes(void)
+    {
+        /*初始化外星人主题
+     * 210：绿色色调值
+     * NULL: 使用默认字体 (LV_FONT_DEFAULT)*/
+        lv_theme_t *th = lv_theme_alien_init(210, NULL);
+
+        /*设置Surand系统主题*/
+        lv_theme_set_current(th);
+
+        /*创建 'lv_tutorial_objects'*/
+        lv_tutorial_objects();
+    }
+    lv_style_t btn3_style;
+    /**
+ * 将某些对象装箱并使其动画化
+ */
+    void lv_tutorial_animations(void)
+    {
+        lv_obj_t *label;
+
+        /*创建一个按钮演示内置动画*/
+        lv_obj_t *btn1;
+        btn1 = lv_btn_create(lv_scr_act(), NULL);
+        lv_obj_set_pos(btn1, 10, 10); /*设置一个位置。这将是动画的目的地*/
+        lv_obj_set_size(btn1, 80, 50);
+
+        label = lv_label_create(btn1, NULL);
+        lv_label_set_text(label, "skillAuto");
+
+        /* 使用内置函数在按钮中浮动*用2000毫秒延迟动画并在300毫秒中浮动。＊回调*/
+        lv_obj_animate(btn1, static_cast<lv_anim_builtin_t>(LV_ANIM_FLOAT_TOP | LV_ANIM_IN), 300, 2000, NULL); //插入从上往下的动画
+
+        /*创建一个按钮来演示用户定义的动画*/
+        lv_obj_t *btn2;
+        btn2 = lv_btn_create(lv_scr_act(), NULL);
+        lv_obj_set_pos(btn2, 10, 80); /*设置一个位置。这将是动画的目的地*/
+        lv_obj_set_size(btn2, 80, 50);
+
+        label = lv_label_create(btn2, NULL);
+        lv_label_set_text(label, "red_side");
+
+        /*创建动画以连续向左移动按钮*/
+        lv_anim_t a;
+        a.var = btn2;
+        a.start = lv_obj_get_x(btn2);
+        a.end = a.start + (100);
+        a.fp = (lv_anim_fp_t)lv_obj_set_x;
+        a.path = lv_anim_path_linear;
+        a.end_cb = NULL;
+        a.act_time = -1000;   /*设置延迟的负数*/
+        a.time = 400;         /*动画400毫秒*/
+        a.playback = 1;       /*当动画准备好的时候也要向后移动*/
+        a.playback_pause = 0; /*回放前等待*/
+        a.repeat = 1;         /*重复动画*/
+        a.repeat_pause = 500; /*重复前等待*/
+        lv_anim_create(&a);
+
+        /*创建一个按钮演示样式动画*/
+        lv_obj_t *btn3;
+        btn3 = lv_btn_create(lv_scr_act(), NULL);
+        lv_obj_set_pos(btn3, 10, 150); /*设置一个位置。这将是动画的目的地*/
+        lv_obj_set_size(btn3, 80, 50);
+
+        label = lv_label_create(btn3, NULL);
+        lv_label_set_text(label, "blue_side");
+
+        /*为按钮创建一个独特的样式*/
+        lv_style_copy(&btn3_style, lv_btn_get_style(btn3, LV_BTN_STYLE_REL));
+        lv_btn_set_style(btn3, static_cast<lv_btn_style_t>(LV_BTN_STATE_REL), &btn3_style);
+        /*使新风格焕然一新*/
+        lv_style_anim_t sa;
+        sa.style_anim = &btn3_style;        /*这个样式将被动画化*/
+        sa.style_start = &lv_style_btn_rel; /*风格之初 (也可以是'style_anim')*/
+        sa.style_end = &lv_style_pretty;    /*风格和(也可以是 'style_anim' as)*/
+        sa.act_time = -500;                 /*这些参数与普通动画相同。*/
+        sa.time = 1000;
+        sa.playback = 1;
+        sa.playback_pause = 500;
+        sa.repeat = 1;
+        sa.repeat_pause = 500;
+        sa.end_cb = NULL;
+        lv_style_anim_create(&sa);
+    }
+
+    /**
+ * 创建一些对象动画
+ */
+    void lv_tutorial_responsive(void)
+    {
+        lv_obj_t *label;
+
+        /*LV_DPI*/
+        lv_obj_t *btn1;
+        btn1 = lv_btn_create(lv_scr_act(), NULL);
+        lv_obj_set_pos(btn1, LV_DPI / 10, LV_DPI / 10); /*使用LV_DPI 来设置位置*/
+        lv_obj_set_size(btn1, LV_DPI, LV_DPI / 2);      /*使用 LVDOI 来设置尺寸*/
+
+        label = lv_label_create(btn1, NULL);
+        lv_label_set_text(label, "LV_DPI");
+
+        /*排列*/
+        lv_obj_t *btn2;
+        btn2 = lv_btn_create(lv_scr_act(), btn1);
+        lv_obj_align(btn2, btn1, LV_ALIGN_OUT_RIGHT_MID, LV_DPI / 4, 0);
+
+        label = lv_label_create(btn2, NULL);
+        lv_label_set_text(label, "Align");
+
+        /*自动拟合*/
+        lv_obj_t *btn3;
+        btn3 = lv_btn_create(lv_scr_act(), btn1);
+        lv_btn_set_fit(btn3, true, true);
+
+        label = lv_label_create(btn3, NULL);
+        lv_label_set_text(label, "Fit");
+
+        lv_obj_align(btn3, btn1, LV_ALIGN_OUT_BOTTOM_MID, 0, LV_DPI / 4); /*由于标签已经调整大小，对齐*/
+
+        /*布局*/
+        lv_obj_t *btn4;
+        btn4 = lv_btn_create(lv_scr_act(), btn1);
+        lv_btn_set_fit(btn4, true, true);         /*也使用自动拟合*/
+        lv_btn_set_layout(btn4, LV_LAYOUT_COL_R); /*右对齐列布局*/
+
+        label = lv_label_create(btn4, NULL);
+        lv_label_set_text(label, "First");
+
+        label = lv_label_create(btn4, NULL);
+        lv_label_set_text(label, "Second");
+
+        label = lv_label_create(btn4, NULL);
+        lv_label_set_text(label, "Third");
+
+        lv_obj_align(btn4, btn2, LV_ALIGN_OUT_BOTTOM_MID, 0, LV_DPI / 4); /*由于标签已经调整大小，对齐*/
+    }
 };
-#endif /* end of include guard: USERDISPLAY_HPP_ */
+#endif /* end of include guard: DISPLAYTEST_HPP_ */

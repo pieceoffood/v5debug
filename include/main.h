@@ -2,8 +2,8 @@
  * @Author: 陈昱安
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-09-29T21:37:49+08:00
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-08T13:22:35+08:00
  */
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
@@ -22,7 +22,7 @@
 // using namespace okapi;
 //这里可以添加更多的头文件
 #include "okapi/api.hpp"
-#include "userapi/userDisplay.hpp"
+#include "userapi/userapi.hpp"
 //#include "pros/api_legacy.h"
 
 #ifdef __cplusplus
