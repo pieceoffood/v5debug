@@ -12,18 +12,21 @@
 using namespace okapi;
 void opcontrol()
 {
-    unsigned long lastTime=pros::millis();
-    userDisplay.opcontrol();
-    // auto chassis = ChassisControllerFactory::create(1, -2, -3, 4, AbstractMotor::gearset::green,
-    //                                                 {4.00_in, 11.5_in}); //创建底盘构造函数 XDRIVE
-    // Controller controller;                                               //创建遥控器构造函数
-
-    while (true)
+    if (!pros::competition::is_connected())
+        userDisplay.startP();
+    else
     {
-      userDisplay.loopTime(pros::millis()-lastTime);
-        // chassis.arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX)); //普通ARCAD控制
-        lastTime=pros::millis();
-        pros::delay(20);
-
+        unsigned long lastTime = pros::millis();
+        userDisplay.opcontrol();
+        // auto chassis = ChassisControllerFactory::create(1, -2, -3, 4, AbstractMotor::gearset::green,
+        //                                                 {4.00_in, 11.5_in}); //创建底盘构造函数 XDRIVE
+        // Controller controller;                                               //创建遥控器构造函数
+        while (true)
+        {
+            userDisplay.loopTime(pros::millis() - lastTime);
+            // chassis.arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX)); //普通ARCAD控制
+            lastTime = pros::millis();
+            pros::delay(20);
+        }
     }
 }
