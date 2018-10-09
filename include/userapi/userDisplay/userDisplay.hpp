@@ -26,6 +26,13 @@ class UserDisplay
   public:
     UserDisplay()
     {
+        /*初始化外星人主题
+        * 210：绿色色调值
+        * NULL: 使用默认字体 (LV_FONT_DEFAULT)*/
+        lv_theme_t *th = lv_theme_alien_init(210, NULL);
+        /*设置Surand系统主题*/
+        lv_theme_set_current(th);
+        //创建页面
         startPage = lv_page_create(nullptr, nullptr);
         initPage = lv_obj_create(nullptr, nullptr);
         disabledPage = lv_obj_create(nullptr, nullptr);
@@ -90,24 +97,22 @@ class UserDisplay
         lv_obj_t *label = lv_label_create(startPage, nullptr); /*第一个参数 (scr) 是父类 */
         lv_label_set_text(label, "please chose");              /*设置标题文本*/
         lv_obj_set_x(label, 10);                               /*设置X轴的位置*/
-        /***********************
-        * 创建两个按钮对象
-        ***********************/
-        /*创建按钮*/
-        lv_obj_t *btn1 = lv_btn_create(startPage, nullptr); /*在当前加载的屏幕上创建按钮*/
-        //lv_btn_set_action(btn1, LV_BTN_ACTION_CLICK, btn_rel_action); /*在按钮释放时调用SET函数*/
-        lv_obj_align(btn1, label, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 20); /*标签下方对齐*/
-
-        /*在按钮上创建标签（“标签”变量可以重复使用）*/
-        label = lv_label_create(btn1, nullptr);
-        lv_label_set_text(label, "onlineTest");
-
-        /*复制前一个按钮*/
-        lv_obj_t *btn2 = lv_btn_create(startPage, btn1);         /*第二个参数是要复制的对象。*/
-        lv_obj_align(btn2, btn1, LV_ALIGN_OUT_RIGHT_MID, 50, 0); /*对齐PREV.按钮。*/
-
-        /*在按钮上创建标签*/
-        label = lv_label_create(btn2, nullptr);
-        lv_label_set_text(label, "autonomous");
+        /*创建标签栏 */
+        lv_obj_t *tab = lv_tabview_create(startPage, NULL);
+        lv_obj_t *onlineTab = lv_tabview_add_tab(tab, "onlineTest");
+        lv_obj_t *robotTab = lv_tabview_add_tab(tab, "robotTest");
+        lv_obj_t *autoTab = lv_tabview_add_tab(tab, "autonomous");
+        lv_obj_t *opctlTab = lv_tabview_add_tab(tab, "opcontrol");
+        lv_obj_t *frTab = lv_tabview_add_tab(tab, "frPid");
+        lv_obj_t *rotateTab = lv_tabview_add_tab(tab, "rotatePid");
+        lv_obj_t *odomTab = lv_tabview_add_tab(tab, "odomTest");
+        lv_obj_t *customTab = lv_tabview_add_tab(tab, "customTest");
+        //设置标题栏风格
+        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_BG, &style_tv_btn_bg);
+        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_INDIC, &lv_style_plain);
+        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_REL, &style_tv_btn_rel);
+        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_PR, &style_tv_btn_pr);
+        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_TGL_REL, &style_tv_btn_rel);
+        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_TGL_PR, &style_tv_btn_pr);
     }
 };

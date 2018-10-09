@@ -235,15 +235,15 @@ typedef struct {
  **********************/
 
 /**
- * Set a theme for the system.
- * From now, all the created objects will use styles from this theme by default
- * @param th pointer to theme (return value of: 'lv_theme_init_xxx()')
+*为系统设置主题。
+*从现在开始，默认情况下，所有创建的对象都将使用此主题中的样式
+* @param指向主题的指针（返回值：'lv_theme_init_xxx（）'）
  */
 void lv_theme_set_current(lv_theme_t *th);
 
 /**
- * Get the current system theme.
- * @return pointer to the current system theme. NULL if not set.
+*获取当前的系统主题。
+* @return指向当前系统主题的指针。如果未设置，则为NULL。
  */
 lv_theme_t *lv_theme_get_current(void);
 

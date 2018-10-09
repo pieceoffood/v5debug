@@ -39,22 +39,22 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
-/* parameters: pointer to a tabview object, tab_id*/
+/*参数：指向tabview对象的指针，tab_id */
 typedef void (*lv_tabview_action_t)(lv_obj_t *, uint16_t);
 
-/*Data of tab*/
+/*标签数据*/
 typedef struct {
   /*Ext. of ancestor*/
-  /*New data for this type */
+  /*此类型的新数据 */
   lv_obj_t *btns;
   lv_obj_t *indic;
-  lv_obj_t *content; /*A rectangle to show the current tab*/
+  lv_obj_t *content; /*显示当前标签的矩形*/
   const char **tab_name_ptr;
   lv_point_t point_last;
   uint16_t tab_cur;
   uint16_t tab_cnt;
   uint16_t anim_time;
-  uint8_t slide_enable : 1; /*1: enable horizontal sliding by touch pad*/
+  uint8_t slide_enable : 1; /*1: 通过触摸板启用水平滑动*/
   uint8_t draging : 1;
   uint8_t drag_hor : 1;
   lv_tabview_action_t tab_load_action;
@@ -75,11 +75,9 @@ typedef enum {
  **********************/
 
 /**
- * Create a Tab view object
- * @param par pointer to an object, it will be the parent of the new tab
- * @param copy pointer to a tab object, if not NULL then the new object will be
- * copied from it
- * @return pointer to the created tab
+* @param par指向对象的指针，它将是新选项卡的父级
+* @param复制指向选项卡对象的指针，如果不是NULL，那么新对象将是从中复制
+* @return指向创建的选项卡的指针
  */
 lv_obj_t *lv_tabview_create(lv_obj_t *par, lv_obj_t *copy);
 
@@ -88,11 +86,10 @@ lv_obj_t *lv_tabview_create(lv_obj_t *par, lv_obj_t *copy);
  *=====================*/
 
 /**
- * Add a new tab with the given name
- * @param tabview pointer to Tab view object where to ass the new tab
- * @param name the text on the tab button
- * @return pointer to the created page object (lv_page). You can create your
- * content here
+*添加具有给定名称的新选项卡
+* @param tabview指向Tab视图对象的位置，以指向新选项卡
+* @param命名选项卡按钮上的文本
+* @return指向创建的页面对象（lv_page）的指针。你可以创建你的内容在这里
  */
 lv_obj_t *lv_tabview_add_tab(lv_obj_t *tabview, const char *name);
 
@@ -101,43 +98,40 @@ lv_obj_t *lv_tabview_add_tab(lv_obj_t *tabview, const char *name);
  *====================*/
 
 /**
- * Set a new tab
- * @param tabview pointer to Tab view object
- * @param id index of a tab to load
- * @param anim_en true: set with sliding animation; false: set immediately
+*设置新标签
+* @param tabview指向Tab视图对象的指针
+* @param id要加载的选项卡的索引
+* @param anim_en true：设置滑动动画; false：立即设置
  */
 void lv_tabview_set_tab_act(lv_obj_t *tabview, uint16_t id, bool anim_en);
 
 /**
- * Set an action to call when a tab is loaded (Good to create content only if
- * required)
- * lv_tabview_get_act() still gives the current (old) tab (to remove content
- * from here)
- * @param tabview pointer to a tabview object
- * @param action pointer to a function to call when a tab is loaded
+*设置加载选项卡时要调用的操作（只有在创建内容时才有效*必填）
+* lv_tabview_get_act（）仍然提供当前（旧）选项卡（以删除内容从这里）
+* @param tabview指向tabview对象的指针
+* @param动作指向加载选项卡时要调用的函数的指针
  */
-void lv_tabview_set_tab_load_action(lv_obj_t *tabview,
-                                    lv_tabview_action_t action);
+void lv_tabview_set_tab_load_action(lv_obj_t *tabview,  lv_tabview_action_t action);
 
 /**
- * Enable horizontal sliding with touch pad
- * @param tabview pointer to Tab view object
- * @param en true: enable sliding; false: disable sliding
+*启用触摸板水平滑动
+* @param tabview指向Tab视图对象的指针
+* @param zh_cn：启用滑动; false：禁用滑动
  */
 void lv_tabview_set_sliding(lv_obj_t *tabview, bool en);
 
 /**
- * Set the animation time of tab view when a new tab is loaded
- * @param tabview pointer to Tab view object
- * @param anim_time time of animation in milliseconds
+*加载新选项卡时，设置选项卡视图的动画时间
+* @param tabview指向Tab视图对象的指针
+* @param anim_time动画时间，以毫秒为单位
  */
 void lv_tabview_set_anim_time(lv_obj_t *tabview, uint16_t anim_time);
 
 /**
- * Set the style of a tab view
- * @param tabview pointer to a tan view object
- * @param type which style should be set
- * @param style pointer to the new style
+*设置选项卡视图的样式
+* @param tabview指向tan视图对象的指针
+* @param类型应该设置哪种样式
+* @param样式指向新样式
  */
 void lv_tabview_set_style(lv_obj_t *tabview, lv_tabview_style_t type,
                           lv_style_t *style);
@@ -147,52 +141,52 @@ void lv_tabview_set_style(lv_obj_t *tabview, lv_tabview_style_t type,
  *====================*/
 
 /**
- * Get the index of the currently active tab
- * @param tabview pointer to Tab view object
- * @return the active tab index
+*获取当前活动选项卡的索引
+* @param tabview指向Tab视图对象的指针
+* @return活动标签索引
  */
 uint16_t lv_tabview_get_tab_act(lv_obj_t *tabview);
 
 /**
- * Get the number of tabs
- * @param tabview pointer to Tab view object
- * @return tab count
+*获取标签数量
+* @param tabview指向Tab视图对象的指针
+* @return tab count
  */
 uint16_t lv_tabview_get_tab_count(lv_obj_t *tabview);
 /**
- * Get the page (content area) of a tab
- * @param tabview pointer to Tab view object
- * @param id index of the tab (>= 0)
- * @return pointer to page (lv_page) object
+*获取选项卡的页面（内容区域）
+* @param tabview指向Tab视图对象的指针
+*选项卡的@param id索引（> = 0）
+* @return指向页面（lv_page）对象的指针
  */
 lv_obj_t *lv_tabview_get_tab(lv_obj_t *tabview, uint16_t id);
 
 /**
- * Get the tab load action
- * @param tabview pointer to a tabview object
- * @param return the current tab load action
+*获取标签加载操作
+* @param tabview指向tabview对象的指针
+* @param返回当前标签加载操作
  */
 lv_tabview_action_t lv_tabview_get_tab_load_action(lv_obj_t *tabview);
 
 /**
- * Get horizontal sliding is enabled or not
- * @param tabview pointer to Tab view object
- * @return true: enable sliding; false: disable sliding
+*是否启用水平滑动
+* @param tabview指向Tab视图对象的指针
+* @return true：启用滑动; false：禁用滑动
  */
 bool lv_tabview_get_sliding(lv_obj_t *tabview);
 
 /**
- * Get the animation time of tab view when a new tab is loaded
- * @param tabview pointer to Tab view object
- * @return time of animation in milliseconds
+*加载新选项卡时，获取选项卡视图的动画时间
+* @param tabview指向Tab视图对象的指针
+* @return动画时间，以毫秒为单位
  */
 uint16_t lv_tabview_get_anim_time(lv_obj_t *tabview);
 
 /**
- * Get a style of a tab view
- * @param tabview pointer to a ab view object
- * @param type which style should be get
- * @return style pointer to a style
+*获得标签视图的样式
+* @param tabview指向ab视图对象的指针
+* @param类型应该获得哪种风格
+* @return样式指针指向一个样式
  */
 lv_style_t *lv_tabview_get_style(lv_obj_t *tabview, lv_tabview_style_t type);
 
