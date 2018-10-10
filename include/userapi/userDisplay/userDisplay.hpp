@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-10T10:57:48+08:00
+ * @Last modified time: 2018-10-10T17:10:52+08:00
  */
 #include "api.h"
 #include "display/lv_conf.h"
@@ -20,9 +20,9 @@ class UserDisplay
     lv_obj_t *_opcontrolPage = nullptr;
     lv_obj_t *_competitionPage = nullptr;
     //标题
-    lv_obj_t *_loopTimeLab = nullptr; //循环标题栏
+    lv_obj_t *_loopTimeLab = nullptr;
     //样式
-    lv_theme_t *_theme; //全局主题
+    lv_theme_t *_theme;
     lv_style_t _redStyle;
     lv_style_t _blueStyle;
 
@@ -33,11 +33,39 @@ class UserDisplay
     void createSkillAutoTab(lv_obj_t *parent)
     {
     }
-    void createRedTab(lv_obj_t *parent)
+    void createTab(lv_obj_t *parent)
     {
-    }
-    void createBlueTab(lv_obj_t *parent)
-    {
+        //创建选项
+        lv_obj_t *frRoller = lv_roller_create(parent, NULL);    //创建前后场选项卡
+        lv_obj_t *shootRoller = lv_roller_create(parent, NULL); //创建射高中旗选项卡
+
+        lv_obj_t *midShootSw = lv_sw_create(parent, NULL);   //创建是否射中间杆子旗子开关
+        lv_obj_t *platformSw = lv_sw_create(parent, NULL);   //创建是否开台开关
+        lv_obj_t *bumperFlagSw = lv_sw_create(parent, NULL); //创建是否撞中间旗开关
+
+        lv_obj_t *midShootLab = lv_label_create(parent, NULL);   //创建是否射中间杆子旗子文本条
+        lv_obj_t *platformLab = lv_label_create(parent, NULL);   //创建是否开台开关文本条
+        lv_obj_t *bumperFlagLab = lv_label_create(parent, NULL); //创建是否撞中间旗开关文本条
+
+        lv_roller_set_options(frRoller, "the front\nthe back");
+        lv_roller_set_options(shootRoller, "high flag\nmid flag");
+        lv_label_set_text(midShootLab, "isShootFlag");
+        lv_label_set_text(platformLab, "isRunToPlat");
+        lv_label_set_text(bumperFlagLab, "isBumperFlag");
+
+        //大小设置
+        // lv_roller_set_visible_row_count(frRoller, 1);
+        // lv_roller_set_visible_row_count(shootRoller, 1);没鸟用 骗人的
+        lv_obj_set_size(frRoller, 80, 140);
+        lv_obj_set_size(shootRoller, 80, 140);
+        //位置设置
+        lv_obj_align(shootRoller, frRoller, LV_ALIGN_OUT_RIGHT_TOP, 15, 0);
+        lv_obj_align(midShootSw, shootRoller, LV_ALIGN_OUT_RIGHT_TOP, 10, 0);
+        lv_obj_align(platformSw, shootRoller, LV_ALIGN_OUT_RIGHT_MID, 10, 2);
+        lv_obj_align(bumperFlagSw, shootRoller, LV_ALIGN_OUT_RIGHT_MID, 10, 50);
+        lv_obj_align(midShootLab, midShootSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+        lv_obj_align(platformLab, platformSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+        lv_obj_align(bumperFlagLab, bumperFlagSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
     }
 
   public:
@@ -50,7 +78,6 @@ class UserDisplay
         /*设置Surand系统主题*/
         lv_theme_set_current(_theme);
         //创建页面
-        //    startPage = lv_page_create(nullptr, nullptr);
         _initPage = lv_obj_create(nullptr, nullptr);
         _disabledPage = lv_obj_create(nullptr, nullptr);
         _autonomousPage = lv_obj_create(nullptr, nullptr);
@@ -77,8 +104,6 @@ class UserDisplay
     void competition_initialize()
     {
         lv_scr_load(_competitionPage);
-        lv_obj_t *lab = lv_label_create(_competitionPage, nullptr);
-        lv_label_set_text(lab, "competition Initialization...");
         //创建标签栏
         lv_obj_t *tab = lv_tabview_create(_competitionPage, NULL);
         lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES); //设置位置
@@ -94,8 +119,8 @@ class UserDisplay
         lv_obj_set_style(blueTab, &_blueStyle);      //应用蓝色样式
 
         //调用按钮页面
-        createRedTab(redTab);
-        createBlueTab(blueTab);
+        createTab(redTab);
+        createTab(blueTab);
         createSkillAutoTab(skillAutoTab);
     }
 
@@ -114,9 +139,7 @@ class UserDisplay
             startP(_opcontrolPage);
         }
         else
-
         {
-
             lv_obj_t *lab = lv_label_create(_opcontrolPage, nullptr);
             lv_label_set_text(lab, "robot opcontroling...");
         }
@@ -132,25 +155,13 @@ class UserDisplay
     }
     void startP(lv_obj_t *para)
     {
-        /****************
-     *添加标题
-     ****************/
-        /*创建标签栏 */
-        lv_obj_t *tab = lv_tabview_create(para, NULL);
-        lv_obj_t *onlineTab = lv_tabview_add_tab(tab, "onlineTest\n");
-        lv_obj_t *robotTab = lv_tabview_add_tab(tab, "robotTest\n");
-        lv_obj_t *autoTab = lv_tabview_add_tab(tab, "autonomous\n");
-        lv_obj_t *opctlTab = lv_tabview_add_tab(tab, "opcontrol\n");
-        lv_obj_t *frTab = lv_tabview_add_tab(tab, "frPid\n");
-        lv_obj_t *rotateTab = lv_tabview_add_tab(tab, "rotatePid\n");
-        lv_obj_t *odomTab = lv_tabview_add_tab(tab, "odomTest\n");
-        lv_obj_t *customTab = lv_tabview_add_tab(tab, "customTest\n");
-        //设置标题栏风格
-        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_BG, &style_tv_btn_bg);
-        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_INDIC, &lv_style_plain);
-        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_REL, &style_tv_btn_rel);
-        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_PR, &style_tv_btn_pr);
-        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_TGL_REL, &style_tv_btn_rel);
-        // lv_tabview_set_style(tv, LV_TABVIEW_STYLE_BTN_TGL_PR, &style_tv_btn_pr);
+        static const char *btnm_map[] = {"onlineTest", "robotTest", "\n",
+                                         "autonomous", "opcontorl", "\n",
+                                         "frPid", "rotatePid", "\n",
+                                         "odomTest", "customTest", ""};
+
+        lv_obj_t *btnm = lv_btnm_create(para, NULL); //创建按钮集群
+        lv_btnm_set_map(btnm, btnm_map);
+        lv_obj_set_size(btnm, LV_HOR_RES, LV_VER_RES);
     }
 };
