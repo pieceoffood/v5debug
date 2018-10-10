@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T15:07:40+08:00
+ * @Last modified time: 2018-10-10T08:26:08+08:00
  */
 
 #include "main.h"
@@ -12,21 +12,17 @@
 using namespace okapi;
 void opcontrol()
 {
-    if (!pros::competition::is_connected())
-        userDisplay.startP();
-    else
+
+    unsigned long lastTime = pros::millis();
+    userDisplay.opcontrol();
+    // auto chassis = ChassisControllerFactory::create(1, -2, -3, 4, AbstractMotor::gearset::green,
+    //                                                 {4.00_in, 11.5_in}); //创建底盘构造函数 XDRIVE
+    // Controller controller;                                               //创建遥控器构造函数
+    while (true)
     {
-        unsigned long lastTime = pros::millis();
-        userDisplay.opcontrol();
-        // auto chassis = ChassisControllerFactory::create(1, -2, -3, 4, AbstractMotor::gearset::green,
-        //                                                 {4.00_in, 11.5_in}); //创建底盘构造函数 XDRIVE
-        // Controller controller;                                               //创建遥控器构造函数
-        while (true)
-        {
-            userDisplay.loopTime(pros::millis() - lastTime);
-            // chassis.arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX)); //普通ARCAD控制
-            lastTime = pros::millis();
-            pros::delay(20);
-        }
+        userDisplay.loopTime(pros::millis() - lastTime);
+        // chassis.arcade(controller.getAnalog(ControllerAnalog::leftY), controller.getAnalog(ControllerAnalog::rightX)); //普通ARCAD控制
+        lastTime = pros::millis();
+        pros::delay(20);
     }
 }
