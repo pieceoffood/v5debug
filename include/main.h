@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T15:04:18+08:00
+ * @Last modified time: 2018-10-11T13:16:02+08:00
  */
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
@@ -23,7 +23,7 @@
 //这里可以添加更多的头文件
 #include "okapi/api.hpp"
 #include "userapi/userapi.hpp"
-extern UserDisplay userDisplay;
+
 //#include "pros/api_legacy.h"
 
 #ifdef __cplusplus

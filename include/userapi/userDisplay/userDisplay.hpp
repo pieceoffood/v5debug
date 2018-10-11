@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T10:52:29+08:00
+ * @Last modified time: 2018-10-11T15:21:12+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -15,11 +15,9 @@
 
 class UserDisplay
 {
-  private:
+  public:
     //样式
     lv_theme_t *_theme;
-
-  public:
     //页面
     lv_obj_t *competitionPage = nullptr;
     lv_obj_t *opcontrolPage = nullptr;

@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T10:53:59+08:00
+ * @Last modified time: 2018-10-11T13:21:45+08:00
  */
 
 #include "main.h"
@@ -34,4 +34,5 @@ void competition_initialize()
 {
     CompDsp comDsp(&userDisplay);
 }
-UserDisplay userDisplay;
+systemData sysData;      //系统数据类
+UserDisplay userDisplay; //图像数据类
