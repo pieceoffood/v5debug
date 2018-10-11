@@ -3,23 +3,13 @@
  * @Date:   2018-10-11T10:05:04+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T15:21:58+08:00
+ * @Last modified time: 2018-10-11T16:29:45+08:00
  */
 #ifndef COMPDSP_HPP_
 #define COMPDSP_HPP_
 #include "userapi/userDisplay/userDisplay.hpp"
 #include "userapi\systemData.hpp"
 #include <memory>
-/**
- * 自动赛选择时候的确认按钮的动作
- * @param  btn 要实现动作的按钮的指针
- * @return     返回不知道啥....
- */
-static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
-{
-    lv_obj_set_width(btn, lv_obj_get_width(btn) - (10));
-    return LV_RES_OK;
-}
 class CompDsp
 {
   private:
@@ -58,6 +48,7 @@ class CompDsp
     void createSkillAutoTab(lv_obj_t *parent)
     {
     }
+
     void createTab(lv_obj_t *parent)
     {
         //创建选项

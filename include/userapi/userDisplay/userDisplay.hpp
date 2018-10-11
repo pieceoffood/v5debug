@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T15:21:12+08:00
+ * @Last modified time: 2018-10-11T16:40:46+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -24,11 +24,13 @@ class UserDisplay
     lv_obj_t *initPage = nullptr;
     lv_obj_t *disabledPage = nullptr;
     lv_obj_t *autonomousPage = nullptr;
+    lv_obj_t *tempPage = nullptr;
     //样式
     lv_style_t redStyle;
     lv_style_t blueStyle;
     //标题栏
     lv_obj_t *loopTimeLab = nullptr;
+    //弹窗
     UserDisplay()
     {
         /*初始化外星人主题
@@ -48,4 +50,18 @@ class UserDisplay
         lv_obj_align(loopTimeLab, nullptr, LV_ALIGN_IN_TOP_MID, 0, 0);
     }
 };
+extern UserDisplay userDisplay;
+/**
+ * 自动赛选择时候的确认按钮的动作
+ * @param  btn 要实现动作的按钮的指针
+ * @return     返回不知道啥....
+ */
+static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
+{
+    //lv_obj_set_width(btn, lv_obj_get_width(btn) - (10));
+    lv_obj_del(userDisplay.competitionPage);
+    userDisplay.tempPage = lv_obj_create(nullptr, nullptr);
+    std::cout << "pressed" << std::endl;
+    return LV_RES_OK;
+}
 #endif /* end of include guard: USERDISPLAY_HPP_ */
