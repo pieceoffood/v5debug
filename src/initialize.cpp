@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T15:06:47+08:00
+ * @Last modified time: 2018-10-11T10:53:59+08:00
  */
 
 #include "main.h"
@@ -12,7 +12,7 @@
  */
 void initialize()
 {
-    userDisplay.initialize();
+    InitDsp initDsp(&userDisplay);
 }
 
 /**
@@ -20,7 +20,7 @@ void initialize()
  */
 void disabled()
 {
-    userDisplay.disabled();
+    DisabledDsp disabledDsp(&userDisplay);
 }
 
 /**
@@ -32,6 +32,6 @@ void disabled()
  */
 void competition_initialize()
 {
-    userDisplay.competition_initialize();
+    CompDsp comDsp(&userDisplay);
 }
 UserDisplay userDisplay;
