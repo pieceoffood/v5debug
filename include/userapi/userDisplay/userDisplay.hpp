@@ -11,8 +11,7 @@
 #include "api.h"
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
-#include <cstdio>
-
+#include "userapi\systemData.hpp"
 class UserDisplay
 {
   public:
@@ -28,6 +27,7 @@ class UserDisplay
     //样式
     lv_style_t redStyle;
     lv_style_t blueStyle;
+    lv_style_t *nowStyle = nullptr;
     //标题栏
     lv_obj_t *loopTimeLab = nullptr;
     //弹窗
@@ -51,6 +51,7 @@ class UserDisplay
     }
 };
 extern UserDisplay userDisplay;
+
 /**
  * 自动赛选择时候的确认按钮的动作
  * @param  btn 要实现动作的按钮的指针
@@ -58,9 +59,13 @@ extern UserDisplay userDisplay;
  */
 static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
 {
-    //lv_obj_set_width(btn, lv_obj_get_width(btn) - (10));
     lv_obj_del(userDisplay.competitionPage);
     userDisplay.tempPage = lv_obj_create(nullptr, nullptr);
+    lv_page_set_style(userDisplay.tempPage, LV_PAGE_STYLE_BG, userDisplay.nowStyle); //指针传不过去啊...
+    lv_obj_t *gyroLab = lv_label_create(userDisplay.tempPage, NULL);
+    lv_label_set_text(gyroLab, "gyro:");
+    //TODO 传感器都放上
+
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
 }

@@ -15,5 +15,4 @@
 #include "userapi\userDisplay\disabled\disabledDsp.hpp"
 #include "userapi\userDisplay\init\initDsp.hpp"
 
-extern systemData sysData;
 #endif /* end of include guard: USERAPI_HPP_ */

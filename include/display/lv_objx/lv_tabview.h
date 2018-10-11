@@ -6,8 +6,6 @@
  * @Last modified time: 2018-10-10T09:55:00+08:00
  */
 
-
-
 /**
  * @file lv_tabview.h
  *

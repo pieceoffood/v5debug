@@ -18,4 +18,5 @@ struct systemData
     bool autoIsRunPlat = 0;    //0不开台 1 开台
     bool autoIsBumperFlag = 0; //0不撞中间旗 1 撞中间旗子
 };
+extern systemData sysData;
 #endif /* end of include guard: SYSTEMDATA_HPP_ */

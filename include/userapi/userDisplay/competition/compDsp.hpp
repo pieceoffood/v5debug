@@ -8,8 +8,25 @@
 #ifndef COMPDSP_HPP_
 #define COMPDSP_HPP_
 #include "userapi/userDisplay/userDisplay.hpp"
-#include "userapi\systemData.hpp"
+
 #include <memory>
+static void tabChose(lv_obj_t *tab, uint16_t x)
+{
+    if (x == 0)
+    {
+        std::cout << "redTab" << std::endl;
+        userDisplay.nowStyle = &userDisplay.redStyle;
+    }
+    else if (x == 1)
+    {
+        std::cout << "blueTab" << std::endl;
+        userDisplay.nowStyle = &userDisplay.blueStyle;
+    }
+    else if (x == 2)
+        std::cout << "skillTab" << std::endl;
+    else
+        std::cout << "error" << std::endl;
+}
 class CompDsp
 {
   private:
@@ -27,6 +44,7 @@ class CompDsp
         lv_obj_t *redTab = lv_tabview_add_tab(tab, "red");
         lv_obj_t *blueTab = lv_tabview_add_tab(tab, "blue");
         lv_obj_t *skillAutoTab = lv_tabview_add_tab(tab, "skillAuto");
+
         //设置样式
         lv_style_copy(&_data->redStyle, &lv_style_plain);  /*复制内置样式作为起点*/
         lv_style_copy(&_data->blueStyle, &lv_style_plain); /*复制内置样式作为起点*/
@@ -34,7 +52,8 @@ class CompDsp
         _data->blueStyle.body.main_color = LV_COLOR_BLUE;  /*蓝色主色*/
         lv_obj_set_style(redTab, &_data->redStyle);        //应用红色样式
         lv_obj_set_style(blueTab, &_data->blueStyle);      //应用蓝色样式
-
+                                                           //_data->nowStyle = lv_obj_get_style(tab);
+        lv_tabview_set_tab_load_action(tab, tabChose);
         //调用按钮页面
         createTab(redTab);
         createTab(blueTab);
@@ -52,8 +71,6 @@ class CompDsp
     void createTab(lv_obj_t *parent)
     {
         //创建选项
-        //lv_obj_t *frRoller = lv_roller_create(parent, NULL);    //创建前后场选项卡
-        //lv_obj_t *shootRoller = lv_roller_create(parent, NULL); //创建射高中旗选项卡
         lv_obj_t *frSw = lv_sw_create(parent, NULL);         //创建前后场开关
         lv_obj_t *shootSw = lv_sw_create(parent, NULL);      //创建射高中旗开关
         lv_obj_t *midShootSw = lv_sw_create(parent, NULL);   //创建是否射中间杆子旗子开关
@@ -79,16 +96,7 @@ class CompDsp
 
         //大小设置
         lv_obj_set_size(confirmBtn, 200, 50);
-        // lv_roller_set_visible_row_count(frRoller, 1);
-        // lv_roller_set_visible_row_count(shootRoller, 1);没鸟用 骗人的
-        // lv_obj_set_size(frRoller, 80, 140);
-        // lv_obj_set_size(shootRoller, 80, 140);
         //位置设置
-        // lv_obj_align(shootRoller, frRoller, LV_ALIGN_OUT_RIGHT_TOP, 15, 0);
-        // lv_obj_align(midShootSw, shootRoller, LV_ALIGN_OUT_RIGHT_TOP, 10, 0);
-        // lv_obj_align(platformSw, shootRoller, LV_ALIGN_OUT_RIGHT_MID, 10, 2);
-        // lv_obj_align(bumperFlagSw, shootRoller, LV_ALIGN_OUT_RIGHT_MID, 10, 50);
-
         lv_obj_align(shootSw, frSw, LV_ALIGN_CENTER, 0, 50);
         lv_obj_align(midShootSw, shootSw, LV_ALIGN_CENTER, 0, 50);
         lv_obj_align(platformSw, frSw, LV_ALIGN_OUT_RIGHT_MID, 120, 0);
@@ -101,8 +109,11 @@ class CompDsp
         lv_obj_align(bumperFlagLab, bumperFlagSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
         lv_obj_align(confirmBtn, bumperFlagLab, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
         lv_obj_align(confirmLab, confirmBtn, LV_ALIGN_IN_BOTTOM_MID, 0, -15);
+        //确认选项卡后的操作
+
         //确认按钮的动作
         lv_btn_set_action(confirmBtn, LV_BTN_ACTION_PR, confirmBtnIncomp);
     }
 };
+
 #endif /* end of include guard: COMPDSP_HPP_ */
