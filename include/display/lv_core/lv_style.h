@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:08:09+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-10T10:03:01+08:00
+ * @Last modified time: 2018-10-12T10:33:30+08:00
  */
 
 #ifndef LV_STYLE_H
@@ -56,58 +56,58 @@ extern "C"
 
         struct
         {
-            lv_color_t main_color;
-            lv_color_t grad_color;
-            lv_coord_t radius;
-            lv_opa_t opa;
+            lv_color_t main_color;//主要颜色（顶部颜色）
+            lv_color_t grad_color;//渐变色（底色）
+            lv_coord_t radius;//转角半径。（设置为LV_RADIUS_CIRCLE绘制圆圈）
+            lv_opa_t opa;//Opacity（0..255或LV_OPA_TRANSP，LV_OPA_10，LV_OPA_20 ...... LV_OPA_COVER）
 
             struct
             {
-                lv_color_t color;
-                lv_coord_t width;
-                lv_border_part_t part;
-                lv_opa_t opa;
+                lv_color_t color;//边框颜色
+                lv_coord_t width;//边框宽度
+                lv_border_part_t part;//t边框部分（LV_BORDER_LEFT / RIGHT / TOP / BOTTOM / FULL或'OR'ed值）
+                lv_opa_t opa;//边界不透明度
             } border;
 
             struct
             {
-                lv_color_t color;
-                lv_coord_t width;
-                uint8_t type;
+                lv_color_t color;//阴影颜色
+                lv_coord_t width;//阴影宽度
+                uint8_t type;//阴影类型（LV_SHADOW_BOTTOM或LV_SHADOW_FULL）
             } shadow;
 
             struct
             {
-                lv_coord_t ver;
-                lv_coord_t hor;
-                lv_coord_t inner;
+                lv_coord_t ver;//垂直填充
+                lv_coord_t hor;//水平填充
+                lv_coord_t inner;//内部填充
             } padding;
 
             uint8_t empty : 1; /*透明背景（仍绘制边框）*/
-        } body;
+        } body;//身体风格属性
 
         struct
         {
-            lv_color_t color;
-            const lv_font_t *font;
-            lv_coord_t letter_space;
-            lv_coord_t line_space;
-            lv_opa_t opa;
-        } text;
+            lv_color_t color;//文字颜色
+            const lv_font_t *font;//指向字体的指针
+            lv_coord_t letter_space;//字母空间
+            lv_coord_t line_space;//行间距
+            lv_opa_t opa;//文本不透明度（0..255或LV_OPA_TRANSP，LV_OPA_10，LV_OPA_20 ... LV_OPA_COVER）
+        } text;//文本样式属性
 
         struct
         {
-            lv_color_t color;
-            lv_opa_t intense;
-            lv_opa_t opa;
-        } image;
+            lv_color_t color;//基于像素亮度的图像重新着色的颜色
+            lv_opa_t intense;//重色强度（0..255或LV_OPA_TRANSP，LV_OPA_10，LV_OPA_20 ...... LV_OPA_COVER）
+            lv_opa_t opa;//图像不透明度（0..255或LV_OPA_TRANSP，LV_OPA_10，LV_OPA_20 ... LV_OPA_COVER）
+        } image;//图像样式属性
 
         struct
         {
-            lv_color_t color;
-            lv_coord_t width;
-            lv_opa_t opa;
-        } line;
+            lv_color_t color;//线条颜色
+            lv_coord_t width;//线宽
+            lv_opa_t opa;//线不透明度（0..255或LV_OPA_TRANSP，LV_OPA_10，LV_OPA_20 ...... LV_OPA_COVER）
+        } line;//线条样式属性
     } lv_style_t;
 
 #if USE_LV_ANIMATION
@@ -123,7 +123,7 @@ extern "C"
         uint16_t repeat_pause;         /*等待重复*/
         uint8_t playback : 1;          /*动画准备好后再播放*/
         uint8_t repeat : 1;            /*无限重复动画*/
-    } lv_style_anim_t;
+    } lv_style_anim_t;//风格动画
 
 /* 示例初始化
 lv_style_anim_t a;

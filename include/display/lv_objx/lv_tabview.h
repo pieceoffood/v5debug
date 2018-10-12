@@ -3,7 +3,7 @@
  * @Date:   2018-10-10T08:11:49+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-10T09:55:00+08:00
+ * @Last modified time: 2018-10-12T10:07:24+08:00
  */
 
 /**
@@ -72,13 +72,14 @@ extern "C"
 
     typedef enum
     {
-        LV_TABVIEW_STYLE_BG,
-        LV_TABVIEW_STYLE_INDIC,
-        LV_TABVIEW_STYLE_BTN_BG,
-        LV_TABVIEW_STYLE_BTN_REL,
-        LV_TABVIEW_STYLE_BTN_PR,
-        LV_TABVIEW_STYLE_BTN_TGL_REL,
-        LV_TABVIEW_STYLE_BTN_TGL_PR,
+        LV_TABVIEW_STYLE_BG,          //用所有style.body属性的主背景（默认值：lv_style_plain）
+        LV_TABVIEW_STYLE_INDIC,       /*顶部有一个细长矩形表示当前标签。使用所有style.body属性。
+                                它的高度来自body.padding.inner（默认值：lv_style_plain_color）*/
+        LV_TABVIEW_STYLE_BTN_BG,      //签按钮背景的样式。使用所有style.body属性。考虑到body.padding.ver（默认值：lv_style_transp），将自动设置标题高度
+        LV_TABVIEW_STYLE_BTN_REL,     //样式的已发布标签按钮。使用所有style.body属性。（默认：lv_style_tbn_rel）
+        LV_TABVIEW_STYLE_BTN_PR,      //样式的已发布标签按钮。使用所有style.body属性。（默认：lv_style_tbn_rel）
+        LV_TABVIEW_STYLE_BTN_TGL_REL, //样式的切换释放选项卡按钮。使用所有style.body属性。（默认：lv_style_tbn_rel）
+        LV_TABVIEW_STYLE_BTN_TGL_PR,  //切换按下的标签按钮的样式。使用所有style.body属性。（默认值：lv_style_btn_tgl_pr）
     } lv_tabview_style_t;
 
     /**********************
