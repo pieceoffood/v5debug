@@ -6,8 +6,6 @@
  * @Last modified time: 2018-10-12T09:03:03+08:00
  */
 
-
-
 /**
  * @file lv_conf.h
  *
@@ -22,8 +20,8 @@
 
 /* Memory size which will be used by the library
  * to store the graphical objects and other data */
-#define LV_MEM_CUSTOM                                    \
-    1 /*1: use custom malloc/free, 0: use the built-in \ \
+#define LV_MEM_CUSTOM                                            \
+    1 /*1: use custom malloc/free, 0: use the built-in \ \ \ \ \ \
          lv_mem_alloc/lv_mem_free*/
 #if LV_MEM_CUSTOM == 0
 #define LV_MEM_SIZE \
@@ -49,20 +47,20 @@
  * Required for buffered drawing, opacity and anti-aliasing
  * VDB makes the double buffering, you don't need to deal with it!
  * Typical size: ~1/10 screen */
-#define LV_VDB_SIZE                                                           \
-    (LV_VER_RES *                                                             \
-     LV_HOR_RES) /*Size of VDB in pixel count (1/10 screen size is good for \ \
+#define LV_VDB_SIZE                                                                   \
+    (LV_VER_RES *                                                                     \
+     LV_HOR_RES) /*Size of VDB in pixel count (1/10 screen size is good for \ \ \ \ \ \
                     first)*/
-#define LV_VDB_ADR                                                            \
-    0 /*Place VDB to a specific address (e.g. in external RAM) (0: allocate \ \
+#define LV_VDB_ADR                                                                    \
+    0 /*Place VDB to a specific address (e.g. in external RAM) (0: allocate \ \ \ \ \ \
          automatically into RAM)*/
 
 /* Use two Virtual Display buffers (VDB) parallelize rendering and flushing
  * (optional)
  * The flushing should use DMA to write the frame buffer in the background*/
 #define LV_VDB_DOUBLE 0 /*1: Enable the use of 2 VDBs*/
-#define LV_VDB2_ADR                                                            \
-    0 /*Place VDB2 to a specific address (e.g. in external RAM) (0: allocate \ \
+#define LV_VDB2_ADR                                                                    \
+    0 /*Place VDB2 to a specific address (e.g. in external RAM) (0: allocate \ \ \ \ \ \
          automatically into RAM)*/
 
 /* Enable anti-aliasing (lines, and radiuses will be smoothed) */
@@ -89,8 +87,8 @@
 
 /*Color settings*/
 #define LV_COLOR_DEPTH 24 /*Color depth: 1/8/16/24*/
-#define LV_COLOR_TRANSP                                                            \
-    LV_COLOR_LIME /*Images pixels with this color will not be drawn (with chroma \ \
+#define LV_COLOR_TRANSP                                                                    \
+    LV_COLOR_LIME /*Images pixels with this color will not be drawn (with chroma \ \ \ \ \ \
                      keying)*/
 
 /*Text settings*/
@@ -102,13 +100,13 @@
 #define USE_LV_SHADOW 1    /*1: Enable shadows*/
 #define USE_LV_GROUP 1     /*1: Enable object groups (for keyboards)*/
 #define USE_LV_GPU 0       /*1: Enable GPU interface*/
-#define USE_LV_REAL_DRAW                                                                              \
-    1                       /*1: Enable function which draw directly to the frame buffer instead of \ \
+#define USE_LV_REAL_DRAW                                                                                      \
+    1                       /*1: Enable function which draw directly to the frame buffer instead of \ \ \ \ \ \
                                VDB (required if LV_VDB_SIZE = 0)*/
 #define USE_LV_FILESYSTEM 1 /*1: Enable file system (required by images*/
 
 /*Compiler attributes*/
-#define LV_ATTRIBUTE_TICK_INC /* Define a custom attribute to tick increment \ \
+#define LV_ATTRIBUTE_TICK_INC /* Define a custom attribute to tick increment \ \ \ \ \ \
                                  function */
 #define LV_ATTRIBUTE_TASK_HANDLER
 
@@ -129,11 +127,8 @@
  *    FONT USAGE
  *===================*/
 
-/* More info about fonts: https://littlevgl.com/basics#fonts
- * To enable a built-in font use 1,2,4 or 8 values
- * which will determine the bit-per-pixel */
-#define LV_FONT_DEFAULT \
-    &lv_font_dejavu_20 /*Always set a default font from the built-in fonts*/
+/* 有关字体的更多信息：https://littlevgl.com/basics#fonts为了启用内置字体，可以使用1、2、4或8个值，这些值将确定每个像素的位 */
+#define LV_FONT_DEFAULT &lv_font_dejavu_20 /*总是从内置字体设置默认字体*/
 
 #define USE_LV_FONT_DEJAVU_10 0
 #define USE_LV_FONT_DEJAVU_10_LATIN_SUP 0
@@ -145,10 +140,10 @@
 #define USE_LV_FONT_DEJAVU_20_CYRILLIC 4
 #define USE_LV_FONT_SYMBOL_20 4
 
-#define USE_LV_FONT_DEJAVU_30 0
-#define USE_LV_FONT_DEJAVU_30_LATIN_SUP 0
-#define USE_LV_FONT_DEJAVU_30_CYRILLIC 0
-#define USE_LV_FONT_SYMBOL_30 0
+#define USE_LV_FONT_DEJAVU_30 4
+#define USE_LV_FONT_DEJAVU_30_LATIN_SUP 4
+#define USE_LV_FONT_DEJAVU_30_CYRILLIC 4
+#define USE_LV_FONT_SYMBOL_30 4
 
 #define USE_LV_FONT_DEJAVU_40 0
 #define USE_LV_FONT_DEJAVU_40_LATIN_SUP 0
@@ -189,8 +184,8 @@
 /*Label (dependencies: -*/
 #define USE_LV_LABEL 1
 #if USE_LV_LABEL != 0
-#define LV_LABEL_SCROLL_SPEED                                                \
-    25 /*Hor, or ver. scroll speed [px/sec] in 'LV_LABEL_LONG_SCROLL/ROLL' \ \
+#define LV_LABEL_SCROLL_SPEED                                                        \
+    25 /*Hor, or ver. scroll speed [px/sec] in 'LV_LABEL_LONG_SCROLL/ROLL' \ \ \ \ \ \
           mode*/
 #endif
 
@@ -269,8 +264,8 @@
  * ))*/
 #define USE_LV_LIST 1
 #if USE_LV_LIST != 0
-#define LV_LIST_FOCUS_TIME                                                   \
-    100 /*Default animation time of focusing to a list element [ms] (0: no \ \
+#define LV_LIST_FOCUS_TIME                                                           \
+    100 /*Default animation time of focusing to a list element [ms] (0: no \ \ \ \ \ \
            animation)  */
 #endif
 
@@ -284,8 +279,8 @@
 /*Roller (dependencies: lv_ddlist)*/
 #define USE_LV_ROLLER 1
 #if USE_LV_ROLLER != 0
-#define LV_ROLLER_ANIM_TIME                  \
-    200 /*Focus animation time [ms] (0: no \ \
+#define LV_ROLLER_ANIM_TIME                          \
+    200 /*Focus animation time [ms] (0: no \ \ \ \ \ \
            animation)*/
 #endif
 
