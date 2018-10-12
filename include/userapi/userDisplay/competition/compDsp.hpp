@@ -3,19 +3,58 @@
  * @Date:   2018-10-11T10:05:04+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-12T12:35:19+08:00
+ * @Last modified time: 2018-10-12T12:43:13+08:00
  */
 #ifndef COMPDSP_HPP_
 #define COMPDSP_HPP_
 #include "userapi/userDisplay/userDisplay.hpp"
-
-#include <memory>
 
 static lv_obj_t *frSw;         //创建前后场开关
 static lv_obj_t *shootSw;      //创建射高中旗开关
 static lv_obj_t *midShootSw;   //创建是否射中间杆子旗子开关
 static lv_obj_t *platformSw;   //创建是否开台开关
 static lv_obj_t *bumperFlagSw; //创建是否撞中间旗开关
+/**
+ * 自动赛选择时候的确认按钮的动作
+ * @param  btn 要实现动作的按钮的指针
+ * @return     返回不知道啥....
+ */
+static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
+{
+    //获取开关状态
+    sysData.autoIsFR = lv_sw_get_state(frSw);                 //前场后场
+    sysData.autoIsFlag = lv_sw_get_state(shootSw);            //高旗中旗
+    sysData.autoIsShootFlag = lv_sw_get_state(midShootSw);    //是否射中间旗子
+    sysData.autoIsRunPlat = lv_sw_get_state(platformSw);      //是否开台
+    sysData.autoIsBumperFlag = lv_sw_get_state(bumperFlagSw); //是否撞旗
+    char autoInfo[256];
+    const char *side;
+    const char *fr;
+    const char *shootH_M;
+    const char *isShootMid;
+    const char *plat;
+    const char *bumper;
+    sysData.autoSide == 0 ? side = "red" : side = "blue";
+    sysData.autoIsFR == 0 ? fr = "front" : fr = "back";
+    sysData.autoIsFlag == 0 ? shootH_M = "high" : shootH_M = "middle";
+    sysData.autoIsShootFlag == 0 ? isShootMid = "don't shoot mid flag!" : isShootMid = "shoot mid flag";
+    sysData.autoIsRunPlat == 0 ? plat = "dont' run to plat" : plat = "run to plat";
+    sysData.autoIsBumperFlag == 0 ? bumper = "dont't bumper flag" : bumper = " bumper flag";
+
+    lv_obj_del(userDisplay.competitionPage);
+    userDisplay.tempPage = lv_obj_create(nullptr, nullptr);
+    lv_page_set_style(userDisplay.tempPage, LV_PAGE_STYLE_BG, userDisplay.nowStyle); //指针传不过去啊...
+    //显示自动赛选项
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.tempPage, NULL);
+    sprintf(autoInfo, ":%s\n%s\n%s\n%s\n%s\n%s", side, fr, shootH_M, isShootMid, plat, bumper);
+    lv_label_set_text(autoinfoLab, autoInfo);
+    // lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
+    // lv_label_set_text(sensorsLab, "gyro:");
+    //TODO 传感器都放上
+
+    std::cout << "pressed" << std::endl;
+    return LV_RES_OK;
+}
 static void tabChose(lv_obj_t *tab, uint16_t x)
 {
 
@@ -83,11 +122,11 @@ class CompDsp
     void createTab(lv_obj_t *parent)
     {
         //创建选项
-        lv_obj_t *frSw = lv_sw_create(parent, NULL);         //创建前后场开关
-        lv_obj_t *shootSw = lv_sw_create(parent, NULL);      //创建射高中旗开关
-        lv_obj_t *midShootSw = lv_sw_create(parent, NULL);   //创建是否射中间杆子旗子开关
-        lv_obj_t *platformSw = lv_sw_create(parent, NULL);   //创建是否开台开关
-        lv_obj_t *bumperFlagSw = lv_sw_create(parent, NULL); //创建是否撞中间旗开关
+        frSw = lv_sw_create(parent, NULL);         //创建前后场开关
+        shootSw = lv_sw_create(parent, NULL);      //创建射高中旗开关
+        midShootSw = lv_sw_create(parent, NULL);   //创建是否射中间杆子旗子开关
+        platformSw = lv_sw_create(parent, NULL);   //创建是否开台开关
+        bumperFlagSw = lv_sw_create(parent, NULL); //创建是否撞中间旗开关
 
         lv_obj_t *frLab = lv_label_create(parent, NULL);         //创建前后场开关文本条
         lv_obj_t *shootLab = lv_label_create(parent, NULL);      //创建射高旗中旗开关文本条
@@ -120,12 +159,6 @@ class CompDsp
         lv_obj_align(bumperFlagLab, bumperFlagSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
         lv_obj_align(confirmBtn, bumperFlagLab, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
         lv_obj_align(confirmLab, confirmBtn, LV_ALIGN_IN_BOTTOM_MID, 0, -15);
-        //获取开关状态
-        sysData.autoIsFR = lv_sw_get_state(frSw);                 //前场后场
-        sysData.autoIsFlag = lv_sw_get_state(shootSw);            //高旗中旗
-        sysData.autoIsShootFlag = lv_sw_get_state(midShootSw);    //是否射中间旗子
-        sysData.autoIsRunPlat = lv_sw_get_state(platformSw);      //是否开台
-        sysData.autoIsBumperFlag = lv_sw_get_state(bumperFlagSw); //是否撞旗
         //确认按钮的动作
         lv_btn_set_action(confirmBtn, LV_BTN_ACTION_PR, confirmBtnIncomp);
     }
