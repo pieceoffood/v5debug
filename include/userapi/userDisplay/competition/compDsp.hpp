@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:05:04+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-12T17:18:34+08:00
+ * @Last modified time: 2018-10-13T09:11:23+08:00
  */
 #ifndef COMPDSP_HPP_
 #define COMPDSP_HPP_
@@ -41,11 +41,13 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsRunPlat == 0 ? plat = "dont' run to plat" : plat = "run to plat";
     sysData.autoIsBumperFlag == 0 ? bumper = "dont't bumper flag" : bumper = "bumper flag";
     lv_obj_del(userDisplay.competitionPage);
+    lv_style_copy(&userDisplay.fontStyle, &lv_style_plain); /*复制内置样式作为起点*/
+    userDisplay.fontStyle.text.font = &lv_font_dejavu_30;
     userDisplay.tempPage = lv_obj_create(nullptr, nullptr);
     lv_page_set_style(userDisplay.tempPage, LV_PAGE_STYLE_BG, userDisplay.nowStyle); //指针传不过去啊...
     //显示自动赛选项
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay.tempPage, NULL);
-    //lv_label_set_style(label, );
+    lv_obj_set_style(autoinfoLab, &userDisplay.fontStyle);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
     // lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
@@ -96,7 +98,6 @@ class CompDsp
         //设置样式
         lv_style_copy(&_data->redStyle, &lv_style_plain);  /*复制内置样式作为起点*/
         lv_style_copy(&_data->blueStyle, &lv_style_plain); /*复制内置样式作为起点*/
-        lv_style_copy(&_data->fontStyle, &lv_style_plain); /*复制内置样式作为起点*/
 
         _data->redStyle.body.border.color = LV_COLOR_RED;   //边框颜色
         _data->blueStyle.body.border.color = LV_COLOR_BLUE; //边框颜色

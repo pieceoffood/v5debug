@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-12T14:49:07+08:00
+ * @Last modified time: 2018-10-13T08:39:09+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -28,7 +28,7 @@ class UserDisplay
     //样式
     lv_style_t redStyle;
     lv_style_t blueStyle;
-    lv_style_t fontStyle;//字体样式
+    lv_style_t fontStyle; //字体样式
     lv_style_t *nowStyle = &redStyle;
 
     //标题栏
@@ -39,7 +39,7 @@ class UserDisplay
         /*初始化外星人主题
         * 210：绿色色调值
         * NULL: 使用默认字体 (LV_FONT_DEFAULT)*/
-        _theme = lv_theme_alien_init(210, NULL);
+        _theme = lv_theme_alien_init(100, NULL);
         /*设置Surand系统主题*/
         lv_theme_set_current(_theme);
         //创建页面
