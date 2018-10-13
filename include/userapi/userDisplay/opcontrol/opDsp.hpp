@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:26:32+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T12:41:44+08:00
+ * @Last modified time: 2018-10-13T17:37:43+08:00
  */
 #ifndef OPDSP_HPP_
 #define OPDSP_HPP_
@@ -20,14 +20,12 @@ class OpDsp
     OpDsp(UserDisplay *data) : _data(data)
     {
         lv_scr_load(_data->opcontrolPage);
-        if (!pros::competition::is_connected())
-        {
+        if (!pros::competition::is_connected()) //没插场控
             startP(_data->opcontrolPage);
-        }
-        else
+        else //插了场控
         {
             lv_obj_t *lab = lv_label_create(_data->opcontrolPage, nullptr);
-            lv_label_set_text(lab, "robot opcontroling...");
+            lv_label_set_text(lab, "遥控程序执行中");
         }
     }
     ~OpDsp()

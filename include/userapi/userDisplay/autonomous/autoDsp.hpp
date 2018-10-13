@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:44:00+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T10:50:13+08:00
+ * @Last modified time: 2018-10-13T17:13:05+08:00
  */
 #ifndef AUTODSP_HPP_
 #define AUTODSP_HPP_
@@ -18,7 +18,7 @@ class AutoDsp
     {
         lv_scr_load(_data->autonomousPage);
         lv_obj_t *lab = lv_label_create(_data->autonomousPage, nullptr);
-        lv_label_set_text(lab, "robot autonomousing...");
+        lv_label_set_text(lab, "自动赛进行中");
     }
     ~AutoDsp() { std::cout << "autoDsp destructor" << std::endl; }
 };
