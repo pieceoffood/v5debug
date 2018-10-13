@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:05:04+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T09:11:23+08:00
+ * @Last modified time: 2018-10-13T11:04:49+08:00
  */
 #ifndef COMPDSP_HPP_
 #define COMPDSP_HPP_
@@ -34,21 +34,19 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     const char *isShootMid;
     const char *plat;
     const char *bumper;
-    sysData.autoSide == 0 ? side = "red" : side = "blue";
-    sysData.autoIsFR == 0 ? fr = "front" : fr = "back";
-    sysData.autoIsFlag == 0 ? shootH_M = "high" : shootH_M = "middle";
-    sysData.autoIsShootFlag == 0 ? isShootMid = "don't shoot mid flag!" : isShootMid = "shoot mid flag";
-    sysData.autoIsRunPlat == 0 ? plat = "dont' run to plat" : plat = "run to plat";
-    sysData.autoIsBumperFlag == 0 ? bumper = "dont't bumper flag" : bumper = "bumper flag";
+    sysData.autoSide == 0 ? side = "红方" : side = "蓝方";
+    sysData.autoIsFR == 0 ? fr = "前场" : fr = "后场";
+    sysData.autoIsFlag == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
+    sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
+    sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
+    sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
     lv_obj_del(userDisplay.competitionPage);
-    lv_style_copy(&userDisplay.fontStyle, &lv_style_plain); /*复制内置样式作为起点*/
-    userDisplay.fontStyle.text.font = &lv_font_dejavu_30;
     userDisplay.tempPage = lv_obj_create(nullptr, nullptr);
     lv_page_set_style(userDisplay.tempPage, LV_PAGE_STYLE_BG, userDisplay.nowStyle); //指针传不过去啊...
     //显示自动赛选项
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay.tempPage, NULL);
-    lv_obj_set_style(autoinfoLab, &userDisplay.fontStyle);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
+    lv_label_set_style(autoinfoLab, &userDisplay.fontStyle); //应用字体样式
     lv_label_set_text(autoinfoLab, autoInfo);
     // lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
     // lv_label_set_text(sensorsLab, "gyro:");
@@ -124,12 +122,12 @@ class CompDsp
         lv_obj_t *confirmBtn = lv_btn_create(_data->competitionPage, NULL);    //创建确认文本开关
         lv_obj_t *confirmLab = lv_label_create(_data->competitionPage, frLab); //创建是否撞中间旗开关文本条
 
-        lv_label_set_text(frLab, "front_back");
-        lv_label_set_text(shootLab, "high_mid");
-        lv_label_set_text(midShootLab, "isShootFlag");
-        lv_label_set_text(platformLab, "isRunToPlat");
-        lv_label_set_text(bumperFlagLab, "isBumperFlag");
-        lv_label_set_text(confirmLab, "confirm");
+        lv_label_set_text(frLab, "前场&后场");
+        lv_label_set_text(shootLab, "高旗&低旗");
+        lv_label_set_text(midShootLab, "是否二次射旗");
+        lv_label_set_text(platformLab, "是否开台");
+        lv_label_set_text(bumperFlagLab, "是否二次撞旗");
+        lv_label_set_text(confirmLab, "确认");
         //大小设置
         lv_obj_set_size(confirmBtn, 200, 50);
         //位置设置

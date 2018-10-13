@@ -3,7 +3,7 @@
  * @Date:   2018-10-10T08:11:49+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T09:19:43+08:00
+ * @Last modified time: 2018-10-13T10:30:57+08:00
  */
 
 #ifndef LV_CONF_H
@@ -81,7 +81,7 @@
 #define USE_LV_SHADOW 1     /*1: Enable shadows*/
 #define USE_LV_GROUP 1      /*1: Enable object groups (for keyboards)*/
 #define USE_LV_GPU 0        /*1: Enable GPU interface*/
-#define USE_LV_REAL_DRAW 1  /*1: Enable function which draw directly to the frame buffer instead of \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+#define USE_LV_REAL_DRAW 1  /*1: Enable function which draw directly to the frame buffer instead of \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
 VDB (required if LV_VDB_SIZE = 0)*/
 #define USE_LV_FILESYSTEM 1 /*1: Enable file system (required by images*/
 
@@ -106,6 +106,7 @@ VDB (required if LV_VDB_SIZE = 0)*/
 
 /* 有关字体的更多信息：https://littlevgl.com/basics#fonts为了启用内置字体，可以使用1、2、4或8个值，这些值将确定每个像素的位 */
 #define LV_FONT_DEFAULT &lv_font_dejavu_20 /*总是从内置字体设置默认字体*/
+//#define LV_FONT_DEFAULT &myfont /*我的自定义字体*/
 
 #define USE_LV_FONT_DEJAVU_10 0
 #define USE_LV_FONT_DEJAVU_10_LATIN_SUP 0

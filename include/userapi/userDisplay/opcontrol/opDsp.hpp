@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:26:32+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-12T11:04:53+08:00
+ * @Last modified time: 2018-10-13T11:06:24+08:00
  */
 #ifndef OPDSP_HPP_
 #define OPDSP_HPP_
@@ -45,10 +45,10 @@ class OpDsp
     }
     void startP(lv_obj_t *para)
     {
-        static const char *btnm_map[] = {"onlineTest", "robotTest", "\n",
-                                         "autonomous", "opcontorl", "\n",
-                                         "frPid", "rotatePid", "\n",
-                                         "odomTest", "customTest", ""};
+        static const char *btnm_map[] = {"在线检测", "机器人检测", "\n",
+                                         "自动赛", "手动赛", "\n",
+                                         "前后PID", "旋转PID", "\n",
+                                         "ODOM测试", "自定义测试", ""};
 
         lv_obj_t *btnm = lv_btnm_create(para, NULL); //创建按钮集群
         lv_btnm_set_map(btnm, btnm_map);

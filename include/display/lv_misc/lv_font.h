@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:08:09+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T08:36:58+08:00
+ * @Last modified time: 2018-10-13T10:07:44+08:00
  */
 
 /**
@@ -158,10 +158,11 @@ extern "C"
  **********************/
 #define LV_FONT_DECLARE(font_name) extern lv_font_t font_name;
 
-/******************************
+    /******************************
  *  FONT DECLARATION INCLUDES
  *****************************/
-
+    //extern lv_font_t myfont;
+    LV_FONT_DECLARE(myfont)
 /*10 px */
 #if USE_LV_FONT_DEJAVU_10
     LV_FONT_DECLARE(lv_font_dejavu_10)

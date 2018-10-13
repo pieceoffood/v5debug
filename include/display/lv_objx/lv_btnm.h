@@ -3,12 +3,7 @@
  * @Date:   2018-10-08T14:08:09+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T17:36:20+08:00
- */
-
-/**
- * @file lv_btnm.h
- *
+ * @Last modified time: 2018-10-13T11:06:32+08:00
  */
 
 #ifndef LV_BTNM_H

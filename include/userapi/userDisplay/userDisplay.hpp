@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T08:39:09+08:00
+ * @Last modified time: 2018-10-13T11:03:43+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -42,6 +42,10 @@ class UserDisplay
         _theme = lv_theme_alien_init(100, NULL);
         /*设置Surand系统主题*/
         lv_theme_set_current(_theme);
+        //增加自定义字库
+        lv_font_add(&myfont, NULL);
+        lv_style_copy(&fontStyle, &lv_style_plain);
+        fontStyle.text.font = &myfont;
         //创建页面
         initPage = lv_obj_create(nullptr, nullptr);
         disabledPage = lv_obj_create(nullptr, nullptr);
