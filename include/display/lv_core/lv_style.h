@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:08:09+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-12T10:33:30+08:00
+ * @Last modified time: 2018-10-13T14:24:59+08:00
  */
 
 #ifndef LV_STYLE_H
@@ -67,14 +67,14 @@ extern "C"
                 lv_coord_t width;      //边框宽度
                 lv_border_part_t part; //t边框部分（LV_BORDER_LEFT / RIGHT / TOP / BOTTOM / FULL或'OR'ed值）
                 lv_opa_t opa;          //边界不透明度
-            } border;
+            } border;                  //边框
 
             struct
             {
                 lv_color_t color; //阴影颜色
                 lv_coord_t width; //阴影宽度
                 uint8_t type;     //阴影类型（LV_SHADOW_BOTTOM或LV_SHADOW_FULL）
-            } shadow;
+            } shadow;             //印象
 
             struct
             {

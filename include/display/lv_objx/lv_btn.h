@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T10:28:31+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-08T16:52:53+08:00
+ * @Last modified time: 2018-10-13T11:08:59+08:00
  */
 #ifndef LV_BTN_H
 #define LV_BTN_H
@@ -63,11 +63,9 @@ extern "C"
         lv_action_t actions[LV_BTN_ACTION_NUM];
         lv_style_t *styles[LV_BTN_STATE_NUM]; /*每个州的风格*/
 
-        lv_btn_state_t
-            state;          /*来自'lv_btn_state_t'枚举的按钮的当前状态*/
-        uint8_t toggle : 1; /*1：启用切换*/
-        uint8_t
-            long_pr_action_executed : 1; /*1：执行长按动作（由...处理图书馆）*/
+        lv_btn_state_t state;                /*来自'lv_btn_state_t'枚举的按钮的当前状态*/
+        uint8_t toggle : 1;                  /*1：启用切换*/
+        uint8_t long_pr_action_executed : 1; /*1：执行长按动作（由...处理图书馆）*/
     } lv_btn_ext_t;
 
     /*样式*/

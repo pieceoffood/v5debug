@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:26:32+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T11:06:24+08:00
+ * @Last modified time: 2018-10-13T12:41:44+08:00
  */
 #ifndef OPDSP_HPP_
 #define OPDSP_HPP_
@@ -52,7 +52,8 @@ class OpDsp
 
         lv_obj_t *btnm = lv_btnm_create(para, NULL); //创建按钮集群
         lv_btnm_set_map(btnm, btnm_map);
-        lv_obj_set_size(btnm, LV_HOR_RES, LV_VER_RES);
+        lv_obj_set_size(btnm, LV_HOR_RES, LV_VER_RES - 30);
+        lv_obj_set_y(btnm, 30);
     }
 };
 

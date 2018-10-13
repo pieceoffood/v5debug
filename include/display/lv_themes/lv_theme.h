@@ -1,4 +1,14 @@
 /**
+ * @Author: yan
+ * @Date:   2018-10-10T08:11:49+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-13T11:22:23+08:00
+ */
+
+
+
+/**
  *@file lv_themes.h
  *
  */
@@ -7,7 +17,8 @@
 #define LV_THEMES_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*********************
@@ -16,236 +27,263 @@ extern "C" {
 #include "display/lv_conf.h"
 #include "display/lv_core/lv_style.h"
 
-/*********************
+    /*********************
  *    DEFINES
  *********************/
 
-/**********************
+    /**********************
  *    TYPEDEFS
  **********************/
 
-typedef struct {
-  lv_style_t *bg;
-  lv_style_t *panel;
+    typedef struct
+    {
+        lv_style_t *bg;
+        lv_style_t *panel;
 
 #if USE_LV_CONT != 0
-  lv_style_t *cont;
+        lv_style_t *cont;
 #endif
 #if USE_LV_BTN != 0
-  struct {
-    lv_style_t *rel;
-    lv_style_t *pr;
-    lv_style_t *tgl_rel;
-    lv_style_t *tgl_pr;
-    lv_style_t *ina;
-  } btn;
+        struct
+        {
+            lv_style_t *rel;
+            lv_style_t *pr;
+            lv_style_t *tgl_rel;
+            lv_style_t *tgl_pr;
+            lv_style_t *ina;
+        } btn;
 #endif
 
 #if USE_LV_LABEL != 0
-  struct {
-    lv_style_t *prim;
-    lv_style_t *sec;
-    lv_style_t *hint;
-  } label;
+        struct
+        {
+            lv_style_t *prim;
+            lv_style_t *sec;
+            lv_style_t *hint;
+        } label;
 #endif
 
 #if USE_LV_IMG != 0
-  struct {
-    lv_style_t *light;
-    lv_style_t *dark;
-  } img;
+        struct
+        {
+            lv_style_t *light;
+            lv_style_t *dark;
+        } img;
 #endif
 
 #if USE_LV_LINE != 0
-  struct {
-    lv_style_t *decor;
-  } line;
+        struct
+        {
+            lv_style_t *decor;
+        } line;
 #endif
 
 #if USE_LV_LED != 0
-  lv_style_t *led;
+        lv_style_t *led;
 #endif
 
 #if USE_LV_BAR != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *indic;
-  } bar;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *indic;
+        } bar;
 #endif
 
 #if USE_LV_SLIDER != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *indic;
-    lv_style_t *knob;
-  } slider;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *indic;
+            lv_style_t *knob;
+        } slider;
 #endif
 
 #if USE_LV_LMETER != 0
-  lv_style_t *lmeter;
+        lv_style_t *lmeter;
 #endif
 
 #if USE_LV_GAUGE != 0
-  lv_style_t *gauge;
+        lv_style_t *gauge;
 #endif
 
 #if USE_LV_SW != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *indic;
-    lv_style_t *knob_off;
-    lv_style_t *knob_on;
-  } sw;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *indic;
+            lv_style_t *knob_off;
+            lv_style_t *knob_on;
+        } sw;
 #endif
 
 #if USE_LV_CHART != 0
-  lv_style_t *chart;
+        lv_style_t *chart;
 #endif
 
 #if USE_LV_CB != 0
-  struct {
-    lv_style_t *bg;
-    struct {
-      lv_style_t *rel;
-      lv_style_t *pr;
-      lv_style_t *tgl_rel;
-      lv_style_t *tgl_pr;
-      lv_style_t *ina;
-    } box;
-  } cb;
+        struct
+        {
+            lv_style_t *bg;
+            struct
+            {
+                lv_style_t *rel;
+                lv_style_t *pr;
+                lv_style_t *tgl_rel;
+                lv_style_t *tgl_pr;
+                lv_style_t *ina;
+            } box;
+        } cb;
 #endif
 
 #if USE_LV_BTNM != 0
-  struct {
-    lv_style_t *bg;
-    struct {
-      lv_style_t *rel;
-      lv_style_t *pr;
-      lv_style_t *tgl_rel;
-      lv_style_t *tgl_pr;
-      lv_style_t *ina;
-    } btn;
-  } btnm;
+        struct
+        {
+            lv_style_t *bg;
+            struct
+            {
+                lv_style_t *rel;
+                lv_style_t *pr;
+                lv_style_t *tgl_rel;
+                lv_style_t *tgl_pr;
+                lv_style_t *ina;
+            } btn;
+        } btnm;
 #endif
 
 #if USE_LV_KB != 0
-  struct {
-    lv_style_t *bg;
-    struct {
-      lv_style_t *rel;
-      lv_style_t *pr;
-      lv_style_t *tgl_rel;
-      lv_style_t *tgl_pr;
-      lv_style_t *ina;
-    } btn;
-  } kb;
+        struct
+        {
+            lv_style_t *bg;
+            struct
+            {
+                lv_style_t *rel;
+                lv_style_t *pr;
+                lv_style_t *tgl_rel;
+                lv_style_t *tgl_pr;
+                lv_style_t *ina;
+            } btn;
+        } kb;
 #endif
 
 #if USE_LV_MBOX != 0
-  struct {
-    lv_style_t *bg;
-    struct {
-      lv_style_t *bg;
-      lv_style_t *rel;
-      lv_style_t *pr;
-    } btn;
-  } mbox;
+        struct
+        {
+            lv_style_t *bg;
+            struct
+            {
+                lv_style_t *bg;
+                lv_style_t *rel;
+                lv_style_t *pr;
+            } btn;
+        } mbox;
 #endif
 
 #if USE_LV_PAGE != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *scrl;
-    lv_style_t *sb;
-  } page;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *scrl;
+            lv_style_t *sb;
+        } page;
 #endif
 
 #if USE_LV_TA != 0
-  struct {
-    lv_style_t *area;
-    lv_style_t *oneline;
-    lv_style_t *cursor;
-    lv_style_t *sb;
-  } ta;
+        struct
+        {
+            lv_style_t *area;
+            lv_style_t *oneline;
+            lv_style_t *cursor;
+            lv_style_t *sb;
+        } ta;
 #endif
 
 #if USE_LV_LIST
-  struct {
-    lv_style_t *bg;
-    lv_style_t *scrl;
-    lv_style_t *sb;
-    struct {
-      lv_style_t *rel;
-      lv_style_t *pr;
-      lv_style_t *tgl_rel;
-      lv_style_t *tgl_pr;
-      lv_style_t *ina;
-    } btn;
-  } list;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *scrl;
+            lv_style_t *sb;
+            struct
+            {
+                lv_style_t *rel;
+                lv_style_t *pr;
+                lv_style_t *tgl_rel;
+                lv_style_t *tgl_pr;
+                lv_style_t *ina;
+            } btn;
+        } list;
 #endif
 
 #if USE_LV_DDLIST != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *sel;
-    lv_style_t *sb;
-  } ddlist;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *sel;
+            lv_style_t *sb;
+        } ddlist;
 #endif
 
 #if USE_LV_ROLLER != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *sel;
-  } roller;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *sel;
+        } roller;
 #endif
 
 #if USE_LV_TABVIEW != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *indic;
-    struct {
-      lv_style_t *bg;
-      lv_style_t *rel;
-      lv_style_t *pr;
-      lv_style_t *tgl_rel;
-      lv_style_t *tgl_pr;
-    } btn;
-  } tabview;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *indic;
+            struct
+            {
+                lv_style_t *bg;
+                lv_style_t *rel;
+                lv_style_t *pr;
+                lv_style_t *tgl_rel;
+                lv_style_t *tgl_pr;
+            } btn;
+        } tabview;
 #endif
 
 #if USE_LV_WIN != 0
-  struct {
-    lv_style_t *bg;
-    lv_style_t *sb;
-    lv_style_t *header;
-    struct {
-      lv_style_t *bg;
-      lv_style_t *scrl;
-    } content;
-    struct {
-      lv_style_t *rel;
-      lv_style_t *pr;
-    } btn;
-  } win;
+        struct
+        {
+            lv_style_t *bg;
+            lv_style_t *sb;
+            lv_style_t *header;
+            struct
+            {
+                lv_style_t *bg;
+                lv_style_t *scrl;
+            } content;
+            struct
+            {
+                lv_style_t *rel;
+                lv_style_t *pr;
+            } btn;
+        } win;
 #endif
-} lv_theme_t;
+    } lv_theme_t;
 
-/**********************
+    /**********************
  *  GLOBAL PROTOTYPES
  **********************/
 
-/**
+    /**
 *为系统设置主题。
 *从现在开始，默认情况下，所有创建的对象都将使用此主题中的样式
 * @param指向主题的指针（返回值：'lv_theme_init_xxx（）'）
  */
-void lv_theme_set_current(lv_theme_t *th);
+    void lv_theme_set_current(lv_theme_t *th);
 
-/**
+    /**
 *获取当前的系统主题。
 * @return指向当前系统主题的指针。如果未设置，则为NULL。
  */
-lv_theme_t *lv_theme_get_current(void);
+    lv_theme_t *lv_theme_get_current(void);
 
 /**********************
  *    MACROS
@@ -257,8 +295,8 @@ lv_theme_t *lv_theme_get_current(void);
 // #include "lv_theme_templ.h"
 // #include "lv_theme_default.h"
 #include "lv_theme_alien.h"
-// #include "lv_theme_night.h"
-// #include "lv_theme_mono.h"
+    // #include "lv_theme_night.h"
+    // #include "lv_theme_mono.h"
 
 #ifdef __cplusplus
 } /* extern "C" */

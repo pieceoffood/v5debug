@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:08:09+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T11:06:32+08:00
+ * @Last modified time: 2018-10-13T11:17:46+08:00
  */
 
 #ifndef LV_BTNM_H
@@ -29,8 +29,7 @@ extern "C"
  *********************/
 
 /*控制字节*/
-#define LV_BTNM_CTRL_CODE \
-    0x80 /*The control byte has to begin (if present) with 0b10xxxxxx*/
+#define LV_BTNM_CTRL_CODE 0x80 /*The control byte has to begin (if present) with 0b10xxxxxx*/
 #define LV_BTNM_CTRL_MASK 0xC0
 #define LV_BTNM_WIDTH_MASK 0x07
 #define LV_BTNM_HIDE_MASK 0x08
@@ -65,12 +64,12 @@ extern "C"
 
     typedef enum
     {
-        LV_BTNM_STYLE_BG,
-        LV_BTNM_STYLE_BTN_REL,
-        LV_BTNM_STYLE_BTN_PR,
-        LV_BTNM_STYLE_BTN_TGL_REL,
-        LV_BTNM_STYLE_BTN_TGL_PR,
-        LV_BTNM_STYLE_BTN_INA,
+        LV_BTNM_STYLE_BG,  //背景样式。使用所有style.body属性，包括填充默认值：lv_style_pretty
+        LV_BTNM_STYLE_BTN_REL,//释放按钮的样式。默认值：lv_style_btn_rel
+        LV_BTNM_STYLE_BTN_PR,//按下按钮的样式。默认值：lv_style_btn_pr
+        LV_BTNM_STYLE_BTN_TGL_REL,//切换释放按钮的样式。默认值：lv_style_btn_tgl_rel
+        LV_BTNM_STYLE_BTN_TGL_PR,//切换按下按钮的样式。默认值：lv_style_btn_tgl_pr
+        LV_BTNM_STYLE_BTN_INA,//非活动按钮的样式。默认值：lv_style_btn_ina
     } lv_btnm_style_t;
 
     /**********************
