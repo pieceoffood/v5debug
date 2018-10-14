@@ -3,7 +3,7 @@
  * @Date:   2018-10-14T14:25:38+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-14T15:32:09+08:00
+ * @Last modified time: 2018-10-14T15:50:59+08:00
  */
 #include "main.h"
 static lv_obj_t *frSw;         //创建前后场开关
@@ -47,7 +47,8 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_label_set_text(autoinfoLab, autoInfo);
     //TODO 传感器都放上
     lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
-    lv_obj_align(sensorsLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
+    lv_obj_align(sensorsLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 50);
+    //TODO 这个应该用多线程吧
     sprintf(sensorsInfo, "gyro:%d\n", static_cast<int>(gyro.get()));
     lv_label_set_text(sensorsLab, sensorsInfo);
     pros::delay(20);
