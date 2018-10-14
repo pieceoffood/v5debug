@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T10:05:04+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T15:26:45+08:00
+ * @Last modified time: 2018-10-14T13:45:56+08:00
  */
 #ifndef COMPDSP_HPP_
 #define COMPDSP_HPP_
@@ -28,6 +28,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsRunPlat = lv_sw_get_state(platformSw);      //是否开台
     sysData.autoIsBumperFlag = lv_sw_get_state(bumperFlagSw); //是否撞旗
     char autoInfo[256];
+    char sensorsInfo[256];
     const char *side;
     const char *fr;
     const char *shootH_M;
@@ -46,8 +47,10 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay.tempPage, NULL);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
-    // lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
-    // lv_label_set_text(sensorsLab, "gyro:");
+    lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
+    lv_obj_align(sensorsLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
+    sprintf(sensorsInfo, "gyro:%lf\n", gyro.get());
+    lv_label_set_text(sensorsLab, sensorsInfo);
     //TODO 传感器都放上
 
     std::cout << "pressed" << std::endl;

@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T15:24:00+08:00
+ * @Last modified time: 2018-10-14T13:43:06+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -48,6 +48,6 @@ class UserDisplay
         lv_obj_align(loopTimeLab, nullptr, LV_ALIGN_IN_TOP_MID, 0, 0);
     }
 };
-extern UserDisplay userDisplay;
 
+extern UserDisplay userDisplay;
 #endif /* end of include guard: USERDISPLAY_HPP_ */

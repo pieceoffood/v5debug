@@ -3,10 +3,11 @@
  * @Date:   2018-10-11T13:18:43+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T13:34:22+08:00
+ * @Last modified time: 2018-10-14T13:43:13+08:00
  */
 #ifndef SYSTEMDATA_HPP_
 #define SYSTEMDATA_HPP_
+#include "okapi/api.hpp"
 struct systemData
 {
     //自动赛参数
@@ -19,4 +20,5 @@ struct systemData
     bool autoIsBumperFlag = 0; //0不撞中间旗 1 撞中间旗子
 };
 extern systemData sysData;
-#endif /* end of include guard: SYSTEMDATA_HPP_ */
+extern okapi::ADIGyro gyro; //陀螺仪初始化
+#endif                      /* end of include guard: SYSTEMDATA_HPP_ */

@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-13T11:06:38+08:00
+ * @Last modified time: 2018-10-14T12:21:09+08:00
  */
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
@@ -21,7 +21,8 @@
 // using namespace pros;
 // using namespace okapi;
 //这里可以添加更多的头文件
-#include "okapi/api.hpp"
+
+#include "example.hpp"
 #include "userapi/userapi.hpp"
 
 //#include "pros/api_legacy.h"
