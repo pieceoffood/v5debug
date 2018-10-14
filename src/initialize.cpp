@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-14T15:28:12+08:00
+ * @Last modified time: 2018-10-14T15:47:24+08:00
  */
 
 #include "main.h"
@@ -32,18 +32,5 @@ void initialize()
     }
     else
         lv_label_set_text(lab2, "陀螺仪初始化完毕");
-    // pros::delay(1000);
-    // while (1)
-    // {
-    //     std::cout << "gyro:" << gyro.get() << std::endl;
-    //     pros::delay(20);
-    // }
     lv_label_set_text(lab1, "机器人初始化完毕...");
-}
-/**
-* 场控没开自动赛 没开手动 完全禁止的时候使用的函数
- */
-void disabled()
-{
-    DisabledDsp disabledDsp(&userDisplay);
 }
