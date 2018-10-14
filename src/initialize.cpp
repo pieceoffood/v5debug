@@ -16,9 +16,10 @@ UserDisplay userDisplay; //图像数据类
  */
 void initialize()
 {
-    lv_scr_load(userDisplay.initPage);
-    lv_obj_t *lab1 = lv_label_create(userDisplay.initPage, nullptr);
-    lv_obj_t *lab2 = lv_label_create(userDisplay.initPage, nullptr);
+    lv_obj_t *initPage = lv_obj_create(nullptr, nullptr);
+    lv_scr_load(initPage);
+    lv_obj_t *lab1 = lv_label_create(initPage, nullptr);
+    lv_obj_t *lab2 = lv_label_create(initPage, nullptr);
     lv_obj_set_y(lab2, 20);
     lv_label_set_text(lab1, "机器人初始化中...");
     lv_label_set_text(lab2, "陀螺仪初始化中");
@@ -33,4 +34,6 @@ void initialize()
     else
         lv_label_set_text(lab2, "陀螺仪初始化完毕");
     lv_label_set_text(lab1, "机器人初始化完毕...");
+    lv_obj_del(initPage);
+    initPage = nullptr;
 }

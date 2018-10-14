@@ -39,14 +39,19 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
     sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
     sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
-    lv_obj_del(userDisplay.competitionPage);
-    userDisplay.tempPage = lv_obj_create(nullptr, nullptr);
+    if (userDisplay.competitionPage != nullptr)
+    {
+        lv_obj_del(userDisplay.competitionPage);
+        userDisplay.competitionPage = nullptr;
+    }
+    if (userDisplay.confirmPage == nullptr)
+        userDisplay.confirmPage = lv_obj_create(nullptr, nullptr);
     //显示自动赛选项
-    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.tempPage, NULL);
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.confirmPage, NULL);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
     //TODO 传感器都放上
-    lv_obj_t *sensorsLab = lv_label_create(userDisplay.tempPage, NULL);
+    lv_obj_t *sensorsLab = lv_label_create(userDisplay.confirmPage, NULL);
     lv_obj_align(sensorsLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 50, 0);
     //TODO 这个应该用多线程吧
     sprintf(sensorsInfo, "gyro:%d\n", static_cast<int>(gyro.get()));
@@ -91,8 +96,8 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
  */
 void competition_initialize()
 {
+    userDisplay.createCompPage();
     lv_obj_t *_confirmBtn;
-    lv_scr_load(userDisplay.competitionPage);
     //创建标签栏
     lv_obj_t *tab = lv_tabview_create(userDisplay.competitionPage, NULL);
     userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色

@@ -11,7 +11,7 @@
   */
 void disabled()
 {
-    lv_scr_load(userDisplay.disabledPage);
+    userDisplay.createDisPage();
     lv_obj_t *lab = lv_label_create(userDisplay.disabledPage, nullptr);
     lv_label_set_text(lab, "场控关闭状态...");
 }

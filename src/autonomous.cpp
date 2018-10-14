@@ -12,13 +12,7 @@
  */
 void autonomous()
 {
-    lv_scr_load(userDisplay.autonomousPage);
+    userDisplay.createAutoPage();
     lv_obj_t *lab = lv_label_create(userDisplay.autonomousPage, nullptr);
     lv_label_set_text(lab, "自动赛进行中");
-    if (userDisplay.tempPage != nullptr)
-    {
-        lv_obj_del(userDisplay.tempPage);
-        userDisplay.tempPage = nullptr;
-        std::cout << "delete tempPage!" << std::endl;
-    }
 }
