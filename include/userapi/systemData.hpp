@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T13:18:43+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-14T13:43:13+08:00
+ * @Last modified time: 2018-10-14T15:04:34+08:00
  */
 #ifndef SYSTEMDATA_HPP_
 #define SYSTEMDATA_HPP_
@@ -18,7 +18,8 @@ struct systemData
     bool autoIsShootFlag = 0;  //是否射中间的旗子 0不射 1射
     bool autoIsRunPlat = 0;    //0不开台 1 开台
     bool autoIsBumperFlag = 0; //0不撞中间旗 1 撞中间旗子
+    //传感器数据
 };
 extern systemData sysData;
-extern okapi::ADIGyro gyro; //陀螺仪初始化
-#endif                      /* end of include guard: SYSTEMDATA_HPP_ */
+
+#endif /* end of include guard: SYSTEMDATA_HPP_ */
