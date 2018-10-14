@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-11T13:21:45+08:00
+ * @Last modified time: 2018-10-14T11:54:51+08:00
  */
 
 #include "main.h"
@@ -13,8 +13,9 @@
 void initialize()
 {
     InitDsp initDsp(&userDisplay);
+    while (1)
+        pros::delay(20);
 }
-
 /**
 * 场控没开自动赛 没开手动 完全禁止的时候使用的函数
  */
