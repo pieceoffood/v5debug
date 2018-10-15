@@ -3,7 +3,7 @@
  * @Date:   2018-10-14T14:25:38+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-15T10:41:41+08:00
+ * @Last modified time: 2018-10-15T11:25:13+08:00
  */
 #include "main.h"
 static lv_obj_t *frSw;         //创建前后场开关
@@ -37,11 +37,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
     sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
     sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
-    if (userDisplay.competitionPage != nullptr)
-    {
-        lv_obj_del(userDisplay.competitionPage);
-        userDisplay.competitionPage = nullptr;
-    }
+    userDisplay.delPages();
     if (userDisplay.confirmPage == nullptr)
         userDisplay.confirmPage = lv_obj_create(nullptr, nullptr);
     //显示自动赛选项
