@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-15T12:14:58+08:00
+ * @Last modified time: 2018-10-15T12:33:29+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -185,7 +185,7 @@ class UserDisplay
             win = lv_win_create(parent, nullptr);
             std::cout << "creart Sensors Info win" << std::endl;
         }
-        lv_win_set_layout(win, LV_LAYOUT_PRETTY);            //设置布局
+        lv_win_set_layout(win, LV_LAYOUT_COL_L);             //设置布局
         lv_win_add_btn(win, SYMBOL_CLOSE, win_close_action); //添加删除功能
         lv_win_set_title(win, "传感器信息");
         lv_obj_set_width(win, width);
@@ -199,7 +199,7 @@ static void sensorsTask(void *param)
     (void)param; /*Unused*/
     char sensorsInfo[256];
     okapi::ADIGyro gyro(GYRO_PORT);
-    sprintf(sensorsInfo, "陀螺仪:%d\n左编码器:\n右编码器:\n射球行程开关:\n射球编码器:\n抬升行程开关\n抬升编码器:\n",
+    sprintf(sensorsInfo, "GYRO:%d enc_L: enc_R: \nlimit_Shoot:enc_Shoot: \nlimit_Lift:enc_Lift: \n ",
             static_cast<int>(gyro.get()));
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
