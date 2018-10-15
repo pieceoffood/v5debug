@@ -3,7 +3,7 @@
  * @Date:   2018-10-14T14:25:38+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-14T16:22:50+08:00
+ * @Last modified time: 2018-10-15T10:41:41+08:00
  */
 #include "main.h"
 static lv_obj_t *frSw;         //创建前后场开关
@@ -18,7 +18,6 @@ static lv_obj_t *bumperFlagSw; //创建是否撞中间旗开关
  */
 static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
 {
-    okapi::ADIGyro gyro(GYRO_PORT);
     //获取开关状态
     sysData.autoIsFR = lv_sw_get_state(frSw);                 //前场后场
     sysData.autoIsFlag = lv_sw_get_state(shootSw);            //高旗中旗
@@ -26,7 +25,6 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsRunPlat = lv_sw_get_state(platformSw);      //是否开台
     sysData.autoIsBumperFlag = lv_sw_get_state(bumperFlagSw); //是否撞旗
     char autoInfo[256];
-    char sensorsInfo[256];
     const char *side;
     const char *fr;
     const char *shootH_M;
@@ -50,13 +48,9 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay.confirmPage, NULL);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
-    //TODO 传感器都放上
-    lv_obj_t *sensorsLab = lv_label_create(userDisplay.confirmPage, NULL);
-    lv_obj_align(sensorsLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 50, 0);
-    //TODO 这个应该用多线程吧
-    sprintf(sensorsInfo, "gyro:%d\n", static_cast<int>(gyro.get()));
-    lv_label_set_text(sensorsLab, sensorsInfo);
-    pros::delay(20);
+    //TODO 传感器页面
+    userDisplay.creartSensorsInfo(userDisplay.confirmPage);
+    lv_obj_align(userDisplay.win, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
 
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
