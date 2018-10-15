@@ -1,10 +1,11 @@
 /**
- * @author Ryan Benasutti, WPI
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Author: yan
+ * @Date:   2018-10-08T14:10:33+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-15T15:31:10+08:00
  */
+
 #ifndef _OKAPI_XDRIVEMODEL_HPP_
 #define _OKAPI_XDRIVEMODEL_HPP_
 
@@ -96,24 +97,21 @@ class XDriveModel : public ChassisModel
     void tank(double ileftSpeed, double irightSpeed, double ithreshold = 0) const override;
 
     /**
-   * Drive the robot with an arcade drive layout. Uses voltage mode.
-   *
-   * @param iforwardSpeed speed in the forward direction
-   * @param iyaw speed around the vertical axis
-   * @param ithreshold deadband on joystick values
+    *使用街机驱动器布局驱动机器人。使用电压模式。
+    * @param iforwardSpeed在前进方向的速度
+    * @param绕垂直轴的速度
+    *操纵杆值上的@param ithreshold死区
    */
     void arcade(double iforwardSpeed, double iyaw, double ithreshold = 0) const override;
 
     /**
-   * Drive the robot with an arcade drive layout. Uses voltage mode.
-   *
-   * @param irightSpeed speed to the right
-   * @param iforwardSpeed speed in the forward direction
-   * @param iyaw speed around the vertical axis
-   * @param ithreshold deadband on joystick values
+    *使用街机驱动器布局驱动机器人。使用电压模式。
+    * @param irightSpeed速度向右
+    * @param iforwardSpeed在前进方向的速度
+    * @param绕垂直轴的速度
+    *操纵杆值上的@param ithreshold死区
    */
-    virtual void
-    xArcade(double irightSpeed, double iforwardSpeed, double iyaw, double ithreshold = 0) const;
+    virtual void xArcade(double irightSpeed, double iforwardSpeed, double iyaw, double ithreshold = 0) const;
 
     /**
    * Power the left side motors. Uses velocity mode.

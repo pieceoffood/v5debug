@@ -1,10 +1,11 @@
 /**
- * @author Ryan Benasutti, WPI
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Author: yan
+ * @Date:   2018-10-08T14:10:33+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-15T14:34:54+08:00
  */
+
 #ifndef _OKAPI_CHASSISMODEL_HPP_
 #define _OKAPI_CHASSISMODEL_HPP_
 
@@ -29,7 +30,6 @@ class ChassisModel : public ReadOnlyChassisModel {
 
   /**
    * Drive the robot forwards (using open-loop control).
-   *
    * @param ipower motor power
    */
   virtual void forward(double ispeed) const = 0;

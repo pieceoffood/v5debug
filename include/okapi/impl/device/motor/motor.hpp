@@ -1,10 +1,11 @@
 /**
- * @author Ryan Benasutti, WPI
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Author: yan
+ * @Date:   2018-10-08T14:15:45+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-15T15:24:08+08:00
  */
+
 #ifndef _OKAPI_MOTOR_HPP_
 #define _OKAPI_MOTOR_HPP_
 
