@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-15T11:43:53+08:00
+ * @Last modified time: 2018-10-15T12:14:58+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -173,7 +173,7 @@ class UserDisplay
             }
         }
     }
-    void creartSensorsInfo(lv_obj_t *parent)
+    void creartSensorsInfo(lv_obj_t *parent, int width)
     {
         if (refr_task == nullptr)
         {
@@ -185,9 +185,10 @@ class UserDisplay
             win = lv_win_create(parent, nullptr);
             std::cout << "creart Sensors Info win" << std::endl;
         }
-        lv_win_set_layout(win, LV_LAYOUT_COL_L);             //设置布局
+        lv_win_set_layout(win, LV_LAYOUT_PRETTY);            //设置布局
         lv_win_add_btn(win, SYMBOL_CLOSE, win_close_action); //添加删除功能
         lv_win_set_title(win, "传感器信息");
+        lv_obj_set_width(win, width);
         sensorsLab = lv_label_create(win, nullptr); //创建基于WIN的标签
         sensorsTask(nullptr);                       //刷新标签栏
     }
@@ -198,7 +199,8 @@ static void sensorsTask(void *param)
     (void)param; /*Unused*/
     char sensorsInfo[256];
     okapi::ADIGyro gyro(GYRO_PORT);
-    sprintf(sensorsInfo, "gyro:%d\n", static_cast<int>(gyro.get()));
+    sprintf(sensorsInfo, "陀螺仪:%d\n左编码器:\n右编码器:\n射球行程开关:\n射球编码器:\n抬升行程开关\n抬升编码器:\n",
+            static_cast<int>(gyro.get()));
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
 static lv_res_t win_close_action(lv_obj_t *btn)
