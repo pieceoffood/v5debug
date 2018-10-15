@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-15T11:18:12+08:00
+ * @Last modified time: 2018-10-15T11:43:53+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -76,18 +76,19 @@ class UserDisplay
     }
     void delPages()
     {
-        // if (refr_task != nullptr)
-        // {
-        //     lv_task_del(refr_task);
-        //     refr_task = nullptr;
-        //     std::cout << "del SensorsInfoTask" << std::endl;
-        // }
-        // if (win != nullptr)
-        // {
-        //     lv_obj_del(win);
-        //     win = nullptr;
-        //     std::cout << "del SensorsInfoWin" << std::endl;
-        // }
+        if (win != nullptr)
+        {
+            lv_obj_del(win);
+            win = nullptr;
+            std::cout << "del SensorsInfoWin" << std::endl;
+        }
+        if (refr_task != nullptr)
+        {
+            lv_task_del(refr_task);
+            refr_task = nullptr;
+            std::cout << "del SensorsInfoTask" << std::endl;
+        }
+
         if (disabledPage != nullptr)
         {
             lv_obj_del(disabledPage);
@@ -104,8 +105,6 @@ class UserDisplay
         {
             lv_obj_del(confirmPage);
             confirmPage = nullptr;
-            win = nullptr;
-            refr_task = nullptr;
             std::cout << "del confirmPage" << std::endl;
         }
     }
