@@ -3,7 +3,7 @@
  * @Date:   2018-10-08T14:23:01+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-15T12:33:29+08:00
+ * @Last modified time: 2018-10-15T12:38:11+08:00
  */
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -199,7 +199,7 @@ static void sensorsTask(void *param)
     (void)param; /*Unused*/
     char sensorsInfo[256];
     okapi::ADIGyro gyro(GYRO_PORT);
-    sprintf(sensorsInfo, "GYRO:%d enc_L: enc_R: \nlimit_Shoot:enc_Shoot: \nlimit_Lift:enc_Lift: \n ",
+    sprintf(sensorsInfo, "GYRO:%d enc_L: enc_R: \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ",
             static_cast<int>(gyro.get()));
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
