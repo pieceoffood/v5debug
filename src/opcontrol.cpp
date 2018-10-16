@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T11:07:19+08:00
+ * @Last modified time: 2018-10-16T12:51:50+08:00
  */
 
 #include "main.h"
@@ -12,7 +12,7 @@
 using namespace okapi;
 void opcontrol()
 {
-    userDisplay.createOpPage();
+    userDisplay.createOpObj();
     unsigned long lastTime = pros::millis();
     auto chassis = ChassisControllerFactory::create(1_mtr, 3_rmtr, 4_rmtr, 2_mtr, AbstractMotor::gearset::green); //创建底盘构造函数 XDRIVE
     Controller controller;                                                                                        //创建遥控器构造函数
@@ -39,18 +39,18 @@ void UserDisplay::loopTime(const int loopTime)
     sprintf(_buf_long, "loop:%d max:%d min:%d\n", loopTime, _maxLoopTime, _minLoopTime);
     lv_label_set_text(loopTimeLab, _buf_long);
 }
-void UserDisplay::createOpPage()
+void UserDisplay::createOpObj()
 {
-    delOpPages();
-    if (opcontrolPage == nullptr)
+    delObjs();
+    if (opcontrolObj == nullptr)
     {
-        opcontrolPage = lv_obj_create(nullptr, nullptr);
-        loopTimeLab = lv_label_create(opcontrolPage, nullptr);
+        opcontrolObj = lv_obj_create(nullptr, nullptr);
+        loopTimeLab = lv_label_create(opcontrolObj, nullptr);
     }
-    lv_scr_load(opcontrolPage);
-    std::cout << "create opPage" << std::endl;
+    lv_scr_load(opcontrolObj);
+    std::cout << "create opObj" << std::endl;
     if (!pros::competition::is_connected()) //没插场控
-        createStartPage();
+        createStartObj();
     else
     {
         if (startBTNM != nullptr)

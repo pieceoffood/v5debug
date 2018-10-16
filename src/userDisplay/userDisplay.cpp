@@ -3,7 +3,7 @@
  * @Date:   2018-10-16T10:25:11+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T11:06:11+08:00
+ * @Last modified time: 2018-10-16T12:56:28+08:00
  */
 #include "main.h"
 
@@ -17,12 +17,12 @@ UserDisplay::UserDisplay()
     lv_theme_set_current(theme);
 }
 
-void UserDisplay::delPages()
+void UserDisplay::delObjs()
 {
-    if (sensorsInfoPage != nullptr)
+    if (sensorsInfoObj != nullptr)
     {
-        lv_obj_del(sensorsInfoPage);
-        sensorsInfoPage = nullptr;
+        lv_obj_del(sensorsInfoObj);
+        sensorsInfoObj = nullptr;
         std::cout << "del SensorsInfoWin" << std::endl;
     }
     if (refr_task != nullptr)
@@ -32,43 +32,35 @@ void UserDisplay::delPages()
         std::cout << "del SensorsInfoTask" << std::endl;
     }
 
-    if (disabledPage != nullptr)
+    if (disabledObj != nullptr)
     {
-        lv_obj_del(disabledPage);
-        disabledPage = nullptr;
-        std::cout << "del disabledPage" << std::endl;
+        lv_obj_del(disabledObj);
+        disabledObj = nullptr;
+        std::cout << "del disabledObj" << std::endl;
     }
-    if (competitionPage != nullptr)
+    if (competitionObj != nullptr)
     {
-        lv_obj_del(competitionPage);
-        competitionPage = nullptr;
-        std::cout << "del competitionPage" << std::endl;
+        lv_obj_del(competitionObj);
+        competitionObj = nullptr;
+        std::cout << "del competitionObj" << std::endl;
     }
-    if (confirmPage != nullptr)
+    if (confirmObj != nullptr)
     {
-        lv_obj_del(confirmPage);
-        confirmPage = nullptr;
-        std::cout << "del confirmPage" << std::endl;
+        lv_obj_del(confirmObj);
+        confirmObj = nullptr;
+        std::cout << "del confirmObj" << std::endl;
     }
-}
-void UserDisplay::delAutoPages()
-{
-    delPages();
-    if (opcontrolPage != nullptr)
+    if (opcontrolObj != nullptr)
     {
-        lv_obj_del(opcontrolPage);
-        opcontrolPage = nullptr;
+        lv_obj_del(opcontrolObj);
+        opcontrolObj = nullptr;
         loopTimeLab = nullptr;
-        std::cout << "del autoPage" << std::endl;
+        std::cout << "del autoObj" << std::endl;
     }
-}
-void UserDisplay::delOpPages()
-{
-    delPages();
-    if (autonomousPage != nullptr)
+    if (autonomousObj != nullptr)
     {
-        lv_obj_del(autonomousPage);
-        autonomousPage = nullptr;
-        std::cout << "del opPage" << std::endl;
+        lv_obj_del(autonomousObj);
+        autonomousObj = nullptr;
+        std::cout << "del opObj" << std::endl;
     }
 }
