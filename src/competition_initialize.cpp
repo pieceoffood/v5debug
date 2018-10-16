@@ -46,7 +46,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_label_set_text(autoinfoLab, autoInfo);
     //TODO 传感器页面
     userDisplay.creartSensorsInfo(userDisplay.confirmPage, LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
-    lv_obj_align(userDisplay.win, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
+    lv_obj_align(userDisplay.sensorsInfoPage, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
 
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;

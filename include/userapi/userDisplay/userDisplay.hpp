@@ -14,8 +14,8 @@
 #include "userapi/systemData.hpp"
 #include "userapi/userapi.hpp"
 static void sensorsTask(void *param);
-static lv_res_t win_close_action(lv_obj_t *btn);
-
+static lv_res_t btn_close_action(lv_obj_t *btn);
+static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt);
 class UserDisplay
 {
   private:
@@ -26,14 +26,13 @@ class UserDisplay
   public:
     //样式
     lv_theme_t *theme;
-    //窗口
-    lv_obj_t *win = nullptr;
     //页面
     lv_obj_t *competitionPage = nullptr;
     lv_obj_t *opcontrolPage = nullptr;
     lv_obj_t *disabledPage = nullptr;
     lv_obj_t *autonomousPage = nullptr;
     lv_obj_t *confirmPage = nullptr;
+    lv_obj_t *sensorsInfoPage = nullptr;
     //按钮阵列
     lv_obj_t *startBTNM = nullptr;
     //标题栏
@@ -63,6 +62,7 @@ class UserDisplay
         lv_btnm_set_map(startBTNM, btnm_map);
         lv_obj_set_size(startBTNM, LV_HOR_RES, LV_VER_RES - 30);
         lv_obj_set_y(startBTNM, 30);
+        lv_btnm_set_action(startBTNM, btnm_action);
     }
 
     void loopTime(const int loopTime)
@@ -76,10 +76,10 @@ class UserDisplay
     }
     void delPages()
     {
-        if (win != nullptr)
+        if (sensorsInfoPage != nullptr)
         {
-            lv_obj_del(win);
-            win = nullptr;
+            lv_obj_del(sensorsInfoPage);
+            sensorsInfoPage = nullptr;
             std::cout << "del SensorsInfoWin" << std::endl;
         }
         if (refr_task != nullptr)
@@ -180,17 +180,20 @@ class UserDisplay
             refr_task = lv_task_create(sensorsTask, 100, LV_TASK_PRIO_LOW, nullptr);
             std::cout << "creart Sensors Info task" << std::endl;
         }
-        if (win == nullptr)
+        if (sensorsInfoPage == nullptr)
         {
-            win = lv_win_create(parent, nullptr);
-            std::cout << "creart Sensors Info win" << std::endl;
+            sensorsInfoPage = lv_page_create(opcontrolPage, nullptr);
+            std::cout << "creart Sensors Info page" << std::endl;
         }
-        lv_win_set_layout(win, LV_LAYOUT_COL_L);             //设置布局
-        lv_win_add_btn(win, SYMBOL_CLOSE, win_close_action); //添加删除功能
-        lv_win_set_title(win, "传感器信息");
-        lv_obj_set_width(win, width);
-        sensorsLab = lv_label_create(win, nullptr); //创建基于WIN的标签
-        sensorsTask(nullptr);                       //刷新标签栏
+        lv_page_set_scrl_layout(sensorsInfoPage, LV_LAYOUT_COL_L); //设置布局
+        lv_obj_t *exitBtn = lv_btn_create(sensorsInfoPage, NULL);
+        lv_obj_set_size(exitBtn, 50, 25);
+        lv_obj_set_pos(exitBtn, LV_HOR_RES - 100, LV_VER_RES - 50);
+        lv_obj_t *exitLab = lv_label_create(exitBtn, NULL);
+        lv_label_set_text(exitLab, "退出");
+        sensorsLab = lv_label_create(sensorsInfoPage, nullptr); //创建基于INFOPAGE的标签
+        lv_btn_set_action(exitBtn, LV_BTN_ACTION_CLICK, btn_close_action);
+        sensorsTask(nullptr); //刷新标签栏
     }
 };
 extern UserDisplay userDisplay;
@@ -203,14 +206,26 @@ static void sensorsTask(void *param)
             static_cast<int>(gyro.get()));
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
-static lv_res_t win_close_action(lv_obj_t *btn)
+static lv_res_t btn_close_action(lv_obj_t *btn)
 {
     (void)btn; /*Unused*/
-    lv_obj_del(userDisplay.win);
-    userDisplay.win = nullptr;
-
+    lv_obj_del(userDisplay.sensorsInfoPage);
+    userDisplay.sensorsInfoPage = nullptr;
     lv_task_del(userDisplay.refr_task);
     userDisplay.refr_task = nullptr;
+    return LV_RES_INV;
+}
+/**
+ * 按钮阵列的动作
+ * @param  btnm 按钮阵列
+ * @param  txt  按钮的名字
+ * @return      系统值
+ */
+static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
+{
+    (void)btnm; /*Unused*/
+    //TODO 做一个字符串判断
+    printf("Key pressed: %s\n", txt);
     return LV_RES_INV;
 }
 #endif /* end of include guard: USERDISPLAY_HPP_ */
