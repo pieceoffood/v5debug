@@ -3,7 +3,7 @@
  * @Date:   2018-10-14T14:25:38+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-15T12:12:33+08:00
+ * @Last modified time: 2018-10-16T10:20:17+08:00
  */
 #include "main.h"
 static lv_obj_t *frSw;         //创建前后场开关
@@ -142,4 +142,11 @@ void competition_initialize()
 
     //调用按钮页面
     //TODO 技能赛的动作
+}
+void UserDisplay::createCompPage()
+{
+    if (competitionPage == nullptr)
+        competitionPage = lv_obj_create(nullptr, nullptr);
+    lv_scr_load(competitionPage);
+    std::cout << "create CompPage" << std::endl;
 }
