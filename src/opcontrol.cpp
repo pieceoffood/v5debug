@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T10:30:30+08:00
+ * @Last modified time: 2018-10-16T11:07:19+08:00
  */
 
 #include "main.h"
@@ -14,13 +14,8 @@ void opcontrol()
 {
     userDisplay.createOpPage();
     unsigned long lastTime = pros::millis();
-    lv_obj_t *lab = lv_label_create(userDisplay.opcontrolPage, nullptr);
-    lv_label_set_text(lab, "遥控程序执行中");
     auto chassis = ChassisControllerFactory::create(1_mtr, 3_rmtr, 4_rmtr, 2_mtr, AbstractMotor::gearset::green); //创建底盘构造函数 XDRIVE
     Controller controller;                                                                                        //创建遥控器构造函数
-    chassis.forward(0.01);
-    pros::delay(10000);
-    chassis.stop();
     while (true)
     {
         userDisplay.loopTime(pros::millis() - lastTime);
@@ -51,7 +46,6 @@ void UserDisplay::createOpPage()
     {
         opcontrolPage = lv_obj_create(nullptr, nullptr);
         loopTimeLab = lv_label_create(opcontrolPage, nullptr);
-        lv_obj_align(loopTimeLab, nullptr, LV_ALIGN_IN_TOP_MID, 0, 0);
     }
     lv_scr_load(opcontrolPage);
     std::cout << "create opPage" << std::endl;

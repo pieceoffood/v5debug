@@ -3,7 +3,7 @@
  * @Date:   2018-10-16T10:25:11+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T10:32:32+08:00
+ * @Last modified time: 2018-10-16T11:06:11+08:00
  */
 #include "main.h"
 
@@ -58,6 +58,7 @@ void UserDisplay::delAutoPages()
     {
         lv_obj_del(opcontrolPage);
         opcontrolPage = nullptr;
+        loopTimeLab = nullptr;
         std::cout << "del autoPage" << std::endl;
     }
 }
