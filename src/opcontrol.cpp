@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T12:51:50+08:00
+ * @Last modified time: 2018-10-16T14:11:59+08:00
  */
 
 #include "main.h"
@@ -14,15 +14,19 @@ void opcontrol()
 {
     userDisplay.createOpObj();
     unsigned long lastTime = pros::millis();
-    auto chassis = ChassisControllerFactory::create(1_mtr, 3_rmtr, 4_rmtr, 2_mtr, AbstractMotor::gearset::green); //创建底盘构造函数 XDRIVE
-    Controller controller;                                                                                        //创建遥控器构造函数
+    // auto chassis = ChassisControllerFactory::create(1_mtr, 3_rmtr, 4_rmtr, 2_mtr, AbstractMotor::gearset::green); //创建底盘构造函数 XDRIVE
+    // Controller controller;
     while (true)
     {
-        userDisplay.loopTime(pros::millis() - lastTime);
-        double ch3 = controller.getAnalog(ControllerAnalog::leftY);
-        double ch1 = controller.getAnalog(ControllerAnalog::rightX);
+        userDisplay.loopTime = pros::millis() - lastTime;
+        if (userDisplay.loopTime > userDisplay.maxLoopTime)
+            userDisplay.maxLoopTime = userDisplay.loopTime;
+        if (userDisplay.loopTime < userDisplay.minLoopTime)
+            userDisplay.minLoopTime = userDisplay.loopTime;
+        // double ch3 = controller.getAnalog(ControllerAnalog::leftY);
+        // double ch1 = controller.getAnalog(ControllerAnalog::rightX);
         // std::cout << "ch3:" << ch3 << " ch1:" << ch1 << std::endl;
-        chassis.arcade(ch3, ch1, 0.1);
+        // chassis.arcade(ch3, ch1, 0.1);
         // chassis.xArcade(controller.getAnalog(ControllerAnalog::leftX),
         //                 controller.getAnalog(ControllerAnalog::leftY),
         //                 controller.getAnalog(ControllerAnalog::rightX), 0.1);
@@ -30,34 +34,28 @@ void opcontrol()
         pros::delay(20);
     }
 }
-void UserDisplay::loopTime(const int loopTime)
+static void loopTask(void *param)
 {
-    if (loopTime > _maxLoopTime)
-        _maxLoopTime = loopTime;
-    if (loopTime < _minLoopTime)
-        _minLoopTime = loopTime;
-    sprintf(_buf_long, "loop:%d max:%d min:%d\n", loopTime, _maxLoopTime, _minLoopTime);
-    lv_label_set_text(loopTimeLab, _buf_long);
+    (void)param; /*Unused*/
+    char loopInfo[256];
+    sprintf(loopInfo, "loop:%ld max:%d min:%d\n", userDisplay.loopTime, userDisplay.maxLoopTime, userDisplay.minLoopTime);
+    lv_label_set_text(userDisplay.loopLab, loopInfo);
 }
+
 void UserDisplay::createOpObj()
 {
     delObjs();
-    if (opcontrolObj == nullptr)
+    if (loop_task == nullptr)
     {
-        opcontrolObj = lv_obj_create(nullptr, nullptr);
-        loopTimeLab = lv_label_create(opcontrolObj, nullptr);
+        loop_task = lv_task_create(loopTask, 100, LV_TASK_PRIO_LOW, nullptr);
+        std::cout << "creart loop task" << std::endl;
     }
+    if (opcontrolObj == nullptr)
+        opcontrolObj = lv_obj_create(nullptr, nullptr);
     lv_scr_load(opcontrolObj);
     std::cout << "create opObj" << std::endl;
     if (!pros::competition::is_connected()) //没插场控
         createStartObj();
-    else
-    {
-        if (startBTNM != nullptr)
-        {
-            lv_obj_del(startBTNM);
-            startBTNM = nullptr;
-            std::cout << "del startBTNM" << std::endl;
-        }
-    }
+    loopLab = lv_label_create(opcontrolObj, nullptr);
+    loopTask(nullptr);
 }

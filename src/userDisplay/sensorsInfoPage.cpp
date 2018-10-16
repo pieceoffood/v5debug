@@ -3,7 +3,7 @@
  * @Date:   2018-10-16T10:02:14+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T13:01:08+08:00
+ * @Last modified time: 2018-10-16T13:56:15+08:00
  */
 #include "main.h"
 
@@ -35,11 +35,10 @@ void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
         std::cout << "creart Sensors Info task" << std::endl;
     }
     if (sensorsInfoObj == nullptr)
-    {
         sensorsInfoObj = lv_obj_create(parent, nullptr);
-        std::cout << "creart Sensors Info Obj" << std::endl;
-    }
     lv_obj_set_size(sensorsInfoObj, width, LV_VER_RES); //设置页面大小
+    std::cout << "creart Sensors Info Obj" << std::endl;
+
     lv_obj_t *exitBtn = lv_btn_create(sensorsInfoObj, NULL);
     lv_obj_set_pos(exitBtn, width - 100, LV_VER_RES - 50);
     lv_obj_set_size(exitBtn, 75, 50);

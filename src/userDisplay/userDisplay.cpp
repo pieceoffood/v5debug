@@ -3,7 +3,7 @@
  * @Date:   2018-10-16T10:25:11+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T12:56:28+08:00
+ * @Last modified time: 2018-10-16T14:14:22+08:00
  */
 #include "main.h"
 
@@ -19,11 +19,12 @@ UserDisplay::UserDisplay()
 
 void UserDisplay::delObjs()
 {
-    if (sensorsInfoObj != nullptr)
+
+    if (loop_task != nullptr)
     {
-        lv_obj_del(sensorsInfoObj);
-        sensorsInfoObj = nullptr;
-        std::cout << "del SensorsInfoWin" << std::endl;
+        lv_task_del(loop_task);
+        loop_task = nullptr;
+        std::cout << "del loop_task" << std::endl;
     }
     if (refr_task != nullptr)
     {
@@ -31,7 +32,18 @@ void UserDisplay::delObjs()
         refr_task = nullptr;
         std::cout << "del SensorsInfoTask" << std::endl;
     }
-
+    if (startBTNM != nullptr)
+    {
+        lv_obj_del(startBTNM);
+        startBTNM = nullptr;
+        std::cout << "del startBTNM" << std::endl;
+    }
+    if (sensorsInfoObj != nullptr)
+    {
+        lv_obj_del(sensorsInfoObj);
+        sensorsInfoObj = nullptr;
+        std::cout << "del SensorsInfoWin" << std::endl;
+    }
     if (disabledObj != nullptr)
     {
         lv_obj_del(disabledObj);
@@ -54,7 +66,8 @@ void UserDisplay::delObjs()
     {
         lv_obj_del(opcontrolObj);
         opcontrolObj = nullptr;
-        loopTimeLab = nullptr;
+        startBTNM = nullptr;
+        loopLab = nullptr;
         std::cout << "del autoObj" << std::endl;
     }
     if (autonomousObj != nullptr)
