@@ -1,4 +1,12 @@
 /**
+ * @Author: yan
+ * @Date:   2018-10-08T14:15:45+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-15T16:53:28+08:00
+ */
+
+/**
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -84,16 +92,15 @@ class ChassisControllerFactory
               const ChassisScales &iscales = ChassisScales({1, 1}));
 
     /**
-   * ChassisController using V5 motor's integrated control. This constructor assumes an x-drive
-   * layout. Puts the motors into degree units. Throws a std::invalid_argument exception if the gear
-   * ratio is zero.
-   *
-   * @param itopLeftMotor top left motor (also used for controller input)
-   * @param itopRightMotor top right motor (also used for controller input)
-   * @param ibottomRightMotor bottom right motor
-   * @param ibottomLeftMotor bottom left motor
-   * @param igearset motor internal gearset and gear ratio
-   * @param iscales see ChassisScales docs
+    * ChassisController采用V5电机的集成控制。此构造函数假定为x驱动器
+    *布局。将电机放入度数单位。如果齿轮，则抛出std :: invalid_argument异常
+    *比率为零。
+    * @param itopLeftMotor左上电机（也用于控制器输入）
+    * @param itopRightMotor右上电机（也用于控制器输入）
+    * @param ibottomRightMotor右下方电机
+    * @param ibottomLeftMotor左下电机
+    * @param igearset电机内部齿轮组和齿轮比
+    * @param iscales参见ChassisScales文档
    */
     static ChassisControllerIntegrated
     create(Motor itopLeftMotor,
@@ -104,16 +111,15 @@ class ChassisControllerFactory
            const ChassisScales &iscales = ChassisScales({1, 1}));
 
     /**
-   * ChassisController using V5 motor's integrated control. This constructor assumes an x-drive
-   * layout. Puts the motors into degree units. Throws a std::invalid_argument exception if the gear
-   * ratio is zero.
-   *
-   * @param itopLeftMotor top left motor (also used for controller input)
-   * @param itopRightMotor top right motor (also used for controller input)
-   * @param ibottomRightMotor bottom right motor
-   * @param ibottomLeftMotor bottom left motor
-   * @param igearset motor internal gearset and gear ratio
-   * @param iscales see ChassisScales docs
+    * ChassisController采用V5电机的集成控制。此构造函数假定为x驱动器
+    *布局。将电机放入度数单位。如果齿轮，则抛出std :: invalid_argument异常
+    *比率为零。
+    * @param itopLeftMotor左上电机（也用于控制器输入）
+    * @param itopRightMotor右上电机（也用于控制器输入）
+    * @param ibottomRightMotor右下方电机
+    * @param ibottomLeftMotor左下电机
+    * @param igearset电机内部齿轮组和齿轮比
+    * @param iscales参见ChassisScales文档
    */
     static std::shared_ptr<ChassisControllerIntegrated>
     createPtr(Motor itopLeftMotor,
