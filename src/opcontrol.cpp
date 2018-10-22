@@ -13,11 +13,10 @@ void opcontrol()
 {
     userDisplay.createOpObj();
     unsigned long lastTime = pros::millis();
-    // auto chassis = ChassisControllerFactory::create(1_mtr, 3_rmtr, 4_rmtr, 2_mtr, AbstractMotor::gearset::green); //创建底盘构造函数 XDRIVE
-    // Controller controller;
-    pros::Motor motor(1);
-    // pros::Controller joy(CONTROLLER_MASTER);
-    Chassis chassis({pros::Motor(1), pros::Motor(2), pros::Motor(3), pros::Motor(4)});
+    pros::Controller controller(CONTROLLER_MASTER);
+    Chassis chassis({pros::Motor(LF), pros::Motor(LB), pros::Motor(RF, 1), pros::Motor(RB, 1)});
+    Generic<2> shoot({pros::Motor(SHOOT_L), pros::Motor(SHOOT_R, 1)}, SHOOT_HOLDING);
+    Generic<2> intake({pros::Motor(INTAKE_L), pros::Motor(INTAKE_R, 1)});
     while (true)
     {
         userDisplay.loopTime = pros::millis() - lastTime;
@@ -25,15 +24,9 @@ void opcontrol()
             userDisplay.maxLoopTime = userDisplay.loopTime;
         if (userDisplay.loopTime < userDisplay.minLoopTime)
             userDisplay.minLoopTime = userDisplay.loopTime;
-        chassis.forward(127);
-        // double ch3 = controller.getAnalog(ControllerAnalog::leftY);
-        // double ch1 = controller.getAnalog(ControllerAnalog::rightX);
-        //std::cout << "ch3:" << joy.get_analog(ANALOG_LEFT_X) << " ch1:" << joy.get_analog(ANALOG_RIGHT_Y) << std::endl;
-        //    motor.move(joy.get_analog(ANALOG_LEFT_X));
-        // chassis.arcade(ch3, ch1, 0.1);
-        // chassis.xArcade(controller.getAnalog(ControllerAnalog::leftX),
-        //                 controller.getAnalog(ControllerAnalog::leftY),
-        //                 controller.getAnalog(ControllerAnalog::rightX), 0.1);
+        chassis.arcade(controller.get_analog(ANALOG_LEFT_Y), controller.get_analog(ANALOG_RIGHT_X), JOY_THRESHOLD);
+        shoot.joyControl(controller.get_digital(DIGITAL_L1), controller.get_digital(DIGITAL_L2));
+        intake.joyControl(controller.get_digital(DIGITAL_R1), controller.get_digital(DIGITAL_R2));
         lastTime = pros::millis();
         pros::delay(20);
     }

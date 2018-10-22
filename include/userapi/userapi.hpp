@@ -11,7 +11,7 @@
 #include "userapi/systemData.hpp"
 #include "userapi/userDisplay/userDisplay.hpp"
 #include "userapi\chassis\chassis.hpp"
-
+#include "userapi\generic\generic.hpp"
 
 #define test ; //输入用户名
 #if defined(pig)

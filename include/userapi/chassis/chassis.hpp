@@ -16,7 +16,6 @@
 class Chassis
 {
   private:
-    // pros::Motor motorList[4];
     const std::array<pros::Motor, 4> _motorList;
 
   public:
@@ -52,8 +51,26 @@ class Chassis
     {
         set(0, 0);
     }
-    void arcade(int leftY, int rightX)
+    /**
+     * 遥控模块 单摇杆双摇杆都用这个
+     * @param leftY     前后的通道
+     * @param rightX    左右的通道
+     * @param threshold 遥控器矫正阀值
+     */
+    void arcade(int leftY, int rightX, const int threshold = 0)
     {
+        if (abs(leftY) < threshold)
+            leftY = 0;
+        if (abs(rightX) < threshold)
+            rightX = 0;
+
+        int left = leftY + rightX;
+        int right = leftY - rightX;
+        if (left > 127 || left < -127)
+            left = static_cast<int>(copysign(127.0, static_cast<float>(left)));
+        if (right > 127 || right < -127)
+            right = static_cast<int>(copysign(127.0, static_cast<float>(right)));
+        set(left, right);
     }
 };
 #endif /* end of include guard: CHASSIS_HPP_ */
