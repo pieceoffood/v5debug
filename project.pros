@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "TurningPointV5.0",
+        "project_name": "v5debug",
         "target": "v5",
         "templates": {
             "kernel": {
