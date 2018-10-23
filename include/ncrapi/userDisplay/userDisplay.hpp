@@ -1,3 +1,10 @@
+/**
+ * @Author: 陈昱安
+ * @Date:   2018-10-11T21:09:49+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-23T22:33:15+08:00
+ */
 
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
@@ -24,9 +31,9 @@ class UserDisplay
     lv_task_t *refr_task = nullptr;
     lv_task_t *loop_task = nullptr;
     //时间变量
-    unsigned long loopTime = 0;
-    int maxLoopTime = 0;
-    int minLoopTime = 20;
+    uint32_t loopTime = 0;
+    uint32_t maxLoopTime = 0;
+    uint32_t minLoopTime = 20;
     UserDisplay();
 
     void delObjs();

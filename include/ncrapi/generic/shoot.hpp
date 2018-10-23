@@ -1,3 +1,12 @@
+/**
+ * @Author: 陈昱安
+ * @Date:   2018-10-23T21:46:55+08:00
+ * @Email:  31612534@qq.com 
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-23T22:14:22+08:00
+ */
+
+
 #ifndef SHOOT_HPP_
 #define SHOOT_HPP_
 #include "generic.hpp"
