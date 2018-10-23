@@ -1,10 +1,4 @@
-/**
- * @Author: yan
- * @Date:   2018-10-08T14:23:01+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-16T13:41:34+08:00
- */
+
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
 #include "display/lv_conf.h"
