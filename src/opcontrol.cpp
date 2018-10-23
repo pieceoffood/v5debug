@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-23T22:33:53+08:00
+ * @Last modified time: 2018-10-23T23:54:52+08:00
  */
 
 #include "main.h"
@@ -27,8 +27,7 @@ void opcontrol()
     Generic<2> shoot({pros::Motor(SHOOT_L), pros::Motor(SHOOT_R, 1)}, SHOOT_HOLDING);
     Generic<2> intake({pros::Motor(INTAKE_L), pros::Motor(INTAKE_R, 1)});
     //任务通知测试
-    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT,
-                                                TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
+    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
     {
         userDisplay.loopTime = pros::millis() - lastTime;
