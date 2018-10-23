@@ -3,13 +3,14 @@
  * @Date:   2018-10-11T21:09:49+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-23T22:33:15+08:00
+ * @Last modified time: 2018-10-23T23:42:59+08:00
  */
 
 #ifndef USERDISPLAY_HPP_
 #define USERDISPLAY_HPP_
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
+extern lv_font_t myfont;
 class UserDisplay
 {
   public:
