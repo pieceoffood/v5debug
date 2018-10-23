@@ -26,8 +26,9 @@
 
 #ifdef __cplusplus
 //这里可以添加CPP的头文件
+#include "ncrapi\ncrapi.hpp"
 #include "okapi\api.hpp"
-#include "userapi\userapi.hpp"
+
 #endif
 
 #endif // _PROS_MAIN_H_
