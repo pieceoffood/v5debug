@@ -3,7 +3,7 @@
  * @Date:   2018-10-14T12:18:39+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-24T17:25:19+08:00
+ * @Last modified time: 2018-10-24T19:44:58+08:00
  */
 #ifndef EXAMPLE_HPP_ //这里要改
 #define EXAMPLE_HPP_ //这里要改
@@ -12,7 +12,7 @@
 const unsigned int GYRO_PORT = 1; //陀螺仪端口号
 //马达
 const int LF = 1;
-const int LB = 2;
+const int LB = 11;
 const int RF = 3;
 const int RB = 20;
 const int SHOOT_L = 5;
