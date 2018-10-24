@@ -3,13 +3,13 @@
  * @Date:   2018-10-14T12:18:39+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-24T14:37:31+08:00
+ * @Last modified time: 2018-10-24T17:25:19+08:00
  */
 #ifndef EXAMPLE_HPP_ //这里要改
 #define EXAMPLE_HPP_ //这里要改
 //端口配置
 //adi
-const int GYRO_PORT = 1; //陀螺仪端口号
+const unsigned int GYRO_PORT = 1; //陀螺仪端口号
 //马达
 const int LF = 1;
 const int LB = 2;

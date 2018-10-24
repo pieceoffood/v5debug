@@ -3,18 +3,18 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-24T08:35:27+08:00
+ * @Last modified time: 2018-10-24T17:29:04+08:00
  */
 
 #include "main.h"
 //任务通知测试
-void my_task_fn(void *ign)
-{
-    while (pros::c::task_notify_take(true, TIMEOUT_MAX))
-    {
-        puts("I was unblocked!");
-    }
-}
+// void my_task_fn(void *ign)
+// {
+//     while (pros::c::task_notify_take(true, TIMEOUT_MAX))
+//     {
+//         puts("I was unblocked!");
+//     }
+// }
 /**
  * 手动模块
  */
@@ -25,7 +25,7 @@ void opcontrol()
     uint32_t lastTime = pros::millis();
 
     //任务通知测试
-    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
+    //    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
     {
         nowTime = pros::millis();
@@ -38,10 +38,10 @@ void opcontrol()
         shoot.joyControl(controller.get_digital(DIGITAL_L1), controller.get_digital(DIGITAL_L2));
         intake.joyControl(controller.get_digital(DIGITAL_R1), controller.get_digital(DIGITAL_R2));
         //多线程测试
-        if (pros::c::controller_get_digital(CONTROLLER_MASTER, DIGITAL_L1))
-        {
-            pros::c::task_notify(my_task);
-        }
+        // if (pros::c::controller_get_digital(CONTROLLER_MASTER, DIGITAL_L1))
+        // {
+        //     pros::c::task_notify(my_task);
+        // }
         lastTime = nowTime;
         pros::c::task_delay_until(&nowTime, 20);
     }

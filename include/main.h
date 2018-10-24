@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T13:10:33+08:00
+ * @Last modified time: 2018-10-24T17:21:31+08:00
  */
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
@@ -27,7 +27,7 @@
 #ifdef __cplusplus
 //这里可以添加CPP的头文件
 #include "ncrapi\ncrapi.hpp"
-#include "okapi\api.hpp"
+// #include "okapi\api.hpp"
 
 #endif
 
