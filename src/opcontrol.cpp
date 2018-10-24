@@ -2,8 +2,8 @@
  * @Author: 陈昱安
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-23T23:54:52+08:00
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-24T08:32:15+08:00
  */
 
 #include "main.h"
@@ -21,6 +21,7 @@ void my_task_fn(void *ign)
 void opcontrol()
 {
     userDisplay.createOpObj();
+    uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
     pros::Controller controller(CONTROLLER_MASTER);
     Chassis chassis({pros::Motor(LF), pros::Motor(LB), pros::Motor(RF, 1), pros::Motor(RB, 1)});
@@ -30,7 +31,8 @@ void opcontrol()
     pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
     {
-        userDisplay.loopTime = pros::millis() - lastTime;
+        nowTime = pros::millis();
+        userDisplay.loopTime = nowTime - lastTime;
         if (userDisplay.loopTime > userDisplay.maxLoopTime)
             userDisplay.maxLoopTime = userDisplay.loopTime;
         if (userDisplay.loopTime < userDisplay.minLoopTime)
@@ -43,15 +45,15 @@ void opcontrol()
         {
             pros::c::task_notify(my_task);
         }
-        lastTime = pros::millis();
-        pros::c::task_delay_until(&lastTime, 20);
+        lastTime = nowTime;
+        pros::c::task_delay_until(&nowTime, 20);
     }
 }
 static void loopTask(void *param)
 {
     (void)param; /*Unused*/
     char loopInfo[256];
-    sprintf(loopInfo, "loop:%ud max:%ud min:%ud\n", userDisplay.loopTime, userDisplay.maxLoopTime, userDisplay.minLoopTime);
+    sprintf(loopInfo, "loop:%u max:%u min:%u\n", userDisplay.loopTime, userDisplay.maxLoopTime, userDisplay.minLoopTime);
     lv_label_set_text(userDisplay.loopLab, loopInfo);
 }
 
