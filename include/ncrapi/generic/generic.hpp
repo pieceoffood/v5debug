@@ -1,3 +1,11 @@
+/**
+ * @Author: 陈昱安
+ * @Date:   2018-10-23T22:43:01+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-24T21:07:12+08:00
+ */
+
 #ifndef GENERIC_HPP_
 #define GENERIC_HPP_
 
@@ -12,7 +20,7 @@ template <size_t _nums>
 class Generic
 {
   private:
-    const std::array<pros::Motor, _nums> _motorList;
+    const std::array<pros::Motor *, _nums> _motorList;
 
   protected:
     const int _holdVal;
@@ -20,16 +28,16 @@ class Generic
     int _pwm = 0;
 
   public:
-    Generic(const std::array<pros::Motor, _nums> &motorList, const int hold = 0) : _motorList(motorList), _holdVal(hold) {}
+    Generic(const std::array<pros::Motor *, _nums> &motorList, const int hold = 0) : _motorList(motorList), _holdVal(hold) {}
     virtual void set(const int &pwm)
     {
-        for (auto &it : _motorList)
-            it.move(pwm);
+        for (auto *it : _motorList)
+            it->move(pwm);
     }
     virtual void stop()
     {
-        for (auto &it : _motorList)
-            it.move(0);
+        for (auto *it : _motorList)
+            it->move(0);
     }
     virtual void holding()
     {

@@ -1,31 +1,23 @@
 /**
- * \file pros/motors.hpp
- *
- * Contains prototypes for the V5 Motor-related functions.
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/motors.html to learn
- * more.
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * \copyright (c) 2017-2018, Purdue University ACM SIGBots.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * @Author: 陈昱安
+ * @Date:   2018-10-11T21:09:49+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-24T20:55:30+08:00
  */
 
 #ifndef _PROS_MOTORS_HPP_
 #define _PROS_MOTORS_HPP_
 
-#include <cstdint>
 #include "pros/motors.h"
+#include <cstdint>
 
-namespace pros {
-class Motor {
-	public:
-	/**
+namespace pros
+{
+class Motor
+{
+  public:
+    /**
 	 * Creates a Motor object for the given port and specifications.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -42,23 +34,23 @@ class Motor {
 	 * \param encoder_units
 	 *        The motor's encoder units
 	 */
-	explicit Motor(const std::uint8_t port, const motor_gearset_e_t gearset, const bool reverse,
-	               const motor_encoder_units_e_t encoder_units);
+    explicit Motor(const std::uint8_t port, const motor_gearset_e_t gearset, const bool reverse,
+                   const motor_encoder_units_e_t encoder_units);
 
-	explicit Motor(const std::uint8_t port, const motor_gearset_e_t gearset, const bool reverse);
+    explicit Motor(const std::uint8_t port, const motor_gearset_e_t gearset, const bool reverse);
 
-	explicit Motor(const std::uint8_t port, const motor_gearset_e_t gearset);
+    explicit Motor(const std::uint8_t port, const motor_gearset_e_t gearset);
 
-	explicit Motor(const std::uint8_t port, const bool reverse);
+    explicit Motor(const std::uint8_t port, const bool reverse);
 
-	explicit Motor(const std::uint8_t port);
+    explicit Motor(const std::uint8_t port);
 
-	/****************************************************************************/
-	/**                         Motor movement functions                       **/
-	/**                                                                        **/
-	/**          These functions allow programmers to make motors move         **/
-	/****************************************************************************/
-	/**
+    /****************************************************************************/
+    /**                         Motor movement functions                       **/
+    /**                                                                        **/
+    /**          These functions allow programmers to make motors move         **/
+    /****************************************************************************/
+    /**
 	 * Sets the voltage for the motor from -128 to 127.
 	 *
 	 * This is designed to map easily to the input from the controller's analog
@@ -75,9 +67,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t operator=(std::int32_t voltage) const;
+    virtual std::int32_t operator=(std::int32_t voltage) const;
 
-	/**
+    /**
 	 * Sets the voltage for the motor from -127 to 127.
 	 *
 	 * This is designed to map easily to the input from the controller's analog
@@ -94,9 +86,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t move(std::int32_t voltage) const;
+    virtual std::int32_t move(std::int32_t voltage) const;
 
-	/**
+    /**
 	 * Sets the target absolute position for the motor to move to.
 	 *
 	 * This movement is relative to the position of the motor when initialized or
@@ -118,9 +110,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t move_absolute(const double position, const std::int32_t velocity) const;
+    virtual std::int32_t move_absolute(const double position, const std::int32_t velocity) const;
 
-	/**
+    /**
 	 * Sets the relative target position for the motor to move to.
 	 *
 	 * This movement is relative to the current position of the motor as given in
@@ -143,9 +135,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t move_relative(const double position, const std::int32_t velocity) const;
+    virtual std::int32_t move_relative(const double position, const std::int32_t velocity) const;
 
-	/**
+    /**
 	 * Sets the velocity for the motor.
 	 *
 	 * This velocity corresponds to different actual speeds depending on the
@@ -165,9 +157,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t move_velocity(const std::int32_t velocity) const;
+    virtual std::int32_t move_velocity(const std::int32_t velocity) const;
 
-	/**
+    /**
 	 * Sets the output voltage for the motor from -12000 to 12000 in millivolts.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -182,9 +174,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t move_voltage(const std::int32_t voltage) const;
+    virtual std::int32_t move_voltage(const std::int32_t voltage) const;
 
-	/**
+    /**
 	 * Changes the output velocity for a profiled movement (motor_move_absolute()
 	 * or motor_move_relative()). This will have no effect if the motor is not
 	 * following a profiled movement.
@@ -201,9 +193,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t modify_profiled_velocity(const std::int32_t velocity) const;
+    virtual std::int32_t modify_profiled_velocity(const std::int32_t velocity) const;
 
-	/**
+    /**
 	 * Gets the target position set for the motor by the user.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -213,9 +205,9 @@ class Motor {
 	 * \return The target position in its encoder units or PROS_ERR_F if the
 	 * operation failed, setting errno.
 	 */
-	virtual double get_target_position(void) const;
+    virtual double get_target_position(void) const;
 
-	/**
+    /**
 	 * Gets the velocity commanded to the motor by the user.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -225,15 +217,15 @@ class Motor {
 	 * \return The commanded motor velocity from +-100, +-200, or +-600, or
 	 * PROS_ERR if the operation failed, setting errno.
 	 */
-	virtual std::int32_t get_target_velocity(void) const;
+    virtual std::int32_t get_target_velocity(void) const;
 
-	/****************************************************************************/
-	/**                        Motor telemetry functions                       **/
-	/**                                                                        **/
-	/**    These functions allow programmers to collect telemetry from motors  **/
-	/****************************************************************************/
+    /****************************************************************************/
+    /**                        Motor telemetry functions                       **/
+    /**                                                                        **/
+    /**    These functions allow programmers to collect telemetry from motors  **/
+    /****************************************************************************/
 
-	/**
+    /**
 	 * Gets the actual velocity of the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -243,9 +235,9 @@ class Motor {
 	 * \return The motor's actual velocity in RPM or PROS_ERR_F if the operation
 	 * failed, setting errno.
 	 */
-	virtual double get_actual_velocity(void) const;
+    virtual double get_actual_velocity(void) const;
 
-	/**
+    /**
 	 * Gets the current drawn by the motor in mA.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -255,9 +247,9 @@ class Motor {
 	 * \return The motor's current in mA or PROS_ERR if the operation failed,
 	 * setting errno.
 	 */
-	virtual std::int32_t get_current_draw(void) const;
+    virtual std::int32_t get_current_draw(void) const;
 
-	/**
+    /**
 	 * Gets the direction of movement for the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -267,9 +259,9 @@ class Motor {
 	 * \return 1 for moving in the positive direction, -1 for moving in the
 	 * negative direction, and PROS_ERR if the operation failed, setting errno.
 	 */
-	virtual std::int32_t get_direction(void) const;
+    virtual std::int32_t get_direction(void) const;
 
-	/**
+    /**
 	 * Gets the efficiency of the motor in percent.
 	 *
 	 * An efficiency of 100% means that the motor is moving electrically while
@@ -283,9 +275,9 @@ class Motor {
 	 * \return The motor's efficiency in percent or PROS_ERR_F if the operation
 	 * failed, setting errno.
 	 */
-	virtual double get_efficiency(void) const;
+    virtual double get_efficiency(void) const;
 
-	/**
+    /**
 	 * Checks if the motor is drawing over its current limit.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -296,9 +288,9 @@ class Motor {
 	 * current limit is not exceeded, or PROS_ERR if the operation failed, setting
 	 * errno.
 	 */
-	virtual std::int32_t is_over_current(void) const;
+    virtual std::int32_t is_over_current(void) const;
 
-	/**
+    /**
 	 * Checks if the motor is stopped.
 	 *
 	 * \note Although this function forwards data from the motor, the motor
@@ -308,9 +300,9 @@ class Motor {
 	 * \return 1 if the motor is not moving, 0 if the motor is moving, or PROS_ERR
 	 * if the operation failed, setting errno
 	 */
-	virtual std::int32_t is_stopped(void) const;
+    virtual std::int32_t is_stopped(void) const;
 
-	/**
+    /**
 	 * Checks if the motor is at its zero position.
 	 *
 	 * \note Although this function forwards data from the motor, the motor
@@ -321,9 +313,9 @@ class Motor {
 	 * moved from its absolute zero, or PROS_ERR if the operation failed, setting
 	 * errno
 	 */
-	virtual std::int32_t get_zero_position_flag(void) const;
+    virtual std::int32_t get_zero_position_flag(void) const;
 
-	/**
+    /**
 	 * Gets the faults experienced by the motor.
 	 *
 	 * Compare this bitfield to the bitmasks in pros::motor_fault_e_t.
@@ -337,9 +329,9 @@ class Motor {
 	 *
 	 * \return A bitfield containing the motor's faults.
 	 */
-	virtual std::uint32_t get_faults(void) const;
+    virtual std::uint32_t get_faults(void) const;
 
-	/**
+    /**
 	 * Gets the flags set by the motor's operation.
 	 *
 	 * Compare this bitfield to the bitmasks in pros::motor_flag_e_t.
@@ -353,9 +345,9 @@ class Motor {
 	 *
 	 * \return A bitfield containing the motor's flags.
 	 */
-	virtual std::uint32_t get_flags(void) const;
+    virtual std::uint32_t get_flags(void) const;
 
-	/**
+    /**
 	 * Gets the raw encoder count of the motor at a given timestamp.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -370,9 +362,9 @@ class Motor {
 	 * \return The raw encoder count at the given timestamp or PROS_ERR if the
 	 * operation failed.
 	 */
-	virtual std::int32_t get_raw_position(std::uint32_t* const timestamp) const;
+    virtual std::int32_t get_raw_position(std::uint32_t *const timestamp) const;
 
-	/**
+    /**
 	 * Gets the temperature limit flag for the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -382,9 +374,9 @@ class Motor {
 	 * \return 1 if the temperature limit is exceeded and 0 if the temperature is
 	 * below the limit, or PROS_ERR if the operation failed, setting errno.
 	 */
-	virtual std::int32_t is_over_temp(void) const;
+    virtual std::int32_t is_over_temp(void) const;
 
-	/**
+    /**
 	 * Gets the absolute position of the motor in its encoder units.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -394,9 +386,9 @@ class Motor {
 	 * \return The motor's absolute position in its encoder units or PROS_ERR_F
 	 * if the operation failed, setting errno.
 	 */
-	virtual double get_position(void) const;
+    virtual double get_position(void) const;
 
-	/**
+    /**
 	 * Gets the power drawn by the motor in Watts.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -406,9 +398,9 @@ class Motor {
 	 * \return The motor's power draw in Watts or PROS_ERR_F if the operation
 	 * failed, setting errno.
 	 */
-	virtual double get_power(void) const;
+    virtual double get_power(void) const;
 
-	/**
+    /**
 	 * Gets the temperature of the motor in degrees Celsius.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -418,9 +410,9 @@ class Motor {
 	 * \return The motor's temperature in degrees Celsius or PROS_ERR_F if the
 	 * operation failed, setting errno.
 	 */
-	virtual double get_temperature(void) const;
+    virtual double get_temperature(void) const;
 
-	/**
+    /**
 	 * Gets the torque generated by the motor in Newton Meters (Nm).
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -430,9 +422,9 @@ class Motor {
 	 * \return The motor's torque in Nm or PROS_ERR_F if the operation failed,
 	 * setting errno.
 	 */
-	virtual double get_torque(void) const;
+    virtual double get_torque(void) const;
 
-	/**
+    /**
 	 * Gets the voltage delivered to the motor in millivolts.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -442,15 +434,15 @@ class Motor {
 	 * \return The motor's voltage in mV or PROS_ERR_F if the operation failed,
 	 * setting errno.
 	 */
-	virtual std::int32_t get_voltage(void) const;
+    virtual std::int32_t get_voltage(void) const;
 
-	/****************************************************************************/
-	/**                      Motor configuration functions                     **/
-	/**                                                                        **/
-	/**  These functions allow programmers to configure the behavior of motors **/
-	/****************************************************************************/
+    /****************************************************************************/
+    /**                      Motor configuration functions                     **/
+    /**                                                                        **/
+    /**  These functions allow programmers to configure the behavior of motors **/
+    /****************************************************************************/
 
-	/**
+    /**
 	 * Sets the position for the motor in its encoder units.
 	 *
 	 * This will be the future reference point for the motor's "absolute"
@@ -466,9 +458,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_zero_position(const double position) const;
+    virtual std::int32_t set_zero_position(const double position) const;
 
-	/**
+    /**
 	 * Sets the "absolute" zero position of the motor to its current position.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -478,9 +470,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t tare_position(void) const;
+    virtual std::int32_t tare_position(void) const;
 
-	/**
+    /**
 	 * Sets one of motor_brake_mode_e_t to the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -493,9 +485,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_brake_mode(const motor_brake_mode_e_t mode) const;
+    virtual std::int32_t set_brake_mode(const motor_brake_mode_e_t mode) const;
 
-	/**
+    /**
 	 * Sets the current limit for the motor in mA.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -508,9 +500,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_current_limit(const std::int32_t limit) const;
+    virtual std::int32_t set_current_limit(const std::int32_t limit) const;
 
-	/**
+    /**
 	 * Sets one of motor_encoder_units_e_t for the motor encoder.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -523,9 +515,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_encoder_units(const motor_encoder_units_e_t units) const;
+    virtual std::int32_t set_encoder_units(const motor_encoder_units_e_t units) const;
 
-	/**
+    /**
 	 * Sets one of motor_gearset_e_t for the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -538,9 +530,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_gearing(const motor_gearset_e_t gearset) const;
+    virtual std::int32_t set_gearing(const motor_gearset_e_t gearset) const;
 
-	/**
+    /**
 	 * Takes in floating point values and returns a properly formatted pid struct.
 	 * The motor_pid_s_t struct is in 4.4 format, i.e. 0x20 is 2.0, 0x21 is
 	 * 2.0625, etc.
@@ -563,9 +555,9 @@ class Motor {
 	 *
 	 * \return A motor_pid_s_t struct formatted properly in 4.4.
 	 */
-	static motor_pid_s_t convert_pid(double kf, double kp, double ki, double kd);
+    static motor_pid_s_t convert_pid(double kf, double kp, double ki, double kd);
 
-	/**
+    /**
 	 * Takes in floating point values and returns a properly formatted pid struct.
 	 * The motor_pid_s_t struct is in 4.4 format, i.e. 0x20 is 2.0, 0x21 is
 	 * 2.0625, etc.
@@ -597,10 +589,10 @@ class Motor {
 	 *
 	 * \return A motor_pid_s_t struct formatted properly in 4.4.
 	 */
-	static motor_pid_full_s_t convert_pid_full(double kf, double kp, double ki, double kd, double filter, double limit,
-	                                           double threshold, double loopspeed);
+    static motor_pid_full_s_t convert_pid_full(double kf, double kp, double ki, double kd, double filter, double limit,
+                                               double threshold, double loopspeed);
 
-	/**
+    /**
 	 * Sets one of motor_pid_s_t for the motor. This intended to just modify the
 	 * main PID constants.
 	 *
@@ -618,9 +610,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_pos_pid(const motor_pid_s_t pid) const;
+    virtual std::int32_t set_pos_pid(const motor_pid_s_t pid) const;
 
-	/**
+    /**
 	 * Sets one of motor_pid_full_s_t for the motor.
 	 *
 	 * Only non-zero values of the struct will change the existing motor
@@ -637,9 +629,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_pos_pid_full(const motor_pid_full_s_t pid) const;
+    virtual std::int32_t set_pos_pid_full(const motor_pid_full_s_t pid) const;
 
-	/**
+    /**
 	 * Sets one of motor_pid_s_t for the motor. This intended to just modify the
 	 * main PID constants.
 	 *
@@ -657,9 +649,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_vel_pid(const motor_pid_s_t pid) const;
+    virtual std::int32_t set_vel_pid(const motor_pid_s_t pid) const;
 
-	/**
+    /**
 	 * Sets one of motor_pid_full_s_t for the motor.
 	 *
 	 * Only non-zero values of the struct will change the existing motor
@@ -676,9 +668,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_vel_pid_full(const motor_pid_full_s_t pid) const;
+    virtual std::int32_t set_vel_pid_full(const motor_pid_full_s_t pid) const;
 
-	/**
+    /**
 	 * Sets the reverse flag for the motor.
 	 *
 	 * This will invert its movements and the values returned for its position.
@@ -693,9 +685,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_reversed(const bool reverse) const;
+    virtual std::int32_t set_reversed(const bool reverse) const;
 
-	/**
+    /**
 	 * Sets the voltage limit for the motor in Volts.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -708,9 +700,9 @@ class Motor {
 	 * \return 1 if the operation was successful or PROS_ERR if the operation
 	 * failed, setting errno.
 	 */
-	virtual std::int32_t set_voltage_limit(const std::int32_t limit) const;
+    virtual std::int32_t set_voltage_limit(const std::int32_t limit) const;
 
-	/**
+    /**
 	 * Gets the brake mode that was set for the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -720,9 +712,9 @@ class Motor {
 	 * \return One of motor_brake_mode_e_t, according to what was set for the
 	 * motor, or E_MOTOR_BRAKE_INVALID if the operation failed, setting errno.
 	 */
-	virtual motor_brake_mode_e_t get_brake_mode(void) const;
+    virtual motor_brake_mode_e_t get_brake_mode(void) const;
 
-	/**
+    /**
 	 * Gets the current limit for the motor in mA.
 	 *
 	 * The default value is 2500 mA.
@@ -734,9 +726,9 @@ class Motor {
 	 * \return The motor's current limit in mA or PROS_ERR if the operation failed,
 	 * setting errno.
 	 */
-	virtual std::int32_t get_current_limit(void) const;
+    virtual std::int32_t get_current_limit(void) const;
 
-	/**
+    /**
 	 * Gets the encoder units that were set for the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -746,9 +738,9 @@ class Motor {
 	 * \return One of motor_encoder_units_e_t according to what is set for the
 	 * motor or E_MOTOR_ENCODER_INVALID if the operation failed.
 	 */
-	virtual motor_encoder_units_e_t get_encoder_units(void) const;
+    virtual motor_encoder_units_e_t get_encoder_units(void) const;
 
-	/**
+    /**
 	 * Gets the gearset that was set for the motor.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -758,9 +750,9 @@ class Motor {
 	 * \return One of motor_gearset_e_t according to what is set for the motor,
 	 * or E_GEARSET_INVALID if the operation failed.
 	 */
-	virtual motor_gearset_e_t get_gearing(void) const;
+    virtual motor_gearset_e_t get_gearing(void) const;
 
-	/**
+    /**
 	 * Gets the position PID that was set for the motor. This function will return
 	 * zero for all of the parameters if the motor_set_pos_pid() or
 	 * motor_set_pos_pid_full() functions have not been used.
@@ -776,9 +768,9 @@ class Motor {
 	 * \return A motor_pid_full_s_t containing the position PID constants last set
 	 * to the given motor
 	 */
-	virtual motor_pid_full_s_t get_pos_pid(void) const;
+    virtual motor_pid_full_s_t get_pos_pid(void) const;
 
-	/**
+    /**
 	 * Gets the velocity PID that was set for the motor. This function will return
 	 * zero for all of the parameters if the motor_set_vel_pid() or
 	 * motor_set_vel_pid_full() functions have not been used.
@@ -794,9 +786,9 @@ class Motor {
 	 * \return A motor_pid_full_s_t containing the velocity PID constants last set
 	 * to the given motor
 	 */
-	virtual motor_pid_full_s_t get_vel_pid(void) const;
+    virtual motor_pid_full_s_t get_vel_pid(void) const;
 
-	/**
+    /**
 	 * Gets the operation direction of the motor as set by the user.
 	 *
 	 * This function uses the following values of errno when an error state is
@@ -806,9 +798,9 @@ class Motor {
 	 * \return 1 if the motor has been reversed and 0 if the motor was not
 	 * reversed, or PROS_ERR if the operation failed, setting errno.
 	 */
-	virtual std::int32_t is_reversed(void) const;
+    virtual std::int32_t is_reversed(void) const;
 
-	/**
+    /**
 	 * Gets the voltage limit set by the user.
 	 *
 	 * Default value is 0V, which means that there is no software limitation
@@ -821,15 +813,16 @@ class Motor {
 	 * \return The motor's voltage limit in V or PROS_ERR if the operation failed,
 	 * setting errno.
 	 */
-	virtual std::int32_t get_voltage_limit(void) const;
+    virtual std::int32_t get_voltage_limit(void) const;
 
-	private:
-	const std::uint8_t _port;
+  private:
+    const std::uint8_t _port;
 };
 
-namespace literals {
+namespace literals
+{
 const pros::Motor operator"" _mtr(const unsigned long long int m);
 const pros::Motor operator"" _rmtr(const unsigned long long int m);
-}  // namespace literals
-}  // namespace pros
-#endif  // _PROS_MOTORS_HPP_
+} // namespace literals
+} // namespace pros
+#endif // _PROS_MOTORS_HPP_

@@ -2,19 +2,29 @@
  * @Author: 陈昱安
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-24T17:20:51+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-24T21:10:40+08:00
  */
 
 #include "main.h"
 //全局变量和类
 systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
+
 //全局初始化构造函数
-pros::Controller controller(CONTROLLER_MASTER);
-Chassis chassis({pros::Motor(LF, 1), pros::Motor(LB, 1), pros::Motor(RF), pros::Motor(RB)});
-Generic<2> shoot({pros::Motor(SHOOT_L), pros::Motor(SHOOT_R, 1)}, SHOOT_HOLDING);
-Generic<2> intake({pros::Motor(INTAKE_L), pros::Motor(INTAKE_R, 1)});
+pros::Motor motorLf(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorLb(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorRf(RF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorRb(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorShootL(SHOOT_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorShootR(SHOOT_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorIntakeL(INTAKE_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor motorIntakeR(INTAKE_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
+
+pros::Controller controller(CONTROLLER_MASTER); //主遥控器
+Chassis chassis({&motorLf, &motorLb, &motorRf, &motorRb});
+Generic<2> shoot({&motorShootL, &motorShootR}, SHOOT_HOLDING);
+Generic<2> intake({&motorIntakeL, &motorIntakeL});
 /**
  * 初始化函数
  */

@@ -2,8 +2,8 @@
  * @Author: yan
  * @Date:   2018-10-24T08:20:36+08:00
  * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-24T08:37:59+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-24T20:54:15+08:00
  */
 
 #ifndef NCRAPI_HPP_
@@ -27,6 +27,10 @@
 #include "userConfig/example.hpp"
 #endif
 extern pros::Controller controller;
+extern pros::Motor motorLf;
+extern pros::Motor motorLb;
+extern pros::Motor motorRf;
+extern pros::Motor motorRb;
 extern Chassis chassis;
 extern Generic<2> shoot;
 extern Generic<2> intake;
