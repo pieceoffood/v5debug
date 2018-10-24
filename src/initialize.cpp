@@ -3,14 +3,18 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T12:50:56+08:00
+ * @Last modified time: 2018-10-24T08:38:09+08:00
  */
 
 #include "main.h"
 //全局变量和类
 systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
-
+//全局初始化构造函数
+pros::Controller controller(CONTROLLER_MASTER);
+Chassis chassis({pros::Motor(LF), pros::Motor(LB), pros::Motor(RF, 1), pros::Motor(RB, 1)});
+Generic<2> shoot({pros::Motor(SHOOT_L), pros::Motor(SHOOT_R, 1)}, SHOOT_HOLDING);
+Generic<2> intake({pros::Motor(INTAKE_L), pros::Motor(INTAKE_R, 1)});
 /**
  * 初始化函数
  */

@@ -1,3 +1,10 @@
+/**
+ * @Author: yan
+ * @Date:   2018-10-24T08:20:36+08:00
+ * @Email:  358079046@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-24T08:37:59+08:00
+ */
 
 #ifndef NCRAPI_HPP_
 #define NCRAPI_HPP_
@@ -19,5 +26,8 @@
 #else
 #include "userConfig/example.hpp"
 #endif
-
+extern pros::Controller controller;
+extern Chassis chassis;
+extern Generic<2> shoot;
+extern Generic<2> intake;
 #endif /* end of include guard: ncrapi_HPP_ */

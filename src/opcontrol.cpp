@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-24T08:32:15+08:00
+ * @Last modified time: 2018-10-24T08:35:27+08:00
  */
 
 #include "main.h"
@@ -23,10 +23,7 @@ void opcontrol()
     userDisplay.createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
-    pros::Controller controller(CONTROLLER_MASTER);
-    Chassis chassis({pros::Motor(LF), pros::Motor(LB), pros::Motor(RF, 1), pros::Motor(RB, 1)});
-    Generic<2> shoot({pros::Motor(SHOOT_L), pros::Motor(SHOOT_R, 1)}, SHOOT_HOLDING);
-    Generic<2> intake({pros::Motor(INTAKE_L), pros::Motor(INTAKE_R, 1)});
+
     //任务通知测试
     pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
