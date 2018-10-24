@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T23:17:12+08:00
+ * @Last modified time: 2018-10-24T23:23:50+08:00
  */
 
 #include "main.h"
@@ -27,7 +27,7 @@ pros::ADIGyro gyro(GYRO_PORT);
 pros::Controller controller(CONTROLLER_MASTER); //主遥控器
 Chassis chassis({&motorLf, &motorLb, &motorRf, &motorRb});
 Generic<2> shoot({&motorShootL, &motorShootR}, SHOOT_HOLDING);
-Generic<2> intake({&motorIntakeL, &motorIntakeL});
+Generic<2> intake({&motorIntakeL, &motorIntakeR});
 /**
  * 初始化函数
  */
