@@ -1,10 +1,11 @@
 /**
- * @Author: yan
- * @Date:   2018-10-16T10:02:14+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-24T17:46:41+08:00
+ * @Author: 陈昱安
+ * @Date:   2018-10-22T22:01:37+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-24T21:21:57+08:00
  */
+
 #include "main.h"
 
 static lv_res_t btn_close_action(lv_obj_t *btn)
@@ -21,7 +22,6 @@ static void sensorsTask(void *param)
 {
     (void)param; /*Unused*/
     char sensorsInfo[256];
-    pros::ADIGyro gyro(GYRO_PORT);
     sprintf(sensorsInfo, "GYRO:%d enc_L: enc_R: \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ", static_cast<int>(gyro.get_value()));
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }

@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T21:10:40+08:00
+ * @Last modified time: 2018-10-24T21:20:35+08:00
  */
 
 #include "main.h"
@@ -12,6 +12,7 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
+//马达初始化
 pros::Motor motorLf(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
 pros::Motor motorLb(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
 pros::Motor motorRf(RF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
@@ -20,7 +21,9 @@ pros::Motor motorShootL(SHOOT_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCO
 pros::Motor motorShootR(SHOOT_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
 pros::Motor motorIntakeL(INTAKE_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
 pros::Motor motorIntakeR(INTAKE_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
-
+//传感器初始化
+pros::ADIGyro gyro(GYRO_PORT);
+//部件类初始化
 pros::Controller controller(CONTROLLER_MASTER); //主遥控器
 Chassis chassis({&motorLf, &motorLb, &motorRf, &motorRb});
 Generic<2> shoot({&motorShootL, &motorShootR}, SHOOT_HOLDING);
@@ -37,7 +40,7 @@ void initialize()
     lv_obj_set_y(lab2, 20);
     lv_label_set_text(lab1, "机器人初始化中...");
     lv_label_set_text(lab2, "陀螺仪初始化中");
-    pros::ADIGyro gyro(GYRO_PORT);
+    //pros::ADIGyro gyro(GYRO_PORT);
     gyro.reset();
     if (gyro.get_value() == PROS_ERR)
     {
