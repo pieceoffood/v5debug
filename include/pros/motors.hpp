@@ -3,7 +3,7 @@
  * @Date:   2018-10-11T21:09:49+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T22:43:22+08:00
+ * @Last modified time: 2018-10-24T23:05:54+08:00
  */
 
 #ifndef _PROS_MOTORS_HPP_
@@ -445,8 +445,7 @@ class Motor
     /**
     *以编码器单位设置电机的位置。
     *
-    *这将是电机“绝对”的未来参考点
-    *位置。
+    *这将是电机“绝对”的未来参考点位置。
     *
     *当错误状态为时，此函数使用以下errno值
     * 到达：

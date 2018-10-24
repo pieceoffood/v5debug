@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T21:20:35+08:00
+ * @Last modified time: 2018-10-24T23:17:12+08:00
  */
 
 #include "main.h"
@@ -50,6 +50,8 @@ void initialize()
     }
     else
         lv_label_set_text(lab2, "陀螺仪初始化完毕");
+    //底盘初始化
+    chassis.resetEnc();
     lv_label_set_text(lab1, "机器人初始化完毕...");
     lv_obj_del(initObj);
     initObj = nullptr;

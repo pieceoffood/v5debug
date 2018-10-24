@@ -3,7 +3,7 @@
  * @Date:   2018-10-15T14:29:17+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T22:32:31+08:00
+ * @Last modified time: 2018-10-24T23:19:16+08:00
  */
 #ifndef CHASSIS_HPP_
 #define CHASSIS_HPP_
@@ -72,10 +72,43 @@ class Chassis
             right = static_cast<int>(copysign(127.0, static_cast<float>(right)));
         set(left, right);
     }
-    void getEncLeft()
+    /**
+     * 重置底盘所有马达编码器
+     */
+    void resetEnc()
     {
+        for (auto *it : _motorList)
+            it->tare_position();
+    }
+    /**
+     * 获取左侧底盘编码器值
+     * @return 返回左侧底盘编码器值
+     */
+    double getEncLeft()
+    {
+        double sum = 0;
         for (size_t i = 0; i < 2; i++)
-            _motorList[i]->
+            sum += _motorList[i]->get_position();
+        return sum / 2;
+    }
+    /**
+     * 获取右侧底盘编码器值
+     * @return 返回右侧底盘编码器值
+     */
+    double getEncRight()
+    {
+        double sum = 0;
+        for (size_t i = 2; i < 4; i++)
+            sum += _motorList[i]->get_position();
+        return sum / 2;
+    }
+    /**
+     * 获取底盘左右两个的编码器值
+     * @return 返回四个底盘马达编码器的平均值
+     */
+    double getEncAll()
+    {
+        return getEncLeft() + getEncRight() / 2;
     }
 };
 #endif /* end of include guard: CHASSIS_HPP_ */
