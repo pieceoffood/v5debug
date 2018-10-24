@@ -3,7 +3,7 @@
  * @Date:   2018-10-15T14:29:17+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T21:02:19+08:00
+ * @Last modified time: 2018-10-24T22:32:31+08:00
  */
 #ifndef CHASSIS_HPP_
 #define CHASSIS_HPP_
@@ -71,6 +71,11 @@ class Chassis
         if (right > 127 || right < -127)
             right = static_cast<int>(copysign(127.0, static_cast<float>(right)));
         set(left, right);
+    }
+    void getEncLeft()
+    {
+        for (size_t i = 0; i < 2; i++)
+            _motorList[i]->
     }
 };
 #endif /* end of include guard: CHASSIS_HPP_ */
