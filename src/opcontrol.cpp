@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-24T17:29:04+08:00
+ * @Last modified time: 2018-10-25T12:33:27+08:00
  */
 
 #include "main.h"
@@ -23,7 +23,7 @@ void opcontrol()
     userDisplay.createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
-
+    pros::ADIGyro gyro(GYRO_PORT);
     //任务通知测试
     //    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
@@ -42,6 +42,7 @@ void opcontrol()
         // {
         //     pros::c::task_notify(my_task);
         // }
+        std::cout << "gyro:" << gyro.get_value() << std::endl;
         lastTime = nowTime;
         pros::c::task_delay_until(&nowTime, 20);
     }

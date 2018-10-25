@@ -2,8 +2,8 @@
  * @Author: yan
  * @Date:   2018-10-24T08:20:36+08:00
  * @Email:  358079046@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T21:21:19+08:00
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-25T08:57:52+08:00
  */
 
 #ifndef NCRAPI_HPP_
@@ -35,7 +35,6 @@ extern pros::Motor motorShootL;
 extern pros::Motor motorShootR;
 extern pros::Motor motorIntakeL;
 extern pros::Motor motorIntakeR;
-extern pros::ADIGyro gyro;
 extern Chassis chassis;
 extern Generic<2> shoot;
 extern Generic<2> intake;

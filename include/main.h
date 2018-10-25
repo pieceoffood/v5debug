@@ -1,34 +1,63 @@
 /**
- * @Author: 陈昱安
- * @Date:   2018-09-16T00:20:58+08:00
- * @Email:  31612534@qq.com
+ * @Author: yan
+ * @Date:   2018-10-25T08:19:53+08:00
+ * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-24T17:21:31+08:00
+ * @Last modified time: 2018-10-25T12:59:41+08:00
  */
+
+
+
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
 
-#define PROS_USE_SIMPLE_NAMES //如果定义了这句话 可以使用一些更短的函数或者宏的名字
+#define PROS_USE_SIMPLE_NAMES
 
-/**
- * 如果定义，C++文字将可供使用。
- * 例如，你可以做“4ym＝50”，将马达4的目标速度设定为50。
- */
 #define PROS_USE_LITERALS
 
 #include "api.h"
 
-// using namespace pros;
-// using namespace okapi;
-//这里可以添加更多的头文件
-
+/**
+ * You should add more #includes here
+ */
+//#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
+#include "ncrapi/ncrapi.hpp"
+/**
+ * If you find doing pros::Motor() to be tedious and you'd prefer just to do
+ * Motor, you can use the namespace with the following commented out line.
+ *
+ * IMPORTANT: Only the okapi or pros namespace may be used, not both
+ * concurrently! The okapi namespace will export all symbols inside the pros
+ * namespace.
+ */
+// using namespace pros;
+// using namespace pros::literals;
+// using namespace okapi;
+
+/**
+ * Prototypes for the competition control tasks are redefined here to ensure
+ * that they can be called from user code (i.e. calling autonomous from a
+ * button press in opcontrol() for testing purposes).
+ */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+    void autonomous(void);
+    void initialize(void);
+    void disabled(void);
+    void competition_initialize(void);
+    void opcontrol(void);
+#ifdef __cplusplus
+}
+#endif
 
 #ifdef __cplusplus
-//这里可以添加CPP的头文件
-#include "ncrapi\ncrapi.hpp"
-// #include "okapi\api.hpp"
-
+/**
+ * You can add C++-only headers here
+ */
+//#include <iostream>
 #endif
 
 #endif // _PROS_MAIN_H_
