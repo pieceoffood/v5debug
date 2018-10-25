@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-25T12:59:07+08:00
+ * @Last modified time: 2018-10-25T13:01:31+08:00
  */
 
 #include "main.h"
@@ -21,7 +21,8 @@ pros::Motor motorShootL(SHOOT_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCO
 pros::Motor motorShootR(SHOOT_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
 pros::Motor motorIntakeL(INTAKE_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
 pros::Motor motorIntakeR(INTAKE_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
-
+//传感器初始化
+pros::ADIGyro gyro(1);
 //部件类初始化
 pros::Controller controller(CONTROLLER_MASTER); //主遥控器
 Chassis chassis({&motorLf, &motorLb, &motorRf, &motorRb});

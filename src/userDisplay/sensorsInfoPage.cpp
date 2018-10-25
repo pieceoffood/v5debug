@@ -3,7 +3,7 @@
  * @Date:   2018-10-22T22:01:37+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-25T08:59:44+08:00
+ * @Last modified time: 2018-10-25T13:01:54+08:00
  */
 
 #include "main.h"
@@ -22,8 +22,8 @@ static void sensorsTask(void *param)
 {
     (void)param; /*Unused*/
     char sensorsInfo[256];
-    // sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ",
-    //         gyro.get_value(), chassis.getEncLeft(), chassis.getEncRight());
+    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ",
+            gyro.get_value(), chassis.getEncLeft(), chassis.getEncRight());
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
 
