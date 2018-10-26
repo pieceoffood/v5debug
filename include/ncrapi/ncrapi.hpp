@@ -3,16 +3,17 @@
  * @Date:   2018-10-24T08:20:36+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-25T13:01:49+08:00
+ * @Last modified time: 2018-10-25T15:58:17+08:00
  */
 
 #ifndef NCRAPI_HPP_
 #define NCRAPI_HPP_
 
+#include "ncrapi/chassis/chassis.hpp"
+#include "ncrapi/generic/generic.hpp"
+#include "ncrapi/generic/shoot.hpp"
 #include "ncrapi/systemData.hpp"
 #include "ncrapi/userDisplay/userDisplay.hpp"
-#include "ncrapi\chassis\chassis.hpp"
-#include "ncrapi\generic\generic.hpp"
 
 //版本号
 #define NCR_VERSION_MAJOR 5 //主要版本号
@@ -27,16 +28,16 @@
 #include "userConfig/example.hpp"
 #endif
 extern pros::Controller controller;
-extern pros::Motor motorLf;
-extern pros::Motor motorLb;
-extern pros::Motor motorRf;
-extern pros::Motor motorRb;
-extern pros::Motor motorShootL;
-extern pros::Motor motorShootR;
-extern pros::Motor motorIntakeL;
-extern pros::Motor motorIntakeR;
+// extern pros::Motor motorLf;
+// extern pros::Motor motorLb;
+// extern pros::Motor motorRf;
+// extern pros::Motor motorRb;
+// extern pros::Motor motorShootL;
+// extern pros::Motor motorShootR;
+// extern pros::Motor motorIntakeL;
+// extern pros::Motor motorIntakeR;
 extern pros::ADIGyro gyro;
 extern Chassis chassis;
-extern Generic<2> shoot;
+extern LinearShoot<2> shoot;
 extern Generic<2> intake;
 #endif /* end of include guard: ncrapi_HPP_ */

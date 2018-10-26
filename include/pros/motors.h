@@ -1,12 +1,4 @@
 /**
- * @Author: 陈昱安
- * @Date:   2018-10-11T21:09:49+08:00
- * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T20:48:00+08:00
- */
-
-/**
  * \file pros/motors.h
  *
  * Contains prototypes for the V5 Motor-related functions.
@@ -31,21 +23,18 @@
 #include <stdint.h>
 
 #ifdef __cplusplus
-extern "C"
-{
-    namespace pros
-    {
-    namespace c
-    {
+extern "C" {
+namespace pros {
+namespace c {
 #endif
 
-    /******************************************************************************/
-    /**                         Motor movement functions                         **/
-    /**                                                                          **/
-    /**          These functions allow programmers to make motors move           **/
-    /******************************************************************************/
+/******************************************************************************/
+/**                         Motor movement functions                         **/
+/**                                                                          **/
+/**          These functions allow programmers to make motors move           **/
+/******************************************************************************/
 
-    /**
+/**
  * Sets the voltage for the motor from -127 to 127.
  *
  * This is designed to map easily to the input from the controller's analog
@@ -65,9 +54,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_move(uint8_t port, int32_t voltage);
+int32_t motor_move(uint8_t port, int32_t voltage);
 
-    /**
+/**
  * Sets the target absolute position for the motor to move to.
  *
  * This movement is relative to the position of the motor when initialized or
@@ -91,9 +80,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_move_absolute(uint8_t port, const double position, const int32_t velocity);
+int32_t motor_move_absolute(uint8_t port, const double position, const int32_t velocity);
 
-    /**
+/**
  * Sets the relative target position for the motor to move to.
  *
  * This movement is relative to the current position of the motor as given in
@@ -119,9 +108,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_move_relative(uint8_t port, const double position, const int32_t velocity);
+int32_t motor_move_relative(uint8_t port, const double position, const int32_t velocity);
 
-    /**
+/**
  * Sets the velocity for the motor.
  *
  * This velocity corresponds to different actual speeds depending on the gearset
@@ -144,9 +133,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_move_velocity(uint8_t port, const int32_t velocity);
+int32_t motor_move_velocity(uint8_t port, const int32_t velocity);
 
-    /**
+/**
  * Sets the output voltage for the motor from -12000 to 12000 in millivolts
  *
  * This function uses the following values of errno when an error state is
@@ -162,9 +151,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_move_voltage(uint8_t port, const int32_t voltage);
+int32_t motor_move_voltage(uint8_t port, const int32_t voltage);
 
-    /**
+/**
  * Changes the output velocity for a profiled movement (motor_move_absolute or
  * motor_move_relative). This will have no effect if the motor is not following
  * a profiled movement.
@@ -183,9 +172,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_modify_profiled_velocity(uint8_t port, const int32_t velocity);
+int32_t motor_modify_profiled_velocity(uint8_t port, const int32_t velocity);
 
-    /**
+/**
  * Gets the target position set for the motor by the user.
  *
  * This function uses the following values of errno when an error state is
@@ -199,9 +188,9 @@ extern "C"
  * \return The target position in its encoder units or PROS_ERR_F if the
  * operation failed, setting errno.
  */
-    double motor_get_target_position(uint8_t port);
+double motor_get_target_position(uint8_t port);
 
-    /**
+/**
  * Gets the velocity commanded to the motor by the user.
  *
  * This function uses the following values of errno when an error state is
@@ -215,15 +204,15 @@ extern "C"
  * \return The commanded motor velocity from +-100, +-200, or +-600, or PROS_ERR
  * if the operation failed, setting errno.
  */
-    int32_t motor_get_target_velocity(uint8_t port);
+int32_t motor_get_target_velocity(uint8_t port);
 
-    /******************************************************************************/
-    /**                        Motor telemetry functions                         **/
-    /**                                                                          **/
-    /**    These functions allow programmers to collect telemetry from motors    **/
-    /******************************************************************************/
+/******************************************************************************/
+/**                        Motor telemetry functions                         **/
+/**                                                                          **/
+/**    These functions allow programmers to collect telemetry from motors    **/
+/******************************************************************************/
 
-    /**
+/**
  * Gets the actual velocity of the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -237,9 +226,9 @@ extern "C"
  * \return The motor's actual velocity in RPM or PROS_ERR_F if the operation
  * failed, setting errno.
  */
-    double motor_get_actual_velocity(uint8_t port);
+double motor_get_actual_velocity(uint8_t port);
 
-    /**
+/**
  * Gets the current drawn by the motor in mA.
  *
  * This function uses the following values of errno when an error state is
@@ -253,9 +242,9 @@ extern "C"
  * \return The motor's current in mA or PROS_ERR if the operation failed,
  * setting errno.
  */
-    int32_t motor_get_current_draw(uint8_t port);
+int32_t motor_get_current_draw(uint8_t port);
 
-    /**
+/**
  * Gets the direction of movement for the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -269,9 +258,9 @@ extern "C"
  * \return 1 for moving in the positive direction, -1 for moving in the
  * negative direction, or PROS_ERR if the operation failed, setting errno.
  */
-    int32_t motor_get_direction(uint8_t port);
+int32_t motor_get_direction(uint8_t port);
 
-    /**
+/**
  * Gets the efficiency of the motor in percent.
  *
  * An efficiency of 100% means that the motor is moving electrically while
@@ -289,9 +278,9 @@ extern "C"
  * \return The motor's efficiency in percent or PROS_ERR_F if the operation
  * failed, setting errno.
  */
-    double motor_get_efficiency(uint8_t port);
+double motor_get_efficiency(uint8_t port);
 
-    /**
+/**
  * Checks if the motor is drawing over its current limit.
  *
  * This function uses the following values of errno when an error state is
@@ -305,9 +294,9 @@ extern "C"
  * \return 1 if the motor's current limit is being exceeded and 0 if the current
  * limit is not exceeded, or PROS_ERR if the operation failed, setting errno.
  */
-    int32_t motor_is_over_current(uint8_t port);
+int32_t motor_is_over_current(uint8_t port);
 
-    /**
+/**
  * Checks if the motor's temperature is above its limit.
  *
  * This function uses the following values of errno when an error state is
@@ -321,9 +310,9 @@ extern "C"
  * \return 1 if the temperature limit is exceeded and 0 if the the temperature
  * is below the limit, or PROS_ERR if the operation failed, setting errno.
  */
-    int32_t motor_is_over_temp(uint8_t port);
+int32_t motor_is_over_temp(uint8_t port);
 
-    /**
+/**
  * Checks if the motor is stopped.
  *
  * \note Although this function forwards data from the motor, the motor
@@ -336,9 +325,9 @@ extern "C"
  * \return 1 if the motor is not moving, 0 if the motor is moving, or PROS_ERR
  * if the operation failed, setting errno
  */
-    int32_t motor_is_stopped(uint32_t port);
+int32_t motor_is_stopped(uint32_t port);
 
-    /**
+/**
  * Checks if the motor is at its zero position.
  *
  * \note Although this function forwards data from the motor, the motor
@@ -352,20 +341,19 @@ extern "C"
  * moved from its absolute zero, or PROS_ERR if the operation failed,
  * setting errno
  */
-    int32_t motor_get_zero_position_flag(uint32_t port);
+int32_t motor_get_zero_position_flag(uint32_t port);
 
 #ifdef __cplusplus
-    } // namespace c
+}  // namespace c
 #endif
 
-    typedef enum motor_fault_e
-    {
-        E_MOTOR_FAULT_NO_FAULTS = 0x00,
-        E_MOTOR_FAULT_MOTOR_OVER_TEMP = 0x01, // Analogous to motor_is_over_temp()
-        E_MOTOR_FAULT_DRIVER_FAULT = 0x02,    // Indicates a motor h-bridge fault
-        E_MOTOR_FAULT_OVER_CURRENT = 0x04,    // Analogous to motor_is_over_current()
-        E_MOTOR_FAULT_DRV_OVER_CURRENT = 0x08 // Indicates an h-bridge over current
-    } motor_fault_e_t;
+typedef enum motor_fault_e {
+	E_MOTOR_FAULT_NO_FAULTS = 0x00,
+	E_MOTOR_FAULT_MOTOR_OVER_TEMP = 0x01,  // Analogous to motor_is_over_temp()
+	E_MOTOR_FAULT_DRIVER_FAULT = 0x02,     // Indicates a motor h-bridge fault
+	E_MOTOR_FAULT_OVER_CURRENT = 0x04,     // Analogous to motor_is_over_current()
+	E_MOTOR_FAULT_DRV_OVER_CURRENT = 0x08  // Indicates an h-bridge over current
+} motor_fault_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -384,11 +372,10 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
-    namespace c
-    {
+namespace c {
 #endif
 
-    /**
+/**
  * Gets the faults experienced by the motor.
  *
  * Compare this bitfield to the bitmasks in motor_fault_e_t.
@@ -403,19 +390,18 @@ extern "C"
  *
  * \return A bitfield containing the motor's faults.
  */
-    uint32_t motor_get_faults(uint8_t port);
+uint32_t motor_get_faults(uint8_t port);
 
 #ifdef __cplusplus
-    } // namespace c
+}  // namespace c
 #endif
 
-    typedef enum motor_flag_e
-    {
-        E_MOTOR_FLAGS_NONE = 0x00,
-        E_MOTOR_FLAGS_BUSY = 0x01,          // Cannot currently communicate to the motor
-        E_MOTOR_FLAGS_ZERO_VELOCITY = 0x02, // Analogous to motor_is_stopped()
-        E_MOTOR_FLAGS_ZERO_POSITION = 0x04  // Analogous to motor_get_zero_position_flag()
-    } motor_flag_e_t;
+typedef enum motor_flag_e {
+	E_MOTOR_FLAGS_NONE = 0x00,
+	E_MOTOR_FLAGS_BUSY = 0x01,           // Cannot currently communicate to the motor
+	E_MOTOR_FLAGS_ZERO_VELOCITY = 0x02,  // Analogous to motor_is_stopped()
+	E_MOTOR_FLAGS_ZERO_POSITION = 0x04   // Analogous to motor_get_zero_position_flag()
+} motor_flag_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -432,11 +418,10 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
-    namespace c
-    {
+namespace c {
 #endif
 
-    /**
+/**
  * Gets the flags set by the motor's operation.
  *
  * Compare this bitfield to the bitmasks in motor_flag_e_t.
@@ -451,9 +436,9 @@ extern "C"
  *
  * \return A bitfield containing the motor's flags.
  */
-    uint32_t motor_get_flags(uint8_t port);
+uint32_t motor_get_flags(uint8_t port);
 
-    /**
+/**
  * Gets the raw encoder count of the motor at a given timestamp.
  *
  * This function uses the following values of errno when an error state is
@@ -471,9 +456,9 @@ extern "C"
  * \return The raw encoder count at the given timestamp or PROS_ERR if the
  * operation failed.
  */
-    int32_t motor_get_raw_position(uint8_t port, uint32_t *const timestamp);
+int32_t motor_get_raw_position(uint8_t port, uint32_t* const timestamp);
 
-    /**
+/**
  * Gets the absolute position of the motor in its encoder units.
  *
  * This function uses the following values of errno when an error state is
@@ -487,9 +472,9 @@ extern "C"
  * \return The motor's absolute position in its encoder units or PROS_ERR_F
  * if the operation failed, setting errno.
  */
-    double motor_get_position(uint8_t port);
+double motor_get_position(uint8_t port);
 
-    /**
+/**
  * Gets the power drawn by the motor in Watts.
  *
  * This function uses the following values of errno when an error state is
@@ -503,9 +488,9 @@ extern "C"
  * \return The motor's power draw in Watts or PROS_ERR_F if the operation
  * failed, setting errno.
  */
-    double motor_get_power(uint8_t port);
+double motor_get_power(uint8_t port);
 
-    /**
+/**
  * Gets the temperature of the motor in degrees Celsius.
  *
  * This function uses the following values of errno when an error state is
@@ -519,9 +504,9 @@ extern "C"
  * \return The motor's temperature in degrees Celsius or PROS_ERR_F if the
  * operation failed, setting errno.
  */
-    double motor_get_temperature(uint8_t port);
+double motor_get_temperature(uint8_t port);
 
-    /**
+/**
  * Gets the torque generated by the motor in Newton Meters (Nm).
  *
  * This function uses the following values of errno when an error state is
@@ -535,9 +520,9 @@ extern "C"
  * \return The motor's torque in Nm or PROS_ERR_F if the operation failed,
  * setting errno.
  */
-    double motor_get_torque(uint8_t port);
+double motor_get_torque(uint8_t port);
 
-    /**
+/**
  * Gets the voltage delivered to the motor in millivolts.
  *
  * This function uses the following values of errno when an error state is
@@ -551,50 +536,50 @@ extern "C"
  * \return The motor's voltage in mV or PROS_ERR_F if the operation failed,
  * setting errno.
  */
-    int32_t motor_get_voltage(uint8_t port);
+int32_t motor_get_voltage(uint8_t port);
 
-    /******************************************************************************/
-    /**                      Motor configuration functions                       **/
-    /**                                                                          **/
-    /**  These functions allow programmers to configure the behavior of motors   **/
-    /******************************************************************************/
+/******************************************************************************/
+/**                      Motor configuration functions                       **/
+/**                                                                          **/
+/**  These functions allow programmers to configure the behavior of motors   **/
+/******************************************************************************/
 
 #ifdef __cplusplus
-    } // namespace c
+}  // namespace c
 #endif
 
-    /**
+/**
  * Indicates the current 'brake mode' of a motor.
  */
-    typedef enum motor_brake_mode_e
-    {
-        E_MOTOR_BRAKE_COAST = 0, // Motor coasts when stopped, traditional behavior
-        E_MOTOR_BRAKE_BRAKE = 1, // Motor brakes when stopped
-        E_MOTOR_BRAKE_HOLD = 2,  // Motor actively holds position when stopped
-        E_MOTOR_BRAKE_INVALID = INT32_MAX
-    } motor_brake_mode_e_t;
+typedef enum motor_brake_mode_e {
+	E_MOTOR_BRAKE_COAST = 0,  // Motor coasts when stopped, traditional behavior
+	E_MOTOR_BRAKE_BRAKE = 1,  // Motor brakes when stopped
+	E_MOTOR_BRAKE_HOLD = 2,   // Motor actively holds position when stopped
+	E_MOTOR_BRAKE_INVALID = INT32_MAX
+} motor_brake_mode_e_t;
 
-    /**
- * 表示电机编码器使用的单位。
+/**
+ * Indicates the units used by the motor encoders.
  */
-    typedef enum motor_encoder_units_e
-    {
-        E_MOTOR_ENCODER_DEGREES = 0,   //位置记录为角度（以度为单位）作为浮点数
-        E_MOTOR_ENCODER_ROTATIONS = 1, //位置以旋转角度记录 作为浮点数
-        E_MOTOR_ENCODER_COUNTS = 2,    //位置记录为原始编码器标记 作为一个整数
-        E_MOTOR_ENCODER_INVALID = INT32_MAX
-    } motor_encoder_units_e_t;
+typedef enum motor_encoder_units_e {
+	E_MOTOR_ENCODER_DEGREES = 0,    // Position is recorded as angle in degrees
+	                                // as a floating point number
+	E_MOTOR_ENCODER_ROTATIONS = 1,  // Position is recorded as angle in rotations
+	                                // as a floating point number
+	E_MOTOR_ENCODER_COUNTS = 2,     // Position is recorded as raw encoder ticks
+	                                // as a whole number
+	E_MOTOR_ENCODER_INVALID = INT32_MAX
+} motor_encoder_units_e_t;
 
-    /**
+/**
  * Indicates the current internal gear ratio of a motor.
  */
-    typedef enum motor_gearset_e
-    {
-        E_MOTOR_GEARSET_36 = 0, // 36:1, 100 RPM, Red gear set
-        E_MOTOR_GEARSET_18 = 1, // 18:1, 200 RPM, Green gear set
-        E_MOTOR_GEARSET_06 = 2, // 6:1, 600 RPM, Blue gear set
-        E_MOTOR_GEARSET_INVALID = INT32_MAX
-    } motor_gearset_e_t;
+typedef enum motor_gearset_e {
+	E_MOTOR_GEARSET_36 = 0,  // 36:1, 100 RPM, Red gear set
+	E_MOTOR_GEARSET_18 = 1,  // 18:1, 200 RPM, Green gear set
+	E_MOTOR_GEARSET_06 = 2,  // 6:1, 600 RPM, Blue gear set
+	E_MOTOR_GEARSET_INVALID = INT32_MAX
+} motor_gearset_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -628,46 +613,43 @@ extern "C"
 #endif
 #endif
 
-    /**
+/**
  * Holds the information about a Motor's position or velocity PID controls.
  *
  * These values are in 4.4 format, meaning that a value of 0x20 represents 2.0,
  * 0x21 represents 2.0625, 0x22 represents 2.125, etc.
  */
-    typedef struct motor_pid_full_s
-    {
-        uint8_t kf;        // The feedforward constant
-        uint8_t kp;        // The proportional constant
-        uint8_t ki;        // The integral constants
-        uint8_t kd;        // The derivative constant
-        uint8_t filter;    // A constant used for filtering the profile acceleration
-        uint16_t limit;    // The integral limit
-        uint8_t threshold; // The threshold for determining if a position movement has
-                           // reached its goal. This has no effect for velocity PID
-                           // calculations.
-        uint8_t loopspeed; // The rate at which the PID computation is run in ms
-    } motor_pid_full_s_t;
+typedef struct motor_pid_full_s {
+	uint8_t kf;         // The feedforward constant
+	uint8_t kp;         // The proportional constant
+	uint8_t ki;         // The integral constants
+	uint8_t kd;         // The derivative constant
+	uint8_t filter;     // A constant used for filtering the profile acceleration
+	uint16_t limit;     // The integral limit
+	uint8_t threshold;  // The threshold for determining if a position movement has
+	                    // reached its goal. This has no effect for velocity PID
+	                    // calculations.
+	uint8_t loopspeed;  // The rate at which the PID computation is run in ms
+} motor_pid_full_s_t;
 
-    /**
+/**
  * Holds just the constants for a Motor's position or velocity PID controls.
  *
  * These values are in 4.4 format, meaning that a value of 0x20 represents 2.0,
  * 0x21 represents 2.0625, 0x22 represents 2.125, etc.
  */
-    typedef struct motor_pid_s
-    {
-        uint8_t kf; // The feedforward constant
-        uint8_t kp; // The proportional constant
-        uint8_t ki; // The integral constants
-        uint8_t kd; // The derivative constant
-    } motor_pid_s_t;
+typedef struct motor_pid_s {
+	uint8_t kf;  // The feedforward constant
+	uint8_t kp;  // The proportional constant
+	uint8_t ki;  // The integral constants
+	uint8_t kd;  // The derivative constant
+} motor_pid_s_t;
 
 #ifdef __cplusplus
-    namespace c
-    {
+namespace c {
 #endif
 
-    /**
+/**
  * Sets the position for the motor in its encoder units.
  *
  * This will be the future reference point for the motor's "absolute" position.
@@ -685,9 +667,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_zero_position(uint8_t port, const double position);
+int32_t motor_set_zero_position(uint8_t port, const double position);
 
-    /**
+/**
  * Sets the "absolute" zero position of the motor to its current position.
  *
  * This function uses the following values of errno when an error state is
@@ -701,9 +683,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_tare_position(uint8_t port);
+int32_t motor_tare_position(uint8_t port);
 
-    /**
+/**
  * Sets one of motor_brake_mode_e_t to the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -719,9 +701,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_brake_mode(uint8_t port, const motor_brake_mode_e_t mode);
+int32_t motor_set_brake_mode(uint8_t port, const motor_brake_mode_e_t mode);
 
-    /**
+/**
  * Sets the current limit for the motor in mA.
  *
  * This function uses the following values of errno when an error state is
@@ -737,9 +719,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_current_limit(uint8_t port, const int32_t limit);
+int32_t motor_set_current_limit(uint8_t port, const int32_t limit);
 
-    /**
+/**
  * Sets one of motor_encoder_units_e_t for the motor encoder.
  *
  * This function uses the following values of errno when an error state is
@@ -755,9 +737,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_encoder_units(uint8_t port, const motor_encoder_units_e_t units);
+int32_t motor_set_encoder_units(uint8_t port, const motor_encoder_units_e_t units);
 
-    /**
+/**
  * Sets one of motor_gearset_e_t for the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -773,9 +755,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_gearing(uint8_t port, const motor_gearset_e_t gearset);
+int32_t motor_set_gearing(uint8_t port, const motor_gearset_e_t gearset);
 
-    /**
+/**
  * Takes in floating point values and returns a properly formatted pid struct.
  * The motor_pid_s_t struct is in 4.4 format, i.e. 0x20 is 2.0, 0x21 is 2.0625,
  * etc.
@@ -798,9 +780,9 @@ extern "C"
  *
  * \return A motor_pid_s_t struct formatted properly in 4.4.
  */
-    motor_pid_s_t motor_convert_pid(double kf, double kp, double ki, double kd);
+motor_pid_s_t motor_convert_pid(double kf, double kp, double ki, double kd);
 
-    /**
+/**
  * Takes in floating point values and returns a properly formatted pid struct.
  * The motor_pid_s_t struct is in 4.4 format, i.e. 0x20 is 2.0, 0x21 is 2.0625,
  * etc.
@@ -832,10 +814,10 @@ extern "C"
  *
  * \return A motor_pid_s_t struct formatted properly in 4.4.
  */
-    motor_pid_full_s_t motor_convert_pid_full(double kf, double kp, double ki, double kd, double filter, double limit,
-                                              double threshold, double loopspeed);
+motor_pid_full_s_t motor_convert_pid_full(double kf, double kp, double ki, double kd, double filter, double limit,
+                                          double threshold, double loopspeed);
 
-    /**
+/**
  * Sets one of motor_pid_s_t for the motor. This intended to just modify the
  * main PID constants.
  *
@@ -857,9 +839,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_pos_pid(uint8_t port, const motor_pid_s_t pid);
+int32_t motor_set_pos_pid(uint8_t port, const motor_pid_s_t pid);
 
-    /**
+/**
  * Sets one of motor_pid_full_s_t for the motor.
  *
  * Only non-zero values of the struct will change the existing motor constants.
@@ -880,9 +862,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_pos_pid_full(uint8_t port, const motor_pid_full_s_t pid);
+int32_t motor_set_pos_pid_full(uint8_t port, const motor_pid_full_s_t pid);
 
-    /**
+/**
  * Sets one of motor_pid_s_t for the motor. This intended to just modify the
  * main PID constants.
  *
@@ -904,9 +886,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_vel_pid(uint8_t port, const motor_pid_s_t pid);
+int32_t motor_set_vel_pid(uint8_t port, const motor_pid_s_t pid);
 
-    /**
+/**
  * Sets one of motor_pid_full_s_t for the motor.
  *
  * Only non-zero values of the struct will change the existing motor constants.
@@ -927,9 +909,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_vel_pid_full(uint8_t port, const motor_pid_full_s_t pid);
+int32_t motor_set_vel_pid_full(uint8_t port, const motor_pid_full_s_t pid);
 
-    /**
+/**
  * Sets the reverse flag for the motor.
  *
  * This will invert its movements and the values returned for its position.
@@ -947,9 +929,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_reversed(uint8_t port, const bool reverse);
+int32_t motor_set_reversed(uint8_t port, const bool reverse);
 
-    /**
+/**
  * Sets the voltage limit for the motor in Volts.
  *
  * This function uses the following values of errno when an error state is
@@ -965,9 +947,9 @@ extern "C"
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-    int32_t motor_set_voltage_limit(uint8_t port, const int32_t limit);
+int32_t motor_set_voltage_limit(uint8_t port, const int32_t limit);
 
-    /**
+/**
  * Gets the brake mode that was set for the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -981,9 +963,9 @@ extern "C"
  * \return One of motor_brake_mode_e_t, according to what was set for the motor,
  * or E_MOTOR_BRAKE_INVALID if the operation failed, setting errno.
  */
-    motor_brake_mode_e_t motor_get_brake_mode(uint8_t port);
+motor_brake_mode_e_t motor_get_brake_mode(uint8_t port);
 
-    /**
+/**
  * Gets the current limit for the motor in mA.
  *
  * The default value is 2500 mA.
@@ -999,9 +981,9 @@ extern "C"
  * \return The motor's current limit in mA or PROS_ERR if the operation failed,
  * setting errno.
  */
-    int32_t motor_get_current_limit(uint8_t port);
+int32_t motor_get_current_limit(uint8_t port);
 
-    /**
+/**
  * Gets the encoder units that were set for the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -1015,9 +997,9 @@ extern "C"
  * \return One of motor_encoder_units_e_t according to what is set for the motor
  * or E_MOTOR_ENCODER_INVALID if the operation failed.
  */
-    motor_encoder_units_e_t motor_get_encoder_units(uint8_t port);
+motor_encoder_units_e_t motor_get_encoder_units(uint8_t port);
 
-    /**
+/**
  * Gets the gearset that was set for the motor.
  *
  * This function uses the following values of errno when an error state is
@@ -1031,9 +1013,9 @@ extern "C"
  * \return One of motor_gearset_e_t according to what is set for the motor,
  * or E_GEARSET_INVALID if the operation failed.
  */
-    motor_gearset_e_t motor_get_gearing(uint8_t port);
+motor_gearset_e_t motor_get_gearing(uint8_t port);
 
-    /**
+/**
  * Gets the position PID that was set for the motor. This function will return
  * zero for all of the parameters if the motor_set_pos_pid() or
  * motor_set_pos_pid_full() functions have not been used.
@@ -1052,9 +1034,9 @@ extern "C"
  * \return A motor_pid_full_s_t containing the position PID constants last set
  * to the given motor
  */
-    motor_pid_full_s_t motor_get_pos_pid(uint8_t port);
+motor_pid_full_s_t motor_get_pos_pid(uint8_t port);
 
-    /**
+/**
  * Gets the velocity PID that was set for the motor. This function will return
  * zero for all of the parameters if the motor_set_vel_pid() or
  * motor_set_vel_pid_full() functions have not been used.
@@ -1073,9 +1055,9 @@ extern "C"
  * \return A motor_pid_full_s_t containing the velocity PID constants last set
  * to the given motor
  */
-    motor_pid_full_s_t motor_get_vel_pid(uint8_t port);
+motor_pid_full_s_t motor_get_vel_pid(uint8_t port);
 
-    /**
+/**
  * Gets the operation direction of the motor as set by the user.
  *
  * This function uses the following values of errno when an error state is
@@ -1089,9 +1071,9 @@ extern "C"
  * \return 1 if the motor has been reversed and 0 if the motor was not reversed,
  * or PROS_ERR if the operation failed, setting errno.
  */
-    int32_t motor_is_reversed(uint8_t port);
+int32_t motor_is_reversed(uint8_t port);
 
-    /**
+/**
  * Gets the voltage limit set by the user.
  *
  * Default value is 0V, which means that there is no software limitation imposed
@@ -1108,12 +1090,12 @@ extern "C"
  * \return The motor's voltage limit in V or PROS_ERR if the operation failed,
  * setting errno.
  */
-    int32_t motor_get_voltage_limit(uint8_t port);
+int32_t motor_get_voltage_limit(uint8_t port);
 
 #ifdef __cplusplus
-    } // namespace c
-    } // namespace pros
+}  // namespace c
+}  // namespace pros
 }
 #endif
 
-#endif // _PROS_MOTORS_H_
+#endif  // _PROS_MOTORS_H_
