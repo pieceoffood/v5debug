@@ -3,7 +3,7 @@
  * @Date:   2018-10-24T08:20:36+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-25T15:58:17+08:00
+ * @Last modified time: 2018-10-26T09:28:28+08:00
  */
 
 #ifndef NCRAPI_HPP_
@@ -27,16 +27,8 @@
 #else
 #include "userConfig/example.hpp"
 #endif
-extern pros::Controller controller;
-// extern pros::Motor motorLf;
-// extern pros::Motor motorLb;
-// extern pros::Motor motorRf;
-// extern pros::Motor motorRb;
-// extern pros::Motor motorShootL;
-// extern pros::Motor motorShootR;
-// extern pros::Motor motorIntakeL;
-// extern pros::Motor motorIntakeR;
-extern pros::ADIGyro gyro;
+extern pros::Controller joy1;
+extern pros::Controller joy2;
 extern Chassis chassis;
 extern LinearShoot<2> shoot;
 extern Generic<2> intake;

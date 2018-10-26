@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-25T15:59:28+08:00
+ * @Last modified time: 2018-10-26T09:30:02+08:00
  */
 
 #include "main.h"
@@ -12,23 +12,21 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
-//马达初始化
-pros::Motor motorLf(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorLb(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorRf(RF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorRb(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorShootL(SHOOT_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorShootR(SHOOT_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorIntakeL(INTAKE_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS);
-pros::Motor motorIntakeR(INTAKE_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS);
-//传感器初始化
-pros::ADIGyro gyro(GYRO_PORT);
 pros::ADIDigitalIn limitShoot(SHOOT_LIMIT_PORT);
 //部件类初始化
-pros::Controller controller(CONTROLLER_MASTER); //主遥控器
-Chassis chassis({&motorLf, &motorLb, &motorRf, &motorRb});
-LinearShoot<2> shoot({&motorShootL, &motorShootR}, SHOOT_HOLDING);
-Generic<2> intake({&motorIntakeL, &motorIntakeR});
+pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
+pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
+
+Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS),
+                 pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS),
+                 pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS),
+                 pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS)},
+                pros::ADIGyro(GYRO_PORT)); //底盘累初始化
+LinearShoot<2> shoot({pros::Motor(SHOOT_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS),
+                      pros::Motor(SHOOT_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS)},
+                     SHOOT_HOLDING); //发射器类初始化
+Generic<2> intake({pros::Motor(INTAKE_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS),
+                   pros::Motor(INTAKE_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS)}); //吸吐类初始化
 /**
  * 初始化函数
  */
@@ -41,7 +39,7 @@ void initialize()
     lv_obj_set_y(lab2, 20);
     lv_label_set_text(lab1, "机器人初始化中...");
     lv_label_set_text(lab2, "陀螺仪初始化中");
-    pros::ADIGyro gyro(1);
+    pros::ADIGyro gyro(GYRO_PORT);
     gyro.reset();
     if (gyro.get_value() == PROS_ERR)
     {

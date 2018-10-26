@@ -2,8 +2,8 @@
  * @Author: yan
  * @Date:   2018-10-15T14:29:17+08:00
  * @Email:  358079046@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-24T23:19:16+08:00
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-26T09:25:41+08:00
  */
 #ifndef CHASSIS_HPP_
 #define CHASSIS_HPP_
@@ -16,17 +16,18 @@
 class Chassis
 {
   private:
-    const std::array<pros::Motor *, 4> _motorList;
+    const std::array<pros::Motor, 4> _motorList;
+    const pros::ADIGyro _gyro;
 
   public:
-    Chassis(const std::array<pros::Motor *, 4> &motorList) : _motorList(motorList) {}
+    Chassis(const std::array<pros::Motor, 4> &motorList, const pros::ADIGyro &gyro) : _motorList(motorList), _gyro(gyro) {}
     ~Chassis() {}
     void set(const int left, const int right)
     {
         for (size_t i = 0; i < 2; i++)
-            _motorList[i]->move(left);
+            _motorList[i].move(left);
         for (size_t i = 2; i < 4; i++)
-            _motorList[i]->move(right);
+            _motorList[i].move(right);
     }
     /**
      * 普通前进后退 开环控制
@@ -77,8 +78,15 @@ class Chassis
      */
     void resetEnc()
     {
-        for (auto *it : _motorList)
-            it->tare_position();
+        for (auto &it : _motorList)
+            it.tare_position();
+    }
+    /**
+     * 重置陀螺仪
+     */
+    void resetGyro()
+    {
+        _gyro.reset();
     }
     /**
      * 获取左侧底盘编码器值
@@ -88,7 +96,7 @@ class Chassis
     {
         double sum = 0;
         for (size_t i = 0; i < 2; i++)
-            sum += _motorList[i]->get_position();
+            sum += _motorList[i].get_position();
         return sum / 2;
     }
     /**
@@ -99,7 +107,7 @@ class Chassis
     {
         double sum = 0;
         for (size_t i = 2; i < 4; i++)
-            sum += _motorList[i]->get_position();
+            sum += _motorList[i].get_position();
         return sum / 2;
     }
     /**
@@ -109,6 +117,14 @@ class Chassis
     double getEncAll()
     {
         return getEncLeft() + getEncRight() / 2;
+    }
+    /**
+     * 获取陀螺仪读数
+     * @return 陀螺仪返回值
+     */
+    double getGyro()
+    {
+        return _gyro.get_value();
     }
 };
 #endif /* end of include guard: CHASSIS_HPP_ */

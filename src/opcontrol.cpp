@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-25T13:02:10+08:00
+ * @Last modified time: 2018-10-26T09:45:15+08:00
  */
 
 #include "main.h"
@@ -33,11 +33,12 @@ void opcontrol()
             userDisplay.maxLoopTime = userDisplay.loopTime;
         if (userDisplay.loopTime < userDisplay.minLoopTime)
             userDisplay.minLoopTime = userDisplay.loopTime;
-        chassis.arcade(controller.get_analog(ANALOG_LEFT_Y), controller.get_analog(ANALOG_RIGHT_X), JOY_THRESHOLD);
-        shoot.joyControl(controller.get_digital(DIGITAL_L1), controller.get_digital(DIGITAL_L2));
-        intake.joyControl(controller.get_digital(DIGITAL_R1), controller.get_digital(DIGITAL_R2));
+        chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), JOY_THRESHOLD);
+        shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
+        intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
+        //    std::cout << "gyro:" << chassis.getGyro() << std::endl;
         //多线程测试
-        // if (pros::c::controller_get_digital(CONTROLLER_MASTER, DIGITAL_L1))
+        // if (pros::c::joy1_get_digital(joy1_MASTER, DIGITAL_L1))
         // {
         //     pros::c::task_notify(my_task);
         // }
