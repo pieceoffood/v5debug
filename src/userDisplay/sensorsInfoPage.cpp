@@ -1,10 +1,11 @@
 /**
- * @Author: yan
- * @Date:   2018-10-16T10:02:14+08:00
- * @Email:  358079046@qq.com
+ * @Author: 陈昱安
+ * @Date:   2018-10-22T22:01:37+08:00
+ * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-16T13:56:15+08:00
+ * @Last modified time: 2018-10-26T09:23:14+08:00
  */
+
 #include "main.h"
 
 static lv_res_t btn_close_action(lv_obj_t *btn)
@@ -21,9 +22,8 @@ static void sensorsTask(void *param)
 {
     (void)param; /*Unused*/
     char sensorsInfo[256];
-    okapi::ADIGyro gyro(GYRO_PORT);
-    sprintf(sensorsInfo, "GYRO:%d enc_L: enc_R: \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ",
-            static_cast<int>(gyro.get()));
+    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ",
+            chassis.getGyro(), chassis.getEncLeft(), chassis.getEncRight());
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
 

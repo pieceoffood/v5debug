@@ -1,16 +1,13 @@
 /**
- * @Author: yan
- * @Date:   2018-10-08T10:28:31+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-13T11:08:59+08:00
+ * @file lv_btn.h
+ *
  */
+
 #ifndef LV_BTN_H
 #define LV_BTN_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /*********************
@@ -19,7 +16,7 @@ extern "C"
 #include "display/lv_conf.h"
 #if USE_LV_BTN != 0
 
-/*依赖项测试*/
+/*Testing of dependencies*/
 #if USE_LV_CONT == 0
 #error "lv_btn: lv_cont is required. Enable it in lv_conf.h (USE_LV_CONT  1) "
 #endif
@@ -27,197 +24,192 @@ extern "C"
 #include "display/lv_core/lv_indev.h"
 #include "display/lv_objx/lv_cont.h"
 
-    /*********************
+/*********************
  *      DEFINES
  *********************/
 
-    /**********************
+/**********************
  *      TYPEDEFS
  **********************/
 
-    /*按钮状态*/
-    typedef enum
-    {
-        LV_BTN_STATE_REL,
-        LV_BTN_STATE_PR,
-        LV_BTN_STATE_TGL_REL,
-        LV_BTN_STATE_TGL_PR,
-        LV_BTN_STATE_INA,
-        LV_BTN_STATE_NUM,
-    } lv_btn_state_t;
+/*Button states*/
+typedef enum {
+  LV_BTN_STATE_REL,
+  LV_BTN_STATE_PR,
+  LV_BTN_STATE_TGL_REL,
+  LV_BTN_STATE_TGL_PR,
+  LV_BTN_STATE_INA,
+  LV_BTN_STATE_NUM,
+} lv_btn_state_t;
 
-    typedef enum
-    {
-        LV_BTN_ACTION_CLICK,
-        LV_BTN_ACTION_PR,
-        LV_BTN_ACTION_LONG_PR,
-        LV_BTN_ACTION_LONG_PR_REPEAT,
-        LV_BTN_ACTION_NUM,
-    } lv_btn_action_t;
+typedef enum {
+  LV_BTN_ACTION_CLICK,
+  LV_BTN_ACTION_PR,
+  LV_BTN_ACTION_LONG_PR,
+  LV_BTN_ACTION_LONG_PR_REPEAT,
+  LV_BTN_ACTION_NUM,
+} lv_btn_action_t;
 
-    /*按钮数据*/
-    typedef struct
-    {
-        lv_cont_ext_t cont; /*Ext。祖先*/
-        /*此类型的新数据 */
-        lv_action_t actions[LV_BTN_ACTION_NUM];
-        lv_style_t *styles[LV_BTN_STATE_NUM]; /*每个州的风格*/
+/*Data of button*/
+typedef struct {
+  lv_cont_ext_t cont; /*Ext. of ancestor*/
+  /*New data for this type */
+  lv_action_t actions[LV_BTN_ACTION_NUM];
+  lv_style_t *styles[LV_BTN_STATE_NUM]; /*Styles in each state*/
 
-        lv_btn_state_t state;                /*来自'lv_btn_state_t'枚举的按钮的当前状态*/
-        uint8_t toggle : 1;                  /*1：启用切换*/
-        uint8_t long_pr_action_executed : 1; /*1：执行长按动作（由...处理图书馆）*/
-    } lv_btn_ext_t;
+  lv_btn_state_t
+      state;          /*Current state of the button from 'lv_btn_state_t' enum*/
+  uint8_t toggle : 1; /*1: Toggle enabled*/
+  uint8_t
+      long_pr_action_executed : 1; /*1: Long press action executed (Handled by
+                                      the library)*/
+} lv_btn_ext_t;
 
-    /*样式*/
-    typedef enum
-    {
-        LV_BTN_STYLE_REL,
-        LV_BTN_STYLE_PR,
-        LV_BTN_STYLE_TGL_REL,
-        LV_BTN_STYLE_TGL_PR,
-        LV_BTN_STYLE_INA,
-    } lv_btn_style_t;
+/*Styles*/
+typedef enum {
+  LV_BTN_STYLE_REL,
+  LV_BTN_STYLE_PR,
+  LV_BTN_STYLE_TGL_REL,
+  LV_BTN_STYLE_TGL_PR,
+  LV_BTN_STYLE_INA,
+} lv_btn_style_t;
 
-    /**********************
- * 全局变量
+/**********************
+ * GLOBAL PROTOTYPES
  **********************/
 
-    /**
-    *创建一个按钮对象
-     * @param par指向一个对象的指针，它将是新按钮的父指针
-     * @param复制指向按钮对象的指针，如果不是NULL，则新对象将
-     *从中复制
-     * @return指向创建按钮的指针
+/**
+ * Create a button objects
+ * @param par pointer to an object, it will be the parent of the new button
+ * @param copy pointer to a button object, if not NULL then the new object will
+ * be copied from it
+ * @return pointer to the created button
  */
-    lv_obj_t *lv_btn_create(lv_obj_t *par, lv_obj_t *copy);
+lv_obj_t *lv_btn_create(lv_obj_t *par, lv_obj_t *copy);
 
-    /*=====================
- * Setter功能
+/*=====================
+ * Setter functions
  *====================*/
 
-    /**
-    *启用切换状态。在释放时，按钮将从/更改为切换
-     *国家。
-     * @param btn指向按钮对象的指针
-     * @param tgl true：启用切换状态，false：禁用
+/**
+ * Enable the toggled states. On release the button will change from/to toggled
+ * state.
+ * @param btn pointer to a button object
+ * @param tgl true: enable toggled states, false: disable
  */
-    void lv_btn_set_toggle(lv_obj_t *btn, bool tgl);
+void lv_btn_set_toggle(lv_obj_t *btn, bool tgl);
 
-    /**
-    *设置按钮的状态
-   * @param btn指向按钮对象的指针
-   * @param说明按钮的新状态（来自lv_btn_state_t枚举）
+/**
+ * Set the state of the button
+ * @param btn pointer to a button object
+ * @param state the new state of the button (from lv_btn_state_t enum)
  */
-    void lv_btn_set_state(lv_obj_t *btn, lv_btn_state_t state);
+void lv_btn_set_state(lv_obj_t *btn, lv_btn_state_t state);
 
-    /**
-    *切换按钮的状态（ON-> OFF，OFF-> ON）
-    * @param btn指向按钮对象的指针
+/**
+ * Toggle the state of the button (ON->OFF, OFF->ON)
+ * @param btn pointer to a button object
  */
-    void lv_btn_toggle(lv_obj_t *btn);
+void lv_btn_toggle(lv_obj_t *btn);
 
-    /**
-    *设置按钮事件发生时调用的函数
-    * @param btn指向按钮对象的指针
-    * @param动作类型的事件形式'lv_action_t'（按，发布，长按,长按重复）
+/**
+ * Set a function to call when the button event happens
+ * @param btn pointer to a button object
+ * @param action type of event form 'lv_action_t' (press, release, long press,
+ * long press repeat)
  */
-    void lv_btn_set_action(lv_obj_t *btn, lv_btn_action_t type, lv_action_t action);
+void lv_btn_set_action(lv_obj_t *btn, lv_btn_action_t type, lv_action_t action);
 
-    /**
-    *在按钮上设置布局
-    * @param btn指向按钮对象的指针
-    * @param布局'lv_cont_layout_t'的布局
+/**
+ * Set the layout on a button
+ * @param btn pointer to a button object
+ * @param layout a layout from 'lv_cont_layout_t'
  */
-    static inline void lv_btn_set_layout(lv_obj_t *btn, lv_layout_t layout)
-    {
-        lv_cont_set_layout(btn, layout);
-    }
+static inline void lv_btn_set_layout(lv_obj_t *btn, lv_layout_t layout) {
+  lv_cont_set_layout(btn, layout);
+}
 
-    /**
-    *启用水平或垂直配合。
-     *按钮大小将设置为水平或儿童
-     * 垂直。
-     * @param btn指向按钮对象的指针
-     * @param hor_en true：启用水平拟合
-     * @param ver_en true：启用垂直拟合
+/**
+ * Enable the horizontal or vertical fit.
+ * The button size will be set to involve the children horizontally or
+ * vertically.
+ * @param btn pointer to a button object
+ * @param hor_en true: enable the horizontal fit
+ * @param ver_en true: enable the vertical fit
  */
-    static inline void lv_btn_set_fit(lv_obj_t *btn, bool hor_en, bool ver_en)
-    {
-        lv_cont_set_fit(btn, hor_en, ver_en);
-    }
+static inline void lv_btn_set_fit(lv_obj_t *btn, bool hor_en, bool ver_en) {
+  lv_cont_set_fit(btn, hor_en, ver_en);
+}
 
-    /**
-    *设置按钮的样式。
-   * @param btn指向按钮对象的指针
-   * @param类型应该设置哪种样式
-   * @param样式指针指向一个样式
+/**
+ * Set a style of a button.
+ * @param btn pointer to button object
+ * @param type which style should be set
+ * @param style pointer to a style
  *  */
-    void lv_btn_set_style(lv_obj_t *btn, lv_btn_style_t type, lv_style_t *style);
+void lv_btn_set_style(lv_obj_t *btn, lv_btn_style_t type, lv_style_t *style);
 
-    /*=====================
- *吸气功能
+/*=====================
+ * Getter functions
  *====================*/
 
-    /**
-    *获取按钮的当前状态
-    * @param btn指向按钮对象的指针
-    * @return按钮的状态（来自lv_btn_state_t枚举）
+/**
+ * Get the current state of the button
+ * @param btn pointer to a button object
+ * @return the state of the button (from lv_btn_state_t enum)
  */
-    lv_btn_state_t lv_btn_get_state(lv_obj_t *btn);
+lv_btn_state_t lv_btn_get_state(lv_obj_t *btn);
 
-    /**
-    *获取按钮的切换启用属性
-     * @param btn指向按钮对象的指针
-     * @return ture：启用切换，false：禁用
+/**
+ * Get the toggle enable attribute of the button
+ * @param btn pointer to a button object
+ * @return ture: toggle enabled, false: disabled
  */
-    bool lv_btn_get_toggle(lv_obj_t *btn);
+bool lv_btn_get_toggle(lv_obj_t *btn);
 
-    /**
-    *获取按钮的释放动作
-    * @param btn指向按钮对象的指针
-    * @return指向释放动作功能的指针
+/**
+ * Get the release action of a button
+ * @param btn pointer to a button object
+ * @return pointer to the release action function
  */
-    lv_action_t lv_btn_get_action(lv_obj_t *btn, lv_btn_action_t type);
+lv_action_t lv_btn_get_action(lv_obj_t *btn, lv_btn_action_t type);
 
-    /**
-    *获取按钮的布局
-    * @param btn指向按钮对象的指针
-    * @return'lv_cont_layout_t'的布局
+/**
+ * Get the layout of a button
+ * @param btn pointer to button object
+ * @return the layout from 'lv_cont_layout_t'
  */
-    static inline lv_layout_t lv_btn_get_layout(lv_obj_t *btn)
-    {
-        return lv_cont_get_layout(btn);
-    }
+static inline lv_layout_t lv_btn_get_layout(lv_obj_t *btn) {
+  return lv_cont_get_layout(btn);
+}
 
-    /**
-    *获取按钮的水平拟合启用属性
-   * @param btn指向按钮对象的指针
-  * @return true：启用水平拟合; false：禁用
+/**
+ * Get horizontal fit enable attribute of a button
+ * @param btn pointer to a button object
+ * @return true: horizontal fit is enabled; false: disabled
  */
-    static inline bool lv_btn_get_hor_fit(lv_obj_t *btn)
-    {
-        return lv_cont_get_hor_fit(btn);
-    }
+static inline bool lv_btn_get_hor_fit(lv_obj_t *btn) {
+  return lv_cont_get_hor_fit(btn);
+}
 
-    /**
-    *获取容器的垂直适合启用属性
-   * @param btn指向按钮对象的指针
-  * @return true：启用垂直拟合; false：禁用
+/**
+ * Get vertical fit enable attribute of a container
+ * @param btn pointer to a button object
+ * @return true: vertical fit is enabled; false: disabled
  */
-    static inline bool lv_btn_get_ver_fit(lv_obj_t *btn)
-    {
-        return lv_cont_get_ver_fit(btn);
-    }
+static inline bool lv_btn_get_ver_fit(lv_obj_t *btn) {
+  return lv_cont_get_ver_fit(btn);
+}
 
-    /**
-    *获得按钮的风格。
-    * @param btn指向按钮对象的指针
-    * @param类型应该获得哪种风格
-    * @return样式指针的样式
+/**
+ * Get style of a button.
+ * @param btn pointer to button object
+ * @param type which style should be get
+ * @return style pointer to the style
  *  */
-    lv_style_t *lv_btn_get_style(lv_obj_t *btn, lv_btn_style_t type);
+lv_style_t *lv_btn_get_style(lv_obj_t *btn, lv_btn_style_t type);
 
-    /**********************
+/**********************
  *      MACROS
  **********************/
 

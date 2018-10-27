@@ -1,12 +1,3 @@
-/**
- * @Author: yan
- * @Date:   2018-10-08T14:15:45+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-15T15:20:46+08:00
- */
-
-
 #ifndef PATHFINDER_STRUCT_H_DEF
 #define PATHFINDER_STRUCT_H_DEF
 

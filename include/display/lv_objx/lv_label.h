@@ -1,13 +1,7 @@
 /**
- * @Author: yan
- * @Date:   2018-10-08T14:08:09+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-08T14:53:41+08:00
+ * @file lv_rect.h
+ *
  */
-
-
-
 
 #ifndef LV_LABEL_H
 #define LV_LABEL_H
@@ -37,208 +31,221 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
-/*长模式行为。用于'lv_label_ext_t' */
+/*Long mode behaviors. Used in 'lv_label_ext_t' */
 typedef enum {
-  LV_LABEL_LONG_EXPAND, /*将对象大小扩展为文本大小*/
-  LV_LABEL_LONG_BREAK,  /*保持对象宽度，打破太长的线条和扩展对象高度*/
-  LV_LABEL_LONG_SCROLL, /*展开对象大小并滚动文本 parent（移动标签对象）*/
-  LV_LABEL_LONG_DOT,    /*K如果文本是， 保持大小并在末尾写点   太长了*/
-  LV_LABEL_LONG_ROLL,   /*保持大小并无限滚动文本*/
+  LV_LABEL_LONG_EXPAND, /*Expand the object size to the text size*/
+  LV_LABEL_LONG_BREAK,  /*Keep the object width, break the too long lines and
+                           expand the object height*/
+  LV_LABEL_LONG_SCROLL, /*Expand the object size and scroll the text on the
+                           parent (move the label object)*/
+  LV_LABEL_LONG_DOT,    /*Keep the size and write dots at the end if the text is
+                           too long*/
+  LV_LABEL_LONG_ROLL,   /*Keep the size and roll the text infinitely*/
 } lv_label_long_mode_t;
 
-/*标签对齐政策*/
+/*Label align policy*/
 typedef enum {
   LV_LABEL_ALIGN_LEFT,
   LV_LABEL_ALIGN_CENTER,
 } lv_label_align_t;
 
-/*标签数据*/
+/*Data of label*/
 typedef struct {
-  /*从'base_obj'继承，所以没有继承的ext。* /  / *分机 祖先*/
-  /*此类型的新数据 */
-  char *text;                     /*标签文字*/
-  lv_label_long_mode_t long_mode; /*确定如何处理长文*/
+  /*Inherited from 'base_obj' so no inherited ext.*/ /*Ext. of ancestor*/
+  /*New data for this type */
+  char *text;                     /*Text of the label*/
+  lv_label_long_mode_t long_mode; /*Determinate what to do with the long texts*/
 #if LV_TXT_UTF8 == 0
-  char dot_tmp[LV_LABEL_DOT_NUM + 1]; /*存储被替换的角色 by dots（由图书馆处理*/
+  char dot_tmp[LV_LABEL_DOT_NUM + 1]; /*Store the character which are replaced
+                                         by dots (Handled by the library)*/
 #else
-  char dot_tmp[LV_LABEL_DOT_NUM * 4 + 1]; /*存储的字符 用点代替（由...处理） 图书馆*/
+  char dot_tmp[LV_LABEL_DOT_NUM * 4 + 1]; /*Store the character which are
+                                             replaced by dots (Handled by the
+                                             library)*/
 #endif
-  uint16_t dot_end; /*点模式下的文本结束位置（由库处理）*/
-  uint16_t anim_speed;    /*滚动和滚动动画的速度，以px / sec为单位*/
-  lv_point_t offset;      /*文字绘制位置偏移*/
-  uint8_t static_txt : 1; /*标记表示文本是静态*/
-  uint8_t align : 2;      /*从'lv_label_align_t'中选择对齐类型*/
-  uint8_t recolor : 1;    /*启用内联字母重新着色*/
-  uint8_t expand : 1;     /*忽略实际宽度（由库使用LV_LABEL_LONG_ROLL*/
-  uint8_t no_break : 1;   /*忽略换行符*/
-  uint8_t body_draw : 1;  /*绘制背景体*/
+  uint16_t
+      dot_end; /*The text end position in dot mode (Handled by the library)*/
+  uint16_t anim_speed;    /*Speed of scroll and roll animation in px/sec unit*/
+  lv_point_t offset;      /*Text draw position offset*/
+  uint8_t static_txt : 1; /*Flag to indicate the text is static*/
+  uint8_t align : 2;      /*Align type from 'lv_label_align_t'*/
+  uint8_t recolor : 1;    /*Enable in-line letter re-coloring*/
+  uint8_t expand : 1;     /*Ignore real width (used by the library with
+                             LV_LABEL_LONG_ROLL)*/
+  uint8_t no_break : 1;   /*Ignore new line characters*/
+  uint8_t body_draw : 1;  /*Draw background body*/
 } lv_label_ext_t;
 
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
 
- /**
-  *创建标签对象
-  * @param par指向对象的指针，它将是新标签的父级
-  * @param复制指向按钮对象的指针，如果不是NULL，则新对象将从中复制
-  * @return指向创建按钮的指针
-  */
+/**
+ * Create a label objects
+ * @param par pointer to an object, it will be the parent of the new label
+ * @param copy pointer to a button object, if not NULL then the new object will
+ * be copied from it
+ * @return pointer to the created button
+ */
 lv_obj_t *lv_label_create(lv_obj_t *par, lv_obj_t *copy);
 
 /*=====================
- * Setter功能
+ * Setter functions
  *====================*/
 
- /**
- *  为标签设置新文本。将分配内存以存储文本标签。
- * @param标签指向标签对象的指针
- * @param text'\ 0'终止字符串。使用NULL刷新NULL现在的文字。
-  */
+/**
+ * Set a new text for a label. Memory will be allocated to store the text by the
+ * label.
+ * @param label pointer to a label object
+ * @param text '\0' terminated character string. NULL to refresh with the
+ * current text.
+ */
 void lv_label_set_text(lv_obj_t *label, const char *text);
 
 /**
- *从字符数组中为标签设置新文本。阵列不一定是'\ 0'终止。
- *将分配内存以通过标签存储阵列。
- * @param标签指向标签对象的指针
- * @param数组字符数组或NULL来刷新标签
- * @param以'字节'为单位调整'array'的大小
+ * Set a new text for a label from a character array. The array don't has to be
+ * '\0' terminated.
+ * Memory will be allocated to store the array by the label.
+ * @param label pointer to a label object
+ * @param array array of characters or NULL to refresh the label
+ * @param size the size of 'array' in bytes
  */
 void lv_label_set_array_text(lv_obj_t *label, const char *array, uint16_t size);
 
 /**
-*设置静态文本。它不会被标签保存，因此'text'变量标签存在时必须“活着”。
- * @param标签指向标签对象的指针
- * @param文本指向文本。使用当前文本刷新NULL。
+ * Set a static text. It will not be saved by the label so the 'text' variable
+ * has to be 'alive' while the label exist.
+ * @param label pointer to a label object
+ * @param text pointer to a text. NULL to refresh with the current text.
  */
 void lv_label_set_static_text(lv_obj_t *label, const char *text);
 
 /**
- * 使用较长的文本设置标签的行为，然后设置对象大小
- * @param标签指向标签对象的指针
- * @param long_mode来自'lv_label_long_mode'枚举的新模式。
+ * Set the behavior of the label with longer text then the object size
+ * @param label pointer to a label object
+ * @param long_mode the new mode from 'lv_label_long_mode' enum.
  */
 void lv_label_set_long_mode(lv_obj_t *label, lv_label_long_mode_t long_mode);
 
 /**
- *设置标签的对齐方式（左侧或中间）
- * @param标签指向标签对象的指针
- * @param align'LV_LABEL_ALIGN_LEFT'或'LV_LABEL_ALIGN_LEFT'
+ * Set the align of the label (left or center)
+ * @param label pointer to a label object
+ * @param align 'LV_LABEL_ALIGN_LEFT' or 'LV_LABEL_ALIGN_LEFT'
  */
 void lv_label_set_align(lv_obj_t *label, lv_label_align_t align);
 
 /**
- * 通过内联命令启用重新着色
- * @param标签指向标签对象的指针
- * @param recolor_en true：启用重新加载，false：禁用
+ * Enable the recoloring by in-line commands
+ * @param label pointer to a label object
+ * @param recolor_en true: enable recoloring, false: disable
  */
 void lv_label_set_recolor(lv_obj_t *label, bool recolor_en);
-/**
- *设置标签以忽略（或接受）'\ n'上的换行符
- * @param标签指向标签对象的指针
- * @param no_break_en true：忽略换行符，false：在'\ n'上换行
- */
 
+/**
+ * Set the label to ignore (or accept) line breaks on '\n'
+ * @param label pointer to a label object
+ * @param no_break_en true: ignore line breaks, false: make line breaks on '\n'
+ */
 void lv_label_set_no_break(lv_obj_t *label, bool no_break_en);
 
 /**
- *设置标签以绘制（或不绘制）其样式主体中指定的背景
- * @param标签指向标签对象的指针
-* @param body_en true：绘制正文; 假：不画身体
+ * Set the label to draw (or not draw) background specified in its style's body
+ * @param label pointer to a label object
+ * @param body_en true: draw body; false: don't draw body
  */
 void lv_label_set_body_draw(lv_obj_t *label, bool body_en);
 
 /**
- *在LV_LABEL_LONG_ROLL和SCROLL模式下设置标签的动画速度
- * @param标签指向标签对象的指针
- * @param anim_speed以px / sec为单位的动画速度
+ * Set the label's animation speed in LV_LABEL_LONG_ROLL and SCROLL modes
+ * @param label pointer to a label object
+ * @param anim_speed speed of animation in px/sec unit
  */
 void lv_label_set_anim_speed(lv_obj_t *label, uint16_t anim_speed);
 
 /**
- *设置标签的样式
- * @param标签指向标签对象的指针
- * @param样式指针指向一个样式
+ * Set the style of an label
+ * @param label pointer to an label object
+ * @param style pointer to a style
  */
-static inline void lv_label_set_style(lv_obj_t *label, lv_style_t *style)
-{
+static inline void lv_label_set_style(lv_obj_t *label, lv_style_t *style) {
   lv_obj_set_style(label, style);
 }
 /*=====================
  * Getter functions
  *====================*/
 
- /**
-  *获取标签文本
-  * @param标签指向标签对象的指针
-  * @return标签的文字
-  */
+/**
+ * Get the text of a label
+ * @param label pointer to a label object
+ * @return the text of the label
+ */
 char *lv_label_get_text(lv_obj_t *label);
 
 /**
- *获得标签的长模式
- * @param标签指向标签对象的指针
- * @return长模式
+ * Get the long mode of a label
+ * @param label pointer to a label object
+ * @return the long mode
  */
 lv_label_long_mode_t lv_label_get_long_mode(lv_obj_t *label);
 
 /**
- *获取align属性
- * @param标签指向标签对象的指针
- * @return LV_LABEL_ALIGN_LEFT或LV_LABEL_ALIGN_CENTER
+ * Get the align attribute
+ * @param label pointer to a label object
+ * @return LV_LABEL_ALIGN_LEFT or LV_LABEL_ALIGN_CENTER
  */
 lv_label_align_t lv_label_get_align(lv_obj_t *label);
 
 /**
- *获取重新着色属性
- * @param标签指向标签对象的指针
- * @return true：启用重新着色，false：禁用
+ * Get the recoloring attribute
+ * @param label pointer to a label object
+ * @return true: recoloring is enabled, false: disable
  */
 bool lv_label_get_recolor(lv_obj_t *label);
 
 /**
- *获取no break属性
- * @param标签指向标签对象的指针
-* @return true：no_break_enabled（忽略'\ n'换行符）; false：make line
- *打破'\ n'
+ * Get the no break attribute
+ * @param label pointer to a label object
+ * @return true: no_break_enabled (ignore '\n' line breaks); false: make line
+ * breaks on '\n'
  */
 bool lv_label_get_no_break(lv_obj_t *label);
 /**
- *获取正文绘制属性
- * @param标签指向标签对象的指针
-* @return true：画出身体; 假：不画身体
+ * Get the body draw attribute
+ * @param label pointer to a label object
+ * @return true: draw body; false: don't draw body
  */
 bool lv_label_get_body_draw(lv_obj_t *label);
 
 /**
-*以LV_LABEL_LONG_ROLL和SCROLL模式获取标签的动画速度
-* @param标签指向标签对象的指针
-* @return以px / sec为单位的动画速度
+ * Get the label's animation speed in LV_LABEL_LONG_ROLL and SCROLL modes
+ * @param label pointer to a label object
+ * @return speed of animation in px/sec unit
  */
 uint16_t lv_label_get_anim_speed(lv_obj_t *label);
 
 /**
-*获取字母的相对x和y坐标
-* @param标签指向标签对象的指针
-* @param索引索引[0 ...文本长度]。表达了性格
-*索引，而不是字节索引（UTF-8不同）
-* @param pos将结果存储在此处（例如，index = 0给出0; 0坐标）
+ * Get the relative x and y coordinates of a letter
+ * @param label pointer to a label object
+ * @param index index of the letter [0 ... text length]. Expressed in character
+ * index, not byte index (different in UTF-8)
+ * @param pos store the result here (E.g. index = 0 gives 0;0 coordinates)
  */
 void lv_label_get_letter_pos(lv_obj_t *label, uint16_t index, lv_point_t *pos);
 
 /**
-*获取标签相对点的字母索引
-* @param标签指向标签对象
-* @param pos指针指向标签上的坐标
-* @return'pos_p'点上字母的索引（例如0; 0是0。 信）
-*以字符索引表示，而不是字节索引（UTF-8不同）
+ * Get the index of letter on a relative point of a label
+ * @param label pointer to label object
+ * @param pos pointer to point with coordinates on a the label
+ * @return the index of the letter on the 'pos_p' point (E.g. on 0;0 is the 0.
+ * letter)
+ * Expressed in character index and not byte index (different in UTF-8)
  */
 uint16_t lv_label_get_letter_on(lv_obj_t *label, lv_point_t *pos);
 
 /**
-*获取标签对象的样式
-* @param标签指向标签对象的指针
-* @return指向标签样式的指针
+ * Get the style of an label object
+ * @param label pointer to an label object
+ * @return pointer to the label's style
  */
 static inline lv_style_t *lv_label_get_style(lv_obj_t *label) {
   return lv_obj_get_style(label);
@@ -249,20 +256,23 @@ static inline lv_style_t *lv_label_get_style(lv_obj_t *label) {
  *====================*/
 
 /**
-*在标签上插入文字。标签文本不能是静态的。
- * @param标签指向标签对象的指针
- * @param pos要插入的字符索引。用字符索引表示而不是 字节索引（UTF-8不同） 0：在第一个char之前。
- * LV_LABEL_POS_LAST：在最后一个char之后。
- * @param txt指向要插入的文本
+ * Insert a text to the label. The label text can not be static.
+ * @param label pointer to a label object
+ * @param pos character index to insert. Expressed in character index and not
+ * byte index (Different in UTF-8)
+ *            0: before first char.
+ *            LV_LABEL_POS_LAST: after last char.
+ * @param txt pointer to the text to insert
  */
 void lv_label_ins_text(lv_obj_t *label, uint32_t pos, const char *txt);
 
 /**
- * 删除标签中的字符。标签文本不能是静态的。
- * @param标签指向标签对象的指针
- * @param pos要插入的字符索引。用字符索引表示而不是 字节索引（UTF-8不同）
- * 0：在第一个char之前。
- * @param cnt要剪切的字符数
+ * Delete characters from a label. The label text can not be static.
+ * @param label pointer to a label object
+ * @param pos character index to insert. Expressed in character index and not
+ * byte index (Different in UTF-8)
+ *            0: before first char.
+ * @param cnt number of characters to cut
  */
 void lv_label_cut_text(lv_obj_t *label, uint32_t pos, uint32_t cnt);
 

@@ -1,8 +1,18 @@
+/**
+ * @Author: 陈昱安
+ * @Date:   2018-10-23T22:43:01+08:00
+ * @Email:  31612534@qq.com
+ * @Last modified by:   yan
+ * @Last modified time: 2018-10-26T09:09:31+08:00
+ */
+
 #ifndef GENERIC_HPP_
 #define GENERIC_HPP_
 
 #include "api.h"
 #include <array>
+#include <memory>
+
 /**
  * 机器人功能基础类 开环控制
  * @param a    马达对象

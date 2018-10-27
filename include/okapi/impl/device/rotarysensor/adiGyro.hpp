@@ -1,11 +1,10 @@
 /**
- * @Author: yan
- * @Date:   2018-10-08T14:15:45+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-14T14:55:12+08:00
+ * @author Ryan Benasutti, WPI
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #ifndef _OKAPI_GYRO_HPP_
 #define _OKAPI_GYRO_HPP_
 
@@ -13,41 +12,45 @@
 #include "okapi/api/control/controllerInput.hpp"
 #include "okapi/api/device/rotarysensor/continuousRotarySensor.hpp"
 
-namespace okapi
-{
-class ADIGyro : public ContinuousRotarySensor
-{
+namespace okapi {
+class ADIGyro : public ContinuousRotarySensor {
   public:
-    /**
-    *给定ADI端口上的陀螺仪。如果端口先前未配置为陀螺仪，然后构造函数将阻塞1秒进行校准。陀螺仪的测量值为十分之一度，因此每转有3600个测量点。
-    * @param iport ADI端口号
-    * @param乘以一个值乘以陀螺仪标题值
+  /**
+   * A gyroscope on the given ADI port. If the port has not previously been configured as a gyro,
+   * then the constructor will block for 1 second for calibration. The gyro measures in tenths of a
+   * degree, so there are 3600 measurement points per revolution.
+   *
+   * @param iport the ADI port number
+   * @param imultiplier a value multiplied by the gyro heading value
    */
-    ADIGyro(std::uint8_t iport, double imultiplier = 1);
+  ADIGyro(std::uint8_t iport, double imultiplier = 1);
 
-    virtual ~ADIGyro();
+  virtual ~ADIGyro();
 
-    /**
-    *获取当前传感器值。
-    * @return当前传感器值，或者``PROS_ERR``失败。
+  /**
+   * Get the current sensor value.
+   *
+   * @return the current sensor value, or ``PROS_ERR`` on a failure.
    */
-    double get() const override;
+  double get() const override;
 
-    /**
-    *将传感器重置为零。
-    * @return 1成功，PROS_ERR失败
+  /**
+   * Reset the sensor to zero.
+   *
+   * @return 1 on success, PROS_ERR on fail
    */
-    std::int32_t reset() override;
+  std::int32_t reset() override;
 
-    /**
-    *获取传感器值以用于控制回路。可以自动调用此方法
-    *控制器的另一个线程。
-    * @return当前传感器值，或者``PROS_ERR``失败。
+  /**
+   * Get the sensor value for use in a control loop. This method might be automatically called in
+   * another thread by the controller.
+   *
+   * @return the current sensor value, or ``PROS_ERR`` on a failure.
    */
-    double controllerGet() override;
+  double controllerGet() override;
 
   protected:
-    pros::ADIGyro gyro;
+  pros::ADIGyro gyro;
 };
 } // namespace okapi
 
