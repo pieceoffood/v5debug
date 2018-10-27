@@ -2,8 +2,8 @@
  * @Author: 陈昱安
  * @Date:   2018-09-16T00:20:57+08:00
  * @Email:  31612534@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-26T16:50:35+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-27T22:38:17+08:00
  */
 
 #include "main.h"
@@ -12,7 +12,6 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
-pros::ADIDigitalIn limitShoot(SHOOT_LIMIT_PORT);
 //部件类初始化
 pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
@@ -24,7 +23,7 @@ Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCO
                 pros::ADIGyro(GYRO_PORT)); //底盘累初始化
 LinearShoot<2> shoot({pros::Motor(SHOOT_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS),
                       pros::Motor(SHOOT_R, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS)},
-                     SHOOT_HOLDING); //发射器类初始化
+                     pros::ADIDigitalIn(SHOOT_LIMIT_PORT), SHOOT_HOLDING); //发射器类初始化
 Generic<2> intake({pros::Motor(INTAKE_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_COUNTS),
                    pros::Motor(INTAKE_R, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_COUNTS)}); //吸吐类初始化
 /**

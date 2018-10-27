@@ -2,8 +2,8 @@
  * @Author: 陈昱安
  * @Date:   2018-10-23T22:43:01+08:00
  * @Email:  31612534@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-26T09:09:31+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-27T22:25:03+08:00
  */
 
 #ifndef GENERIC_HPP_
@@ -21,10 +21,8 @@
 template <size_t _nums>
 class Generic
 {
-  private:
-    const std::array<pros::Motor, _nums> _motorList;
-
   protected:
+    const std::array<pros::Motor, _nums> _motorList;
     const int _holdVal;
     int _holdingFlag = 0;
     int _pwm = 0;
