@@ -1,0 +1,24 @@
+Git更新远程分支列表
+git remote update origin --prune，这里要注意下，如果你的remote branch不是在origin下，按你得把origin换成你的名字
+
+把分支合并到master上
+git  checkout master //切换到主分支
+git pull origin master //把主分支内容下载下来 一半不要
+git  merge xxxx //把分支合并到master
+
+从master 更新当前分支的代码
+git checkout xxx  //切换到分支下
+git merge master //把master合并到当前分支
+
+git branch -d temp //删除本地分支
+git push origin :xxx //删除远程分支
+
+构建compile
+prosv5 build-compile-commands
+
+清除旧版本：
+prosv5 cp kernel@3.1.3
+获取新版本：
+prosv5 cf kernel@3.1.3
+然后，将其应用于可能已安装内核3.1.3的项目：
+prosv5 ca --force-apply kernel@3.1.3

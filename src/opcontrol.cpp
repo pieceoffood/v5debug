@@ -3,7 +3,7 @@
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
  * @Last modified by:   yan
- * @Last modified time: 2018-10-26T09:45:15+08:00
+ * @Last modified time: 2018-10-27T14:36:12+08:00
  */
 
 #include "main.h"
@@ -36,7 +36,7 @@ void opcontrol()
         chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), JOY_THRESHOLD);
         shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
         intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
-        //    std::cout << "gyro:" << chassis.getGyro() << std::endl;
+        std::cout << "gyro:" << chassis.getGyro() << std::endl;
         //多线程测试
         // if (pros::c::joy1_get_digital(joy1_MASTER, DIGITAL_L1))
         // {
