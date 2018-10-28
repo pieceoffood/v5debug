@@ -2,8 +2,8 @@
  * @Author: yan
  * @Date:   2018-10-14T14:25:38+08:00
  * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-16T12:51:27+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-28T21:56:36+08:00
  */
 #include "main.h"
 static lv_obj_t *frSw;         //创建前后场开关
@@ -44,7 +44,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_label_set_text(autoinfoLab, autoInfo);
     //TODO 传感器页面
     userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
-    lv_obj_align(userDisplay.sensorsInfoObj, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
+    lv_obj_align(userDisplay.displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
 
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;

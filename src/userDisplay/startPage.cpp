@@ -2,8 +2,8 @@
  * @Author: yan
  * @Date:   2018-10-16T10:11:21+08:00
  * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-16T13:07:08+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-28T21:58:28+08:00
  */
 #include "main.h"
 /**
@@ -28,10 +28,10 @@ void UserDisplay::createStartObj()
                                      "自动赛", "手动赛", "\n",
                                      "前后PID", "旋转PID", "\n",
                                      "ODOM测试", "自定义测试", ""};
-    if (startBTNM == nullptr)
-        startBTNM = lv_btnm_create(userDisplay.displayObj[OBJ_OPCONTROL], nullptr); //创建按钮集群
-    lv_btnm_set_map(startBTNM, btnm_map);
-    lv_obj_set_size(startBTNM, LV_HOR_RES, LV_VER_RES - 30);
-    lv_obj_set_y(startBTNM, 30);
-    lv_btnm_set_action(startBTNM, btnm_action);
+    if (displayObj[BTNM_START] == nullptr)
+        displayObj[BTNM_START] = lv_btnm_create(userDisplay.displayObj[OBJ_OPCONTROL], nullptr); //创建按钮集群
+    lv_btnm_set_map(displayObj[BTNM_START], btnm_map);
+    lv_obj_set_size(displayObj[BTNM_START], LV_HOR_RES, LV_VER_RES - 30);
+    lv_obj_set_y(displayObj[BTNM_START], 30);
+    lv_btnm_set_action(displayObj[BTNM_START], btnm_action);
 }

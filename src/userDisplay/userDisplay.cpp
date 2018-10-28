@@ -3,7 +3,7 @@
  * @Date:   2018-10-16T10:25:11+08:00
  * @Email:  358079046@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-23T23:43:01+08:00
+ * @Last modified time: 2018-10-28T21:56:44+08:00
  */
 #include "main.h"
 
@@ -28,42 +28,32 @@ void UserDisplay::createUserObj(obj_flag objname, const char *text)
         lv_label_set_text(lab, text);
     }
 }
+void UserDisplay::delTasks()
+{
+    unsigned int taskFlag = 1;
+    for (auto &it : userDisplay.displayTask)
+    {
+        if (it != nullptr)
+        {
+            lv_task_del(it);
+            it = nullptr;
+            std::cout << "del Obj:" << taskFlag << std::endl;
+            taskFlag++;
+        }
+    }
+}
 void UserDisplay::delObjs()
 {
-
-    if (loop_task != nullptr)
-    {
-        lv_task_del(loop_task);
-        loop_task = nullptr;
-        std::cout << "del loop_task" << std::endl;
-    }
-    if (refr_task != nullptr)
-    {
-        lv_task_del(refr_task);
-        refr_task = nullptr;
-        std::cout << "del SensorsInfoTask" << std::endl;
-    }
-    if (startBTNM != nullptr)
-    {
-        lv_obj_del(startBTNM);
-        startBTNM = nullptr;
-        std::cout << "del startBTNM" << std::endl;
-    }
-    if (sensorsInfoObj != nullptr)
-    {
-        lv_obj_del(sensorsInfoObj);
-        sensorsInfoObj = nullptr;
-        std::cout << "del SensorsInfoWin" << std::endl;
-    }
+    delTasks();
+    unsigned int objFlag = 1;
     for (auto &it : userDisplay.displayObj)
     {
-        unsigned int flag = 1;
         if (it != nullptr)
         {
             lv_obj_del(it);
             it = nullptr;
-            std::cout << "del Obj:" << flag << std::endl;
-            flag++;
+            std::cout << "del Obj:" << objFlag << std::endl;
+            objFlag++;
         }
     }
 }

@@ -2,8 +2,8 @@
  * @Author: 陈昱安
  * @Date:   2018-09-16T00:20:58+08:00
  * @Email:  31612534@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-27T14:36:12+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-28T21:56:50+08:00
  */
 
 #include "main.h"
@@ -56,9 +56,9 @@ static void loopTask(void *param)
 void UserDisplay::createOpObj()
 {
     delObjs();
-    if (loop_task == nullptr)
+    if (displayTask[TASK_LOOP] == nullptr)
     {
-        loop_task = lv_task_create(loopTask, 100, LV_TASK_PRIO_LOW, nullptr);
+        displayTask[TASK_LOOP] = lv_task_create(loopTask, 100, LV_TASK_PRIO_LOW, nullptr);
         std::cout << "creart loop task" << std::endl;
     }
     if (displayObj[OBJ_OPCONTROL] == nullptr)
