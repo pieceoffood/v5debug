@@ -37,15 +37,13 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
     sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
     sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
-    userDisplay.delObjs();
-    if (userDisplay.confirmObj == nullptr)
-        userDisplay.confirmObj = lv_obj_create(nullptr, nullptr);
+    userDisplay.createUserObj(OBJ_CONFIRM);
     //显示自动赛选项
-    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.confirmObj, NULL);
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], NULL);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
     //TODO 传感器页面
-    userDisplay.creartSensorsInfo(userDisplay.confirmObj, LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
+    userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
     lv_obj_align(userDisplay.sensorsInfoObj, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
 
     std::cout << "pressed" << std::endl;
@@ -87,7 +85,6 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
 void competition_initialize()
 {
     userDisplay.createUserObj(OBJ_COMPETITION);
-    lv_obj_t *_confirmBtn;
     //创建标签栏
     lv_obj_t *tab = lv_tabview_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
     userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色

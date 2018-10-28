@@ -66,11 +66,4 @@ void UserDisplay::delObjs()
             flag++;
         }
     }
-
-    if (confirmObj != nullptr)
-    {
-        lv_obj_del(confirmObj);
-        confirmObj = nullptr;
-        std::cout << "del confirmObj" << std::endl;
-    }
 }

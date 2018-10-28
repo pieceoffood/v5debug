@@ -29,9 +29,8 @@ class UserDisplay
   public:
     //样式
     lv_theme_t *theme;
-    std::array<lv_obj_t *, 4> displayObj = {nullptr};
+    std::array<lv_obj_t *, 6> displayObj = {nullptr};
     //对象
-    lv_obj_t *confirmObj = nullptr;
     lv_obj_t *sensorsInfoObj = nullptr;
     //按钮阵列
     lv_obj_t *startBTNM = nullptr;
