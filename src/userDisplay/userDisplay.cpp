@@ -1,10 +1,12 @@
 /**
- * @Author: yan
- * @Date:   2018-10-16T10:25:11+08:00
- * @Email:  358079046@qq.com
+ * @Author: 陈昱安
+ * @Date:   2018-10-22T22:01:37+08:00
+ * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-28T21:56:44+08:00
+ * @Last modified time: 2018-10-28T22:09:02+08:00
  */
+
+
 #include "main.h"
 
 UserDisplay::UserDisplay()

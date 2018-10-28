@@ -2,8 +2,8 @@
  * @Author: yan
  * @Date:   2018-10-14T12:18:39+08:00
  * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-26T19:49:27+08:00
+ * @Last modified by:   陈昱安
+ * @Last modified time: 2018-10-28T22:50:52+08:00
  */
 #ifndef EXAMPLE_HPP_ //这里要改
 #define EXAMPLE_HPP_ //这里要改
@@ -25,4 +25,7 @@ const int VISION = 9; //视觉传感器
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
 //射球系统
 const int SHOOT_HOLDING = 10;
+const int SHOOT_READY_VAL = 100;
+const int SHOOT_SHOOT_VAL = 200;
+const int SHOOT_WAITING_TIME = 500;
 #endif /* end of include guard: EXAMPLE_HPP_ */
