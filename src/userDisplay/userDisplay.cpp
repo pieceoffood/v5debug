@@ -16,7 +16,18 @@ UserDisplay::UserDisplay()
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
 }
-
+void UserDisplay::createUserObj(obj_flag objname, const char *text)
+{
+    delObjs();
+    if (displayObj[objname] == nullptr)
+        displayObj[objname] = lv_obj_create(nullptr, nullptr);
+    lv_scr_load(displayObj[objname]);
+    if (text != nullptr)
+    {
+        lv_obj_t *lab = lv_label_create(userDisplay.displayObj[objname], nullptr);
+        lv_label_set_text(lab, text);
+    }
+}
 void UserDisplay::delObjs()
 {
 
@@ -44,36 +55,22 @@ void UserDisplay::delObjs()
         sensorsInfoObj = nullptr;
         std::cout << "del SensorsInfoWin" << std::endl;
     }
-    if (disabledObj != nullptr)
+    for (auto &it : userDisplay.displayObj)
     {
-        lv_obj_del(disabledObj);
-        disabledObj = nullptr;
-        std::cout << "del disabledObj" << std::endl;
+        unsigned int flag = 1;
+        if (it != nullptr)
+        {
+            lv_obj_del(it);
+            it = nullptr;
+            std::cout << "del Obj:" << flag << std::endl;
+            flag++;
+        }
     }
-    if (competitionObj != nullptr)
-    {
-        lv_obj_del(competitionObj);
-        competitionObj = nullptr;
-        std::cout << "del competitionObj" << std::endl;
-    }
+
     if (confirmObj != nullptr)
     {
         lv_obj_del(confirmObj);
         confirmObj = nullptr;
         std::cout << "del confirmObj" << std::endl;
-    }
-    if (opcontrolObj != nullptr)
-    {
-        lv_obj_del(opcontrolObj);
-        opcontrolObj = nullptr;
-        startBTNM = nullptr;
-        loopLab = nullptr;
-        std::cout << "del autoObj" << std::endl;
-    }
-    if (autonomousObj != nullptr)
-    {
-        lv_obj_del(autonomousObj);
-        autonomousObj = nullptr;
-        std::cout << "del opObj" << std::endl;
     }
 }

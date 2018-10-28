@@ -86,10 +86,10 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
  */
 void competition_initialize()
 {
-    userDisplay.createCompObj();
+    userDisplay.createUserObj(OBJ_COMPETITION);
     lv_obj_t *_confirmBtn;
     //创建标签栏
-    lv_obj_t *tab = lv_tabview_create(userDisplay.competitionObj, NULL);
+    lv_obj_t *tab = lv_tabview_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
     userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
     lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                  //设置位置
     lv_obj_t *redTab = lv_tabview_add_tab(tab, "红方");
@@ -99,21 +99,21 @@ void competition_initialize()
     /*当选项卡按下后进行的操作*/
     lv_tabview_set_tab_load_action(tab, tabChose);
     //创建选项
-    frSw = lv_sw_create(userDisplay.competitionObj, NULL);         //创建前后场开关
-    shootSw = lv_sw_create(userDisplay.competitionObj, NULL);      //创建射高中旗开关
-    midShootSw = lv_sw_create(userDisplay.competitionObj, NULL);   //创建是否射中间杆子旗子开关
-    platformSw = lv_sw_create(userDisplay.competitionObj, NULL);   //创建是否开台开关
-    bumperFlagSw = lv_sw_create(userDisplay.competitionObj, NULL); //创建是否撞中间旗开关
+    frSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);         //创建前后场开关
+    shootSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);      //创建射高中旗开关
+    midShootSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);   //创建是否射中间杆子旗子开关
+    platformSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);   //创建是否开台开关
+    bumperFlagSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL); //创建是否撞中间旗开关
 
-    lv_obj_t *frLab = lv_label_create(userDisplay.competitionObj, NULL);          //创建前后场开关文本条
-                                                                                  //    lv_label_set_style(frLab, &userDisplay.fontStyle);
-    lv_obj_t *shootLab = lv_label_create(userDisplay.competitionObj, frLab);      //创建射高旗中旗开关文本条
-    lv_obj_t *midShootLab = lv_label_create(userDisplay.competitionObj, frLab);   //创建是否射中间杆子旗子文本条
-    lv_obj_t *platformLab = lv_label_create(userDisplay.competitionObj, frLab);   //创建是否开台开关文本条
-    lv_obj_t *bumperFlagLab = lv_label_create(userDisplay.competitionObj, frLab); //创建是否撞中间旗开关文本条
+    lv_obj_t *frLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);          //创建前后场开关文本条
+                                                                                               //    lv_label_set_style(frLab, &userDisplay.fontStyle);
+    lv_obj_t *shootLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);      //创建射高旗中旗开关文本条
+    lv_obj_t *midShootLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);   //创建是否射中间杆子旗子文本条
+    lv_obj_t *platformLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);   //创建是否开台开关文本条
+    lv_obj_t *bumperFlagLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab); //创建是否撞中间旗开关文本条
     //
-    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.competitionObj, NULL);    //创建确认文本开关
-    lv_obj_t *confirmLab = lv_label_create(userDisplay.competitionObj, frLab); //创建是否撞中间旗开关文本条
+    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);    //创建确认文本开关
+    lv_obj_t *confirmLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab); //创建是否撞中间旗开关文本条
 
     lv_label_set_text(frLab, "前场&后场");
     lv_label_set_text(shootLab, "高旗&中旗");
@@ -142,12 +142,4 @@ void competition_initialize()
 
     //调用按钮页面
     //TODO 技能赛的动作
-}
-void UserDisplay::createCompObj()
-{
-    delObjs();
-    if (competitionObj == nullptr)
-        competitionObj = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(competitionObj);
-    std::cout << "create CompObj" << std::endl;
 }

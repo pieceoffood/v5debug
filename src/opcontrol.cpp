@@ -61,12 +61,12 @@ void UserDisplay::createOpObj()
         loop_task = lv_task_create(loopTask, 100, LV_TASK_PRIO_LOW, nullptr);
         std::cout << "creart loop task" << std::endl;
     }
-    if (opcontrolObj == nullptr)
-        opcontrolObj = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(opcontrolObj);
+    if (displayObj[OBJ_OPCONTROL] == nullptr)
+        displayObj[OBJ_OPCONTROL] = lv_obj_create(nullptr, nullptr);
+    lv_scr_load(displayObj[OBJ_OPCONTROL]);
     std::cout << "create opObj" << std::endl;
     if (!pros::competition::is_connected()) //没插场控
         createStartObj();
-    loopLab = lv_label_create(opcontrolObj, nullptr);
+    loopLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
     loopTask(nullptr);
 }

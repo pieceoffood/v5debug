@@ -11,15 +11,15 @@
   */
 void disabled()
 {
-    userDisplay.createDisObj();
+    userDisplay.createUserObj(OBJ_DISABLED, "场控关闭状态");
 }
-void UserDisplay::createDisObj()
-{
-    userDisplay.delObjs();
-    if (disabledObj == nullptr)
-        disabledObj = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(disabledObj);
-    lv_obj_t *lab = lv_label_create(userDisplay.disabledObj, nullptr);
-    lv_label_set_text(lab, "场控关闭状态...");
-    std::cout << "create DisableObj" << std::endl;
-}
+// void UserDisplay::createDisObj()
+// {
+//     userDisplay.delObjs();
+//     if (displayObj[OBJ_DISABLED] == nullptr)
+//         displayObj[OBJ_DISABLED] = lv_obj_create(nullptr, nullptr);
+//     lv_scr_load(displayObj[OBJ_DISABLED]);
+//     lv_obj_t *lab = lv_label_create(userDisplay.displayObj[OBJ_DISABLED], nullptr);
+//     lv_label_set_text(lab, "场控关闭状态...");
+//     std::cout << "create DisableObj" << std::endl;
+// }

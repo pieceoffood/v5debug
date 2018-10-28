@@ -10,17 +10,27 @@
 #define USERDISPLAY_HPP_
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
+#include <array>
 extern lv_font_t myfont;
+typedef enum obj_flag
+{
+    OBJ_COMPETITION,
+    OBJ_DISABLED,
+    OBJ_AUTONOMOUS,
+    OBJ_OPCONTROL,
+    OBJ_CONFIRM,
+    OBJ_SENSORSINFO,
+    BTNM_START,
+    LAB_SENSORS,
+    LAB_LOOP,
+} obj_flag;
 class UserDisplay
 {
   public:
     //样式
     lv_theme_t *theme;
+    std::array<lv_obj_t *, 4> displayObj = {nullptr};
     //对象
-    lv_obj_t *competitionObj = nullptr;
-    lv_obj_t *opcontrolObj = nullptr;
-    lv_obj_t *disabledObj = nullptr;
-    lv_obj_t *autonomousObj = nullptr;
     lv_obj_t *confirmObj = nullptr;
     lv_obj_t *sensorsInfoObj = nullptr;
     //按钮阵列
@@ -36,11 +46,8 @@ class UserDisplay
     uint32_t maxLoopTime = 0;
     uint32_t minLoopTime = 20;
     UserDisplay();
-
     void delObjs();
-    void createAutoObj();
-    void createCompObj();
-    void createDisObj();
+    void createUserObj(obj_flag objname, const char *text = nullptr);
     void createOpObj();
     void createStartObj();
     void creartSensorsInfo(lv_obj_t *parent, int width);
