@@ -87,7 +87,6 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
 void competition_initialize()
 {
     userDisplay.createCompObj();
-    lv_obj_t *_confirmBtn;
     //创建标签栏
     lv_obj_t *tab = lv_tabview_create(userDisplay.competitionObj, NULL);
     userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
