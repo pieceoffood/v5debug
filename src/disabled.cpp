@@ -11,5 +11,7 @@
   */
 void disabled()
 {
+    userDisplay.delTasks();
+    userDisplay.delObjs();
     userDisplay.createUserObj(OBJ_DISABLED, true, "obj_disabled", "场控关闭状态");
 }

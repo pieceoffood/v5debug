@@ -55,8 +55,9 @@ static void loopTask(void *param)
 
 void UserDisplay::createOpObj()
 {
-    delObjs();
+    delTasks();
     createUserTask(TASK_LOOP, loopTask, 100, "loopLab");
+    delObjs();
     createUserObj(OBJ_OPCONTROL, true, "opControl");
     if (!pros::competition::is_connected()) //没插场控
         createStartObj();
