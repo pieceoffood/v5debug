@@ -17,11 +17,11 @@ UserDisplay::UserDisplay()
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
 }
-void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, const char *labText)
+void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, lv_obj_t *parent, const char *labText)
 {
     if (displayObj[objname] == nullptr)
     {
-        displayObj[objname] = lv_obj_create(nullptr, nullptr);
+        displayObj[objname] = lv_obj_create(parent, nullptr);
         std::cout << "obj:" << terminalText << " create successful" << std::endl;
     }
     else

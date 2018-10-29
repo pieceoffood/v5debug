@@ -37,17 +37,17 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
     sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
     sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
-    // userDisplay.delTasks();
-    // userDisplay.delObjs();
-    // userDisplay.createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
-    //显示自动赛选项
-    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], NULL);
+    //创建确认页面
+    userDisplay.delTasks();
+    userDisplay.delObjs();
+    userDisplay.createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
+    // //显示自动赛选项
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], nullptr);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
-    //TODO 传感器页面
+    // //TODO 传感器页面
     userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
     lv_obj_align(userDisplay.displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
-
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
 }
