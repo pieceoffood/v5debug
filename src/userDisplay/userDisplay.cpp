@@ -19,7 +19,6 @@ UserDisplay::UserDisplay()
 }
 void UserDisplay::createUserObj(obj_flag objname, const char *terminalText, const char *labText)
 {
-    delObjs();
     if (displayObj[objname] == nullptr)
     {
         displayObj[objname] = lv_obj_create(nullptr, nullptr);
@@ -64,7 +63,6 @@ void UserDisplay::delTasks()
 }
 void UserDisplay::delObjs()
 {
-    delTasks();
     unsigned int objFlag = 1;
     for (auto &it : userDisplay.displayObj)
     {
