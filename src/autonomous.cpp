@@ -15,5 +15,5 @@ void autonomous()
 {
     userDisplay.delTasks();
     userDisplay.delObjs();
-    userDisplay.createUserObj(OBJ_AUTONOMOUS, true, "obj_auto", "自动赛进行中");
+    userDisplay.createUserObj(OBJ_AUTONOMOUS, true, "obj_auto", nullptr, "自动赛进行中");
 }
