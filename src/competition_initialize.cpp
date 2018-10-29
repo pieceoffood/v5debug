@@ -37,7 +37,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
     sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
     sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
-    userDisplay.createUserObj(OBJ_CONFIRM, "obj_confirmPage");
+    userDisplay.createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
     //显示自动赛选项
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], NULL);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
@@ -84,7 +84,7 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
  */
 void competition_initialize()
 {
-    userDisplay.createUserObj(OBJ_COMPETITION, "obj_competition");
+    userDisplay.createUserObj(OBJ_COMPETITION, true, "obj_competition");
     //创建标签栏
     lv_obj_t *tab = lv_tabview_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
     userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色

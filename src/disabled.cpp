@@ -11,5 +11,5 @@
   */
 void disabled()
 {
-    userDisplay.createUserObj(OBJ_DISABLED, "obj_disabled", "场控关闭状态");
+    userDisplay.createUserObj(OBJ_DISABLED, true, "obj_disabled", "场控关闭状态");
 }

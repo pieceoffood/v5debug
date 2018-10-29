@@ -33,11 +33,8 @@ static void sensorsTask(void *param)
 void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
 {
     createUserTask(TASK_REFR, sensorsTask, 100, "sensorInfo");
-    if (displayObj[OBJ_SENSORSINFO] == nullptr)
-        displayObj[OBJ_SENSORSINFO] = lv_obj_create(parent, nullptr);
+    createUserObj(OBJ_SENSORSINFO, false, "sensorInfo");
     lv_obj_set_size(displayObj[OBJ_SENSORSINFO], width, LV_VER_RES); //设置页面大小
-    std::cout << "creart Sensors Info Obj" << std::endl;
-
     lv_obj_t *exitBtn = lv_btn_create(displayObj[OBJ_SENSORSINFO], NULL);
     lv_obj_set_pos(exitBtn, width - 100, LV_VER_RES - 50);
     lv_obj_set_size(exitBtn, 75, 50);

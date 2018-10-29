@@ -18,7 +18,7 @@ typedef enum obj_flag
     OBJ_DISABLED,
     OBJ_AUTONOMOUS,
     OBJ_OPCONTROL,
-    OBJ_CONFIRM,
+    OBJ_CONFIRM,     //从这里开始下面都无法lv_load_src(),因为是依附状态
     OBJ_SENSORSINFO, //传感器页面
     BTNM_START,      //按钮阵列
     LAB_SENSORS,
@@ -48,7 +48,7 @@ class UserDisplay
     UserDisplay();
     void delObjs();
     void delTasks();
-    void createUserObj(obj_flag objname, const char *terminalText, const char *labText = nullptr);
+    void createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, const char *labText = nullptr);
     void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
     void createOpObj();
     void createStartObj();

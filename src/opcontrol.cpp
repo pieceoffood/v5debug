@@ -57,10 +57,7 @@ void UserDisplay::createOpObj()
 {
     delObjs();
     createUserTask(TASK_LOOP, loopTask, 100, "loopLab");
-    if (displayObj[OBJ_OPCONTROL] == nullptr)
-        displayObj[OBJ_OPCONTROL] = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(displayObj[OBJ_OPCONTROL]);
-    std::cout << "create opObj" << std::endl;
+    createUserObj(OBJ_OPCONTROL, true, "opControl");
     if (!pros::competition::is_connected()) //没插场控
         createStartObj();
     loopLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);

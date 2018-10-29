@@ -17,7 +17,7 @@ UserDisplay::UserDisplay()
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
 }
-void UserDisplay::createUserObj(obj_flag objname, const char *terminalText, const char *labText)
+void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, const char *labText)
 {
     if (displayObj[objname] == nullptr)
     {
@@ -28,7 +28,8 @@ void UserDisplay::createUserObj(obj_flag objname, const char *terminalText, cons
     {
         std::cout << "obj:" << terminalText << " already exist" << std::endl;
     }
-    lv_scr_load(displayObj[objname]);
+    if (isSrcLoad)
+        lv_scr_load(displayObj[objname]);
     if (labText != nullptr)
     {
         lv_obj_t *lab = lv_label_create(userDisplay.displayObj[objname], nullptr);
