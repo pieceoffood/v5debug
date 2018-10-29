@@ -14,13 +14,15 @@
 extern lv_font_t myfont;
 typedef enum obj_flag
 {
-    OBJ_SENSORSINFO, //传感器页面 为了防止误删除 需要放第一个
+    OBJ_SENSORSINFO, //传感器页面 为了防止误删除 需要放前面
+    BTNM_START,      //按钮阵列 为了防止重复删除 这个也要放前面
+
     OBJ_COMPETITION,
     OBJ_DISABLED,
     OBJ_AUTONOMOUS,
     OBJ_OPCONTROL,
     OBJ_CONFIRM, //从这里开始下面都无法lv_load_src(),因为是依附状态
-    BTNM_START,  //按钮阵列
+
     LAB_SENSORS,
     LAB_LOOP
 } obj_flag;

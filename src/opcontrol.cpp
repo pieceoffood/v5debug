@@ -20,6 +20,8 @@
  */
 void opcontrol()
 {
+    userDisplay.delTasks();
+    userDisplay.delObjs();
     userDisplay.createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
