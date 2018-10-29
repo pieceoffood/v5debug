@@ -25,16 +25,14 @@ static void sensorsTask(void *param)
     // sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot:%u enc_Shoot:%.1f \nlimit_Lift: enc_Lift: \n ",
     //         chassis.getGyro(), chassis.getEncLeft(), chassis.getEncRight(),
     //         shoot.getLimit(), shoot.getEnc());
+    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot: enc_Shoot: \nlimit_Lift: enc_Lift: \n ",
+            chassis.getGyro(), chassis.getEncLeft(), chassis.getEncRight());
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
 
 void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
 {
-    if (displayTask[TASK_REFR] == nullptr)
-    {
-        displayTask[TASK_REFR] = lv_task_create(sensorsTask, 100, LV_TASK_PRIO_LOW, nullptr);
-        std::cout << "creart Sensors Info task" << std::endl;
-    }
+    createUserTask(TASK_REFR, sensorsTask, 100, "sensorInfo");
     if (displayObj[OBJ_SENSORSINFO] == nullptr)
         displayObj[OBJ_SENSORSINFO] = lv_obj_create(parent, nullptr);
     lv_obj_set_size(displayObj[OBJ_SENSORSINFO], width, LV_VER_RES); //设置页面大小

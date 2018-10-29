@@ -56,11 +56,7 @@ static void loopTask(void *param)
 void UserDisplay::createOpObj()
 {
     delObjs();
-    if (displayTask[TASK_LOOP] == nullptr)
-    {
-        displayTask[TASK_LOOP] = lv_task_create(loopTask, 100, LV_TASK_PRIO_LOW, nullptr);
-        std::cout << "creart loop task" << std::endl;
-    }
+    createUserTask(TASK_LOOP, loopTask, 100, "loopLab");
     if (displayObj[OBJ_OPCONTROL] == nullptr)
         displayObj[OBJ_OPCONTROL] = lv_obj_create(nullptr, nullptr);
     lv_scr_load(displayObj[OBJ_OPCONTROL]);

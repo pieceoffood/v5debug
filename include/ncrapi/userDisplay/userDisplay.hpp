@@ -48,8 +48,8 @@ class UserDisplay
     UserDisplay();
     void delObjs();
     void delTasks();
-    void createUserObj(obj_flag objname, const char *text = nullptr);
-
+    void createUserObj(obj_flag objname, const char *terminalText, const char *labText = nullptr);
+    void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
     void createOpObj();
     void createStartObj();
     void creartSensorsInfo(lv_obj_t *parent, int width);
