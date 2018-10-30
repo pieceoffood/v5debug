@@ -6,11 +6,8 @@
  * @Last modified time: 2018-10-28T21:56:36+08:00
  */
 #include "main.h"
-static lv_obj_t *frSw;         //创建前后场开关
-static lv_obj_t *shootSw;      //创建射高中旗开关
-static lv_obj_t *midShootSw;   //创建是否射中间杆子旗子开关
-static lv_obj_t *platformSw;   //创建是否开台开关
-static lv_obj_t *bumperFlagSw; //创建是否撞中间旗开关
+
+std::array<lv_obj_t *, AUTO_NUMS> compSw;
 /**
  * 自动赛选择时候的确认按钮的动作
  * @param  btn 要实现动作的按钮的指针
@@ -18,25 +15,21 @@ static lv_obj_t *bumperFlagSw; //创建是否撞中间旗开关
  */
 static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
 {
+    int i = 0;
     //获取开关状态
-    sysData.autoIsFR = lv_sw_get_state(frSw);                 //前场后场
-    sysData.autoIsFlag = lv_sw_get_state(shootSw);            //高旗中旗
-    sysData.autoIsShootFlag = lv_sw_get_state(midShootSw);    //是否射中间旗子
-    sysData.autoIsRunPlat = lv_sw_get_state(platformSw);      //是否开台
-    sysData.autoIsBumperFlag = lv_sw_get_state(bumperFlagSw); //是否撞旗
+    for (auto &it : sysData.autoFlags)
+    {
+        it = lv_sw_get_state(compSw[i]);
+        i++;
+    }
     char autoInfo[256];
-    const char *side;
-    const char *fr;
-    const char *shootH_M;
-    const char *isShootMid;
-    const char *plat;
-    const char *bumper;
+    const char *side, *fr, *shootH_M, *isShootMid, *plat, *bumper;
     sysData.autoSide == 0 ? side = "红方" : side = "蓝方";
-    sysData.autoIsFR == 0 ? fr = "前场" : fr = "后场";
-    sysData.autoIsFlag == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
-    sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
-    sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
-    sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
+    sysData.autoFlags[AUTO_FR] == 0 ? fr = "前场" : fr = "后场";
+    sysData.autoFlags[AUTO_SHOOT] == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
+    sysData.autoFlags[AUTO_MID_SHOOT] == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
+    sysData.autoFlags[AUTO_PLATFORM] == 0 ? plat = "不开台" : plat = "开台";
+    sysData.autoFlags[AUTO_BUMPERFLAG] == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
     //创建确认页面
     userDisplay.delTasks();
     userDisplay.delObjs();
@@ -45,7 +38,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], nullptr);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
-    // //TODO 传感器页面
+    // 传感器页面创建
     userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
     lv_obj_align(userDisplay.displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
     std::cout << "pressed" << std::endl;
@@ -99,12 +92,9 @@ void competition_initialize()
 
     /*当选项卡按下后进行的操作*/
     lv_tabview_set_tab_load_action(tab, tabChose);
-    //创建选项
-    frSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);         //创建前后场开关
-    shootSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);      //创建射高中旗开关
-    midShootSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);   //创建是否射中间杆子旗子开关
-    platformSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);   //创建是否开台开关
-    bumperFlagSw = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL); //创建是否撞中间旗开关
+    //创建各种开关
+    for (auto &it : compSw)
+        it = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
 
     lv_obj_t *frLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);          //创建前后场开关文本条
                                                                                                //    lv_label_set_style(frLab, &userDisplay.fontStyle);
@@ -125,17 +115,17 @@ void competition_initialize()
     //大小设置
     lv_obj_set_size(confirmBtn, 200, 50);
     //位置设置
-    lv_obj_align(frSw, tab, LV_ALIGN_IN_TOP_LEFT, 10, 70);
-    lv_obj_align(shootSw, frSw, LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(midShootSw, shootSw, LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(frLab, frSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);       //前后 文本框对齐开关
-    lv_obj_align(shootLab, shootSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0); //高中旗 文本框对齐开关
-    lv_obj_align(midShootLab, midShootSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+    lv_obj_align(compSw[AUTO_FR], tab, LV_ALIGN_IN_TOP_LEFT, 10, 70);
+    lv_obj_align(compSw[AUTO_SHOOT], compSw[AUTO_FR], LV_ALIGN_OUT_TOP_LEFT, 0, 100);
+    lv_obj_align(compSw[AUTO_MID_SHOOT], compSw[AUTO_SHOOT], LV_ALIGN_OUT_TOP_LEFT, 0, 100);
+    lv_obj_align(frLab, compSw[AUTO_FR], LV_ALIGN_OUT_RIGHT_MID, 10, 0);       //前后 文本框对齐开关
+    lv_obj_align(shootLab, compSw[AUTO_SHOOT], LV_ALIGN_OUT_RIGHT_MID, 10, 0); //高中旗 文本框对齐开关
+    lv_obj_align(midShootLab, compSw[AUTO_MID_SHOOT], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
 
-    lv_obj_align(platformSw, frLab, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(bumperFlagSw, platformSw, LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(platformLab, platformSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(bumperFlagLab, bumperFlagSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+    lv_obj_align(compSw[AUTO_PLATFORM], frLab, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+    lv_obj_align(compSw[AUTO_BUMPERFLAG], compSw[AUTO_PLATFORM], LV_ALIGN_OUT_TOP_LEFT, 0, 100);
+    lv_obj_align(platformLab, compSw[AUTO_PLATFORM], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+    lv_obj_align(bumperFlagLab, compSw[AUTO_BUMPERFLAG], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
     lv_obj_align(confirmBtn, bumperFlagLab, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
     lv_obj_align(confirmLab, confirmBtn, LV_ALIGN_IN_BOTTOM_MID, 0, -15);
     //确认按钮的动作
