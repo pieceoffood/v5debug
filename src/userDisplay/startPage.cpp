@@ -26,9 +26,9 @@ static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
 void UserDisplay::createStartObj()
 {
     static const char *btnm_map[] = {"传感器信息", "机器人检测", "\n",
-                                     "自动赛", "手动赛", "\n",
+                                     "自动赛", "自定义测试", "\n",
                                      "前后PID", "旋转PID", "\n",
-                                     "ODOM测试", "自定义测试", ""};
+                                     "ODOM测试", "版本号", ""};
     if (displayObj[BTNM_START] == nullptr)
         displayObj[BTNM_START] = lv_btnm_create(userDisplay.displayObj[OBJ_OPCONTROL], nullptr); //创建按钮集群
     lv_btnm_set_map(displayObj[BTNM_START], btnm_map);

@@ -14,6 +14,7 @@
 extern lv_font_t myfont;
 typedef enum obj_flag
 {
+    OBJ_VERSION,     //版本号页面
     OBJ_SENSORSINFO, //传感器页面 为了防止误删除 需要放前面
     BTNM_START,      //按钮阵列 为了防止重复删除 这个也要放前面
 
@@ -22,9 +23,6 @@ typedef enum obj_flag
     OBJ_AUTONOMOUS,
     OBJ_OPCONTROL,
     OBJ_CONFIRM, //从这里开始下面都无法lv_load_src(),因为是依附状态
-
-    LAB_SENSORS,
-    LAB_LOOP
 } obj_flag;
 
 typedef enum task_flag
@@ -38,7 +36,7 @@ class UserDisplay
   public:
     //样式
     lv_theme_t *theme;
-    std::array<lv_obj_t *, 7> displayObj = {nullptr};   //对象
+    std::array<lv_obj_t *, 8> displayObj = {nullptr};   //对象
     std::array<lv_task_t *, 2> displayTask = {nullptr}; //线程
     //标题栏
     lv_obj_t *sensorsLab = nullptr;
@@ -55,6 +53,7 @@ class UserDisplay
     void createOpObj();
     void createStartObj();
     void creartSensorsInfo(lv_obj_t *parent, int width);
+    void creartVersion(lv_obj_t *parent);
 };
 extern UserDisplay userDisplay;
 

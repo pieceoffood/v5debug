@@ -25,7 +25,7 @@ void opcontrol()
     userDisplay.createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
-    _shootTask.remove();
+    _shootTask.remove(); //临时方式 先开机 再插场控 可能会误关闭 关闭悬停
     //任务通知测试
     //    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
@@ -54,7 +54,8 @@ static void loopTask(void *param)
 {
     (void)param; /*Unused*/
     char loopInfo[256];
-    sprintf(loopInfo, "loop:%u max:%u min:%u\n", userDisplay.loopTime, userDisplay.maxLoopTime, userDisplay.minLoopTime);
+    sprintf(loopInfo, "loop:%u max:%u min:%u\n",
+            userDisplay.loopTime, userDisplay.maxLoopTime, userDisplay.minLoopTime);
     lv_label_set_text(userDisplay.loopLab, loopInfo);
 }
 
