@@ -13,15 +13,7 @@
 
 void autonomous()
 {
-    userDisplay.createAutoObj();
-}
-void UserDisplay::createAutoObj()
-{
-    delObjs();
-    if (autonomousObj == nullptr)
-        autonomousObj = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(autonomousObj);
-    lv_obj_t *lab = lv_label_create(userDisplay.autonomousObj, nullptr);
-    lv_label_set_text(lab, "自动赛进行中");
-    std::cout << "create autoObj" << std::endl;
+    userDisplay.delTasks();
+    userDisplay.delObjs();
+    userDisplay.createUserObj(OBJ_AUTONOMOUS, true, "obj_auto", nullptr, "自动赛进行中");
 }

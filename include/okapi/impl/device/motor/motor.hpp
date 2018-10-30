@@ -1,11 +1,10 @@
 /**
- * @Author: yan
- * @Date:   2018-10-08T14:15:45+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-15T15:24:08+08:00
+ * @author Ryan Benasutti, WPI
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #ifndef _OKAPI_MOTOR_HPP_
 #define _OKAPI_MOTOR_HPP_
 
@@ -167,8 +166,8 @@ class Motor : public AbstractMotor, public pros::Motor {
    * This function uses the following values of errno when an error state is reached:
    * EACCES - Another resource is currently trying to access the port.
    *
-   * @return The motor's actual velocity in motor_encoder_units_e_t per second or PROS_ERR_F if the
-   * operation failed, setting errno.
+   * @return The motor's actual velocity in RPM or PROS_ERR_F if the operation failed, setting
+   * errno.
    */
   virtual double getActualVelocity() const override;
 

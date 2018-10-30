@@ -7,8 +7,7 @@
 #define LV_VDB_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /*********************
@@ -21,41 +20,41 @@ extern "C"
 #include "display/lv_misc/lv_area.h"
 #include "display/lv_misc/lv_color.h"
 
-    /*********************
+/*********************
  *      DEFINES
  *********************/
 
-    /**********************
+/**********************
  *      TYPEDEFS
  **********************/
 
-    typedef struct
-    {
-        lv_area_t area;
-        lv_color_t *buf;
-    } lv_vdb_t;
+typedef struct {
+  lv_area_t area;
+  lv_color_t *buf;
+} lv_vdb_t;
 
-    /**********************
+/**********************
  * GLOBAL PROTOTYPES
  **********************/
 
-    /**
-*获取'vdb'变量或在LV_VDB_DOUBLE模式下分配一个变量
-* @return指向'vdb'变量的指针
+/**
+ * Get the 'vdb' variable or allocate one in LV_VDB_DOUBLE mode
+ * @return pointer to a 'vdb' variable
  */
-    lv_vdb_t *lv_vdb_get(void);
+lv_vdb_t *lv_vdb_get(void);
 
-    /**
- *刷新vdb的内容
+/**
+ * Flush the content of the vdb
  */
-    void lv_vdb_flush(void);
+void lv_vdb_flush(void);
 
-    /**
-    *在'disp_map（）'时必须调用'LV_VDB_DOUBLE'模式已准备好将地图复制到帧缓冲区。.
+/**
+ * In 'LV_VDB_DOUBLE' mode  has to be called when 'disp_map()'
+ * is ready with copying the map to a frame buffer.
  */
-    void lv_flush_ready(void);
+void lv_flush_ready(void);
 
-    /**********************
+/**********************
  *      MACROS
  **********************/
 

@@ -1,12 +1,4 @@
 /**
- * @Author: yan
- * @Date:   2018-10-08T14:08:09+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-08T17:48:43+08:00
- */
-
-/**
  * @file lv_chart.h
  *
  */
@@ -15,8 +7,7 @@
 #define LV_CHART_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /*********************
@@ -28,226 +19,220 @@ extern "C"
 #include "display/lv_core/lv_obj.h"
 #include "display/lv_objx/lv_line.h"
 
-    /*********************
+/*********************
  *      DEFINES
  *********************/
 
-    /**********************
+/**********************
  *      TYPEDEFS
  **********************/
-    typedef struct
-    {
-        lv_coord_t *points;
-        lv_color_t color;
-    } lv_chart_series_t;
+typedef struct {
+  lv_coord_t *points;
+  lv_color_t color;
+} lv_chart_series_t;
 
-    /*图表数据 */
-    typedef struct
-    {
-        /*没有继承的ext*/ /*Ext。祖先*/
-        /*此类型的新数据 */
-        lv_ll_t series_ll;  /*数据行指针的链接列表（商店lv_chart_dl_t）*/
-        lv_coord_t ymin;    /* y min值（用于缩放数据）*/
-        lv_coord_t ymax;    /*y max value（用于缩放数据）*/
-        uint8_t hdiv_cnt;   /*水平分割线数量*/
-        uint8_t vdiv_cnt;   /*垂直分割线数量*/
-        uint16_t point_cnt; /*数据行中的点号*/
-        uint8_t type : 3;   /*行，列或点图表（来自'lv_chart_type_t'）*/
-        struct
-        {
-            lv_coord_t width; /*线宽或点半径*/
-            uint8_t num;      /*dl_ll中的数据行数*/
-            lv_opa_t opa;     /*数据线的不透明度*/
-            lv_opa_t dark;    /*点/柱底的暗层*/
-        } series;
-    } lv_chart_ext_t;
+/*Data of chart */
+typedef struct {
+  /*No inherited ext*/ /*Ext. of ancestor*/
+  /*New data for this type */
+  lv_ll_t series_ll;  /*Linked list for the data line pointers (stores
+                         lv_chart_dl_t)*/
+  lv_coord_t ymin;    /*y min value (used to scale the data)*/
+  lv_coord_t ymax;    /*y max value (used to scale the data)*/
+  uint8_t hdiv_cnt;   /*Number of horizontal division lines*/
+  uint8_t vdiv_cnt;   /*Number of vertical division lines*/
+  uint16_t point_cnt; /*Point number in a data line*/
+  uint8_t type : 3;   /*Line, column or point chart (from 'lv_chart_type_t')*/
+  struct {
+    lv_coord_t width; /*Line width or point radius*/
+    uint8_t num;      /*Number of data lines in dl_ll*/
+    lv_opa_t opa;     /*Opacity of data lines*/
+    lv_opa_t dark;    /*Dark level of the point/column bottoms*/
+  } series;
+} lv_chart_ext_t;
 
-    /*图表类型*/
-    typedef enum
-    {
-        LV_CHART_TYPE_LINE = 0x01,
-        LV_CHART_TYPE_COLUMN = 0x02,
-        LV_CHART_TYPE_POINT = 0x04,
-    } lv_chart_type_t;
+/*Chart types*/
+typedef enum {
+  LV_CHART_TYPE_LINE = 0x01,
+  LV_CHART_TYPE_COLUMN = 0x02,
+  LV_CHART_TYPE_POINT = 0x04,
+} lv_chart_type_t;
 
-    /**********************
- * 全局模型
+/**********************
+ * GLOBAL PROTOTYPES
  **********************/
 
-    /**
-    *创建图表背景对象
-   * @param par指向一个对象的指针，它将是新图表的父级
-   * 背景
-   * @param复制指向图表背景对象的指针，如果不是NULL那么新的
-   *对象将从中复制
-   * @return指向创建的图表背景的指针
+/**
+ * Create a chart background objects
+ * @param par pointer to an object, it will be the parent of the new chart
+ * background
+ * @param copy pointer to a chart background object, if not NULL then the new
+ * object will be copied from it
+ * @return pointer to the created chart background
  */
-    lv_obj_t *lv_chart_create(lv_obj_t *par, lv_obj_t *copy);
+lv_obj_t *lv_chart_create(lv_obj_t *par, lv_obj_t *copy);
 
-    /*======================
-*添加/删除功能
+/*======================
+ * Add/remove functions
  *=====================*/
 
-    /**
-    *为图表分配并添加数据系列
-     * @param图表指向图表对象的指针
-     *数据系列的@param颜色
-     * @return指向已分配数据系列的指针
+/**
+ * Allocate and add a data series to the chart
+ * @param chart pointer to a chart object
+ * @param color color of the data series
+ * @return pointer to the allocated data series
  */
-    lv_chart_series_t *lv_chart_add_series(lv_obj_t *chart, lv_color_t color);
+lv_chart_series_t *lv_chart_add_series(lv_obj_t *chart, lv_color_t color);
 
-    /*=====================
- * Setter功能
+/*=====================
+ * Setter functions
  *====================*/
 
-    /**
-    *设置水平和垂直分割线的数量
-   * @param图表指向图形背景对象的指针
-   * @param hdiv水平分割线的数量
-   * @param vdiv垂直分割线数
+/**
+ * Set the number of horizontal and vertical division lines
+ * @param chart pointer to a graph background object
+ * @param hdiv number of horizontal division lines
+ * @param vdiv number of vertical division lines
  */
-    void lv_chart_set_div_line_count(lv_obj_t *chart, uint8_t hdiv, uint8_t vdiv);
+void lv_chart_set_div_line_count(lv_obj_t *chart, uint8_t hdiv, uint8_t vdiv);
 
-    /**
-    *设置最小和最大y值
-   * @param图表指向图形背景对象的指针
-   * @param ymin y最小值
-   * @param ymax y最大值
+/**
+ * Set the minimal and maximal y values
+ * @param chart pointer to a graph background object
+ * @param ymin y minimum value
+ * @param ymax y maximum value
  */
-    void lv_chart_set_range(lv_obj_t *chart, lv_coord_t ymin, lv_coord_t ymax);
+void lv_chart_set_range(lv_obj_t *chart, lv_coord_t ymin, lv_coord_t ymax);
 
-    /**
-    *为图表设置新类型
-   * @param图表指向图表对象的指针
-   * @param键入新类型的图表（来自'lv_chart_type_t'枚举）
+/**
+ * Set a new type for a chart
+ * @param chart pointer to a chart object
+ * @param type new type of the chart (from 'lv_chart_type_t' enum)
  */
-    void lv_chart_set_type(lv_obj_t *chart, lv_chart_type_t type);
+void lv_chart_set_type(lv_obj_t *chart, lv_chart_type_t type);
 
-    /**
-    *设置图表数据行上的点数
-    * @param图表指针r到图表对象
-    * @param point_cnt数据行上的新点数
+/**
+ * Set the number of points on a data line on a chart
+ * @param chart pointer r to chart object
+ * @param point_cnt new number of points on the data lines
  */
-    void lv_chart_set_point_count(lv_obj_t *chart, uint16_t point_cnt);
+void lv_chart_set_point_count(lv_obj_t *chart, uint16_t point_cnt);
 
-    /**
-    *设置数据系列的不透明度
-     * @param图表指向图表对象的指针
-     * @param opa数据系列的不透明度
+/**
+ * Set the opacity of the data series
+ * @param chart pointer to a chart object
+ * @param opa opacity of the data series
  */
-    void lv_chart_set_series_opa(lv_obj_t *chart, lv_opa_t opa);
+void lv_chart_set_series_opa(lv_obj_t *chart, lv_opa_t opa);
 
-    /**
-    *使用值初始化所有数据点
-    * @param图表指向图表对象
-    * @param ser指向“图表”上数据系列的指针
-    * @param y所有积分的新值
+/**
+ * Set the line width or point radius of the data series
+ * @param chart pointer to a chart object
+ * @param width the new width
  */
-    void lv_chart_set_series_width(lv_obj_t *chart, lv_coord_t width);
+void lv_chart_set_series_width(lv_obj_t *chart, lv_coord_t width);
 
-    /**
-    *在点或列的底部设置暗效果
-   * @param图表指向图表对象的指针
-   * @param dark_eff暗效电平（LV_OPA_TRANSP关闭）
+/**
+ * Set the dark effect on the bottom of the points or columns
+ * @param chart pointer to a chart object
+ * @param dark_eff dark effect level (LV_OPA_TRANSP to turn off)
  */
-    void lv_chart_set_series_darking(lv_obj_t *chart, lv_opa_t dark_eff);
+void lv_chart_set_series_darking(lv_obj_t *chart, lv_opa_t dark_eff);
 
-    /**
-    *使用值初始化所有数据点
-   * @param图表指向图表对象
-   * @param ser指向“图表”上数据系列的指针
-   * @param y所有积分的新值
+/**
+ * Initialize all data points with a value
+ * @param chart pointer to chart object
+ * @param ser pointer to a data series on 'chart'
+ * @param y the new value  for all points
  */
-    void lv_chart_init_points(lv_obj_t *chart, lv_chart_series_t *ser,
-                              lv_coord_t y);
+void lv_chart_init_points(lv_obj_t *chart, lv_chart_series_t *ser,
+                          lv_coord_t y);
 
-    /**
-    *设置数组中点的值s
-    * @param图表指向图表对象
-    * @param ser指向“图表”上数据系列的指针
-    * @param y_array'lv_coord_t'点数组（带'点数'元素）
+/**
+ * Set the value s of points from an array
+ * @param chart pointer to chart object
+ * @param ser pointer to a data series on 'chart'
+ * @param y_array array of 'lv_coord_t' points (with 'points count' elements )
  */
-    void lv_chart_set_points(lv_obj_t *chart, lv_chart_series_t *ser,
-                             lv_coord_t *y_array);
+void lv_chart_set_points(lv_obj_t *chart, lv_chart_series_t *ser,
+                         lv_coord_t *y_array);
 
-    /**
-    *正确移位所有数据并在数据线上设置最正确的数据
-    * @param图表指向图表对象
-    * @param ser指向“图表”上数据系列的指针
-    * @param y最正确数据的新值
+/**
+ * Shift all data right and set the most right data on a data line
+ * @param chart pointer to chart object
+ * @param ser pointer to a data series on 'chart'
+ * @param y the new value of the most right data
  */
-    void lv_chart_set_next(lv_obj_t *chart, lv_chart_series_t *ser, lv_coord_t y);
+void lv_chart_set_next(lv_obj_t *chart, lv_chart_series_t *ser, lv_coord_t y);
 
-    /**
-    *设置图表的样式
-   * @param图表指向图表对象的指针
-   * @param样式指针指向一个样式
+/**
+ * Set the style of a chart
+ * @param chart pointer to a chart object
+ * @param style pointer to a style
  */
-    static inline void lv_chart_set_style(lv_obj_t *chart, lv_style_t *style)
-    {
-        lv_obj_set_style(chart, style);
-    }
+static inline void lv_chart_set_style(lv_obj_t *chart, lv_style_t *style) {
+  lv_obj_set_style(chart, style);
+}
 
-    /*=====================
- * 吸气功能
+/*=====================
+ * Getter functions
  *====================*/
 
-    /**
-    *获取图表的类型
-   * @param图表指向图表对象
-   * @return类型的图表（来自'lv_chart_t'枚举）
+/**
+ * Get the type of a chart
+ * @param chart pointer to chart object
+ * @return type of the chart (from 'lv_chart_t' enum)
  */
-    lv_chart_type_t lv_chart_get_type(lv_obj_t *chart);
+lv_chart_type_t lv_chart_get_type(lv_obj_t *chart);
 
-    /**
-    *获取图表上每条数据线的数据点数
-    * @param图表指向图表对象
-    * @return点数在每条数据线上
+/**
+ * Get the data point number per data line on chart
+ * @param chart pointer to chart object
+ * @return point number on each data line
  */
-    uint16_t lv_chart_get_point_cnt(lv_obj_t *chart);
+uint16_t lv_chart_get_point_cnt(lv_obj_t *chart);
 
-    /**
-    *获取数据系列的不透明度
-   * @param图表指向图表对象
-   * @return数据系列的不透明度
+/**
+ * Get the opacity of the data series
+ * @param chart pointer to chart object
+ * @return the opacity of the data series
  */
-    lv_opa_t lv_chart_get_series_opa(lv_obj_t *chart);
+lv_opa_t lv_chart_get_series_opa(lv_obj_t *chart);
 
-    /**
-    *获取数据系列宽度
-    * @param图表指向图表对象
-    * @return数据系列的宽度（线或点）
+/**
+ * Get the data series width
+ * @param chart pointer to chart object
+ * @return the width the data series (lines or points)
  */
-    lv_coord_t lv_chart_get_series_width(lv_obj_t *chart);
+lv_coord_t lv_chart_get_series_width(lv_obj_t *chart);
 
-    /**
-    *在点或列的底部获得暗效果级别
-   * @param图表指向图表对象
-   * @return暗效果等级（LV_OPA_TRANSP关闭）
+/**
+ * Get the dark effect level on the bottom of the points or columns
+ * @param chart pointer to chart object
+ * @return dark effect level (LV_OPA_TRANSP to turn off)
  */
-    lv_opa_t lv_chart_get_series_darking(lv_obj_t *chart);
+lv_opa_t lv_chart_get_series_darking(lv_obj_t *chart);
 
-    /**
-    *获取图表对象的样式
-    * @param图表指向图表对象的指针
-    * @return指向图表样式的指针
+/**
+ * Get the style of an chart object
+ * @param chart pointer to an chart object
+ * @return pointer to the chart's style
  */
-    static inline lv_style_t *lv_chart_get_style(lv_obj_t *chart)
-    {
-        return lv_obj_get_style(chart);
-    }
+static inline lv_style_t *lv_chart_get_style(lv_obj_t *chart) {
+  return lv_obj_get_style(chart);
+}
 
-    /*=====================
- *其他功能
+/*=====================
+ * Other functions
  *====================*/
 
-    /**
-    *如果数据行已更改，请刷新图表
-     * @param图表指向图表对象
+/**
+ * Refresh a chart if its data line has changed
+ * @param chart pointer to chart object
  */
-    void lv_chart_refresh(lv_obj_t *chart);
+void lv_chart_refresh(lv_obj_t *chart);
 
-    /**********************
+/**********************
  *      MACROS
  **********************/
 

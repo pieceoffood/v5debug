@@ -1,4 +1,20 @@
-
+/**
+ * \file api.h
+ *
+ * PROS API header provides high-level user functionality
+ *
+ * Contains declarations for use by typical VEX programmers using PROS.
+ *
+ * This file should not be modified by users, since it gets replaced whenever
+ * a kernel upgrade occurs.
+ *
+ * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
+ * All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 #ifndef _PROS_API_H_
 #define _PROS_API_H_
@@ -25,8 +41,8 @@
 
 #define PROS_VERSION_MAJOR 3
 #define PROS_VERSION_MINOR 1
-#define PROS_VERSION_PATCH 1
-#define PROS_VERSION_STRING "3.1.1"
+#define PROS_VERSION_PATCH 3
+#define PROS_VERSION_STRING "3.1.3"
 
 #define PROS_ERR (INT32_MAX)
 #define PROS_ERR_F (INFINITY)
@@ -48,4 +64,4 @@
 #include "pros/vision.hpp"
 #endif
 
-#endif // _PROS_API_H_
+#endif  // _PROS_API_H_

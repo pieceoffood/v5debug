@@ -1,11 +1,10 @@
 /**
- * @Author: yan
- * @Date:   2018-10-08T14:10:33+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-15T15:31:10+08:00
+ * @author Ryan Benasutti, WPI
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #ifndef _OKAPI_XDRIVEMODEL_HPP_
 #define _OKAPI_XDRIVEMODEL_HPP_
 
@@ -13,12 +12,10 @@
 #include "okapi/api/device/motor/abstractMotor.hpp"
 #include "okapi/api/device/rotarysensor/continuousRotarySensor.hpp"
 
-namespace okapi
-{
-class XDriveModel : public ChassisModel
-{
+namespace okapi {
+class XDriveModel : public ChassisModel {
   public:
-    /**
+  /**
    * Model for an x drive (wheels at 45 deg from a skid steer drive). When all motors are powered
    * +100%, the robot should move forward in a straight line.
    *
@@ -30,14 +27,14 @@ class XDriveModel : public ChassisModel
    * @param ibottomRightMotor bottom right motor
    * @param ibottomLeftMotor bottom left motor
    */
-    XDriveModel(std::shared_ptr<AbstractMotor> itopLeftMotor,
-                std::shared_ptr<AbstractMotor> itopRightMotor,
-                std::shared_ptr<AbstractMotor> ibottomRightMotor,
-                std::shared_ptr<AbstractMotor> ibottomLeftMotor,
-                double imaxVelocity,
-                double imaxVoltage = 12000);
+  XDriveModel(std::shared_ptr<AbstractMotor> itopLeftMotor,
+              std::shared_ptr<AbstractMotor> itopRightMotor,
+              std::shared_ptr<AbstractMotor> ibottomRightMotor,
+              std::shared_ptr<AbstractMotor> ibottomLeftMotor,
+              double imaxVelocity,
+              double imaxVoltage = 12000);
 
-    /**
+  /**
    * Model for an x drive (wheels at 45 deg from a skid steer drive). When all motors are powered
    * +100%, the robot should move forward in a straight line.
    *
@@ -48,23 +45,23 @@ class XDriveModel : public ChassisModel
    * @param ileftEnc Left side encoder
    * @param irightEnc Right side encoder
    */
-    XDriveModel(std::shared_ptr<AbstractMotor> itopLeftMotor,
-                std::shared_ptr<AbstractMotor> itopRightMotor,
-                std::shared_ptr<AbstractMotor> ibottomRightMotor,
-                std::shared_ptr<AbstractMotor> ibottomLeftMotor,
-                std::shared_ptr<ContinuousRotarySensor> ileftEnc,
-                std::shared_ptr<ContinuousRotarySensor> irightEnc,
-                double imaxVelocity,
-                double imaxVoltage = 12000);
+  XDriveModel(std::shared_ptr<AbstractMotor> itopLeftMotor,
+              std::shared_ptr<AbstractMotor> itopRightMotor,
+              std::shared_ptr<AbstractMotor> ibottomRightMotor,
+              std::shared_ptr<AbstractMotor> ibottomLeftMotor,
+              std::shared_ptr<ContinuousRotarySensor> ileftEnc,
+              std::shared_ptr<ContinuousRotarySensor> irightEnc,
+              double imaxVelocity,
+              double imaxVoltage = 12000);
 
-    /**
+  /**
    * Drive the robot forwards (using open-loop control). Uses velocity mode.
    *
    * @param ispeed motor power
    */
-    void forward(double ipower) const override;
+  void forward(double ipower) const override;
 
-    /**
+  /**
    * Drive the robot in an arc (using open-loop control). Uses velocity mode.
    * The algorithm is (approximately):
    *   leftPower = forwardSpeed + yaw
@@ -73,94 +70,97 @@ class XDriveModel : public ChassisModel
    * @param iforwardSpeed speed in the forward direction
    * @param iyaw speed around the vertical axis
    */
-    void driveVector(double iforwardSpeed, double iyaw) const override;
+  void driveVector(double iforwardSpeed, double iyaw) const override;
 
-    /**
+  /**
    * Turn the robot clockwise (using open-loop control). Uses velocity mode.
    *
    * @param ipower motor power
    */
-    void rotate(double ipower) const override;
+  void rotate(double ipower) const override;
 
-    /**
+  /**
    * Stop the robot (set all the motors to 0). Uses velocity mode.
    */
-    void stop() override;
+  void stop() override;
 
-    /**
+  /**
    * Drive the robot with a tank drive layout. Uses voltage mode.
    *
    * @param ileftSpeed left side speed
    * @param irightSpeed right side speed
    * @param ithreshold deadband on joystick values
    */
-    void tank(double ileftSpeed, double irightSpeed, double ithreshold = 0) const override;
+  void tank(double ileftSpeed, double irightSpeed, double ithreshold = 0) const override;
 
-    /**
-    *使用街机驱动器布局驱动机器人。使用电压模式。
-    * @param iforwardSpeed在前进方向的速度
-    * @param绕垂直轴的速度
-    *操纵杆值上的@param ithreshold死区
+  /**
+   * Drive the robot with an arcade drive layout. Uses voltage mode.
+   *
+   * @param iforwardSpeed speed in the forward direction
+   * @param iyaw speed around the vertical axis
+   * @param ithreshold deadband on joystick values
    */
-    void arcade(double iforwardSpeed, double iyaw, double ithreshold = 0) const override;
+  void arcade(double iforwardSpeed, double iyaw, double ithreshold = 0) const override;
 
-    /**
-    *使用街机驱动器布局驱动机器人。使用电压模式。
-    * @param irightSpeed速度向右
-    * @param iforwardSpeed在前进方向的速度
-    * @param绕垂直轴的速度
-    *操纵杆值上的@param ithreshold死区
+  /**
+   * Drive the robot with an arcade drive layout. Uses voltage mode.
+   *
+   * @param irightSpeed speed to the right
+   * @param iforwardSpeed speed in the forward direction
+   * @param iyaw speed around the vertical axis
+   * @param ithreshold deadband on joystick values
    */
-    virtual void xArcade(double irightSpeed, double iforwardSpeed, double iyaw, double ithreshold = 0) const;
+  virtual void
+  xArcade(double irightSpeed, double iforwardSpeed, double iyaw, double ithreshold = 0) const;
 
-    /**
+  /**
    * Power the left side motors. Uses velocity mode.
    *
    * @param ipower motor power
    */
-    void left(double ipower) const override;
+  void left(double ipower) const override;
 
-    /**
+  /**
    * Power the right side motors. Uses velocity mode.
    *
    * @param ipower motor power
    */
-    void right(double ipower) const override;
+  void right(double ipower) const override;
 
-    /**
+  /**
    * Read the sensors.
    *
    * @return sensor readings in the format {left, right}
    */
-    std::valarray<std::int32_t> getSensorVals() const override;
+  std::valarray<std::int32_t> getSensorVals() const override;
 
-    /**
+  /**
    * Reset the sensors to their zero point.
    */
-    void resetSensors() const override;
+  void resetSensors() const override;
 
-    /**
+  /**
    * Set the brake mode for each motor.
    *
    * @param mode new brake mode
    */
-    void setBrakeMode(AbstractMotor::brakeMode mode) const override;
+  void setBrakeMode(AbstractMotor::brakeMode mode) const override;
 
-    /**
+  /**
    * Set the encoder units for each motor.
    *
    * @param units new motor encoder units
    */
-    void setEncoderUnits(AbstractMotor::encoderUnits units) const override;
+  void setEncoderUnits(AbstractMotor::encoderUnits units) const override;
 
-    /**
+  /**
    * Set the gearset for each motor.
    *
    * @param gearset new motor gearset
    */
-    void setGearing(AbstractMotor::gearset gearset) const override;
+  void setGearing(AbstractMotor::gearset gearset) const override;
 
-    /**
+  /**
    * Sets new PID constants.
    *
    * @param ikF the feed-forward constant
@@ -169,42 +169,9 @@ class XDriveModel : public ChassisModel
    * @param ikD the derivative constant
    * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
    */
-    void setPosPID(double ikF, double ikP, double ikI, double ikD) const override;
+  void setPosPID(double ikF, double ikP, double ikI, double ikD) const override;
 
-    /**
-   * Sets new PID constants.
-   *
-   * @param ikF the feed-forward constant
-   * @param ikP the proportional constant
-   * @param ikI the integral constant
-   * @param ikD the derivative constant
-   * @param ifilter a constant used for filtering the profile acceleration
-   * @param ilimit the integral limit
-   * @param ithreshold the threshold for determining if a position movement has reached its goal
-   * @param iloopSpeed the rate at which the PID computation is run (in ms)
-   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
-   */
-    void setPosPIDFull(double ikF,
-                       double ikP,
-                       double ikI,
-                       double ikD,
-                       double ifilter,
-                       double ilimit,
-                       double ithreshold,
-                       double iloopSpeed) const override;
-
-    /**
-   * Sets new PID constants.
-   *
-   * @param ikF the feed-forward constant
-   * @param ikP the proportional constant
-   * @param ikI the integral constant
-   * @param ikD the derivative constant
-   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
-   */
-    void setVelPID(double ikF, double ikP, double ikI, double ikD) const override;
-
-    /**
+  /**
    * Sets new PID constants.
    *
    * @param ikF the feed-forward constant
@@ -217,50 +184,83 @@ class XDriveModel : public ChassisModel
    * @param iloopSpeed the rate at which the PID computation is run (in ms)
    * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
    */
-    void setVelPIDFull(double ikF,
-                       double ikP,
-                       double ikI,
-                       double ikD,
-                       double ifilter,
-                       double ilimit,
-                       double ithreshold,
-                       double iloopSpeed) const override;
+  void setPosPIDFull(double ikF,
+                     double ikP,
+                     double ikI,
+                     double ikD,
+                     double ifilter,
+                     double ilimit,
+                     double ithreshold,
+                     double iloopSpeed) const override;
 
-    /**
+  /**
+   * Sets new PID constants.
+   *
+   * @param ikF the feed-forward constant
+   * @param ikP the proportional constant
+   * @param ikI the integral constant
+   * @param ikD the derivative constant
+   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
+   */
+  void setVelPID(double ikF, double ikP, double ikI, double ikD) const override;
+
+  /**
+   * Sets new PID constants.
+   *
+   * @param ikF the feed-forward constant
+   * @param ikP the proportional constant
+   * @param ikI the integral constant
+   * @param ikD the derivative constant
+   * @param ifilter a constant used for filtering the profile acceleration
+   * @param ilimit the integral limit
+   * @param ithreshold the threshold for determining if a position movement has reached its goal
+   * @param iloopSpeed the rate at which the PID computation is run (in ms)
+   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
+   */
+  void setVelPIDFull(double ikF,
+                     double ikP,
+                     double ikI,
+                     double ikD,
+                     double ifilter,
+                     double ilimit,
+                     double ithreshold,
+                     double iloopSpeed) const override;
+
+  /**
    * Returns the top left motor.
    *
    * @return the top left motor
    */
-    std::shared_ptr<AbstractMotor> getTopLeftMotor() const;
+  std::shared_ptr<AbstractMotor> getTopLeftMotor() const;
 
-    /**
+  /**
    * Returns the top right motor.
    *
    * @return the top right motor
    */
-    std::shared_ptr<AbstractMotor> getTopRightMotor() const;
+  std::shared_ptr<AbstractMotor> getTopRightMotor() const;
 
-    /**
+  /**
    * Returns the bottom right motor.
    *
    * @return the bottom right motor
    */
-    std::shared_ptr<AbstractMotor> getBottomRightMotor() const;
+  std::shared_ptr<AbstractMotor> getBottomRightMotor() const;
 
-    /**
+  /**
    * Returns the bottom left motor.
    *
    * @return the bottom left motor
    */
-    std::shared_ptr<AbstractMotor> getBottomLeftMotor() const;
+  std::shared_ptr<AbstractMotor> getBottomLeftMotor() const;
 
   protected:
-    std::shared_ptr<AbstractMotor> topLeftMotor;
-    std::shared_ptr<AbstractMotor> topRightMotor;
-    std::shared_ptr<AbstractMotor> bottomRightMotor;
-    std::shared_ptr<AbstractMotor> bottomLeftMotor;
-    std::shared_ptr<ContinuousRotarySensor> leftSensor;
-    std::shared_ptr<ContinuousRotarySensor> rightSensor;
+  std::shared_ptr<AbstractMotor> topLeftMotor;
+  std::shared_ptr<AbstractMotor> topRightMotor;
+  std::shared_ptr<AbstractMotor> bottomRightMotor;
+  std::shared_ptr<AbstractMotor> bottomLeftMotor;
+  std::shared_ptr<ContinuousRotarySensor> leftSensor;
+  std::shared_ptr<ContinuousRotarySensor> rightSensor;
 };
 } // namespace okapi
 
