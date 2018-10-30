@@ -1,10 +1,3 @@
-/**
- * @Author: yan
- * @Date:   2018-10-14T14:25:38+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-28T21:56:36+08:00
- */
 #include "main.h"
 
 std::array<lv_obj_t *, AUTO_NUMS> compSw;
@@ -95,7 +88,6 @@ void competition_initialize()
     //创建各种开关
     for (auto &it : compSw)
         it = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
-
     lv_obj_t *frLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);          //创建前后场开关文本条
                                                                                                //    lv_label_set_style(frLab, &userDisplay.fontStyle);
     lv_obj_t *shootLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);      //创建射高旗中旗开关文本条

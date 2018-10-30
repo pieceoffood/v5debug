@@ -50,29 +50,29 @@ void UserDisplay::createUserTask(task_flag taskName, void (*task)(void *), uint3
 }
 void UserDisplay::delTasks()
 {
-    unsigned int taskFlag = 1;
+    unsigned int flag = 1;
     for (auto &it : userDisplay.displayTask)
     {
         if (it != nullptr)
         {
             lv_task_del(it);
             it = nullptr;
-            std::cout << "del task:" << taskFlag << std::endl;
-            taskFlag++;
+            std::cout << "del task:" << flag << std::endl;
+            flag++;
         }
     }
 }
 void UserDisplay::delObjs()
 {
-    unsigned int objFlag = 1;
+    unsigned int flag = 1;
     for (auto &it : userDisplay.displayObj)
     {
         if (it != nullptr)
         {
             lv_obj_del(it);
             it = nullptr;
-            std::cout << "del Obj:" << objFlag << std::endl;
-            objFlag++;
+            std::cout << "del Obj:" << flag << std::endl;
+            flag++;
         }
     }
 }

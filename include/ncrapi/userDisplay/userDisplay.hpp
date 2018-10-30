@@ -38,7 +38,7 @@ class UserDisplay
   public:
     //样式
     lv_theme_t *theme;
-    std::array<lv_obj_t *, 6> displayObj = {nullptr};   //对象
+    std::array<lv_obj_t *, 7> displayObj = {nullptr};   //对象
     std::array<lv_task_t *, 2> displayTask = {nullptr}; //线程
     //标题栏
     lv_obj_t *sensorsLab = nullptr;
