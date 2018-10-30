@@ -36,7 +36,7 @@ void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
 
     lv_obj_set_size(displayObj[OBJ_SENSORSINFO], width, LV_VER_RES); //设置页面大小
     lv_obj_t *exitBtn = lv_btn_create(displayObj[OBJ_SENSORSINFO], NULL);
-    lv_obj_set_pos(exitBtn, width - 100, LV_VER_RES - 50);
+    lv_obj_set_pos(exitBtn, width - 75, LV_VER_RES - 75);
     lv_obj_set_size(exitBtn, 50, 25);
     lv_obj_t *exitLab = lv_label_create(exitBtn, NULL);
     lv_label_set_text(exitLab, "exit");

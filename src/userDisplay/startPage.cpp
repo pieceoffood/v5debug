@@ -18,7 +18,9 @@ static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
     (void)btnm; /*Unused*/
     //TODO 做一个字符串判断
     if (!strcmp(txt, "传感器信息"))
-        userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_OPCONTROL], LV_HOR_RES);
+        userDisplay.creartSensorsInfo(userDisplay.displayObj[BTNM_START], LV_HOR_RES);
+    if (!strcmp(txt, "版本号"))
+        userDisplay.creartVersion(userDisplay.displayObj[BTNM_START]);
     printf("Key pressed: %s\n", txt);
 
     return LV_RES_INV;
