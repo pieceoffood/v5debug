@@ -12,11 +12,11 @@
 /**
  * 撞针式弹射
  */
+
 template <size_t _nums>
 class LinearShoot : public Generic<_nums>
 {
   private:
-    pros::task_t _shootTask = nullptr;
     const pros::ADIDigitalIn _limit;
     const int _shootReadyVal;
     const int _shootShootVal;
@@ -25,25 +25,11 @@ class LinearShoot : public Generic<_nums>
     int _state;                 //状态 -1发射中 0:发射结束状态 1:准备状态
     bool _mode;                 //模式 false 手动模式 true 自动模式
     bool _shootBtnFlag = false; //    volatile
-    //多线程循环函数
-    void loop()
-    {
-        uint32_t now = pros::millis();
-        while (true)
-        {
-            holding();
-            pros::c::task_delay_until(&now, 20);
-        }
-    }
-    static void taskLinearShoot(void *para) { static_cast<LinearShoot<_nums> *>(para)->loop(); }
 
   public:
     LinearShoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int hold = 10)
         : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime)
     {
-        resetEnc();
-        if (_shootTask == nullptr)
-            _shootTask = pros::c::task_create(taskLinearShoot, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "_shootTask");
         _state = false;
         _mode = true;
     }
@@ -194,5 +180,21 @@ class LinearShoot : public Generic<_nums>
         else
             holding();
     }
+    //多线程循环函数
+    void loop()
+    {
+        uint32_t now = pros::millis();
+        while (true)
+        {
+            holding();
+            pros::c::task_delay_until(&now, 20);
+        }
+    }
 };
+extern LinearShoot<2> shoot;
+//静态外部变量
+static void taskLinearShoot(void *para)
+{
+    shoot.loop();
+}
 #endif /* end of include guard: SHOOT_HPP_ */

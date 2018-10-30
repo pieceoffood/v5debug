@@ -30,6 +30,6 @@
 extern pros::Controller joy1;
 extern pros::Controller joy2;
 extern Chassis chassis;
-// extern LinearShoot<2> shoot;
+
 extern Generic<2> intake;
 #endif /* end of include guard: ncrapi_HPP_ */

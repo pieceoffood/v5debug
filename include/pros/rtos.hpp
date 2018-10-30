@@ -1,23 +1,3 @@
-/**
- * \file pros/rtos.hpp
- *
- * Contains declarations for the PROS RTOS kernel for use by typical VEX
- * programmers.
- *
- * Visit https://pros.cs.purdue.edu/v5/tutorials/topical/multitasking.html to
- * learn more.
- *
- * This file should not be modified by users, since it gets replaced whenever
- * a kernel upgrade occurs.
- *
- * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
- * All rights reserved.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
 #ifndef _PROS_RTOS_HPP_
 #define _PROS_RTOS_HPP_
 
@@ -26,271 +6,255 @@
 #include <cstdint>
 #include <cstdlib>
 
-namespace pros {
-class Task {
-	public:
-	/**
-	 * Creates a new task and add it to the list of tasks that are ready to run.
-	 *
-	 * This function uses the following values of errno when an error state is
-	 * reached:
-	 * ENOMEM - The stack cannot be used as the TCB was not created.
-	 *
-	 * \param function
-	 *        Pointer to the task entry function
-	 * \param parameters
-	 *        Pointer to memory that will be used as a parameter for the task
-	 *        being created. This memory should not typically come from stack,
-	 *        but rather from dynamically (i.e., malloc'd) or statically
-	 *        allocated memory.
-	 * \param prio
-	 *        The priority at which the task should run.
-	 *        TASK_PRIO_DEFAULT plus/minus 1 or 2 is typically used.
-	 * \param stack_depth
-	 *        The number of words (i.e. 4 * stack_depth) available on the task's
-	 *        stack. TASK_STACK_DEPTH_DEFAULT is typically sufficienct.
-	 * \param name
-	 *        A descriptive name for the task.  This is mainly used to facilitate
-	 *        debugging. The name may be up to 32 characters long.
-	 *
+namespace pros
+{
+class Task
+{
+  public:
+    /**
+  	 *创建新任务并将其添加到准备运行的任务列表中。
+  	 *
+  	 *当错误状态为时，此函数使用以下errno值
+  	 * 到达：
+  	 * ENOMEM  - 由于未创建TCB，因此无法使用堆栈。
+  	 *
+  	 * \ param函数 指向任务输入功能的指针
+  	 * \ param参数 指向将用作任务参数的内存的指针 正在创建。这个内存通常不应来自堆栈 而是动态地（即malloc'd）或静态地分配内存。
+  	 * \ param prio 任务运行的优先级。通常使用TASK_PRIO_DEFAULT加/减1或2。
+  	 * \ param stack_depth 任务中可用的单词数（即4 * stack_depth） 堆栈。TASK_STACK_DEPTH_DEFAULT通常是足够的。
+  	 * \ param名称 任务的描述性名称。这主要是为了方便调试。名称最长可达32个字符。
+  	 */
+    Task(task_fn_t function, void *parameters = NULL, std::uint32_t prio = TASK_PRIORITY_DEFAULT,
+         std::uint16_t stack_depth = TASK_STACK_DEPTH_DEFAULT, const char *name = "");
+    /**
+	*创建新任务并将其添加到准备运行的任务列表中。
+	* \ param任务
+	* task_create（）的任务句柄，用于创建pros :: Task
+	*对象。
 	 */
-	Task(task_fn_t function, void* parameters = NULL, std::uint32_t prio = TASK_PRIORITY_DEFAULT,
-	     std::uint16_t stack_depth = TASK_STACK_DEPTH_DEFAULT, const char* name = "");
-	/**
-	 * Creates a new task and add it to the list of tasks that are ready to run.
-	 *
-	 * \param task
-	 *        A task handle from task_create() for which to create a pros::Task
-	 *        object.
-	 */
-	Task(task_t task);
+    Task(task_t task);
 
-	/**
-	 * Creates a new task and add it to the list of tasks that are ready to run.
-	 *
-	 * \param in
-	 *        A task handle from task_create() for which to create a pros::Task
-	 *        object.
+    /**
+	*创建新任务并将其添加到准备运行的任务列表中。
+   	 *
+   	 * \ param in
+   	 * task_create（）的任务句柄，用于创建pros :: Task
+   	 *对象。
 	 */
-	void operator=(const task_t in);
+    void operator=(const task_t in);
 
-	/**
-	 * Removes the Task from the RTOS real time kernel's management. This task
-	 * will be removed from all ready, blocked, suspended and event lists.
-	 *
-	 * Memory dynamically allocated by the task is not automatically freed, and
-	 * should be freed before the task is deleted.
+    /**
+	*从RTOS实时内核的管理中删除任务。这个任务
+	*将从所有就绪，阻止，暂停和事件列表中删除。
+	*
+	*任务动态分配的内存不会自动释放，并且
+	*应在删除任务之前释放。
 	 */
-	void remove();
+    void remove();
 
-	/**
-	 * Gets the priority of the specified task.
-	 *
-	 * \return The priority of the task
+    /**
+	*获取指定任务的优先级。
+	*
+	* \ return任务的优先级
 	 */
-	std::uint32_t get_priority(void);
+    std::uint32_t get_priority(void);
 
-	/**
-	 * Sets the priority of the specified task.
-	 *
-	 * If the specified task's state is available to be scheduled (e.g. not
-	 * blocked) and new priority is higher than the currently running task,
-	 * a context switch may occur.
-	 *
-	 * \param prio
-	 *        The new priority of the task
+    /**
+	*设置指定任务的优先级。
+	*
+	*如果可以安排指定任务的状态（例如，没有
+	*已阻止）并且新优先级高于当前正在运行的任务，
+	*可能发生上下文切换。
+	*
+	* \ param prio
+	*任务的新优先级
 	 */
-	void set_priority(std::uint32_t prio);
+    void set_priority(std::uint32_t prio);
 
-	/**
-	 * Gets the state of the specified task.
-	 *
-	 * \return The state of the task
+    /**
+	*获取指定任务的状态。
+	*
+	* \ return任务的状态
 	 */
-	std::uint32_t get_state(void);
+    std::uint32_t get_state(void);
 
-	/**
-	 * Suspends the specified task, making it ineligible to be scheduled.
+    /**
+	 *暂停指定的任务，使其无法安排。
 	 */
-	void suspend(void);
+    void suspend(void);
 
-	/**
-	 * Resumes the specified task, making it eligible to be scheduled.
-	 *
-	 * \param task
-	 *        The task to resume
+    /**
+	*恢复指定的任务，使其有资格安排。
+	*
+	* \ param任务
+	*要恢复的任务
 	 */
-	void resume(void);
+    void resume(void);
 
-	/**
-	 * Gets the name of the specified task.
-	 *
-	 * \return A pointer to the name of the task
+    /**
+	*获取指定任务的名称。
+	*
+	* \ return指向任务名称的指针
 	 */
-	const char* get_name(void);
+    const char *get_name(void);
 
-	/**
-	 * Sends a simple notification to task and increments the notification
-	 * counter.
-	 *
-	 * See https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html for
-	 * details.
-	 *
-	 * \return Always returns true.
+    /**
+
 	 */
-	std::uint32_t notify(void);
+    std::uint32_t notify(void);
 
-	/**
-	 * Sends a notification to a task, optionally performing some action. Will
-	 * also retrieve the value of the notification in the target task before
-	 * modifying the notification value.
-	 *
-	 * See https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html for
-	 * details.
-	 *
-	 * \param value
-	 *        The value used in performing the action
-	 * \param action
-	 *        An action to optionally perform on the receiving task's notification
-	 *        value
-	 * \param prev_value
-	 *        A pointer to store the previous value of the target task's
-	 *        notification, may be NULL
-	 *
-	 * \return Dependent on the notification action.
-	 * For NOTIFY_ACTION_NO_WRITE: return 0 if the value could be written without
-	 * needing to overwrite, 1 otherwise.
-	 * For all other NOTIFY_ACTION values: always return 0
+    /**
+	*向任务发送通知，可选择执行某些操作。将
+	*之前还检索目标任务中的通知值
+	*修改通知值。
+	*
+	*请参阅https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html
+	* 细节。
+	*
+	* \ param值
+	*执行操作时使用的值
+	* \ param行动
+	*可选择执行接收任务通知的操作
+	*价值
+	* \ param prev_value
+	*一个指针，用于存储目标任务的先前值
+	*通知，可能为NULL
+	*
+	* \ return取决于通知操作。
+	*对于NOTIFY_ACTION_NO_WRITE：如果值可以不写，则返回0
+	*需要覆盖，否则为1。
+	*对于所有其他NOTIFY_ACTION值：始终返回0
 	 */
-	std::uint32_t notify_ext(std::uint32_t value, notify_action_e_t action, std::uint32_t* prev_value);
+    std::uint32_t notify_ext(std::uint32_t value, notify_action_e_t action, std::uint32_t *prev_value);
 
-	/**
-	 * Waits for a notification to be nonzero.
-	 *
-	 * See https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html for
-	 * details.
-	 *
-	 * \param clear_on_exit
-	 *        If true (1), then the notification value is cleared.
-	 *        If false (0), then the notification value is decremented.
-	 * \param timeout
-	 *        Specifies the amount of time to be spent waiting for a notification
-	 *        to occur.
-	 *
-	 * \return The value of the task's notification value before it is decremented
-	 * or cleared
+    /**
+	*等待通知非零。
+	*
+	*请参阅https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html
+	* 细节。
+	*
+	* \ param clear_on_exit
+	*如果为真（1），则清除通知值。
+	*如果为false（0），则通知值递减。
+	* \ param超时
+	*指定等待通知所花费的时间
+	* 发生。
+	*
+	* \ return任务的通知值在递减之前的值
+	*或清除
 	 */
-	std::uint32_t notify_take(bool clear_on_exit, std::uint32_t timeout);
+    std::uint32_t notify_take(bool clear_on_exit, std::uint32_t timeout);
 
-	/**
-	 * Clears the notification for a task.
-	 *
-	 * See https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html for
-	 * details.
-	 *
-	 * \return False if there was not a notification waiting, true if there was
+    /**
+	*清除任务通知。
+	*
+	*请参阅https://pros.cs.purdue.edu/v5/tutorials/topical/notifications.html
+	* 细节。
+	*
+	* \如果没有通知等待返回False，如果有，则返回true
 	 */
-	bool notify_clear(void);
+    bool notify_clear(void);
 
-	/**
-	 * Delays a task for a given number of milliseconds.
-	 *
-	 * This is not the best method to have a task execute code at predefined
-	 * intervals, as the delay time is measured from when the delay is requested.
-	 * To delay cyclically, use task_delay_until().
-	 *
-	 * \param milliseconds
-	 *        The number of milliseconds to wait (1000 milliseconds per second)
+    /**
+	*将任务延迟给定的毫秒数。
+	*
+	*这不是让任务执行预定义代码的最佳方法
+	*间隔，因为延迟时间是从请求延迟时开始计算的。
+	*要循环延迟，请使用task_delay_until（）。
+	*
+	* \ param毫秒
+	*等待的毫秒数（每秒1000毫秒）
 	 */
-	static void delay(const std::uint32_t milliseconds);
+    static void delay(const std::uint32_t milliseconds);
 
-	/**
-	 * Delays a task until a specified time.  This function can be used by
-	 * periodic tasks to ensure a constant execution frequency.
-	 *
-	 * The task will be woken up at the time *prev_time + delta, and *prev_time
-	 * will be updated to reflect the time at which the task will unblock.
-	 *
-	 * \param prev_time
-	 *        A pointer to the location storing the setpoint time. This should
-	 *        typically be initialized to the return value from pros::millis().
-	 * \param delta
-	 *        The number of milliseconds to wait (1000 milliseconds per second)
+    /**
+	*将任务延迟到指定时间。此功能可以使用
+	*定期任务，以确保恒定的执行频率。
+	*
+	*任务将在* prev_time + delta和* prev_time时被唤醒
+	*将更新以反映任务取消阻止的时间。
+	*
+	* \ param prev_time
+	*指向存储设定点时间的位置的指针。这应该
+	*通常初始化为pros :: millis（）的返回值。
+	* \ param delta
+	*等待的毫秒数（每秒1000毫秒）
 	 */
-	static void delay_until(std::uint32_t* const prev_time, const std::uint32_t delta);
+    static void delay_until(std::uint32_t *const prev_time, const std::uint32_t delta);
 
-	/**
-	 * Gets the number of tasks the kernel is currently managing, including all
-	 * ready, blocked, or suspended tasks. A task that has been deleted, but not
-	 * yet reaped by the idle task will also be included in the count.
-	 * Tasks recently created may take one context switch to be counted.
-	 *
-	 * \return The number of tasks that are currently being managed by the kernel.
+    /**
+	*获取内核当前管理的任务数，包括所有任务
+	*准备，阻止或暂停任务。已删除的任务，但不是
+	*由空闲任务收获但也将包含在计数中。
+	*最近创建的任务可能需要计算一个上下文切换。
+	*
+	* \ return内核当前正在管理的任务数。
 	 */
-	static std::uint32_t get_count(void);
+    static std::uint32_t get_count(void);
 
-	private:
-	task_t task;
+  private:
+    task_t task;
 };
 
-class Mutex {
-	public:
-	Mutex(void);
+class Mutex
+{
+  public:
+    Mutex(void);
 
-	/**
-	 * Takes and locks a mutex, waiting for up to a certain number of milliseconds
-	 * before timing out.
-	 *
-	 * See
-	 * https://pros.cs.purdue.edu/v5/tutorials/topical/multitasking.html#mutexes
-	 * for details.
-	 *
-	 * \param timeout
-	 *        Time to wait before the mutex becomes available. A timeout of 0 can
-	 *        be used to poll the mutex. TIMEOUT_MAX can be used to block
-	 *        indefinitely.
-	 *
-	 * \return True if the mutex was successfully taken, false otherwise. If false
-	 * is returned, then errno is set with a hint about why the the mutex
-	 * couldn't be taken.
+    /**
+	*获取并锁定互斥锁，等待一定的毫秒数
+	*超时之前。
+	*
+	*见
+	* https://pros.cs.purdue.edu/v5/tutorials/topical/multitasking.html#mutexes
+	*了解详情。
+	*
+	* \ param超时
+	*在互斥锁可用之前等待的时间。超时为0即可
+	*用于轮询互斥锁。TIMEOUT_MAX可用于阻止
+	*无限期。
+	*
+	* \如果成功获取互斥锁，则返回True，否则返回false。如果是假的
+	返回*，然后设置errno，提示有关互斥锁的原因
+	*无法采取。
 	 */
-	bool take(std::uint32_t timeout);
+    bool take(std::uint32_t timeout);
 
-	/**
-	 * Unlocks a mutex.
-	 *
-	 * See
-	 * https://pros.cs.purdue.edu/v5/tutorials/topical/multitasking.html#mutexes
-	 * for details.
-	 *
-	 * \return True if the mutex was successfully returned, false otherwise. If
-	 * false is returned, then errno is set with a hint about why the mutex
-	 * couldn't be returned.
+    /**
+	*解锁互斥锁。
+	*
+	*见
+	* https://pros.cs.purdue.edu/v5/tutorials/topical/multitasking.html#mutexes
+	*了解详情。
+	*
+	* \如果成功返回互斥锁，则返回True，否则返回false。如果
+	*返回false，然后设置errno，提示有关互斥锁的原因
+	*无法退回。
 	 */
-	bool give(void);
+    bool give(void);
 
-	private:
-	mutex_t mutex;
+  private:
+    mutex_t mutex;
 };
 
 /**
- * Gets the number of milliseconds since PROS initialized.
- *
- * \return The number of milliseconds since PROS initialized
+*获取自PROS初始化以来的毫秒数。
+*
+* \ return PROS初始化后的毫秒数
  */
 using pros::c::millis;
 
 /**
- * Delays a task for a given number of milliseconds.
- *
- * This is not the best method to have a task execute code at predefined
- * intervals, as the delay time is measured from when the delay is requested.
- * To delay cyclically, use task_delay_until().
- *
- * \param milliseconds
- *        The number of milliseconds to wait (1000 milliseconds per second)
+*将任务延迟给定的毫秒数。
+*
+*这不是让任务执行预定义代码的最佳方法
+*间隔，因为延迟时间是从请求延迟时开始计算的。
+*要循环延迟，请使用task_delay_until（）。
+*
+* \ param毫秒
+*等待的毫秒数（每秒1000毫秒）
  */
 using pros::c::delay;
-}  // namespace pros
+} // namespace pros
 
-#endif  // _PROS_RTOS_HPP_s
+#endif // _PROS_RTOS_HPP_s
