@@ -35,10 +35,10 @@ void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
     createUserObj(OBJ_SENSORSINFO, false, "sensorInfo", parent);
 
     lv_obj_set_size(displayObj[OBJ_SENSORSINFO], width, LV_VER_RES); //设置页面大小
-    lv_obj_t *exitBtn = lv_btn_create(displayObj[OBJ_SENSORSINFO], NULL);
+    lv_obj_t *exitBtn = lv_btn_create(displayObj[OBJ_SENSORSINFO], nullptr);
     lv_obj_set_pos(exitBtn, width - 75, LV_VER_RES - 75);
     lv_obj_set_size(exitBtn, 50, 25);
-    lv_obj_t *exitLab = lv_label_create(exitBtn, NULL);
+    lv_obj_t *exitLab = lv_label_create(exitBtn, nullptr);
     lv_label_set_text(exitLab, "exit");
     sensorsLab = lv_label_create(displayObj[OBJ_SENSORSINFO], nullptr); //创建基于INFOObj的标签
     lv_btn_set_action(exitBtn, LV_BTN_ACTION_CLICK, btn_close_action);

@@ -87,39 +87,42 @@ void competition_initialize()
     lv_tabview_set_tab_load_action(tab, tabChose);
     //创建各种开关
     for (auto &it : compSw)
-        it = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
-    lv_obj_t *frLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);          //创建前后场开关文本条
-                                                                                               //    lv_label_set_style(frLab, &userDisplay.fontStyle);
-    lv_obj_t *shootLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);      //创建射高旗中旗开关文本条
-    lv_obj_t *midShootLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);   //创建是否射中间杆子旗子文本条
-    lv_obj_t *platformLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab);   //创建是否开台开关文本条
-    lv_obj_t *bumperFlagLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab); //创建是否撞中间旗开关文本条
-    //
-    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);    //创建确认文本开关
-    lv_obj_t *confirmLab = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], frLab); //创建是否撞中间旗开关文本条
+        it = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr);
+    //创建开关后面的文本条
+    std::array<lv_obj_t *, AUTO_NUMS> compLab;
+    for (auto &it : compLab)
+        it = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr);
+    //确认按钮
+    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
+    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                            //创建确认开关文本 这里设置按钮为父级
 
-    lv_label_set_text(frLab, "前场&后场");
-    lv_label_set_text(shootLab, "高旗&中旗");
-    lv_label_set_text(midShootLab, "是否二次射旗");
-    lv_label_set_text(platformLab, "是否开台");
-    lv_label_set_text(bumperFlagLab, "是否二次撞旗");
+    lv_label_set_text(compLab[AUTO_FR], "前场&后场");
+    lv_label_set_text(compLab[AUTO_SHOOT], "高旗&中旗");
+    lv_label_set_text(compLab[AUTO_MID_SHOOT], "是否二次射旗");
+    lv_label_set_text(compLab[AUTO_PLATFORM], "是否开台");
+    lv_label_set_text(compLab[AUTO_BUMPERFLAG], "是否二次撞旗");
     lv_label_set_text(confirmLab, "确认");
     //大小设置
     lv_obj_set_size(confirmBtn, 200, 50);
     //位置设置
-    lv_obj_align(compSw[AUTO_FR], tab, LV_ALIGN_IN_TOP_LEFT, 10, 70);
-    lv_obj_align(compSw[AUTO_SHOOT], compSw[AUTO_FR], LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(compSw[AUTO_MID_SHOOT], compSw[AUTO_SHOOT], LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(frLab, compSw[AUTO_FR], LV_ALIGN_OUT_RIGHT_MID, 10, 0);       //前后 文本框对齐开关
-    lv_obj_align(shootLab, compSw[AUTO_SHOOT], LV_ALIGN_OUT_RIGHT_MID, 10, 0); //高中旗 文本框对齐开关
-    lv_obj_align(midShootLab, compSw[AUTO_MID_SHOOT], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-
-    lv_obj_align(compSw[AUTO_PLATFORM], frLab, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(compSw[AUTO_BUMPERFLAG], compSw[AUTO_PLATFORM], LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(platformLab, compSw[AUTO_PLATFORM], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(bumperFlagLab, compSw[AUTO_BUMPERFLAG], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(confirmBtn, bumperFlagLab, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
-    lv_obj_align(confirmLab, confirmBtn, LV_ALIGN_IN_BOTTOM_MID, 0, -15);
+    int xFlag = 10, yFlag = 70, countForSw = 1, countForLab = 0;
+    //设置开关和匹配文本的位置
+    for (auto &it : compSw)
+    {
+        lv_obj_set_pos(it, xFlag, yFlag);
+        lv_obj_align(it, compLab[countForLab], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+        yFlag += 30;
+        countForSw++;
+        countForLab++;
+        if (countForSw >= 4)
+        {
+            xFlag = 300;
+            yFlag = 70;
+            countForSw = 0;
+        }
+    }
+    //设置确定按钮和其文本框的位置
+    lv_obj_set_pos(confirmBtn, LV_HOR_RES - 75, LV_VER_RES - 75);
     //确认按钮的动作
     lv_btn_set_action(confirmBtn, LV_BTN_ACTION_PR, confirmBtnIncomp);
 
