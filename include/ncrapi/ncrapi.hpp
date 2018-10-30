@@ -32,4 +32,5 @@ extern pros::Controller joy2;
 extern Chassis chassis;
 extern Generic<2> intake;
 extern pros::Vision vision;
+extern pros::Task _shootTask;
 #endif /* end of include guard: ncrapi_HPP_ */
