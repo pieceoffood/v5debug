@@ -20,7 +20,10 @@ class Chassis
     const pros::ADIGyro _gyro;
 
   public:
-    Chassis(const std::array<pros::Motor, 4> &motorList, const pros::ADIGyro &gyro) : _motorList(motorList), _gyro(gyro) {}
+    Chassis(const std::array<pros::Motor, 4> &motorList, const pros::ADIGyro &gyro) : _motorList(motorList), _gyro(gyro)
+    {
+        resetEnc();
+    }
     ~Chassis() {}
     void set(const int left, const int right)
     {

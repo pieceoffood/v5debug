@@ -30,8 +30,15 @@ class LinearShoot : public Generic<_nums>
     LinearShoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int hold = 10)
         : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime)
     {
+        resetEnc();
+        // setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
         _state = false;
         _mode = true;
+    }
+    void setBrakeMode(pros::motor_brake_mode_e_t mode)
+    {
+        for (auto &it : Generic<_nums>::_motorList)
+            it.set_brake_mode(mode);
     }
     /**
     * 重置弹射马达编码器
@@ -72,7 +79,7 @@ class LinearShoot : public Generic<_nums>
     double getSensors()
     {
         double temp = getEnc();
-        if (temp >= 360 || temp < 0 || !_limit.get_value())
+        if (temp >= 360 || temp < 0 || _limit.get_value()) //V5行程开关按下去是1
         {
             resetEnc();
             return 0;
@@ -187,7 +194,7 @@ class LinearShoot : public Generic<_nums>
         while (true)
         {
             holding();
-            pros::c::task_delay_until(&now, 20);
+            pros::c::task_delay_until(&now, 10);
         }
     }
 };

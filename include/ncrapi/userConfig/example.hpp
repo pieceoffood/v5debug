@@ -24,8 +24,8 @@ const int VISION = 9; //视觉传感器
 //底盘
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
 //射球系统
-const int SHOOT_HOLDING = 10;
-const int SHOOT_READY_VAL = 100;
-const int SHOOT_SHOOT_VAL = 200;
+const int SHOOT_HOLDING = 15;
+const int SHOOT_READY_VAL = 120;
+const int SHOOT_SHOOT_VAL = 180;
 const int SHOOT_WAITING_TIME = 500;
 #endif /* end of include guard: EXAMPLE_HPP_ */
