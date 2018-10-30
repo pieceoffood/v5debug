@@ -30,6 +30,6 @@
 extern pros::Controller joy1;
 extern pros::Controller joy2;
 extern Chassis chassis;
-
 extern Generic<2> intake;
+extern pros::Vision vision;
 #endif /* end of include guard: ncrapi_HPP_ */
