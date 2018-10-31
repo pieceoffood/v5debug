@@ -105,24 +105,24 @@ void competition_initialize()
     //大小设置
     lv_obj_set_size(confirmBtn, 200, 50);
     //位置设置
-    int xFlag = 10, yFlag = 70, countForSw = 1, countForLab = 0;
+    int xFlag = 10, yFlag = 80, countForSw = 1, countForLab = 0;
     //设置开关和匹配文本的位置
     for (auto &it : compSw)
     {
         lv_obj_set_pos(it, xFlag, yFlag);
-        lv_obj_align(it, compLab[countForLab], LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-        yFlag += 30;
+        lv_obj_align(compLab[countForLab], it, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+        yFlag += 50;
         countForSw++;
         countForLab++;
         if (countForSw >= 4)
         {
-            xFlag = 300;
-            yFlag = 70;
+            xFlag = 250;
+            yFlag = 80;
             countForSw = 0;
         }
     }
     //设置确定按钮和其文本框的位置
-    lv_obj_set_pos(confirmBtn, LV_HOR_RES - 75, LV_VER_RES - 75);
+    lv_obj_set_pos(confirmBtn, LV_HOR_RES - 200, LV_VER_RES - 50);
     //确认按钮的动作
     lv_btn_set_action(confirmBtn, LV_BTN_ACTION_PR, confirmBtnIncomp);
 
