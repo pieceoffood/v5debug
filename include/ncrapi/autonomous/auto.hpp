@@ -7,11 +7,6 @@
  */
 #ifndef AUTO_HPP_
 #include "../systemData.hpp "
-/**
-  * 普通自动赛的旗子坐标 和 纯自动的旗子的坐标 两者不同
-  * X =autoMode 普通自动赛=0,纯自动=1
-  * y = flagPosName
-  */
 
 class AUTO
 {

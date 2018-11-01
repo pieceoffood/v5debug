@@ -21,6 +21,9 @@ const int SHOOT_R = 6;
 const int INTAKE_L = 7;
 const int INTAKE_R = 8;
 const int VISION = 9; //视觉传感器
+//场地配置
+static constexpr int SITE_SIZE = 3573;         //场地边长
+static constexpr int MAT_SIZE = SITE_SIZE / 6; //一个垫子的长度 = 场地长度 / 6
 //底盘
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
 const int ROTATE_SPEED = 90;  //底盘旋转速度
