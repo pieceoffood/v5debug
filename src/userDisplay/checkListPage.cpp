@@ -19,8 +19,8 @@ void UserDisplay::creartCheckList(lv_obj_t *parent)
     lv_label_set_text(exitLab, "exit");
 
     //创建LAB条
-    std::array<lv_obj_t *, 4> verLab;
-    for (auto &it : verLab)
+    std::array<lv_obj_t *, 8> checkListLab;
+    for (auto &it : checkListLab)
         it = lv_label_create(displayObj[OBJ_CHECKLIST], nullptr); //创建基于INFOObj的标签
     //字符串添加版本号
     std::string pros_ver = "pros_version:";
