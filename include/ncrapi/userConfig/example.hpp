@@ -23,6 +23,7 @@ const int INTAKE_R = 8;
 const int VISION = 9; //视觉传感器
 //底盘
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
+const int ROTATE_SPEED = 90;  //底盘旋转速度
 //射球系统
 const int SHOOT_HOLDING = 15;
 const int SHOOT_READY_VAL = 120;

@@ -61,13 +61,15 @@ class Chassis
      * @param rightX    左右的通道
      * @param threshold 遥控器矫正阀值
      */
-    void arcade(int leftY, int rightX, const int threshold = 0)
+    void arcade(int leftY, int rightX, const int rotateMaxSpeed, const int threshold = 0)
     {
+
         if (abs(leftY) < threshold)
             leftY = 0;
         if (abs(rightX) < threshold)
             rightX = 0;
-
+        else if (abs(rightX) >= rotateMaxSpeed)
+            rightX = static_cast<int>(copysign(rotateMaxSpeed, static_cast<float>(rightX)));
         int left = leftY + rightX;
         int right = leftY - rightX;
         if (left > 127 || left < -127)
