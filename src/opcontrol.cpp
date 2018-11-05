@@ -15,6 +15,7 @@
 //         puts("I was unblocked!");
 //     }
 // }
+
 /**
  * 手动模块
  */
@@ -25,11 +26,11 @@ void opcontrol()
     userDisplay.createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
-    if (_shootTask.get_state() != pros::E_TASK_STATE_DELETED)
-    {
-        _shootTask.remove();
-        std::cout << "shootTask remove" << std::endl;
-    }
+    // if (_shootTask.get_state() != pros::E_TASK_STATE_DELETED)
+    // {
+    //     _shootTask.remove();
+    //     std::cout << "shootTask remove" << std::endl;
+    // }
     //任务通知测试
     //    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
     while (true)
@@ -41,8 +42,16 @@ void opcontrol()
         if (userDisplay.loopTime < userDisplay.minLoopTime)
             userDisplay.minLoopTime = userDisplay.loopTime;
         chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), ROTATE_SPEED, JOY_THRESHOLD);
+#if defined(QUANNENG)
+        shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
+        intakeBall.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
+        intakeCap.joyControl(joy1.get_digital(DIGITAL_Y), joy1.get_digital(DIGITAL_X));
+#elif defined(GAOZI)
+
+#else
         shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2), joy1.get_digital(DIGITAL_A));
         intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
+#endif
         //std::cout << vision.get_by_sig(0, 1).signature << "," << vision.get_object_count() << std::endl;
         //视觉传感器测试
         //多线程测试

@@ -1,12 +1,6 @@
-/**
- * @Author: yan
- * @Date:   2018-10-14T12:18:39+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-28T22:50:52+08:00
- */
-#ifndef EXAMPLE_HPP_ //这里要改
-#define EXAMPLE_HPP_ //这里要改
+#ifndef QUANNENGEXAMPLE_HPP_
+#define QUANNENGEXAMPLE_HPP_
+#define QUANNENG
 //端口配置
 //adi
 const unsigned int GYRO_PORT = 1;        //陀螺仪端口号
@@ -16,20 +10,21 @@ const int LF = 1;
 const int LB = 2;
 const int RF = 3;
 const int RB = 4;
-const int SHOOT_L = 5;
-const int SHOOT_R = 6;
-const int INTAKE_L = 7;
-const int INTAKE_R = 8;
-const int VISION = 9; //视觉传感器
+const int SHOOT_L = 9;
+const int SHOOT_R = 5;
+const int LIFT = 6;
+const int INTAKE_BALL = 7;
+const int INTAKE_CAP = 8;
+
 //场地配置
 static constexpr int SITE_SIZE = 3573;         //场地边长
 static constexpr int MAT_SIZE = SITE_SIZE / 6; //一个垫子的长度 = 场地长度 / 6
 //底盘
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
-const int ROTATE_SPEED = 90;  //底盘旋转速度
+const int ROTATE_SPEED = 127; //底盘旋转速度
 //射球系统
 const int SHOOT_HOLDING = 15;
 const int SHOOT_READY_VAL = 120;
 const int SHOOT_SHOOT_VAL = 180;
 const int SHOOT_WAITING_TIME = 500;
-#endif /* end of include guard: EXAMPLE_HPP_ */
+#endif /* end of include guard: QUANNENGEXAMPLE_HPP_ */

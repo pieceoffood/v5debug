@@ -198,10 +198,5 @@ class LinearShoot : public Generic<_nums>
         }
     }
 };
-extern LinearShoot<2> shoot;
-//静态外部变量
-static void taskLinearShoot(void *para)
-{
-    shoot.loop();
-}
+
 #endif /* end of include guard: SHOOT_HPP_ */

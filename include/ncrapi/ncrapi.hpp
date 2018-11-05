@@ -21,16 +21,36 @@
 #define NCR_VERSION_PATCH 0 //补丁版本号
 #define NCR_VERSION_STRING "5.0.0"
 
-#define test ; //输入用户名
+#define sheep ; //输入用户名
 #if defined(pig)
 #inlcude "pig.hpp"
+#elif defined(sheep)
+#include "ncrapi/userConfig/quannengExample.hpp"
 #else
-#include "userConfig/example.hpp"
+#include "ncrapi/userConfig/aiziExample.hpp" //默认矮子机配置
 #endif
+
 extern pros::Controller joy1;
 extern pros::Controller joy2;
 extern Chassis chassis;
+
+extern pros::Vision vision;
+#if defined(QUANNENG)
+extern Generic<2> shoot;
+extern Generic<1> lift;
+extern Generic<1> intakeBall;
+extern Generic<1> intakeCap;
+#elif defined(GAOZI)
+
+#else
 extern Generic<2> intake;
 extern pros::Vision vision;
 extern pros::Task _shootTask;
+extern LinearShoot<2> shoot;
+//静态外部变量
+static void taskLinearShoot(void *para)
+{
+    shoot.loop();
+}
+#endif
 #endif /* end of include guard: ncrapi_HPP_ */
