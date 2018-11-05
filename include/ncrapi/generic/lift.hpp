@@ -15,13 +15,20 @@ class Lift : public Generic<_nums>
     }
     virtual void joyControl(const bool &up, const bool &down) override
     {
-        if (up && Generic<_nums>::getEnc() <= _liftUpVal)
+        double temp = Generic<_nums>::getEnc();
+        if (up)
         {
-            Generic<_nums>::set(127);
+            if (temp<_liftUpVal)
+                Generic<_nums>::set(127);
+            else
+                Generic<_nums>::set(10);
         }
-        else if (down && Generic<_nums>::getEnc() >= 0)
+        else if (down)
         {
-            Generic<_nums>::set(-127);
+            if(temp>20)
+                Generic<_nums>::set(-127);
+            else
+                Generic<_nums>::set(-10);
         }
         else
         {
