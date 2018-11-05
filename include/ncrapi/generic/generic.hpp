@@ -32,7 +32,7 @@ class Generic
     {
         resetEnc();
     }
-    virtual void set(const int &pwm)
+    virtual void set(const int pwm)
     {
         for (auto &it : _motorList)
             it.move(pwm);
@@ -47,7 +47,7 @@ class Generic
         set(_holdVal * _holdingFlag);
     }
 
-    virtual void joyControl(const bool &up, const bool &down)
+    virtual void joyControl(const bool up, const bool down)
     {
         if (up)
         {

@@ -18,7 +18,7 @@ class CapIntake : public Generic<_nums>
         else
             Generic<_nums>::set(0);
     }
-    virtual void joyControl(const bool &up, const bool &down) override
+    virtual void joyControl(const bool up, const bool down) override
     {
         double temp = Generic<_nums>::getEnc();
         if (up)

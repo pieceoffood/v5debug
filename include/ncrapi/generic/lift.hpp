@@ -13,19 +13,19 @@ class Lift : public Generic<_nums>
         Generic<_nums>::setBrakeMode(pros::E_MOTOR_BRAKE_HOLD); //设置为悬停模式
         Generic<_nums>::resetEnc();
     }
-    virtual void joyControl(const bool &up, const bool &down) override
+    virtual void joyControl(const bool up, const bool down) override
     {
         double temp = Generic<_nums>::getEnc();
         if (up)
         {
-            if (temp<_liftUpVal)
+            if (temp < _liftUpVal)
                 Generic<_nums>::set(127);
             else
                 Generic<_nums>::set(10);
         }
         else if (down)
         {
-            if(temp>20)
+            if (temp > 20)
                 Generic<_nums>::set(-127);
             else
                 Generic<_nums>::set(-10);

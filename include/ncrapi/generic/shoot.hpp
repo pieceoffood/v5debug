@@ -117,7 +117,7 @@ class Shoot : public Generic<_nums>
         else
             Generic<_nums>::set(Generic<_nums>::_holdVal * Generic<_nums>::_holdingFlag);
     }
-    virtual void joyControl(const bool &up, const bool &down, const bool &shootBtn)
+    virtual void joyControl(const bool up, const bool down, const bool shootBtn)
     {
         if (up) //发射
         {
@@ -150,7 +150,7 @@ class Shoot : public Generic<_nums>
  * 单键控制的全自动发射模式
  * @param shootBtn 发射按钮
  */
-    virtual void joyControl(const bool &shootBtn)
+    virtual void joyControl(const bool shootBtn)
     {
 
         if (shootBtn)
