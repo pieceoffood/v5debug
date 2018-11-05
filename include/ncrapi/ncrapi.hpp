@@ -11,9 +11,12 @@
 
 #include "ncrapi/chassis/chassis.hpp"
 #include "ncrapi/generic/generic.hpp"
+#include "ncrapi/generic/intake.hpp"
+#include "ncrapi/generic/lift.hpp"
 #include "ncrapi/generic/shoot.hpp"
 #include "ncrapi/systemData.hpp"
 #include "ncrapi/userDisplay/userDisplay.hpp"
+
 
 //版本号
 #define NCR_VERSION_MAJOR 5 //主要版本号
@@ -37,7 +40,7 @@ extern pros::Vision vision;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
 extern Shoot<2> shoot;
-extern Generic<1> lift;
+extern Lift<1> lift;
 extern Generic<1> intakeBall;
 extern Generic<1> intakeCap;
 extern pros::Task _shootTask;
