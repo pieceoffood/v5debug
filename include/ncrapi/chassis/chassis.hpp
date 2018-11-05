@@ -121,7 +121,7 @@ class Chassis
      */
     double getEncAll()
     {
-        return getEncLeft() + getEncRight() / 2;
+        return (getEncLeft() + getEncRight()) / 2;
     }
     /**
      * 获取陀螺仪读数
