@@ -21,18 +21,18 @@ class Shoot : public Generic<_nums>
     const int _shootReadyVal;
     const int _shootShootVal;
     const uint32_t _waittingTime;
+    const uint32_t _maxTime; //弹射驱动允许最大时间
     uint32_t _time = 0;
     int _state;                 //状态 -1发射中 0:发射结束状态 1:准备状态
     bool _mode;                 //模式 false 手动模式 true 自动模式
     bool _shootBtnFlag = false; //    volatile
     int _shootMode;             // 驱动轴转一圈重置度数
   public:
-    Shoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
-        : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime), _shootMode(shootMode)
+    Shoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const uint32_t maxTime, const int shootMode, const int hold)
+        : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime), _maxTime(maxTime), _shootMode(shootMode)
     {
         Generic<_nums>::resetEnc();
-        // setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-        _state = false;
+        _state = 0;
         _mode = true;
     }
     /**
@@ -100,7 +100,7 @@ class Shoot : public Generic<_nums>
     {
         getState();
         if (_mode)
-            if ((!_state && pros::millis() - _time >= _waittingTime) || (_state != -1 && _shootBtnFlag)) //如果编码器值小于阀值 且 循环时间距离上次循环的时间小于1000毫秒 且FLAG==1
+            if (((!_state && pros::millis() - _time >= _waittingTime) || (_state != -1 && _shootBtnFlag)) && pros::millis() - _time <= _waittingTime + _maxTime) //如果编码器值小于阀值 且 循环时间距离上次循环的时间小于1000毫秒 且FLAG==1
             {
                 Generic<_nums>::set(127); //往后拉
                 Generic<_nums>::_holdingFlag = 1;
