@@ -30,9 +30,11 @@ const int SHOOT_SHOOT_VAL = 180;
 const int SHOOT_MAX_TIME = 1500; //弹射最大允许的连续驱动时间
 const int SHOOT_WAITING_TIME = 500;
 //升降系统
-const int LIFT_HOLDING = 10;
+const int LIFT_UP_VAL = 1000;
 //吸吐系统
 
 //盘子夹系统
-const int INTAKE_CAP_HOLDING = 15;
+const int CAPINTAKE_UP_VAL = 1000;
+const int CAPINTAKE_HOLDING = 15;
+
 #endif /* end of include guard: QUANNENGEXAMPLE_HPP_ */

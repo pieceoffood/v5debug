@@ -28,7 +28,10 @@ class Generic
     int _pwm = 0;
 
   public:
-    Generic(const std::array<pros::Motor, _nums> &motorList, const int hold = 0) : _motorList(motorList), _holdVal(hold) {}
+    Generic(const std::array<pros::Motor, _nums> &motorList, const int hold = 0) : _motorList(motorList), _holdVal(hold)
+    {
+        resetEnc();
+    }
     virtual void set(const int &pwm)
     {
         for (auto &it : _motorList)

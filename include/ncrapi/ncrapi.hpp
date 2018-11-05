@@ -17,7 +17,6 @@
 #include "ncrapi/systemData.hpp"
 #include "ncrapi/userDisplay/userDisplay.hpp"
 
-
 //版本号
 #define NCR_VERSION_MAJOR 5 //主要版本号
 #define NCR_VERSION_MINOR 0 //辅助版本号
@@ -41,8 +40,8 @@ extern pros::Vision vision;
 #if defined(ROBOT_ALMIGHTY) //全能机
 extern Shoot<2> shoot;
 extern Lift<1> lift;
-extern Generic<1> intakeBall;
-extern Generic<1> intakeCap;
+extern Generic<1> intake;
+extern CapIntake<1> capIntake;
 extern pros::Task _shootTask;
 //静态外部变量
 static void taskShoot(void *para)

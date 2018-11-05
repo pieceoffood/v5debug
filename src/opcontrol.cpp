@@ -45,8 +45,8 @@ void opcontrol()
 #if defined(ROBOT_ALMIGHTY)
         shoot.joyControl(joy1.get_digital(DIGITAL_A));
         lift.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
-        intakeBall.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
-        intakeCap.joyControl(joy1.get_digital(DIGITAL_Y), joy1.get_digital(DIGITAL_X));
+        intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
+        capIntake.joyControl(joy1.get_digital(DIGITAL_Y), joy1.get_digital(DIGITAL_X));
 #elif defined(ROBOT_CAP)
 
 #else
