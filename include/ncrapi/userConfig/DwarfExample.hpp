@@ -23,6 +23,7 @@ static constexpr int MAT_SIZE = SITE_SIZE / 6; //一个垫子的长度 = 场地�
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
 const int ROTATE_SPEED = 90;  //底盘旋转速度
 //射球系统
+const int SHOOT_GEAR_VAL = 360; //驱动齿轮转多少度 编码器清零
 const int SHOOT_HOLDING = 15;
 const int SHOOT_READY_VAL = 120;
 const int SHOOT_SHOOT_VAL = 180;

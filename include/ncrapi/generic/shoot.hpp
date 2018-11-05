@@ -14,7 +14,7 @@
  */
 
 template <size_t _nums>
-class LinearShoot : public Generic<_nums>
+class Shoot : public Generic<_nums>
 {
   private:
     const pros::ADIDigitalIn _limit;
@@ -25,39 +25,15 @@ class LinearShoot : public Generic<_nums>
     int _state;                 //状态 -1发射中 0:发射结束状态 1:准备状态
     bool _mode;                 //模式 false 手动模式 true 自动模式
     bool _shootBtnFlag = false; //    volatile
-
+    int _shootMode;             // 驱动轴转一圈重置度数
   public:
-    LinearShoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int hold = 10)
-        : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime)
+    Shoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
+        : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime), _shootMode(shootMode)
     {
-        resetEnc();
+        Generic<_nums>::resetEnc();
         // setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
         _state = false;
         _mode = true;
-    }
-    void setBrakeMode(pros::motor_brake_mode_e_t mode)
-    {
-        for (auto &it : Generic<_nums>::_motorList)
-            it.set_brake_mode(mode);
-    }
-    /**
-    * 重置弹射马达编码器
-    */
-    void resetEnc()
-    {
-        for (auto &it : Generic<_nums>::_motorList)
-            it.tare_position();
-    }
-    /**
-     * 获取弹射编码器值
-     * @return 弹射编码器的值
-     */
-    double getEnc()
-    {
-        double temp = 0;
-        for (auto &it : Generic<_nums>::_motorList)
-            temp += it.get_position();
-        return temp / _nums;
     }
     /**
      * 获取行程开关当前值
@@ -78,10 +54,10 @@ class LinearShoot : public Generic<_nums>
     }
     double getSensors()
     {
-        double temp = getEnc();
-        if (temp >= 360 || temp < 0 || _limit.get_value()) //V5行程开关按下去是1
+        double temp = Generic<_nums>::getEnc();
+        if (temp >= _shootMode || temp < 0 || _limit.get_value()) //V5行程开关按下去是1
         {
-            resetEnc();
+            Generic<_nums>::resetEnc();
             return 0;
         }
         else
@@ -198,15 +174,5 @@ class LinearShoot : public Generic<_nums>
         }
     }
 };
-/**
- * 投石机
- */
-template <size_t _nums>
-class CatapultShoot : public Generic<_nums>
-{
-  private:
-  public:
-    CatapultShoot() {}
-    ~CatapultShoot() {}
-};
+
 #endif /* end of include guard: SHOOT_HPP_ */

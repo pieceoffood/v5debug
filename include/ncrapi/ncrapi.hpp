@@ -36,19 +36,25 @@ extern Chassis chassis;
 extern pros::Vision vision;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
-extern Generic<2> shoot;
+extern Shoot<2> shoot;
 extern Generic<1> lift;
 extern Generic<1> intakeBall;
 extern Generic<1> intakeCap;
+extern pros::Task _shootTask;
+//静态外部变量
+static void taskShoot(void *para)
+{
+    shoot.loop();
+}
 #elif defined(ROBOT_CAP) //盘子机
 
 #else //矮子机
 extern Generic<2> intake;
 extern pros::Vision vision;
+extern Shoot<2> shoot;
 extern pros::Task _shootTask;
-extern LinearShoot<2> shoot;
 //静态外部变量
-static void taskLinearShoot(void *para)
+static void taskShoot(void *para)
 {
     shoot.loop();
 }

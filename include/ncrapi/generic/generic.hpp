@@ -59,5 +59,33 @@ class Generic
         else
             holding();
     }
+    /**
+    * 重置马达编码器
+    */
+    virtual void resetEnc()
+    {
+        for (auto &it : _motorList)
+            it.tare_position();
+    }
+    /**
+     * 获取编码器值
+     * @return 弹射编码器的值
+     */
+    virtual double getEnc()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_position();
+        return temp / _nums;
+    }
+    /**
+     * 设置马达制动模式
+     * @param mode 马达制动的模式
+     */
+    virtual void setBrakeMode(pros::motor_brake_mode_e_t mode)
+    {
+        for (auto &it : _motorList)
+            it.set_brake_mode(mode);
+    }
 };
 #endif
