@@ -22,10 +22,16 @@ static void sensorsTask(void *param)
 {
     (void)param; /*Unused*/
     char sensorsInfo[256];
-    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot:%u enc_Shoot:%.1f \nlimit_Lift: enc_Lift: \n ",
+#if defined(ROBOT_ALMIGHTY) //全能机
+    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot:%u enc_Shoot:%.1f \n enc_Lift:%.1f \nenc_CapIntake:%.1f\n ",
+            chassis.getGyro(), chassis.getEncLeft(), chassis.getEncRight(),
+            shoot.getLimit(), shoot.getEnc(), lift.getEnc(), capIntake.getEnc());
+#elif defined(ROBOT_CAP) //盘子机
+#else                    // 矮子机
+    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot:%u enc_Shoot:%.1f \n",
             chassis.getGyro(), chassis.getEncLeft(), chassis.getEncRight(),
             shoot.getLimit(), shoot.getEnc());
-
+#endif
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
 
