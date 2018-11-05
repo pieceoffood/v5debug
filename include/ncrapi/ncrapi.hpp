@@ -23,26 +23,26 @@
 
 #define sheep ; //输入用户名
 #if defined(pig)
-#inlcude "pig.hpp"
+#inlcude "userConfig/pig.hpp"
 #elif defined(sheep)
-#include "ncrapi/userConfig/quannengExample.hpp"
+#include "ncrapi/userConfig/AlmightyExample.hpp" //全能机
 #else
-#include "ncrapi/userConfig/aiziExample.hpp" //默认矮子机配置
+#include "ncrapi/userConfig/DwarfExample.hpp" //默认矮子机配置
 #endif
 
 extern pros::Controller joy1;
 extern pros::Controller joy2;
 extern Chassis chassis;
-
 extern pros::Vision vision;
-#if defined(QUANNENG)
+
+#if defined(ROBOT_ALMIGHTY) //全能机
 extern Generic<2> shoot;
 extern Generic<1> lift;
 extern Generic<1> intakeBall;
 extern Generic<1> intakeCap;
-#elif defined(GAOZI)
+#elif defined(ROBOT_CAP) //盘子机
 
-#else
+#else //矮子机
 extern Generic<2> intake;
 extern pros::Vision vision;
 extern pros::Task _shootTask;

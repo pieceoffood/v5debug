@@ -17,7 +17,7 @@ UserDisplay userDisplay; //图像数据类
 pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
 //1反转,0正转
-#if defined(QUANNENG)
+#if defined(ROBOT_ALMIGHTY)
 Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
@@ -30,7 +30,7 @@ Generic<1> lift({pros::Motor(LIFT, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_EN
 Generic<1> intakeBall({pros::Motor(INTAKE_BALL, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)});                   //吸吐初始化
 Generic<1> intakeCap({pros::Motor(INTAKE_CAP, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)}, INTAKE_CAP_HOLDING); //盘子夹
 
-#elif defined(GAOZI)
+#elif defined(ROBOT_CAP)
 
 #else
 pros::Task _shootTask((pros::task_fn_t)taskLinearShoot, nullptr, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "task_shoot");

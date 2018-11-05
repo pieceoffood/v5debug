@@ -1,6 +1,6 @@
 #ifndef QUANNENGEXAMPLE_HPP_
 #define QUANNENGEXAMPLE_HPP_
-#define QUANNENG
+#define ROBOT_ALMIGHTY //全能机
 //端口配置
 //adi
 const unsigned int GYRO_PORT = 1;        //陀螺仪端口号

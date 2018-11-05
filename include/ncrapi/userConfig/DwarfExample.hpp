@@ -1,7 +1,7 @@
 
-#ifndef AIZIEXAMPLE_HPP_ //这里要改
-#define AIZIEXAMPLE_HPP_ //这里要改
-#define AIZI
+#ifndef DWARFEXAMPLE_HPP_ //这里要改
+#define DWARFEXAMPLE_HPP_ //这里要改
+#define ROBOT_DWARF       //矮子机
 //端口配置
 //adi
 const unsigned int GYRO_PORT = 1;        //陀螺仪端口号
