@@ -43,7 +43,8 @@ void opcontrol()
             userDisplay.minLoopTime = userDisplay.loopTime;
         chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), ROTATE_SPEED, JOY_THRESHOLD);
 #if defined(QUANNENG)
-        shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
+        //shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
+        lift.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
         intakeBall.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
         intakeCap.joyControl(joy1.get_digital(DIGITAL_Y), joy1.get_digital(DIGITAL_X));
 #elif defined(GAOZI)

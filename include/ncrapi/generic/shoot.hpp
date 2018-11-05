@@ -198,5 +198,15 @@ class LinearShoot : public Generic<_nums>
         }
     }
 };
-
+/**
+ * 投石机
+ */
+template <size_t _nums>
+class CatapultShoot : public Generic<_nums>
+{
+  private:
+  public:
+    CatapultShoot() {}
+    ~CatapultShoot() {}
+};
 #endif /* end of include guard: SHOOT_HPP_ */
