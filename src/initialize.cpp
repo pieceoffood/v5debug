@@ -12,11 +12,9 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
-
 //部件类初始化
 pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
-//1反转,0正转
 #if defined(ROBOT_ALMIGHTY)
 pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "task_shoot");
 Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
@@ -64,6 +62,12 @@ void initialize()
     chassis.resetGyro();
     //弹射初始化
     shoot.resetEnc();
+#if defined(ROBOT_ALMIGHTY)
+    //升降初始化
+    lift.resetEnc();
+    //盘子夹初始化
+    capIntake.resetEnc();
+#endif
     lv_label_set_text(lab1, "机器人初始化完毕...");
     lv_obj_del(initObj);
     initObj = nullptr;
