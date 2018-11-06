@@ -26,6 +26,7 @@ class Generic
     const int _holdVal;
     int _holdingFlag = 0;
     int _pwm = 0;
+    size_t _safeModeFlags = 0;
 
   public:
     Generic(const std::array<pros::Motor, _nums> &motorList, const int hold = 0) : _motorList(motorList), _holdVal(hold)
@@ -80,6 +81,37 @@ class Generic
         for (auto &it : _motorList)
             temp += it.get_position();
         return temp / _nums;
+    }
+    /**
+     * 获取速度
+     * @return 返回速度
+     */
+    virtual double getSpeed()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_actual_velocity();
+        return temp / _nums;
+    }
+    /**
+     * 检测部件是否堵转
+     * @return 返回false 没有堵转,返回true 堵转了
+     */
+    bool isSafeMode()
+    {
+        if (getSpeed() == 0)
+        {
+            _safeModeFlags++;
+            if (_safeModeFlags > 10)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            _safeModeFlags = 0;
+            return false;
+        }
     }
     /**
      * 设置马达制动模式

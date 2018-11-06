@@ -7,7 +7,7 @@ template <size_t _nums>
 class Lift : public Generic<_nums>
 {
   private:
-    const int _liftUpVal; //升到顶值
+    int _liftUpVal; //升到顶值
 
   public:
     Lift(const std::array<pros::Motor, _nums> &motorList, const int liftUpVal) : Generic<_nums>(motorList), _liftUpVal(liftUpVal)
@@ -18,6 +18,7 @@ class Lift : public Generic<_nums>
     void joyControl(const bool up, const bool down) override
     {
         double temp = Generic<_nums>::getEnc();
+        bool isSafe = Generic<_nums>::isSafeMode();
         if (up)
         {
             shoot.setMode(false);
