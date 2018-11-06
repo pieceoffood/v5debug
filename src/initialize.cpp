@@ -23,10 +23,10 @@ Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCO
                 pros::ADIGyro(GYRO_PORT)); //底盘累初始化;
 Shoot<2> shoot({pros::Motor(SHOOT_L, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
                 pros::Motor(SHOOT_R, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)},
-               pros::ADIDigitalIn(SHOOT_LIMIT_PORT), SHOOT_READY_VAL, SHOOT_SHOOT_VAL, SHOOT_WAITING_TIME, SHOOT_MAX_TIME, SHOOT_GEAR_VAL, SHOOT_HOLDING); //发射器类初始化                                                                           //发射器类初始化
-Lift<1> lift({pros::Motor(LIFT, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)}, LIFT_UP_VAL);                                                //升降
-Generic<1> intake({pros::Motor(INTAKE_BALL, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)});                                                 //吸吐初始化
-CapIntake<1> capIntake({pros::Motor(INTAKE_CAP, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)}, CAPINTAKE_UP_VAL, CAPINTAKE_HOLDING);        //盘子夹
+               pros::ADIDigitalIn(SHOOT_LIMIT_PORT), SHOOT_READY_VAL, SHOOT_SHOOT_VAL, SHOOT_WAITING_TIME, SHOOT_GEAR_VAL, SHOOT_HOLDING);          //发射器类初始化                                                                           //发射器类初始化
+Lift<1> lift({pros::Motor(LIFT, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)}, LIFT_UP_VAL);                                         //升降
+Generic<1> intake({pros::Motor(INTAKE_BALL, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)});                                          //吸吐初始化
+CapIntake<1> capIntake({pros::Motor(INTAKE_CAP, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)}, CAPINTAKE_UP_VAL, CAPINTAKE_HOLDING); //盘子夹
 pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "task_shoot");
 #elif defined(ROBOT_CAP)
 
