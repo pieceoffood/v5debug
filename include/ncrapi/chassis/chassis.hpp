@@ -116,6 +116,28 @@ class Chassis
         return sum / 2;
     }
     /**
+     * 获取左边马达平均温度
+     * @return 返回左边马达平均温度
+     */
+    double getTemperatureLeft()
+    {
+        double sum = 0;
+        for (size_t i = 0; i < 2; i++)
+            sum += _motorList[i].get_temperature();
+        return sum / 2;
+    }
+    /**
+     * 获取右边马达平均温度
+     * @return 返回右边马达平均温度
+     */
+    double getTemperatureRight()
+    {
+        double sum = 0;
+        for (size_t i = 2; i < 4; i++)
+            sum += _motorList[i].get_temperature();
+        return sum / 2;
+    }
+    /**
      * 获取底盘左右两个的编码器值
      * @return 返回四个底盘马达编码器的平均值
      */

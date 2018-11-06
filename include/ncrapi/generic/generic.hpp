@@ -128,14 +128,24 @@ class Generic
     }
     /**
      * 获取电机扭矩
-     * @return [description]
+     * @return 返回电机扭矩
      */
-    virtual double
-    getTorque()
+    virtual double getTorque()
     {
         double temp = 0;
         for (auto &it : _motorList)
             temp += it.get_torque();
+        return temp / _nums;
+    }
+    /**
+     * 获取电机平均温度
+     * @return 返回电机平均温度
+     */
+    virtual double getTemperature()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_temperature();
         return temp / _nums;
     }
     /**
