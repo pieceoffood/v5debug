@@ -50,6 +50,7 @@ pros::Vision vision(9);
  */
 void initialize()
 {
+    _shootTask.suspend();
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
     lv_scr_load(initObj);
     lv_obj_t *lab1 = lv_label_create(initObj, nullptr);
@@ -63,27 +64,24 @@ void initialize()
     //弹射初始化
     lv_label_set_text(lab2, "发射器校准中...");
     shoot.set(15);
-    pros::delay(1000);
+    pros::delay(500);
     while (shoot.getSpeed() != 0)
         pros::delay(20);
     shoot.set(0);
     shoot.resetEnc();
-    // 升降初始化
-    // lv_label_set_text(lab2, "发射器校准中...");
-    // shoot.set(10);
-    // pros::delay(500);
-    // while (shoot.getSpeed() != 0)
-    //     std::cout << "speed:" << shoot.getSpeed() << std::endl;
-    // shoot.set(0);
-    // shoot.resetEnc();
-
 #if defined(ROBOT_ALMIGHTY)
     //升降初始化
+    lv_label_set_text(lab2, "升降校准中...");
+    lift.set(-15);
+    pros::delay(500);
+    while (lift.getSpeed() != 0)
+        pros::delay(20);
+    lift.set(0);
     lift.resetEnc();
     //盘子夹初始化
     lv_label_set_text(lab2, "夹子校准中...");
     capIntake.set(-15);
-    pros::delay(1000);
+    pros::delay(500);
     while (capIntake.getSpeed() != 0)
         pros::delay(20);
     capIntake.set(0);
