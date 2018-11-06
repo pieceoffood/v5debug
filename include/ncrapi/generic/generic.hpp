@@ -94,12 +94,57 @@ class Generic
         return temp / _nums;
     }
     /**
+     * 获取电机瓦数
+     * @return 返回电机瓦数
+     */
+    virtual double getPower()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_power();
+        return temp / _nums;
+    }
+    /**
+     * 获取电机以mA为单位的电流。
+     * @return 获取电机以mA为单位的电流。
+     */
+    virtual int getCurrent()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_current_draw();
+        return temp / _nums;
+    }
+    /**
+     * 获取电机效率
+     * @return 以百分比形式返回电机效率
+     */
+    virtual double getEfficiency()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_efficiency();
+        return temp / _nums;
+    }
+    /**
+     * 获取电机扭矩
+     * @return [description]
+     */
+    virtual double
+    getTorque()
+    {
+        double temp = 0;
+        for (auto &it : _motorList)
+            temp += it.get_torque();
+        return temp / _nums;
+    }
+    /**
      * 检测部件是否堵转
      * @return 返回false 没有堵转,返回true 堵转了
      */
-    bool isSafeMode()
+    virtual bool isSafeMode()
     {
-        if (getSpeed() == 0)
+        if (getSpeed() == 0 && !getPower())
         {
             _safeModeFlags++;
             if (_safeModeFlags > 10)

@@ -23,11 +23,11 @@ static constexpr int MAT_SIZE = SITE_SIZE / 6; //一个垫子的长度 = 场地�
 const int JOY_THRESHOLD = 15; //遥控器矫正阀值
 const int ROTATE_SPEED = 127; //底盘旋转速度
 //射球系统
-const int SHOOT_GEAR_VAL = 900;  //驱动齿轮转多少度 编码器清零
+const int SHOOT_GEAR_VAL = 500;  //驱动齿轮转多少度 编码器清零
 const int SHOOT_HOLDING = 15;    //悬停马达力度
-const int SHOOT_READY_VAL = 550; //悬停准备值
-const int SHOOT_SHOOT_VAL = 600; //发射值
-const int SHOOT_MAX_TIME = 1000; //弹射最大允许的连续驱动时间
+const int SHOOT_READY_VAL = 400; //悬停准备值
+const int SHOOT_SHOOT_VAL = 500; //发射值
+const int SHOOT_MAX_TIME = 700;  //弹射最大允许的连续驱动时间
 const int SHOOT_WAITING_TIME = 500;
 //升降系统
 const int LIFT_UP_VAL = 1270;

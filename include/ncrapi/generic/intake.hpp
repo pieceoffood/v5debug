@@ -11,13 +11,6 @@ class CapIntake : public Generic<_nums>
     {
         Generic<_nums>::resetEnc();
     }
-    // virtual void holding() override
-    // {
-    //     if (Generic<_nums>::_holdingFlag == -1)
-    //         Generic<_nums>::set(Generic<_nums>::_holdVal * Generic<_nums>::_holdingFlag);
-    //     else
-    //         Generic<_nums>::set(0);
-    // }
     /**
      * 夹子遥控模块
      * @param up   张开

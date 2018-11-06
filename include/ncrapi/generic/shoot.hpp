@@ -46,23 +46,7 @@ class Shoot : public Generic<_nums>
         _state = 0;
         _mode = true;
     }
-    /**
-       * 无行程开关的弹射模式
-       * @param  motorList     马达列表
-       * @param  shootReadyVal 弹射准备值
-       * @param  shootShootVal 弹射发射值
-       * @param  waittingTime  两次弹射准备间隔时间
-       * @param  maxTime       弹射准备时间锁
-       * @param  shootMode     弹射模式(转几圈清零)
-       * @param  hold          悬停值
-       */
-    explicit Shoot(const std::array<pros::Motor, _nums> &motorList, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const uint32_t maxTime, const int shootMode, const int hold)
-        : Generic<_nums>(motorList, hold), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime), _maxTime(maxTime), _shootMode(shootMode)
-    {
-        Generic<_nums>::resetEnc();
-        _state = 0;
-        _mode = true;
-    }
+
     /**
      * 获取行程开关当前值
      * @return 返回行程开关值
