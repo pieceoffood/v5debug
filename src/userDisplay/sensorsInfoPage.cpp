@@ -33,9 +33,12 @@ CapIntake_enc:%.1f CapIntake_Temper:%.1f\n ",
             shoot.getEnc(), shoot.getTemperature(), lift.getEnc(), lift.getTemperature(), capIntake.getEnc(), capIntake.getTemperature());
 #elif defined(ROBOT_CAP) //盘子机
 #else                    // 矮子机
-    sprintf(sensorsInfo, "GYRO:%.1f enc_L:%.1f enc_R:%.1f \nlimit_Shoot:%u enc_Shoot:%.1f \n",
-            chassis.getGyro(), chassis.getEncLeft(), chassis.getEncRight(),
-            shoot.getLimit(), shoot.getEnc());
+    sprintf(sensorsInfo, "GYRO:%.1f\n \
+L_enc:%.1f L_Temper:%.1f\n \
+R_enc:%.1f R_Temper:%.1f\n \
+Shoot_enc:%.1f shoot_Temper:%.1f\n ",
+            chassis.getGyro(), chassis.getEncLeft(), chassis.getTemperatureLeft(), chassis.getEncRight(), chassis.getTemperatureRight(),
+            shoot.getEnc(), shoot.getTemperature());
 #endif
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
