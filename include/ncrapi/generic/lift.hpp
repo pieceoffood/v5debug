@@ -37,7 +37,7 @@ class Lift : public Generic<_nums>
         }
         else
         {
-            if (Generic<_nums>::getEnc() >= 20)
+            if (Generic<_nums>::getEnc() <= 20)
                 shoot.setMode(true);
             Generic<_nums>::set(0);
         }
