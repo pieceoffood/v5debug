@@ -18,6 +18,11 @@ class CapIntake : public Generic<_nums>
         else
             Generic<_nums>::set(0);
     }
+    /**
+     * 夹子遥控模块
+     * @param up   张开
+     * @param down 夹紧
+     */
     virtual void joyControl(const bool up, const bool down) override
     {
         double temp = Generic<_nums>::getEnc();

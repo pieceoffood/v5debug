@@ -46,7 +46,7 @@ void opcontrol()
         shoot.joyControl(joy1.get_digital(DIGITAL_A));
         lift.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
         intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
-        capIntake.joyControl(joy1.get_digital(DIGITAL_Y), joy1.get_digital(DIGITAL_X));
+        capIntake.joyControl(joy1.get_digital(DIGITAL_X), joy1.get_digital(DIGITAL_Y));
 #elif defined(ROBOT_CAP)
 
 #else
