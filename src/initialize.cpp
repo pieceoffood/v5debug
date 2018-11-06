@@ -44,12 +44,24 @@ Generic<2> intake({pros::Motor(INTAKE_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MO
                    pros::Motor(INTAKE_R, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)}); //吸吐类初始化
 pros::Vision vision(9);
 #endif
-
+// template <size_t nums>
+// void initGeneric(Generic<nums> *generic)
+// {
+//     //lv_label_set_text(lab2, "夹子校准中...");
+//     generic->set(-15);
+//     pros::delay(500);
+//     while (generic->getSpeed() != 0)
+//         pros::delay(20);
+//     generic->set(0);
+//     generic->resetEnc();
+// }
 /**
  * 初始化函数
  */
+
 void initialize()
 {
+
     _shootTask.suspend();
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
     lv_scr_load(initObj);
@@ -61,33 +73,24 @@ void initialize()
     lv_label_set_text(lab2, "底盘校准中...");
     chassis.resetEnc();
     chassis.resetGyro();
+    //lambda表达式
+    auto initGeneric = [&lab2](auto *generic, const char *str, const int isReverse = 1) {
+        lv_label_set_text(lab2, str);
+        generic->set(15 * isReverse);
+        pros::delay(500);
+        while (generic->getSpeed() != 0)
+            pros::delay(20);
+        generic->set(0);
+        generic->resetEnc();
+    };
     //弹射初始化
-    lv_label_set_text(lab2, "发射器校准中...");
-    shoot.set(15);
-    pros::delay(500);
-    while (shoot.getSpeed() != 0)
-        pros::delay(20);
-    shoot.set(0);
-    shoot.resetEnc();
+    initGeneric(&shoot, "弹射校准中...");
 #if defined(ROBOT_ALMIGHTY)
     //升降初始化
-    lv_label_set_text(lab2, "升降校准中...");
-    lift.set(-15);
-    pros::delay(500);
-    while (lift.getSpeed() != 0)
-        pros::delay(20);
-    lift.set(0);
-    lift.resetEnc();
+    initGeneric(&lift, "升降校准中...");
     //盘子夹初始化
-    lv_label_set_text(lab2, "夹子校准中...");
-    capIntake.set(-15);
-    pros::delay(500);
-    while (capIntake.getSpeed() != 0)
-        pros::delay(20);
-    capIntake.set(0);
-    capIntake.resetEnc();
+    initGeneric(&capIntake, "夹子校准中...");
 #endif
     lv_label_set_text(lab1, "机器人初始化完毕...");
     lv_obj_del(initObj);
-    initObj = nullptr;
 }
