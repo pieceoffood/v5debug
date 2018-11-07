@@ -30,7 +30,7 @@ void UserDisplay::creartVersion(lv_obj_t *parent)
     //字符串添加版本号
     std::string pros_ver = "pros_version:";
     pros_ver.append(PROS_VERSION_STRING);
-    std::string oklib_ver = "oklib_version:3.3.5";
+    std::string oklib_ver = "oklib_version:3.3.6";
     std::string lvgl_ver = "lvgl_version:";
     lvgl_ver.append(LVGL_VERSION_INFO);
     std::string ncr_ver = "ncr_version:";

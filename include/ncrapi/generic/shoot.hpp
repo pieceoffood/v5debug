@@ -9,59 +9,45 @@
 #ifndef SHOOT_HPP_
 #define SHOOT_HPP_
 #include "generic.hpp"
-/**
- * 撞针式弹射
- */
-
+#include "intake.hpp"
+extern CapIntake<1> capIntake;
 template <size_t _nums>
-class LinearShoot : public Generic<_nums>
+class Shoot : public Generic<_nums>
 {
   private:
     const pros::ADIDigitalIn _limit;
     const int _shootReadyVal;
     const int _shootShootVal;
     const uint32_t _waittingTime;
+    // const uint32_t _maxTime; //弹射驱动允许最大时间
     uint32_t _time = 0;
     int _state;                 //状态 -1发射中 0:发射结束状态 1:准备状态
     bool _mode;                 //模式 false 手动模式 true 自动模式
     bool _shootBtnFlag = false; //    volatile
-
+    int _shootMode;             // 驱动轴转一圈重置度数
   public:
-    LinearShoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int hold = 10)
-        : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime)
+    /**
+       * 有行程开关的弹射模式
+       * @param  motorList     马达列表
+       * @param  limit         行程开关
+       * @param  shootReadyVal 弹射准备值
+       * @param  shootShootVal 弹射发射值
+       * @param  waittingTime  两次弹射准备间隔时间
+       * @param  maxTime       弹射准备时间锁
+       * @param  shootMode     弹射模式(转几圈清零)
+       * @param  hold          悬停值
+       */
+    explicit Shoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
+        : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime), _shootMode(shootMode)
     {
-        resetEnc();
-        // setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-        _state = false;
+        Generic<_nums>::resetEnc();
+        _state = 0;
         _mode = true;
     }
-    void setBrakeMode(pros::motor_brake_mode_e_t mode)
-    {
-        for (auto &it : Generic<_nums>::_motorList)
-            it.set_brake_mode(mode);
-    }
-    /**
-    * 重置弹射马达编码器
-    */
-    void resetEnc()
-    {
-        for (auto &it : Generic<_nums>::_motorList)
-            it.tare_position();
-    }
-    /**
-     * 获取弹射编码器值
-     * @return 弹射编码器的值
-     */
-    double getEnc()
-    {
-        double temp = 0;
-        for (auto &it : Generic<_nums>::_motorList)
-            temp += it.get_position();
-        return temp / _nums;
-    }
+
     /**
      * 获取行程开关当前值
-     * @return 返回行程开关值
+     * @return 返回行程开关值 按下1 没按下0
      */
     std::int32_t getLimit()
     {
@@ -78,10 +64,10 @@ class LinearShoot : public Generic<_nums>
     }
     double getSensors()
     {
-        double temp = getEnc();
-        if (temp >= 360 || temp < 0 || _limit.get_value()) //V5行程开关按下去是1
+        double temp = Generic<_nums>::getEnc();
+        if (temp >= _shootMode || temp < 0 || _limit.get_value()) //V5行程开关按下去是1
         {
-            resetEnc();
+            Generic<_nums>::resetEnc();
             return 0;
         }
         else
@@ -119,12 +105,13 @@ class LinearShoot : public Generic<_nums>
         }
         else
             _mode = true;
+        //这里增加_time 也许可以解决切换过去不准备的问题
     }
     virtual void holding() override
     {
         getState();
         if (_mode)
-            if ((!_state && pros::millis() - _time >= _waittingTime) || (_state != -1 && _shootBtnFlag)) //如果编码器值小于阀值 且 循环时间距离上次循环的时间小于1000毫秒 且FLAG==1
+            if ((!_state && pros::millis() - _time >= _waittingTime) || (_state != -1 && _shootBtnFlag) /*&& pros::millis() - _time <= _waittingTime + _maxTime*/) //如果编码器值小于阀值 且 循环时间距离上次循环的时间小于1000毫秒 且FLAG==1
             {
                 Generic<_nums>::set(127); //往后拉
                 Generic<_nums>::_holdingFlag = 1;
@@ -141,7 +128,7 @@ class LinearShoot : public Generic<_nums>
         else
             Generic<_nums>::set(Generic<_nums>::_holdVal * Generic<_nums>::_holdingFlag);
     }
-    virtual void joyControl(const bool &up, const bool &down, const bool &shootBtn)
+    virtual void joyControl(const bool up, const bool down, const bool shootBtn)
     {
         if (up) //发射
         {
@@ -174,11 +161,12 @@ class LinearShoot : public Generic<_nums>
  * 单键控制的全自动发射模式
  * @param shootBtn 发射按钮
  */
-    virtual void joyControl(const bool &shootBtn)
+    virtual void joyControl(const bool shootBtn)
     {
 
         if (shootBtn)
         {
+            capIntake.setMode(false);
             _time = pros::millis();
             Generic<_nums>::_holdingFlag = 0;
             _shootBtnFlag = true;
@@ -198,10 +186,5 @@ class LinearShoot : public Generic<_nums>
         }
     }
 };
-extern LinearShoot<2> shoot;
-//静态外部变量
-static void taskLinearShoot(void *para)
-{
-    shoot.loop();
-}
+
 #endif /* end of include guard: SHOOT_HPP_ */
