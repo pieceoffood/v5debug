@@ -9,10 +9,6 @@
 #ifndef SHOOT_HPP_
 #define SHOOT_HPP_
 #include "generic.hpp"
-/**
- * 撞针式弹射
- */
-
 template <size_t _nums>
 class Shoot : public Generic<_nums>
 {

@@ -10,7 +10,7 @@ class Lift : public Generic<_nums>
     int _liftUpVal; //升到顶值
 
   public:
-    Lift(const std::array<pros::Motor, _nums> &motorList, const int liftUpVal) : Generic<_nums>(motorList), _liftUpVal(liftUpVal)
+    Lift(const std::array<pros::Motor, _nums> &motorList, const int liftUpVal, const int hold = 10) : Generic<_nums>(motorList, hold), _liftUpVal(liftUpVal)
     {
         Generic<_nums>::setBrakeMode(pros::E_MOTOR_BRAKE_HOLD); //设置为悬停模式
         Generic<_nums>::resetEnc();
@@ -22,6 +22,7 @@ class Lift : public Generic<_nums>
         if (up)
         {
             shoot.setMode(false);
+            Generic<_nums>::_holdingFlag = 1;
             if (temp < _liftUpVal)
                 Generic<_nums>::set(127);
             else
@@ -30,6 +31,7 @@ class Lift : public Generic<_nums>
         else if (down)
         {
             shoot.setMode(false);
+            Generic<_nums>::_holdingFlag = -1;
             if (temp > 20)
                 Generic<_nums>::set(-127);
             else
@@ -39,7 +41,7 @@ class Lift : public Generic<_nums>
         {
             if (Generic<_nums>::getEnc() <= 20)
                 shoot.setMode(true);
-            Generic<_nums>::set(0);
+            Generic<_nums>::holding();
         }
     }
 };
