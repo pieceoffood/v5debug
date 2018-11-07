@@ -49,7 +49,7 @@ class Shoot : public Generic<_nums>
 
     /**
      * 获取行程开关当前值
-     * @return 返回行程开关值
+     * @return 返回行程开关值 按下1 没按下0
      */
     std::int32_t getLimit()
     {

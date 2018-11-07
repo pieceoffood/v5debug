@@ -24,13 +24,13 @@ static void sensorsTask(void *param)
     char sensorsInfo[256];
 #if defined(ROBOT_ALMIGHTY) //全能机
     sprintf(sensorsInfo, "GYRO:%.1f\n \
-L_enc:%.1f L_Temper:%.1f\n \
-R_enc:%.1f R_Temper:%.1f\n \
-Shoot_enc:%.1f shoot_Temper:%.1f\n \
-Lift_enc:%.1f Lift_Temper:%.1f\n \
-CapIntake_enc:%.1f CapIntake_Temper:%.1f\n ",
+CHS_L: enc:%.1f\tTemper:%.1f\n \
+CHS_R: enc:%.1f\tTemper:%.1f\n \
+Shoot: enc:%.1f\tTemper:%.1f\tLimit:%d\n \
+Lift : enc:%.1f\tTemper:%.1f\n \
+Cap  : enc:%.1f\tTemper:%.1f\n ",
             chassis.getGyro(), chassis.getEncLeft(), chassis.getTemperatureLeft(), chassis.getEncRight(), chassis.getTemperatureRight(),
-            shoot.getEnc(), shoot.getTemperature(), lift.getEnc(), lift.getTemperature(), capIntake.getEnc(), capIntake.getTemperature());
+            shoot.getEnc(), shoot.getTemperature(), shoot.getLimit(), lift.getEnc(), lift.getTemperature(), capIntake.getEnc(), capIntake.getTemperature());
 #elif defined(ROBOT_CAP) //盘子机
 #else                    // 矮子机
     sprintf(sensorsInfo, "GYRO:%.1f\n \
