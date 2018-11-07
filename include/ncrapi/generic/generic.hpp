@@ -24,7 +24,7 @@ class Generic
   protected:
     const std::array<pros::Motor, _nums> _motorList;
     const int _holdVal;
-    int _holdingFlag = 0;
+    float _holdingFlag = 0;
     int _pwm = 0;
     size_t _safeModeFlags = 0;
 
@@ -154,10 +154,10 @@ class Generic
      */
     virtual bool isSafeMode()
     {
-        if (getSpeed() == 0 && !getPower())
+        if (getSpeed() == 0 && getCurrent() >= 100)
         {
             _safeModeFlags++;
-            if (_safeModeFlags > 10)
+            if (_safeModeFlags > 5)
                 return true;
             else
                 return false;
