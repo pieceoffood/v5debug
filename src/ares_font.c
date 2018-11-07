@@ -1,18 +1,18 @@
 /*
 *---------------------------------------------------------------
-*                        Lvgl Font Tool                         
-*                                                               
-* 注:使用unicode编码                                              
-* 注:本字体文件由Lvgl Font Tool V0.1 生成                          
-* 作者:阿里(qq:617622104)                                         
+*                        Lvgl Font Tool
+*
+* 注:使用unicode编码
+* 注:本字体文件由Lvgl Font Tool V0.1 生成
+* 作者:阿里(qq:617622104)
 *---------------------------------------------------------------
 */
 
 
-#include "./lv_misc/lv_font.h"
+#include "display/lv_misc/lv_font.h"
 
 
-static const uint8_t glyph_bitmap[] = 
+static const uint8_t glyph_bitmap[] =
 {
 /*   */
 0x00,0x00,0x00,0x00,0x00,0x00,  //......
@@ -5837,7 +5837,7 @@ static const uint8_t glyph_bitmap[] =
 };
 
 
-static const lv_font_glyph_dsc_t glyph_dsc[] = 
+static const lv_font_glyph_dsc_t glyph_dsc[] =
 {
     {.w_px = 6,	.glyph_index = 0},/*( )*/
     {.w_px = 6,	.glyph_index = 162},/*(!)*/
@@ -6036,7 +6036,7 @@ static const lv_font_glyph_dsc_t glyph_dsc[] =
 };
 
 
-static const uint32_t unicode_list[] = 
+static const uint32_t unicode_list[] =
 {
     0x0020,	/*( )*/
     0x0021,	/*(!)*/
@@ -6236,7 +6236,7 @@ static const uint32_t unicode_list[] =
 };
 
 
-lv_font_t myfont = 
+lv_font_t myfont =
 {
     .unicode_first = 32,	/*First Unicode letter in this font*/
     .unicode_last = 39640,	/*First Unicode letter in this font*/

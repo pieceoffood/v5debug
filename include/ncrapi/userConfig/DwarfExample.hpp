@@ -2,20 +2,21 @@
 #ifndef DWARFEXAMPLE_HPP_ //这里要改
 #define DWARFEXAMPLE_HPP_ //这里要改
 #define ROBOT_DWARF       //矮子机
+#include <cstdint>
 //端口配置
 //adi
-const unsigned int GYRO_PORT = 1;        //陀螺仪端口号
-const unsigned int SHOOT_LIMIT_PORT = 2; //射球行程开关端口号
+const std::uint8_t GYRO_PORT = 1;   //陀螺仪端口号
+const uint8_t SHOOT_LIMIT_PORT = 2; //射球行程开关端口号
 //马达
-const int LF = 1;
-const int LB = 2;
-const int RF = 3;
-const int RB = 4;
-const int SHOOT_L = 5;
-const int SHOOT_R = 6;
-const int INTAKE_L = 7;
-const int INTAKE_R = 8;
-const int VISION = 9; //视觉传感器
+const uint8_t LF = 1;
+const uint8_t LB = 2;
+const uint8_t RF = 3;
+const uint8_t RB = 4;
+const uint8_t SHOOT_L = 9;
+const uint8_t SHOOT_R = 5;
+const uint8_t LIFT = 6;
+const uint8_t INTAKE_BALL = 7;
+const uint8_t INTAKE_CAP = 8;
 //场地配置
 static constexpr int SITE_SIZE = 3573;         //场地边长
 static constexpr int MAT_SIZE = SITE_SIZE / 6; //一个垫子的长度 = 场地长度 / 6
