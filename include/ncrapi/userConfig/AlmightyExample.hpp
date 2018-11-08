@@ -30,7 +30,7 @@ constexpr int userSpeed[128] = {
     100, 100, 100, 100, 100, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
     127, 127, 127, 127, 127, 127, 127, 127};
 
-const int JOY_THRESHOLD = 15; //遥控器矫正阀值
+const int JOY_THRESHOLD = 10; //遥控器矫正阀值
 const int ROTATE_SPEED = 127; //底盘旋转速度
 //射球系统
 const int SHOOT_GEAR_VAL = 900;  //驱动齿轮转多少度 编码器清零

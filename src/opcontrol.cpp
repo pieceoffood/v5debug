@@ -41,7 +41,7 @@ void opcontrol()
             userDisplay.maxLoopTime = userDisplay.loopTime;
         if (userDisplay.loopTime < userDisplay.minLoopTime)
             userDisplay.minLoopTime = userDisplay.loopTime;
-        chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), ROTATE_SPEED, JOY_THRESHOLD);
+        chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), ROTATE_SPEED, JOY_THRESHOLD, userSpeed);
 #if defined(ROBOT_ALMIGHTY)
         shoot.joyControl(joy1.get_digital(DIGITAL_A));
         lift.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
