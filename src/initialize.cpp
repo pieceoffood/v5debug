@@ -12,9 +12,22 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
+//视觉参数配置
+//视觉定义
+pros::vision_signature_s_t BALL = {1, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t RED_CAP = {2, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t BLUE_CAP = {3, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t RED_FALG = {4, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t BLUE_FALG = {5, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t RED_PLAT = {6, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t BLUE_PLAT = {7, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t CENTRAL_PLAT = {8, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t HIGH_COLUMN = {9, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+pros::vision_signature_s_t LOW_COLUMN = {10, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
 //部件类初始化
 pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
+pros::Vision visionF(VISON_F,pros::E_VISION_ZERO_CENTER); //前部视觉传感器,中心点坐标
 #if defined(ROBOT_ALMIGHTY)
 Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
@@ -42,7 +55,7 @@ Shoot<2> shoot({pros::Motor(SHOOT_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_
                pros::ADIDigitalIn(SHOOT_LIMIT_PORT), SHOOT_READY_VAL, SHOOT_SHOOT_VAL, SHOOT_WAITING_TIME, SHOOT_MAX_TIME, SHOOT_GEAR_VAL, SHOOT_HOLDING); //发射器类初始化
 Generic<2> intake({pros::Motor(INTAKE_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                    pros::Motor(INTAKE_R, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)}); //吸吐类初始化
-pros::Vision vision(9);
+
 #endif
 template <size_t nums>
 void initGeneric(Generic<nums> *generic, lv_obj_t *lab, const char *str, const int isReverse = 1)

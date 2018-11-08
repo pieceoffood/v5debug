@@ -28,67 +28,72 @@
 #include <stdint.h>
 
 #ifdef __cplusplus
-extern "C" {
-namespace pros {
+extern "C"
+{
+    namespace pros
+    {
 #endif
-/**
- * This enumeration defines the different types of objects
- * that can be detected by the Vision Sensor
+    /**
+*此枚举定义了不同类型的对象
+*可由视觉传感器检测到
  */
-typedef enum vision_object_type {
-	E_VISION_OBJECT_NORMAL = 0,
-	E_VISION_OBJECT_COLOR_CODE = 1,
-	E_VISION_OBJECT_LINE = 2
-} vision_object_type_e_t;
+    typedef enum vision_object_type
+    {
+        E_VISION_OBJECT_NORMAL = 0,
+        E_VISION_OBJECT_COLOR_CODE = 1,
+        E_VISION_OBJECT_LINE = 2
+    } vision_object_type_e_t;
 
-/**
- * This structure contains the parameters used by the Vision Sensor
- * to detect objects.
+    /**
+	*此结构包含视觉传感器使用的参数
+    *检测物体。
  */
-typedef struct __attribute__((__packed__)) vision_signature {
-	uint8_t id;
-	uint8_t _pad[3];
-	float range;
-	int32_t u_min;
-	int32_t u_max;
-	int32_t u_mean;
-	int32_t v_min;
-	int32_t v_max;
-	int32_t v_mean;
-	uint32_t rgb;
-	uint32_t type;
-} vision_signature_s_t;
+    typedef struct __attribute__((__packed__)) vision_signature
+    {
+        uint8_t id;
+        uint8_t _pad[3];
+        float range;
+        int32_t u_min;
+        int32_t u_max;
+        int32_t u_mean;
+        int32_t v_min;
+        int32_t v_max;
+        int32_t v_mean;
+        uint32_t rgb;
+        uint32_t type;
+    } vision_signature_s_t;
 
-/**
- * This structure contains a descriptor of an object detected
- * by the Vision Sensor
+    /**
+	*此结构包含检测到的对象的描述符
+    *视觉传感器
  */
-typedef struct __attribute__((__packed__)) vision_object {
-	// Object signature
-	uint16_t signature;
-	// Object type, e.g. normal, color code, or line detection
-	vision_object_type_e_t type;
-	// left boundary coordinate of the object
-	int16_t left_coord;
-	// top boundary coordinate of the object
-	int16_t top_coord;
-	// width of the object
-	int16_t width;
-	// height of the object
-	int16_t height;
-	// Angle of a color code object in 0.1 degree units (e.g. 10 -> 1 degree, 155
-	// -> 15.5 degrees)
-	uint16_t angle;
+    typedef struct __attribute__((__packed__)) vision_object
+    {
+        //对象签名
+        uint16_t signature;
+        //对象类型，例如正常，颜色代码或行检测
+        vision_object_type_e_t type;
+        //对象的左边界坐标
+        int16_t left_coord;
+        //对象的顶部边界坐标
+        int16_t top_coord;
+        //对象的宽度
+        int16_t width;
+        //对象的高度
+        int16_t height;
+        //颜色代码对象的角度，以0.1度为单位（例如10  - > 1度，155- > 15.5度
+        uint16_t angle;
 
-	// coordinates of the middle of the object (computed from the values above)
-	int16_t x_middle_coord;
-	int16_t y_middle_coord;
-} vision_object_s_t;
+        //对象中间的坐标（根据上面的值计算）
+        int16_t x_middle_coord;
+        int16_t y_middle_coord;
+    } vision_object_s_t;
 
-typedef enum vision_zero {
-	E_VISION_ZERO_TOPLEFT = 0,  // (0,0) coordinate is the top left of the FOV
-	E_VISION_ZERO_CENTER = 1    // (0,0) coordinate is the center of the FOV
-} vision_zero_e_t;
+    typedef enum vision_zero
+    {
+        E_VISION_ZERO_TOPLEFT = 0, //（0,0）坐标是FOV的左上角
+        E_VISION_ZERO_CENTER = 1   //（0,0）坐标是FOV的中心
+    } vision_zero_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -107,10 +112,11 @@ typedef enum vision_zero {
 #endif
 
 #ifdef __cplusplus
-namespace c {
+    namespace c
+    {
 #endif
 
-/**
+    /**
  * Clears the vision sensor LED color, reseting it back to its default behavior,
  * displaying the most prominent object signature color.
  *
@@ -125,9 +131,9 @@ namespace c {
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t vision_clear_led(uint8_t port);
+    int32_t vision_clear_led(uint8_t port);
 
-/**
+    /**
  * Gets the nth largest object according to size_id.
  *
  * This function uses the following values of errno when an error state is
@@ -144,9 +150,9 @@ int32_t vision_clear_led(uint8_t port);
  * \return The vision_object_s_t object corresponding to the given size id, or
  * PROS_ERR if an error occurred.
  */
-vision_object_s_t vision_get_by_size(uint8_t port, const uint32_t size_id);
+    vision_object_s_t vision_get_by_size(uint8_t port, const uint32_t size_id);
 
-/**
+    /**
  * Gets the nth largest object of the given signature according to size_id.
  *
  * This function uses the following values of errno when an error state is
@@ -166,9 +172,9 @@ vision_object_s_t vision_get_by_size(uint8_t port, const uint32_t size_id);
  * \return The vision_object_s_t object corresponding to the given signature and
  * size_id, or PROS_ERR if an error occurred.
  */
-vision_object_s_t vision_get_by_sig(uint8_t port, const uint32_t size_id, const uint32_t sig_id);
+    vision_object_s_t vision_get_by_sig(uint8_t port, const uint32_t size_id, const uint32_t sig_id);
 
-/**
+    /**
  * Gets the exposure parameter of the Vision Sensor.
  *
  * This function uses the following values of errno when an error state is
@@ -182,9 +188,9 @@ vision_object_s_t vision_get_by_sig(uint8_t port, const uint32_t size_id, const 
  * \return The current exposure percentage parameter from [0,100], PROS_ERR if
  * an error occurred
  */
-int32_t vision_get_exposure(uint8_t port);
+    int32_t vision_get_exposure(uint8_t port);
 
-/**
+    /**
  * Gets the number of objects currently detected by the Vision Sensor.
  *
  * This function uses the following values of errno when an error state is
@@ -198,9 +204,9 @@ int32_t vision_get_exposure(uint8_t port);
  * \return The number of objects detected on the specified vision sensor.
  * Returns PROS_ERR if the port was invalid or an error occurred.
  */
-int32_t vision_get_object_count(uint8_t port);
+    int32_t vision_get_object_count(uint8_t port);
 
-/**
+    /**
  * Get the white balance parameter of the Vision Sensor.
  *
  * This function uses the following values of errno when an error state is
@@ -213,9 +219,9 @@ int32_t vision_get_object_count(uint8_t port);
  *
  * \return The current RGB white balance setting of the sensor
  */
-int32_t vision_get_white_balance(uint8_t port);
+    int32_t vision_get_white_balance(uint8_t port);
 
-/**
+    /**
  * Reads up to object_count object descriptors into object_arr.
  *
  * This function uses the following values of errno when an error state is
@@ -240,10 +246,10 @@ int32_t vision_get_white_balance(uint8_t port);
  * than size_id were found. All objects in object_arr that were not found are
  * given VISION_OBJECT_ERR_SIG as their signature.
  */
-int32_t vision_read_by_size(uint8_t port, const uint32_t size_id, const uint32_t object_count,
-                            vision_object_s_t* const object_arr);
+    int32_t vision_read_by_size(uint8_t port, const uint32_t size_id, const uint32_t object_count,
+                                vision_object_s_t *const object_arr);
 
-/**
+    /**
  * Reads up to object_count object descriptors into object_arr.
  *
  * This function uses the following values of errno when an error state is
@@ -270,10 +276,10 @@ int32_t vision_read_by_size(uint8_t port, const uint32_t size_id, const uint32_t
  * than size_id were found. All objects in object_arr that were not found are
  * given VISION_OBJECT_ERR_SIG as their signature.
  */
-int32_t vision_read_by_sig(uint8_t port, const uint32_t size_id, const uint32_t sig_id, const uint32_t object_count,
-                           vision_object_s_t* const object_arr);
+    int32_t vision_read_by_sig(uint8_t port, const uint32_t size_id, const uint32_t sig_id, const uint32_t object_count,
+                               vision_object_s_t *const object_arr);
 
-/**
+    /**
  * Enables/disables auto white-balancing on the Vision Sensor.
  *
  * This function uses the following values of errno when an error state is
@@ -289,9 +295,9 @@ int32_t vision_read_by_sig(uint8_t port, const uint32_t size_id, const uint32_t 
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t vision_set_auto_white_balance(uint8_t port, const uint8_t enable);
+    int32_t vision_set_auto_white_balance(uint8_t port, const uint8_t enable);
 
-/**
+    /**
  * Sets the exposure parameter of the Vision Sensor.
  *
  * This function uses the following values of errno when an error state is
@@ -307,9 +313,9 @@ int32_t vision_set_auto_white_balance(uint8_t port, const uint8_t enable);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t vision_set_exposure(uint8_t port, const uint8_t percent);
+    int32_t vision_set_exposure(uint8_t port, const uint8_t percent);
 
-/**
+    /**
  * Sets the vision sensor LED color, overriding the automatic behavior.
  *
  * This function uses the following values of errno when an error state is
@@ -325,9 +331,9 @@ int32_t vision_set_exposure(uint8_t port, const uint8_t percent);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t vision_set_led(uint8_t port, const int32_t rgb);
+    int32_t vision_set_led(uint8_t port, const int32_t rgb);
 
-/**
+    /**
  * Sets the white balance parameter of the Vision Sensor.
  *
  * This function uses the following values of errno when an error state is
@@ -343,9 +349,9 @@ int32_t vision_set_led(uint8_t port, const int32_t rgb);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t vision_set_white_balance(uint8_t port, const int32_t rgb);
+    int32_t vision_set_white_balance(uint8_t port, const int32_t rgb);
 
-/**
+    /**
  * Sets the (0,0) coordinate for the Field of View.
  *
  * This will affect the coordinates returned for each request for a
@@ -365,12 +371,12 @@ int32_t vision_set_white_balance(uint8_t port, const int32_t rgb);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t vision_set_zero_point(uint8_t port, vision_zero_e_t zero_point);
+    int32_t vision_set_zero_point(uint8_t port, vision_zero_e_t zero_point);
 
 #ifdef __cplusplus
-}  // namespace c
-}  // namespace pros
+    } // namespace c
+    } // namespace pros
 }
 #endif
 
-#endif  // _PROS_VISION_H_
+#endif // _PROS_VISION_H_

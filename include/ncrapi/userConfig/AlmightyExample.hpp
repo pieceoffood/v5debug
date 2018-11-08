@@ -2,6 +2,7 @@
 #define QUANNENGEXAMPLE_HPP_
 #define ROBOT_ALMIGHTY //全能机
 #include <cstdint>
+
 //端口配置
 //adi
 const uint8_t GYRO_PORT = 1;        //陀螺仪端口号
@@ -16,7 +17,8 @@ const uint8_t SHOOT_R = 5;
 const uint8_t LIFT = 6;
 const uint8_t INTAKE_BALL = 7;
 const uint8_t INTAKE_CAP = 8;
-
+//视觉传感器
+const uint8_t VISON_F = 10;
 //场地配置
 static constexpr int SITE_SIZE = 3573;         //场地边长
 static constexpr int MAT_SIZE = SITE_SIZE / 6; //一个垫子的长度 = 场地长度 / 6

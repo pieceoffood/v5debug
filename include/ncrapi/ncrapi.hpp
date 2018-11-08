@@ -31,11 +31,22 @@
 #else
 #include "ncrapi/userConfig/DwarfExample.hpp" //默认矮子机配置
 #endif
-
+//视觉定义
+extern pros::vision_signature_s_t BALL;
+extern pros::vision_signature_s_t RED_CAP;
+extern pros::vision_signature_s_t BLUE_CAP;
+extern pros::vision_signature_s_t RED_FALG;
+extern pros::vision_signature_s_t BLUE_FALG;
+extern pros::vision_signature_s_t RED_PLAT;
+extern pros::vision_signature_s_t BLUE_PLAT;
+extern pros::vision_signature_s_t CENTRAL_PLAT;
+extern pros::vision_signature_s_t HIGH_COLUMN;
+extern pros::vision_signature_s_t LOW_COLUMN;
+//通用部件
 extern pros::Controller joy1;
 extern pros::Controller joy2;
 extern Chassis chassis;
-extern pros::Vision vision;
+extern pros::Vision visionF;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
 extern Shoot<2> shoot;

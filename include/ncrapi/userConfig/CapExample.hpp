@@ -16,6 +16,8 @@ const uint8_t SHOOT_R = 5;
 const uint8_t LIFT = 6;
 const uint8_t INTAKE_BALL = 7;
 const uint8_t INTAKE_CAP = 8;
+//视觉传感器
+const uint8_t VISON_F = 10;
 //自定义马达对应值
 constexpr int userSpeed[128] = {
     0, 18, 21, 21, 22, 23, 24, 24, 24, 25, 25, 26, 26, 26, 27, 27, 27, 28, 28, 28, 28, 29, 29, 29,
@@ -24,4 +26,5 @@ constexpr int userSpeed[128] = {
     80, 80, 80, 80, 80, 80, 80, 80, 80, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 100, 100, 100, 100, 100,
     100, 100, 100, 100, 100, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
     127, 127, 127, 127, 127, 127, 127, 127};
+
 #endif /* end of include guard: GAOZIEXAMPLE_HPP_ */
