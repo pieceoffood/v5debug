@@ -53,8 +53,9 @@ void opcontrol()
         shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2), joy1.get_digital(DIGITAL_A));
         intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
 #endif
-        //std::cout << vision.get_by_sig(0, 1).signature << "," << vision.get_object_count() << std::endl;
         //视觉传感器测试
+        std::cout << visionF.get_by_sig(0, 1).signature << "," << visionF.get_object_count() << std::endl;
+
         //多线程测试
         // if (pros::c::joy1_get_digital(joy1_MASTER, DIGITAL_L1))
         // {
