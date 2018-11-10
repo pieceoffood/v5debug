@@ -40,8 +40,7 @@ class Vision
     Vision(std::uint8_t port, vision_zero_e_t zero_point = E_VISION_ZERO_TOPLEFT);
 
     /**
-	*清除视觉传感器LED颜色，将其重置为默认值
-	*行为，显示最突出的对象签名颜色。
+	*清除视觉传感器LED颜色，将其重置为默认值行为，显示最突出的对象签名颜色。
 	*
 	*当错误状态为时，此函数使用以下errno值
 	* 到达：
@@ -76,12 +75,8 @@ class Vision
 	* EACCES  - 另一个资源目前正在尝试访问该端口。
 	* EAGAIN  - 因未知原因读取视觉传感器失败。
 	*
-	* \ param size_id
-	*从按列表粗略排序的列表中读取的对象
-	*（0是最大项目，1是第二大项目等）
-	* \ param签名
-	*对象将成为的vision_signature_s_t签名
-	* 回。
+	* size_id:从按列表粗略排序的列表中读取的对象 （0是最大项目，1是第二大项目等）
+	* sig_id:保存在视觉传感器内签名的编码 (从1开始)
 	*
 	* \ return与给定签名对应的vision_object_s_t对象
 	*和size_id，或PROS_ERR如果发生错误。

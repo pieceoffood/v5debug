@@ -21,6 +21,8 @@
  */
 void opcontrol()
 {
+    //清楚视觉传感器值
+    visionF.clear_led();
     userDisplay.delTasks();
     userDisplay.delObjs();
     userDisplay.createOpObj();
@@ -54,6 +56,13 @@ void opcontrol()
         intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
 #endif
         //视觉传感器测试
+        // pros::vision_object_s_t ball = visionF.get_by_sig(0, 1);
+        // pros::vision_object_s_t redCap = visionF.get_by_sig(0, 1);
+        // pros::vision_object_s_t blueCap = visionF.get_by_sig(0, 1);
+        // std::cout << "ball_sig:" << ball.signature << " redCap:" << redCap.signature
+        //           << " blueCap:" << blueCap.signature << std::endl;
+        // pros::vision_object_s_t rtn = visionF.get_by_size(0);
+        // std::cout << "sig:" << rtn.signature << std::endl;
 
         //多线程测试
         // if (pros::c::joy1_get_digital(joy1_MASTER, DIGITAL_L1))
