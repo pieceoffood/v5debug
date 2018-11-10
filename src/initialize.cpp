@@ -13,17 +13,17 @@ UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
 //视觉参数配置
-//视觉定义
-pros::vision_signature_s_t BALL = {1, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t RED_CAP = {2, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t BLUE_CAP = {3, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t RED_FALG = {4, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t BLUE_FALG = {5, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t RED_PLAT = {6, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t BLUE_PLAT = {7, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t CENTRAL_PLAT = {8, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t HIGH_COLUMN = {9, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
-pros::vision_signature_s_t LOW_COLUMN = {10, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+//视觉定义 这里有问题 官方说下个版本修复
+// pros::vision_signature_s_t BALL = {1, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t RED_CAP = {2, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t BLUE_CAP = {3, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t RED_FALG = {4, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t BLUE_FALG = {5, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t RED_PLAT = {6, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t BLUE_PLAT = {7, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t CENTRAL_PLAT = {8, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t HIGH_COLUMN = {9, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
+// pros::vision_signature_s_t LOW_COLUMN = {10, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
 //部件类初始化
 pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
