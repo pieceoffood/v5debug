@@ -12,6 +12,7 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
+Config sysconfig("/usd/config.txt");
 //视觉参数配置
 //视觉定义 这里有问题 官方说下个版本修复
 // pros::vision_signature_s_t BALL = {1, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};

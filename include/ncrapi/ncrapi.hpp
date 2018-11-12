@@ -10,6 +10,7 @@
 #define NCRAPI_HPP_
 
 #include "ncrapi/chassis/chassis.hpp"
+#include "ncrapi/configSet.hpp"
 #include "ncrapi/generic/generic.hpp"
 #include "ncrapi/generic/intake.hpp"
 #include "ncrapi/generic/lift.hpp"
