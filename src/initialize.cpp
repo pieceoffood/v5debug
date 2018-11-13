@@ -73,10 +73,10 @@ void initGeneric(Generic<nums> *generic, lv_obj_t *lab, const char *str, const i
  * 初始化函数
  */
 
+
+
 void initialize()
 {
-    Config sysconfig("/usd/config.txt");
-    //std::cout<<sysconfig.read<int>("LF_PORT")<<std::endl;
     _shootTask.suspend();
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
     lv_scr_load(initObj);
