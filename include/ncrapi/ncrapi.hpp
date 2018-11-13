@@ -50,7 +50,7 @@ extern Chassis chassis;
 extern pros::Vision visionF;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
-extern Shoot<2> shoot;
+extern Shoot<1> shoot;
 extern Lift<1> lift;
 extern Generic<1> intake;
 extern CapIntake<1> capIntake;

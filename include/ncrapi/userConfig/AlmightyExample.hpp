@@ -12,7 +12,6 @@ const uint8_t LF = 1;
 const uint8_t LB = 2;
 const uint8_t RF = 3;
 const uint8_t RB = 4;
-const uint8_t SHOOT_L = 9;
 const uint8_t SHOOT_R = 5;
 const uint8_t LIFT = 6;
 const uint8_t INTAKE_BALL = 7;
