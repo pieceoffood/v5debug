@@ -1,5 +1,5 @@
 ---
-Language:        Cpp
+Language: Cpp
 # 基础样式
 BasedOnStyle: LLVM
 
@@ -10,7 +10,7 @@ IndentWidth: 4
 BreakBeforeBraces: Allman
 
 # 支持一行的if
-AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
 
 # 是否允许循环单行
 AllowShortLoopsOnASingleLine: false
