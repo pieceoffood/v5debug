@@ -13,7 +13,7 @@
 #include "ncrapi/configSet.hpp"
 #include "ncrapi/generic/generic.hpp"
 #include "ncrapi/generic/intake.hpp"
-#include "ncrapi/generic/lift.hpp"
+
 #include "ncrapi/generic/shoot.hpp"
 #include "ncrapi/systemData.hpp"
 #include "ncrapi/userDisplay/userDisplay.hpp"
@@ -24,7 +24,7 @@
 #define NCR_VERSION_PATCH 0 //补丁版本号
 #define NCR_VERSION_STRING "5.0.0"
 
-#define sheep ; //输入用户名
+#define exp ; //输入用户名
 #if defined(pig)
 #inlcude "userConfig/pig.hpp"
 #elif defined(sheep)
@@ -50,6 +50,7 @@ extern Chassis chassis;
 extern pros::Vision visionF;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
+#include "ncrapi/generic/lift.hpp"
 extern Shoot<1> shoot;
 extern Lift<1> lift;
 extern Generic<1> intake;
@@ -63,7 +64,8 @@ static void taskShoot(void *para)
 #elif defined(ROBOT_CAP) //盘子机
 
 #else //矮子机
-extern Generic<2> intake;
+extern Generic<1> head;
+extern Generic<1> intake;
 extern pros::Vision vision;
 extern Shoot<2> shoot;
 extern pros::Task _shootTask;

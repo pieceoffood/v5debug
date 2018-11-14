@@ -12,11 +12,10 @@ const uint8_t LF = 1;
 const uint8_t LB = 2;
 const uint8_t RF = 3;
 const uint8_t RB = 4;
-const uint8_t SHOOT_L = 9;
-const uint8_t SHOOT_R = 5;
-const uint8_t LIFT = 6;
-const uint8_t INTAKE_BALL = 7;
-const uint8_t INTAKE_CAP = 8;
+const uint8_t SHOOT_L = 5;
+const uint8_t SHOOT_R = 6;
+const uint8_t INTAKE = 7;
+const uint8_t HEAD = 8; //云台
 //视觉传感器
 const uint8_t VISON_F = 10;
 //场地配置
@@ -31,10 +30,10 @@ constexpr int userSpeed[128] = {
     80, 80, 80, 80, 80, 80, 80, 80, 80, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 100, 100, 100, 100, 100,
     100, 100, 100, 100, 100, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
     127, 127, 127, 127, 127, 127, 127, 127};
-const int JOY_THRESHOLD = 10; //遥控器矫正阀值
-const int ROTATE_SPEED = 90;  //底盘旋转速度
-//射球系统
-// const int SHOOT_GEAR_VAL = 360; //驱动齿轮转多少度 编码器清零
+const int JOY_THRESHOLD = 10;   //遥控器矫正阀值
+const int ROTATE_SPEED = 90;    //底盘旋转速度
+                                //射球系统
+const int SHOOT_GEAR_VAL = 360; //驱动齿轮转多少度 编码器清零
 const int SHOOT_HOLDING = 15;
 const int SHOOT_READY_VAL = 120;
 const int SHOOT_SHOOT_VAL = 180;

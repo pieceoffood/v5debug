@@ -2,7 +2,7 @@
 #define LIFT_HPP_
 #include "generic.hpp"
 #include "shoot.hpp"
-extern Shoot<1> shoot;
+extern Shoot<2> shoot;
 template <size_t _nums>
 class Lift : public Generic<_nums>
 {

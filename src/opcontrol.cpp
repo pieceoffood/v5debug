@@ -52,8 +52,9 @@ void opcontrol()
 #elif defined(ROBOT_CAP)
 
 #else
-        shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2), joy1.get_digital(DIGITAL_A));
+        shoot.joyControl(joy1.get_digital(DIGITAL_A));
         intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
+        head.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2)); //云台控制
 #endif
         //视觉传感器测试
         // pros::vision_object_s_t ball = visionF.get_by_sig(0, 1);

@@ -38,7 +38,6 @@ const int SHOOT_GEAR_VAL = 900;  //驱动齿轮转多少度 编码器清零
 const int SHOOT_HOLDING = 15;    //悬停马达力度
 const int SHOOT_READY_VAL = 360; //悬停准备值
 const int SHOOT_SHOOT_VAL = 460; //发射值
-// const int SHOOT_MAX_TIME = 700;  //弹射最大允许的连续驱动时间
 const int SHOOT_WAITING_TIME = 500;
 //升降系统
 const int LIFT_UP_VAL = 1270;
