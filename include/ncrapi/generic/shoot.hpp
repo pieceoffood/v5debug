@@ -10,7 +10,7 @@
 #define SHOOT_HPP_
 #include "generic.hpp"
 #include "intake.hpp"
-extern CapIntake<1> capIntake;
+//extern CapIntake<1> capIntake;
 template <size_t _nums>
 class Shoot : public Generic<_nums>
 {
@@ -166,7 +166,7 @@ class Shoot : public Generic<_nums>
 
         if (shootBtn)
         {
-            capIntake.setMode(false);
+            //        capIntake.setMode(false);
             _time = pros::millis();
             Generic<_nums>::_holdingFlag = 0;
             _shootBtnFlag = true;

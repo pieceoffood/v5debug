@@ -2,7 +2,7 @@
 #define LIFT_HPP_
 #include "generic.hpp"
 #include "shoot.hpp"
-extern Shoot<2> shoot;
+//extern Shoot<2> shoot;
 template <size_t _nums>
 class Lift : public Generic<_nums>
 {
@@ -21,7 +21,7 @@ class Lift : public Generic<_nums>
         bool isSafe = Generic<_nums>::isSafeMode();
         if (up)
         {
-            shoot.setMode(false);
+            //    shoot.setMode(false);
             Generic<_nums>::_holdingFlag = 1;
             if (temp < _liftUpVal)
                 Generic<_nums>::set(127);
@@ -30,7 +30,7 @@ class Lift : public Generic<_nums>
         }
         else if (down)
         {
-            shoot.setMode(false);
+            //    shoot.setMode(false);
             Generic<_nums>::_holdingFlag = -1;
             if (temp > 20)
                 Generic<_nums>::set(-127);
@@ -39,8 +39,8 @@ class Lift : public Generic<_nums>
         }
         else
         {
-            if (Generic<_nums>::getEnc() <= 20)
-                shoot.setMode(true);
+            //    if (Generic<_nums>::getEnc() <= 20)
+            //shoot.setMode(true);
             Generic<_nums>::holding();
         }
     }
