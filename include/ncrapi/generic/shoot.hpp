@@ -10,7 +10,15 @@
 #define SHOOT_HPP_
 #include "generic.hpp"
 #include "intake.hpp"
-//extern CapIntake<1> capIntake;
+#if defined(ROBOT_ALMIGHTY) //全能机
+extern CapIntake<1> capIntake;
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+
+#endif
+
 template <size_t _nums>
 class Shoot : public Generic<_nums>
 {
@@ -133,7 +141,6 @@ class Shoot : public Generic<_nums>
         if (up) //发射
         {
             Generic<_nums>::set(127);
-            //set(127);
             _time = pros::millis();
             Generic<_nums>::_holdingFlag = 1;
             _shootBtnFlag = false;
@@ -166,7 +173,14 @@ class Shoot : public Generic<_nums>
 
         if (shootBtn)
         {
-            //        capIntake.setMode(false);
+#if defined(ROBOT_ALMIGHTY) //全能机
+            capIntake.setMode(false);
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+
+#endif
+
             _time = pros::millis();
             Generic<_nums>::_holdingFlag = 0;
             _shootBtnFlag = true;

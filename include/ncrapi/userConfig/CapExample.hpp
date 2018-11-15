@@ -1,5 +1,6 @@
 #ifndef CAPEXAMPLE_HPP_
 #define CAPEXAMPLE_HPP_
+
 #define ROBOT_CAP //盘子机
 #include <cstdint>
 //端口配置

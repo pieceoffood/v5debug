@@ -2,7 +2,15 @@
 #define LIFT_HPP_
 #include "generic.hpp"
 #include "shoot.hpp"
-//extern Shoot<2> shoot;
+#if defined(ROBOT_ALMIGHTY) //全能机
+extern Shoot<1> shoot;
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+extern Shoot<2> shoot;
+#endif
+
 template <size_t _nums>
 class Lift : public Generic<_nums>
 {
@@ -21,7 +29,14 @@ class Lift : public Generic<_nums>
         bool isSafe = Generic<_nums>::isSafeMode();
         if (up)
         {
-            //    shoot.setMode(false);
+#if defined(ROBOT_ALMIGHTY) //全能机
+            shoot.setMode(false);
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+
+#endif
             Generic<_nums>::_holdingFlag = 1;
             if (temp < _liftUpVal)
                 Generic<_nums>::set(127);
@@ -30,7 +45,15 @@ class Lift : public Generic<_nums>
         }
         else if (down)
         {
-            //    shoot.setMode(false);
+#if defined(ROBOT_ALMIGHTY) //全能机
+            shoot.setMode(false);
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+
+#endif
+
             Generic<_nums>::_holdingFlag = -1;
             if (temp > 20)
                 Generic<_nums>::set(-127);
@@ -39,8 +62,16 @@ class Lift : public Generic<_nums>
         }
         else
         {
-            //    if (Generic<_nums>::getEnc() <= 20)
-            //shoot.setMode(true);
+#if defined(ROBOT_ALMIGHTY) //全能机
+            if (Generic<_nums>::getEnc() <= 20)
+                shoot.setMode(true);
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+
+#endif
+
             Generic<_nums>::holding();
         }
     }

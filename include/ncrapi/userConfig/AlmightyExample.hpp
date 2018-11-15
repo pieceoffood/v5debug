@@ -1,5 +1,6 @@
 #ifndef QUANNENGEXAMPLE_HPP_
 #define QUANNENGEXAMPLE_HPP_
+
 #define ROBOT_ALMIGHTY //全能机
 #include <cstdint>
 

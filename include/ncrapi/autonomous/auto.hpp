@@ -6,7 +6,7 @@
  * @Last modified time: 2018-10-11T13:20:19+08:00
  */
 #ifndef AUTO_HPP_
-#include "../systemData.hpp "
+#include "../system/systemData.hpp "
 
 class AUTO
 {

@@ -10,12 +10,10 @@
 #define NCRAPI_HPP_
 
 #include "ncrapi/chassis/chassis.hpp"
-#include "ncrapi/configSet.hpp"
-#include "ncrapi/generic/generic.hpp"
 #include "ncrapi/generic/intake.hpp"
-
+#include "ncrapi/generic/lift.hpp"
 #include "ncrapi/generic/shoot.hpp"
-#include "ncrapi/systemData.hpp"
+#include "ncrapi/system/systemData.hpp"
 #include "ncrapi/userDisplay/userDisplay.hpp"
 
 //版本号
@@ -24,14 +22,6 @@
 #define NCR_VERSION_PATCH 0 //补丁版本号
 #define NCR_VERSION_STRING "5.0.0"
 
-#define exp ; //输入用户名
-#if defined(pig)
-#inlcude "userConfig/pig.hpp"
-#elif defined(sheep)
-#include "ncrapi/userConfig/AlmightyExample.hpp" //全能机
-#else
-#include "ncrapi/userConfig/DwarfExample.hpp" //默认矮子机配置
-#endif
 //视觉定义 这里有问题 官方说下个版本修复
 // extern pros::vision_signature_s_t BALL;
 // extern pros::vision_signature_s_t RED_CAP;
@@ -50,7 +40,7 @@ extern Chassis chassis;
 extern pros::Vision visionF;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
-#include "ncrapi/generic/lift.hpp"
+
 extern Shoot<1> shoot;
 extern Lift<1> lift;
 extern Generic<1> intake;

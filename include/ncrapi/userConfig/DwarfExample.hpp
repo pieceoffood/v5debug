@@ -1,7 +1,8 @@
 
 #ifndef DWARFEXAMPLE_HPP_ //这里要改
 #define DWARFEXAMPLE_HPP_ //这里要改
-#define ROBOT_DWARF       //矮子机
+
+#define ROBOT_DWARF //矮子机
 #include <cstdint>
 //端口配置
 //adi

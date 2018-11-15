@@ -9,6 +9,7 @@
 #ifndef GENERIC_HPP_
 #define GENERIC_HPP_
 
+#include "../robotSet.hpp"
 #include "api.h"
 #include <array>
 #include <memory>
