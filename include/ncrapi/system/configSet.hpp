@@ -28,19 +28,6 @@ class Config
             s[n + 1] = '\0';
         }
     }
-    //异常类型
-    struct File_not_found
-    {
-        std::string filename;
-        File_not_found(const std::string &filename_ = std::string())
-            : filename(filename_) {}
-    };
-    struct Key_not_found
-    { //仅由read（）的T read（key）变量抛出
-        std::string key;
-        Key_not_found(const std::string &key_ = std::string())
-            : key(key_) {}
-    };
 
   public:
     Config(const std::string &filePath) : _filePath(filePath)
@@ -48,7 +35,7 @@ class Config
         FILE *file = fopen(_filePath.c_str(), "r+");
         if (file == NULL)
         {
-            throw File_not_found(_filePath);
+            std::cerr << "file open error" << std::endl;
             _openFlag = false;
         }
         else
@@ -153,7 +140,7 @@ class Config
         iter it = find(key);
         if (it == _data.end())
         {
-            throw Key_not_found(key);
+            std::cerr << "Key not found" << std::endl;
             return "";
         }
         else
@@ -173,10 +160,11 @@ class Config
         for (auto &it : _data)
             if (it.first == key)
             {
-                it.second = value;
+                it.second = value; //如果找到了就修改
                 return true;
             }
-        _data.push_back(std::pair<std::string, std::string>(key, value));
+        _data.push_back(std::pair<std::string, std::string>(key, value)); //如果没找到就新增
+
         return true;
     }
     /**
@@ -187,7 +175,7 @@ class Config
     {
         if (_openFlag == false)
         {
-            throw File_not_found(_filePath);
+            std::cerr << "file open error" << std::endl;
             return false;
         }
         if (_changeFlag == false)
@@ -196,7 +184,7 @@ class Config
         FILE *file = fopen(_filePath.c_str(), "w+");
         if (file == NULL)
         {
-            throw File_not_found(_filePath);
+            std::cerr << "file open error" << std::endl;
             return false;
         }
         for (auto &it : _data)
