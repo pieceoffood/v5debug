@@ -30,8 +30,8 @@ pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
 pros::Vision visionF(VISON_F,pros::E_VISION_ZERO_CENTER); //前部视觉传感器,中心点坐标
 #if defined(ROBOT_ALMIGHTY)
-Chassis chassis({pros::Motor(config.read<uint8_t>("LF_PORT"), pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
-                 pros::Motor(config.read<uint8_t>("LB_PORT"), pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
+Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
+                 pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)},
                 pros::ADIGyro(GYRO_PORT)); //底盘累初始化;
@@ -90,12 +90,12 @@ void initialize()
     //         fclose(usd_file_read); // always close files when you're done with them
     //     }
 
-
-
-std::cout<<config.read<uint8_t>("LF_PORT")<<'\n'
-        <<config.read<uint8_t>("LB_PORT")<<"\n"
-        <<config.read<uint8_t>("RF_PORT")<<'\n'
-        <<config.read<uint8_t>("RB_PORT")<<std::endl;
+// 
+//
+// std::cout<<config.read<uint8_t>("LF_PORT")<<'\n'
+//         <<config.read<uint8_t>("LB_PORT")<<"\n"
+//         <<config.read<uint8_t>("RF_PORT")<<'\n'
+//         <<config.read<uint8_t>("RB_PORT")<<std::endl;
     _shootTask.suspend();
 
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
