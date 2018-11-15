@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -32,7 +33,7 @@ class Config
   public:
     Config(const std::string &filePath) : _filePath(filePath)
     {
-        FILE *file = fopen(_filePath.c_str(), "r+");
+        FILE *file = fopen(_filePath.c_str(), "r");
         if (file == NULL)
         {
             std::cerr << "file open error" << std::endl;
@@ -135,16 +136,14 @@ class Config
      * @param  key 关键字
      * @return     关键字对应的值
      */
-    std::string getConfig(std::string key)
+    template <class T>
+    T read(std::string key)
     {
         iter it = find(key);
         if (it == _data.end())
-        {
             std::cerr << "Key not found" << std::endl;
-            return "";
-        }
         else
-            return it->second;
+            return stringToNum<T>(it->second);
     }
     /**
      * 修改config的值
@@ -181,7 +180,7 @@ class Config
         if (_changeFlag == false)
             return true;
 
-        FILE *file = fopen(_filePath.c_str(), "w+");
+        FILE *file = fopen(_filePath.c_str(), "w");
         if (file == NULL)
         {
             std::cerr << "file open error" << std::endl;
@@ -195,5 +194,70 @@ class Config
         _changeFlag = false;
         return true;
     }
+    template <class T>
+    static T stringToNum(const std::string &str);
+
+    // template <class T>
+    // static std::string T_as_string(const T &t);
+    // template <class T>
+    // static T string_as_T(const std::string &s);
 };
+template <class T>
+T Config::stringToNum(const std::string &str)
+{
+    std::istringstream iss(str);
+    T num;
+    iss >> num;
+    return num;
+}
+//
+// /* static */
+// template <class T>
+// std::string Config::T_as_string(const T &t)
+// {
+//     // Convert from a T to a string
+//     // Type T must support << operator
+//     std::ostringstream ost;
+//     ost << t;
+//     return ost.str();
+// }
+//
+// /* static */
+// template <class T>
+// T Config::string_as_T(const std::string &s)
+// {
+//     // Convert from a string to a T
+//     // Type T must support >> operator
+//     T t;
+//     std::istringstream ist(s);
+//     ist >> t;
+//     return t;
+// }
+//
+// /* static */
+// template <>
+// inline std::string Config::string_as_T<std::string>(const std::string &s)
+// {
+//     // Convert from a string to a string
+//     // In other words, do nothing
+//     return s;
+// }
+//
+// /* static */
+// template <>
+// inline bool Config::string_as_T<bool>(const std::string &s)
+// {
+//     // Convert from a string to a bool
+//     // Interpret "false", "F", "no", "n", "0" as false
+//     // Interpret "true", "T", "yes", "y", "1", "-1", or anything else as true
+//     bool b = true;
+//     std::string sup = s;
+//     for (std::string::iterator p = sup.begin(); p != sup.end(); ++p)
+//         *p = toupper(*p); // make string all caps
+//     if (sup == std::string("FALSE") || sup == std::string("F") ||
+//         sup == std::string("NO") || sup == std::string("N") ||
+//         sup == std::string("0") || sup == std::string("NONE"))
+//         b = false;
+//     return b;
+// }
 #endif /* end of include guard: CONFIGSET_HPP_ */

@@ -9,6 +9,7 @@
 #ifndef SYSTEMDATA_HPP_
 #define SYSTEMDATA_HPP_
 #define AUTO_NUMS 5
+#include "configSet.hpp"
 #include <array>
 
 typedef enum auto_flag

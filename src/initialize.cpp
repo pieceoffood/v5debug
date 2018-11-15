@@ -12,7 +12,7 @@ systemData sysData;      //系统数据类
 UserDisplay userDisplay; //图像数据类
 
 //全局初始化构造函数
-
+Config config("/usd/configUTF8.txt");
 //视觉参数配置
 //视觉定义 这里有问题 官方说下个版本修复
 // pros::vision_signature_s_t BALL = {1, {255, 255, 255}, 8755, 9319, 9036, 1269, 1943, 1606, 3, 0};
@@ -30,8 +30,8 @@ pros::Controller joy1(CONTROLLER_MASTER); //主遥控器
 pros::Controller joy2(CONTROLLER_MASTER); //副遥控器
 pros::Vision visionF(VISON_F,pros::E_VISION_ZERO_CENTER); //前部视觉传感器,中心点坐标
 #if defined(ROBOT_ALMIGHTY)
-Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
-                 pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
+Chassis chassis({pros::Motor(config.read<uint8_t>("LF_PORT"), pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
+                 pros::Motor(config.read<uint8_t>("LB_PORT"), pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)},
                 pros::ADIGyro(GYRO_PORT)); //底盘累初始化;
@@ -48,7 +48,7 @@ pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT
 Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
-                 pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)},
+                 pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENC`ODER_DEGREES)},
                 pros::ADIGyro(GYRO_PORT)); //底盘累初始化
 Shoot<2> shoot({pros::Motor(SHOOT_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                 pros::Motor(SHOOT_R, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)},
@@ -76,7 +76,28 @@ void initGeneric(Generic<nums> *generic, lv_obj_t *lab, const char *str, const i
 
 void initialize()
 {
+
+
+    // FILE* usd_file_read = fopen("/usd/configANSI.txt", "r+");
+    // if(usd_file_read==NULL)
+    //     std::cerr<<"file open error"<<std::endl;
+    // else
+    //     {
+    //         std::cout<<"file open success"<<std::endl;
+    //         char buf[50]; // This just needs to be larger than the contents of the file
+    //         fread(buf, 1, 50, usd_file_read); // passing 1 because a `char` is 1 byte, and 50 b/c it's the length of buf
+    //         printf("%s\n", buf); // print the string read from the file
+    //         fclose(usd_file_read); // always close files when you're done with them
+    //     }
+
+
+
+std::cout<<config.read<uint8_t>("LF_PORT")<<'\n'
+        <<config.read<uint8_t>("LB_PORT")<<"\n"
+        <<config.read<uint8_t>("RF_PORT")<<'\n'
+        <<config.read<uint8_t>("RB_PORT")<<std::endl;
     _shootTask.suspend();
+
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
     lv_scr_load(initObj);
     lv_obj_t *lab1 = lv_label_create(initObj, nullptr);
