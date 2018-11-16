@@ -44,19 +44,20 @@ pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT
 #elif defined(ROBOT_CAP)
 
 #else
-pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "task_shoot");
-Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
+
+Chassis chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
                  pros::Motor(LB, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
-                 pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES),
-                 pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENC`ODER_DEGREES)},
+                 pros::Motor(RF, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
+                 pros::Motor(RB, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)},
                 pros::ADIGyro(GYRO_PORT)); //底盘累初始化
 Shoot<2> shoot({pros::Motor(SHOOT_L, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES),
                 pros::Motor(SHOOT_R, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)},
                pros::ADIDigitalIn(SHOOT_LIMIT_PORT), SHOOT_READY_VAL, SHOOT_SHOOT_VAL, SHOOT_WAITING_TIME, SHOOT_GEAR_VAL, SHOOT_HOLDING); //发射器类初始化
-Generic<1> intake({pros::Motor(INTAKE, pros::E_MOTOR_GEARSET_18, 1, pros::E_MOTOR_ENCODER_DEGREES)}); //吸吐类初始化
+Generic<1> intake({pros::Motor(INTAKE, pros::E_MOTOR_GEARSET_18, 0, pros::E_MOTOR_ENCODER_DEGREES)}); //吸吐类初始化
 Generic<1> head({pros::Motor(HEAD, pros::E_MOTOR_GEARSET_36, 1, pros::E_MOTOR_ENCODER_DEGREES)}); //云台类
-
+pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "task_shoot");
 #endif
+
 template <size_t nums>
 void initGeneric(Generic<nums> *generic, lv_obj_t *lab, const char *str, const int isReverse = 1)
 {
@@ -76,26 +77,6 @@ void initGeneric(Generic<nums> *generic, lv_obj_t *lab, const char *str, const i
 
 void initialize()
 {
-
-
-    // FILE* usd_file_read = fopen("/usd/configANSI.txt", "r+");
-    // if(usd_file_read==NULL)
-    //     std::cerr<<"file open error"<<std::endl;
-    // else
-    //     {
-    //         std::cout<<"file open success"<<std::endl;
-    //         char buf[50]; // This just needs to be larger than the contents of the file
-    //         fread(buf, 1, 50, usd_file_read); // passing 1 because a `char` is 1 byte, and 50 b/c it's the length of buf
-    //         printf("%s\n", buf); // print the string read from the file
-    //         fclose(usd_file_read); // always close files when you're done with them
-    //     }
-
-// 
-//
-// std::cout<<config.read<uint8_t>("LF_PORT")<<'\n'
-//         <<config.read<uint8_t>("LB_PORT")<<"\n"
-//         <<config.read<uint8_t>("RF_PORT")<<'\n'
-//         <<config.read<uint8_t>("RB_PORT")<<std::endl;
     _shootTask.suspend();
 
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);

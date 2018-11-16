@@ -37,7 +37,7 @@ const int ROTATE_SPEED = 90;    //底盘旋转速度
 const int SHOOT_GEAR_VAL = 360; //驱动齿轮转多少度 编码器清零
 const int SHOOT_HOLDING = 15;
 const int SHOOT_READY_VAL = 120;
-const int SHOOT_SHOOT_VAL = 180;
+const int SHOOT_SHOOT_VAL = 210;
 const int SHOOT_MAX_TIME = 500; //弹射最大允许的连续驱动时间
 const int SHOOT_WAITING_TIME = 500;
 
