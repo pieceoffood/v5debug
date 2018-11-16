@@ -10,6 +10,7 @@
 #define NCRAPI_HPP_
 
 #include "ncrapi/chassis/chassis.hpp"
+#include "ncrapi/generic/head.hpp"
 #include "ncrapi/generic/intake.hpp"
 #include "ncrapi/generic/lift.hpp"
 #include "ncrapi/generic/shoot.hpp"
@@ -54,7 +55,7 @@ static void taskShoot(void *para)
 #elif defined(ROBOT_CAP) //盘子机
 
 #else //矮子机
-extern Generic<1> head;
+extern Head<1> head;
 extern Generic<1> intake;
 extern pros::Vision vision;
 extern Shoot<2> shoot;

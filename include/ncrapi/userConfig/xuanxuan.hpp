@@ -1,30 +1,29 @@
-#ifndef QUANNENGEXAMPLE_HPP_
-#define QUANNENGEXAMPLE_HPP_
+#ifndef XUANXUAN_HPP_
+#define XUANXUAN_HPP_
 
-#define ROBOT_ALMIGHTY //全能机
+#define ROBOT_DWARF //矮子机
 #include <cstdint>
-
 //端口配置
 //adi
-const uint8_t GYRO_PORT = 1;        //陀螺仪端口号
+const std::uint8_t GYRO_PORT = 1;   //陀螺仪端口号
 const uint8_t SHOOT_LIMIT_PORT = 2; //射球行程开关端口号
 //马达
 const uint8_t LF = 1;
-bool LF_REVERSE = 0;
+const bool LF_REVERSE = 0;
 const uint8_t LB = 2;
-bool LB_REVERSE = 1;
+const bool LB_REVERSE = 1;
 const uint8_t RF = 3;
-bool RF_REVERSE = 1;
+const bool RF_REVERSE = 1;
 const uint8_t RB = 4;
-bool RB_REVERSE = 0;
-const uint8_t SHOOT = 5;
-bool SHOOT_REVERSE = 1;
-const uint8_t LIFT = 6;
-bool LIFT_REVERSE = 0;
+const bool RB_REVERSE = 0;
+const uint8_t SHOOT_L = 5;
+const bool SHOOT_L_REVERSE = 1;
+const uint8_t SHOOT_R = 6;
+const bool SHOOT_R_REVERSE = 0;
 const uint8_t INTAKE = 7;
-bool INTAKE_REVERSE = 1;
-const uint8_t INTAKE_CAP = 8;
-bool CAP_REVERSE = 1;
+const bool INTAKE_REVERSE = 0;
+const uint8_t HEAD = 8; //云台
+const bool HEAD_REVERSE = 1;
 //视觉传感器
 const uint8_t VISON_F = 10;
 //场地配置
@@ -39,21 +38,14 @@ constexpr int userSpeed[128] = {
     80, 80, 80, 80, 80, 80, 80, 80, 80, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 100, 100, 100, 100, 100,
     100, 100, 100, 100, 100, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
     127, 127, 127, 127, 127, 127, 127, 127};
-
-const int JOY_THRESHOLD = 10; //遥控器矫正阀值
-const int ROTATE_SPEED = 127; //底盘旋转速度
-//射球系统
-const int SHOOT_GEAR_VAL = 900;  //驱动齿轮转多少度 编码器清零
-const int SHOOT_HOLDING = 15;    //悬停马达力度
-const int SHOOT_READY_VAL = 360; //悬停准备值
-const int SHOOT_SHOOT_VAL = 470; //发射值
+const int JOY_THRESHOLD = 10;   //遥控器矫正阀值
+const int ROTATE_SPEED = 90;    //底盘旋转速度
+                                //射球系统
+const int SHOOT_GEAR_VAL = 360; //驱动齿轮转多少度 编码器清零
+const int SHOOT_HOLDING = 15;
+const int SHOOT_READY_VAL = 120;
+const int SHOOT_SHOOT_VAL = 210;
+const int SHOOT_MAX_TIME = 500; //弹射最大允许的连续驱动时间
 const int SHOOT_WAITING_TIME = 500;
-//升降系统
-const int LIFT_UP_VAL = 1270;
-//吸吐系统
 
-//盘子夹系统
-const int CAPINTAKE_UP_VAL = 261;
-const int CAPINTAKE_HOLDING = 15;
-
-#endif /* end of include guard: QUANNENGEXAMPLE_HPP_ */
+#endif /* end of include guard: XUANXUAN_HPP_ */

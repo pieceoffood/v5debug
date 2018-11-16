@@ -1,5 +1,5 @@
-#ifndef QUANNENGEXAMPLE_HPP_
-#define QUANNENGEXAMPLE_HPP_
+#ifndef CHICKEN
+#define CHICKEN
 
 #define ROBOT_ALMIGHTY //全能机
 #include <cstdint>
@@ -10,21 +10,21 @@ const uint8_t GYRO_PORT = 1;        //陀螺仪端口号
 const uint8_t SHOOT_LIMIT_PORT = 2; //射球行程开关端口号
 //马达
 const uint8_t LF = 1;
-bool LF_REVERSE = 0;
+const bool LF_REVERSE = 0;
 const uint8_t LB = 2;
-bool LB_REVERSE = 1;
+const bool LB_REVERSE = 1;
 const uint8_t RF = 3;
-bool RF_REVERSE = 1;
+const bool RF_REVERSE = 1;
 const uint8_t RB = 4;
-bool RB_REVERSE = 0;
+const bool RB_REVERSE = 0;
 const uint8_t SHOOT = 5;
-bool SHOOT_REVERSE = 1;
+const bool SHOOT_REVERSE = 1;
 const uint8_t LIFT = 6;
-bool LIFT_REVERSE = 0;
+const bool LIFT_REVERSE = 0;
 const uint8_t INTAKE = 7;
-bool INTAKE_REVERSE = 1;
+const bool INTAKE_REVERSE = 1;
 const uint8_t INTAKE_CAP = 8;
-bool CAP_REVERSE = 1;
+const bool CAP_REVERSE = 1;
 //视觉传感器
 const uint8_t VISON_F = 10;
 //场地配置
@@ -56,4 +56,4 @@ const int LIFT_UP_VAL = 1270;
 const int CAPINTAKE_UP_VAL = 261;
 const int CAPINTAKE_HOLDING = 15;
 
-#endif /* end of include guard: QUANNENGEXAMPLE_HPP_ */
+#endif /* end of include guard: CHICKEN */
