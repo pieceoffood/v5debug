@@ -21,8 +21,6 @@
  */
 void opcontrol()
 {
-    //清楚视觉传感器值
-    visionF.clear_led();
     userDisplay.delTasks();
     userDisplay.delObjs();
     userDisplay.createOpObj();

@@ -14,6 +14,7 @@
 extern lv_font_t myfont;
 typedef enum obj_flag
 {
+    OBJ_VISION,      //视觉传感器页面
     OBJ_CONFIG,      //全局参数设置
     OBJ_CHECKLIST,   //检查清单
     OBJ_VERSION,     //版本号页面
@@ -29,8 +30,9 @@ typedef enum obj_flag
 
 typedef enum task_flag
 {
-    TASK_REFR, //传感器页面的TASK
-    TASK_LOOP  //记录遥控模式下LOOP的TASK
+    TASK_VISON, //视觉检测的TASK
+    TASK_REFR,  //传感器页面的TASK
+    TASK_LOOP   //记录遥控模式下LOOP的TASK
 } task_flag;
 
 class UserDisplay
@@ -38,11 +40,13 @@ class UserDisplay
   public:
     //样式
     lv_theme_t *theme;
-    std::array<lv_obj_t *, 10> displayObj = {nullptr};  //对象
-    std::array<lv_task_t *, 2> displayTask = {nullptr}; //线程
+    std::array<lv_obj_t *, 11> displayObj = {nullptr};  //对象
+    std::array<lv_task_t *, 3> displayTask = {nullptr}; //线程
     //标题栏
     lv_obj_t *sensorsLab = nullptr;
     lv_obj_t *loopLab = nullptr;
+    lv_obj_t *visionLab = nullptr;
+
     //时间变量
     uint32_t loopTime = 0;
     uint32_t maxLoopTime = 0;
@@ -58,6 +62,7 @@ class UserDisplay
     void creartVersion(lv_obj_t *parent);
     void creartCheckList(lv_obj_t *parent);
     void creartConfig(lv_obj_t *parent);
+    void creartVision(lv_obj_t *parent);
 };
 extern UserDisplay userDisplay;
 

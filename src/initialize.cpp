@@ -78,7 +78,6 @@ void initGeneric(Generic<nums> *generic, lv_obj_t *lab, const char *str, const i
 void initialize()
 {
     _shootTask.suspend();
-
     lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
     lv_scr_load(initObj);
     lv_obj_t *lab1 = lv_label_create(initObj, nullptr);
