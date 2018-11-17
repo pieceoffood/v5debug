@@ -18,7 +18,7 @@ const bool RF_REVERSE = 1;
 const uint8_t RB = 4;
 const bool RB_REVERSE = 0;
 const uint8_t SHOOT = 5;
-const bool SHOOT_REVERSE = 1;
+const bool SHOOT_REVERSE = 0;
 const uint8_t LIFT = 6;
 const bool LIFT_REVERSE = 0;
 const uint8_t INTAKE = 7;
@@ -45,7 +45,7 @@ const int ROTATE_SPEED = 127; //底盘旋转速度
 //射球系统
 const int SHOOT_GEAR_VAL = 900;  //驱动齿轮转多少度 编码器清零
 const int SHOOT_HOLDING = 15;    //悬停马达力度
-const int SHOOT_READY_VAL = 360; //悬停准备值
+const int SHOOT_READY_VAL = 390; //悬停准备值
 const int SHOOT_SHOOT_VAL = 470; //发射值
 const int SHOOT_WAITING_TIME = 500;
 //升降系统
