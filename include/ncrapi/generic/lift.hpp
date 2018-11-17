@@ -22,10 +22,6 @@ class Lift : public Generic<_nums>
         {
 #if defined(ROBOT_ALMIGHTY) //全能机
             shoot.setMode(false);
-            if (shoot.getLimit() != 0)
-                shoot.set(-127);
-            else
-                shoot.set(0);
 #elif defined(ROBOT_CAP) //盘子机
 
 #else //矮子机
@@ -41,10 +37,6 @@ class Lift : public Generic<_nums>
         {
 #if defined(ROBOT_ALMIGHTY) //全能机
             shoot.setMode(false);
-            if (shoot.getLimit() != 0)
-                shoot.set(-127);
-            else
-                shoot.set(0);
 #elif defined(ROBOT_CAP) //盘子机
 
 #else //矮子机
@@ -62,7 +54,6 @@ class Lift : public Generic<_nums>
 #if defined(ROBOT_ALMIGHTY) //全能机
             if (Generic<_nums>::getEnc() <= 20)
                 shoot.setMode(true);
-
 #elif defined(ROBOT_CAP) //盘子机
 
 #else //矮子机
