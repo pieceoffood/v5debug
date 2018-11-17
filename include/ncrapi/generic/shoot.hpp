@@ -220,7 +220,7 @@ class ShootDouble : public Shoot<1>
     {
         double temp = getEnc();
         int32_t tempRedEnc = getRedEnc();
-        if (temp >= _shootMode || temp < 0 || _limit.get_value() || abs(getRedEnc()) >= 10) //V5行程开关按下去是1
+        if (temp >= _shootMode || temp < 0 || _limit.get_value() || abs(getRedEnc()) <= 1) //V5行程开关按下去是1
         {
             resetEnc();
             return 0;
