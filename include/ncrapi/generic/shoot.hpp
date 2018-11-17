@@ -10,14 +10,6 @@
 #define SHOOT_HPP_
 #include "generic.hpp"
 #include "intake.hpp"
-#if defined(ROBOT_ALMIGHTY) //全能机
-extern CapIntake<1> capIntake;
-
-#elif defined(ROBOT_CAP) //盘子机
-
-#else //矮子机
-
-#endif
 
 template <size_t _nums>
 class Shoot : public Generic<_nums>
@@ -196,11 +188,12 @@ class ShootDouble : public Shoot<1>
 {
   private:
     const pros::ADIEncoder _redEnc; //红盒子
+    CapIntake<1> *_capIntake;       //夹子指针
 
   public:
     explicit ShootDouble(const std::array<pros::Motor, 1> &motorList, const pros::ADIDigitalIn &limit, const pros::ADIEncoder redEnc,
-                         const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
-        : Shoot<1>(motorList, limit, shootReadyVal, shootShootVal, waittingTime, shootMode, hold), _redEnc(redEnc) {}
+                         CapIntake<1> *capIntake, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
+        : Shoot<1>(motorList, limit, shootReadyVal, shootShootVal, waittingTime, shootMode, hold), _redEnc(redEnc), _capIntake(capIntake) {}
 
     /**
      * 单键控制的全自动发射模式
@@ -211,7 +204,7 @@ class ShootDouble : public Shoot<1>
 
         if (shootBtn)
         {
-            capIntake.setMode(false);
+            _capIntake->setMode(false);
             _time = pros::millis();
             _holdingFlag = 0;
             _shootBtnFlag = true;

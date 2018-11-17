@@ -53,4 +53,12 @@ class CapIntake : public Generic<_nums>
             Generic<_nums>::_holdingFlag = -1;
     }
 };
+#if defined(ROBOT_ALMIGHTY) //全能机
+extern CapIntake<1> capIntake;
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+
+#endif
 #endif /* end of include guard: INTAKE_HPP_ */

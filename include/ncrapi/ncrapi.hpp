@@ -41,9 +41,8 @@ extern Chassis chassis;
 extern pros::Vision visionF;
 
 #if defined(ROBOT_ALMIGHTY) //全能机
-extern Lift<1> lift;
+
 extern Generic<1> intake;
-extern CapIntake<1> capIntake;
 extern pros::Task _shootTask;
 //静态外部变量
 static void taskShoot(void *para)
@@ -55,7 +54,6 @@ static void taskShoot(void *para)
 #else //矮子机
 extern Head<1> head;
 extern Generic<1> intake;
-extern pros::Vision vision;
 extern pros::Task _shootTask;
 //静态外部变量
 static void taskShoot(void *para)
