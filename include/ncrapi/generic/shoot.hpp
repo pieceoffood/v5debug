@@ -40,7 +40,6 @@ class Shoot : public Generic<_nums>
     explicit Shoot(const std::array<pros::Motor, _nums> &motorList, const pros::ADIDigitalIn &limit, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
         : Generic<_nums>(motorList, hold), _limit(limit), _shootReadyVal(shootReadyVal), _shootShootVal(shootShootVal), _waittingTime(waittingTime), _shootMode(shootMode)
     {
-        Generic<_nums>::resetEnc();
         _state = 0;
         _mode = true;
     }
@@ -62,7 +61,7 @@ class Shoot : public Generic<_nums>
         _mode = true;
         _shootBtnFlag = x;
     }
-    double getSensors()
+    virtual double getSensors()
     {
         double temp = Generic<_nums>::getEnc();
         if (temp >= _shootMode || temp < 0 || _limit.get_value()) //V5行程开关按下去是1
@@ -184,22 +183,56 @@ class Shoot : public Generic<_nums>
         }
     }
 };
+
+/**
+ * 投石机双发类
+ */
 class ShootDouble : public Shoot<1>
 {
   private:
     const pros::ADIEncoder _redEnc; //红盒子
     CapIntake<1> *_capIntake;       //夹子指针
+    int32_t _redEncSpeedLast = 0;
 
   public:
     explicit ShootDouble(const std::array<pros::Motor, 1> &motorList, const pros::ADIDigitalIn &limit, const pros::ADIEncoder redEnc,
                          CapIntake<1> *capIntake, const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
-        : Shoot<1>(motorList, limit, shootReadyVal, shootShootVal, waittingTime, shootMode, hold), _redEnc(redEnc), _capIntake(capIntake) {}
+        : Shoot<1>(motorList, limit, shootReadyVal, shootShootVal, waittingTime, shootMode, hold), _redEnc(redEnc), _capIntake(capIntake)
+    {
+        _redEnc.reset();
+    }
+    int32_t getRedEnc()
+    {
+        return _redEnc.get_value();
+    }
+    /**
+     * 获取红色编码器速度
+     */
+    int32_t getRedEncSpeed()
+    {
+        int32_t nowVal = getRedEnc();
+        int32_t nowSpeed = nowVal - _redEncSpeedLast;
+        _redEncSpeedLast = nowVal;
+        return nowSpeed;
+    }
 
+    virtual double getSensors() override
+    {
+        double temp = getEnc();
+        int32_t tempRedEnc = getRedEnc();
+        if (temp >= _shootMode || temp < 0 || _limit.get_value() || abs(getRedEnc()) >= 10) //V5行程开关按下去是1
+        {
+            resetEnc();
+            return 0;
+        }
+        else
+            return temp;
+    }
     /**
      * 单键控制的全自动发射模式
      * @param shootBtn 发射按钮
      */
-    virtual void joyControl(const bool shootBtn)
+    virtual void joyControl(const bool shootBtn) override
     {
 
         if (shootBtn)

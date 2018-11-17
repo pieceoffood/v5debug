@@ -13,7 +13,6 @@ class Lift : public Generic<_nums>
     explicit Lift(const std::array<pros::Motor, _nums> &motorList, const int liftUpVal, const int hold = 10) : Generic<_nums>(motorList, hold), _liftUpVal(liftUpVal)
     {
         Generic<_nums>::setBrakeMode(pros::E_MOTOR_BRAKE_HOLD); //设置为悬停模式
-        Generic<_nums>::resetEnc();
     }
     void joyControl(const bool up, const bool down) override
     {

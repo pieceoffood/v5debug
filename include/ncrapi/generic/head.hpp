@@ -10,7 +10,6 @@ class Head : public Generic<_nums>
   public:
     Head(const std::array<pros::Motor, _nums> &motorList, const int hold = 0) : Generic<_nums>(motorList, hold)
     {
-        Generic<_nums>::resetEnc();
         Generic<_nums>::setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     }
     virtual void joyControl(const bool up, const bool down) override

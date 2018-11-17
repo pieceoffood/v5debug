@@ -9,7 +9,6 @@ class CapIntake : public Generic<_nums>
   public:
     CapIntake(const std::array<pros::Motor, _nums> &motorList, const int capUpVal, const int hold) : Generic<_nums>(motorList, hold), _capUpVal(capUpVal)
     {
-        Generic<_nums>::resetEnc();
     }
     /**
      * 夹子遥控模块
