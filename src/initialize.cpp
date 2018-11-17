@@ -41,7 +41,7 @@ Generic<1> intake({pros::Motor(INTAKE, pros::E_MOTOR_GEARSET_18, INTAKE_REVERSE,
 CapIntake<1> capIntake({pros::Motor(INTAKE_CAP, pros::E_MOTOR_GEARSET_18, CAP_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)}, CAPINTAKE_UP_VAL, CAPINTAKE_HOLDING); //盘子夹
 ShootDouble shoot({pros::Motor(SHOOT, pros::E_MOTOR_GEARSET_36, SHOOT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)},
                pros::ADIDigitalIn(SHOOT_LIMIT_PORT),pros::ADIEncoder(RED_ENC_TOP,RED_ENC_BOTTOM,RED_ENC_REVERSE),
-               &capIntake, SHOOT_READY_VAL, SHOOT_SHOOT_VAL, SHOOT_WAITING_TIME, SHOOT_GEAR_VAL, SHOOT_HOLDING);          //发射器类初始化 
+               &capIntake, SHOOT_READY_VAL, SHOOT_SHOOT_VAL, SHOOT_WAITING_TIME, SHOOT_GEAR_VAL, SHOOT_HOLDING);          //发射器类初始化
 pros::Task _shootTask((pros::task_fn_t)taskShoot, nullptr, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "task_shoot");
 #elif defined(ROBOT_CAP)
 
@@ -90,7 +90,9 @@ void initialize()
     lv_label_set_text(lab2, "底盘校准中...");
     chassis.resetEnc();
     chassis.resetGyro();
-    //弹射初始化
+
+    if(pros::competition::get_status()!=COMPETITION_CONNECTED)
+    {    //弹射初始化
     initGeneric(&shoot, lab2, "弹射校准中...");
 #if defined(ROBOT_ALMIGHTY)
     //升降初始化
@@ -98,6 +100,7 @@ void initialize()
     //盘子夹初始化
     initGeneric(&capIntake, lab2, "夹子校准中...",-1);
 #endif
+    }
     lv_label_set_text(lab1, "机器人初始化完毕...");
     lv_obj_del(initObj);
 }

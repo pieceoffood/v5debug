@@ -1,7 +1,7 @@
 #ifndef ROBOTSET_HPP_
 #define ROBOTSET_HPP_
 
-#define chicken //输入用户名
+#define sheep //输入用户名
 #if defined(pig)
 #inlcude "userConfig/pig.hpp"
 #elif defined(chicken)
