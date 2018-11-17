@@ -8,6 +8,9 @@
 //adi
 const uint8_t GYRO_PORT = 1;        //陀螺仪端口号
 const uint8_t SHOOT_LIMIT_PORT = 2; //射球行程开关端口号
+const uint8_t RED_ENC_TOP = 3;      //红盒子顶部线
+const uint8_t RED_ENC_BOTTOM = 4;   //红盒子底部线
+const bool RED_ENC_REVERSE = 0;     //是否反转
 //马达
 const uint8_t LF = 1;
 const bool LF_REVERSE = 0;
@@ -43,11 +46,11 @@ constexpr int userSpeed[128] = {
 const int JOY_THRESHOLD = 10; //遥控器矫正阀值
 const int ROTATE_SPEED = 127; //底盘旋转速度
 //射球系统
-const int SHOOT_GEAR_VAL = 900;  //驱动齿轮转多少度 编码器清零
-const int SHOOT_HOLDING = 15;    //悬停马达力度
-const int SHOOT_READY_VAL = 390; //悬停准备值
-const int SHOOT_SHOOT_VAL = 470; //发射值
-const int SHOOT_WAITING_TIME = 500;
+const int SHOOT_GEAR_VAL = 1800;  //驱动齿轮转多少度 编码器清零
+const int SHOOT_HOLDING = 15;     //悬停马达力度
+const int SHOOT_READY_VAL = 390;  //悬停准备值
+const int SHOOT_SHOOT_VAL = 470;  //发射值
+const int SHOOT_WAITING_TIME = 0; //第二次发射等待值
 //升降系统
 const int LIFT_UP_VAL = 1270;
 //吸吐系统

@@ -2,14 +2,6 @@
 #define LIFT_HPP_
 #include "generic.hpp"
 #include "shoot.hpp"
-#if defined(ROBOT_ALMIGHTY) //全能机
-extern Shoot<1> shoot;
-
-#elif defined(ROBOT_CAP) //盘子机
-
-#else //矮子机
-extern Shoot<2> shoot;
-#endif
 
 template <size_t _nums>
 class Lift : public Generic<_nums>

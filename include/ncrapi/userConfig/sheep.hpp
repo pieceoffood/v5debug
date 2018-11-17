@@ -8,6 +8,9 @@
 //adi
 const uint8_t GYRO_PORT = 1;        //陀螺仪端口号
 const uint8_t SHOOT_LIMIT_PORT = 2; //射球行程开关端口号
+const uint8_t RED_ENC_TOP = 3;      //红盒子顶部线
+const uint8_t RED_ENC_BOTTOM = 4;   //红盒子底部线
+const bool RED_ENC_REVERSE = 0;     //是否反转
 //马达
 const uint8_t LF = 1;
 const bool LF_REVERSE = 0;

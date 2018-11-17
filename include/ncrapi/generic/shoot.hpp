@@ -22,7 +22,7 @@ extern CapIntake<1> capIntake;
 template <size_t _nums>
 class Shoot : public Generic<_nums>
 {
-  private:
+  protected:
     const pros::ADIDigitalIn _limit;
     const int _shootReadyVal;
     const int _shootShootVal;
@@ -173,14 +173,6 @@ class Shoot : public Generic<_nums>
 
         if (shootBtn)
         {
-#if defined(ROBOT_ALMIGHTY) //全能机
-            capIntake.setMode(false);
-#elif defined(ROBOT_CAP) //盘子机
-
-#else //矮子机
-
-#endif
-
             _time = pros::millis();
             Generic<_nums>::_holdingFlag = 0;
             _shootBtnFlag = true;
@@ -200,5 +192,41 @@ class Shoot : public Generic<_nums>
         }
     }
 };
+class ShootDouble : public Shoot<1>
+{
+  private:
+    const pros::ADIEncoder _redEnc; //红盒子
 
+  public:
+    explicit ShootDouble(const std::array<pros::Motor, 1> &motorList, const pros::ADIDigitalIn &limit, const pros::ADIEncoder redEnc,
+                         const int shootReadyVal, const int shootShootVal, const uint32_t waittingTime, const int shootMode, const int hold)
+        : Shoot<1>(motorList, limit, shootReadyVal, shootShootVal, waittingTime, shootMode, hold), _redEnc(redEnc) {}
+
+    /**
+     * 单键控制的全自动发射模式
+     * @param shootBtn 发射按钮
+     */
+    virtual void joyControl(const bool shootBtn)
+    {
+
+        if (shootBtn)
+        {
+            capIntake.setMode(false);
+            _time = pros::millis();
+            _holdingFlag = 0;
+            _shootBtnFlag = true;
+            _mode = true;
+        }
+        else
+            holding();
+    }
+};
+#if defined(ROBOT_ALMIGHTY) //全能机
+extern ShootDouble shoot;
+
+#elif defined(ROBOT_CAP) //盘子机
+
+#else //矮子机
+extern Shoot<2> shoot;
+#endif
 #endif /* end of include guard: SHOOT_HPP_ */
