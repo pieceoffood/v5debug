@@ -10,10 +10,7 @@
 #define NCRAPI_HPP_
 
 #include "ncrapi/chassis/chassis.hpp"
-#include "ncrapi/generic/head.hpp"
-#include "ncrapi/generic/intake.hpp"
-#include "ncrapi/generic/lift.hpp"
-#include "ncrapi/generic/shoot.hpp"
+#include "ncrapi/generic/generic.hpp"
 #include "ncrapi/system/systemData.hpp"
 #include "ncrapi/userDisplay/userDisplay.hpp"
 
@@ -22,43 +19,5 @@
 #define NCR_VERSION_MINOR 0 //辅助版本号
 #define NCR_VERSION_PATCH 0 //补丁版本号
 #define NCR_VERSION_STRING "5.0.0"
-
-//视觉定义 这里有问题 官方说下个版本修复
-// extern pros::vision_signature_s_t BALL;
-// extern pros::vision_signature_s_t RED_CAP;
-// extern pros::vision_signature_s_t BLUE_CAP;
-// extern pros::vision_signature_s_t RED_FALG;
-// extern pros::vision_signature_s_t BLUE_FALG;
-// extern pros::vision_signature_s_t RED_PLAT;
-// extern pros::vision_signature_s_t BLUE_PLAT;
-// extern pros::vision_signature_s_t CENTRAL_PLAT;
-// extern pros::vision_signature_s_t HIGH_COLUMN;
-// extern pros::vision_signature_s_t LOW_COLUMN;
-//通用部件
-extern pros::Controller joy1;
-extern pros::Controller joy2;
-extern Chassis chassis;
-extern pros::Vision visionF;
-
-#if defined(ROBOT_ALMIGHTY) //全能机
-
-extern Generic<1> intake;
-extern pros::Task _shootTask;
-//静态外部变量
-static void taskShoot(void *para)
-{
-    shoot.loop();
-}
-#elif defined(ROBOT_CAP) //盘子机
-
-#else //矮子机
-extern Head<1> head;
-extern Generic<1> intake;
-extern pros::Task _shootTask;
-//静态外部变量
-static void taskShoot(void *para)
-{
-    shoot.loop();
-}
-#endif
+//TODO
 #endif /* end of include guard: ncrapi_HPP_ */

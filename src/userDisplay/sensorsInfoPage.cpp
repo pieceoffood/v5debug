@@ -22,26 +22,7 @@ static void sensorsTask(void *param)
 {
     (void)param; /*Unused*/
     char sensorsInfo[256];
-#if defined(ROBOT_ALMIGHTY) //全能机
-    sprintf(sensorsInfo, "GYRO:%.1f\n \
-CHS_L: enc:%.1f\tTemper:%.1f\n \
-CHS_R: enc:%.1f\tTemper:%.1f\n \
-Shoot: enc:%.1f\tTemper:%.1f\tLimit:%d\n \
-Shoot: redEnc:%d\tSpeed:%d\nL \
-Lift : enc:%.1f\tTemper:%.1f\n \
-Cap  : enc:%.1f\tTemper:%.1f\n ",
-            chassis.getGyro(), chassis.getEncLeft(), chassis.getTemperatureLeft(), chassis.getEncRight(), chassis.getTemperatureRight(),
-            shoot.getEnc(), shoot.getTemperature(), shoot.getLimit(), shoot.getRedEnc(), shoot.getRedEncSpeed(), lift.getEnc(), lift.getTemperature(), capIntake.getEnc(), capIntake.getTemperature());
-#elif defined(ROBOT_CAP) //盘子机
-#else                    // 矮子机
-    sprintf(sensorsInfo, "GYRO:%.1f\n \
-CHS_L: enc:%.1f\tTemper:%.1f\n \
-CHS_R: enc:%.1f\tTemper:%.1f\n \
-Shoot: enc:%.1f\tTemper:%.1f\tLimit:%d\n \
-HEAD  : enc:%.1f\tTemper:%.1f\n ",
-            chassis.getGyro(), chassis.getEncLeft(), chassis.getTemperatureLeft(), chassis.getEncRight(), chassis.getTemperatureRight(),
-            shoot.getEnc(), shoot.getTemperature(), shoot.getLimit(), head.getEnc(), head.getTemperature());
-#endif
+    //sprintf(char *, const char *, ...)
     lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
 }
 
