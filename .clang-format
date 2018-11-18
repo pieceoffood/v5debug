@@ -1,8 +1,5 @@
-# @Date:   2017-12-12T08:20:08+08:00
-# @Last modified time: 2018-10-08T15:14:22+08:00
-
 ---
-Language:        Cpp
+Language: Cpp
 # 基础样式
 BasedOnStyle: LLVM
 
@@ -13,7 +10,7 @@ IndentWidth: 4
 BreakBeforeBraces: Allman
 
 # 支持一行的if
-AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
 
 # 是否允许循环单行
 AllowShortLoopsOnASingleLine: false

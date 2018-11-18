@@ -64,8 +64,8 @@ class Chassis
     }
     /**
      * 遥控模块 单摇杆双摇杆都用这个
-     * @param verticalVal     前后的通道
-     * @param horizontalVal    左右的通道
+     * @param verticalVal     前后通道
+     * @param horizontalVal    左右通道
      * @param threshold 遥控器矫正阀值
      */
     void arcade(int verticalVal, int horizontalVal, const int rotateMaxSpeed = 127, const int threshold = 0, const int speedMode[128] = realSpeed)
@@ -81,11 +81,11 @@ class Chassis
         int right = verticalVal - horizontalVal;
         int leftSign = static_cast<int>(copysign(1.0, static_cast<float>(left)));
         int rightSign = static_cast<int>(copysign(1.0, static_cast<float>(right)));
-        if (left > 127 || left < -127)
+        if (abs(left) > 127)
             left = 127 * leftSign;
-        if (right > 127 || right < -127)
+        if (abs(right) > 127)
             right = 127 * rightSign;
-        set(speedMode[left] * leftSign, speedMode[right] * rightSign);
+        set(speedMode[abs(left)] * leftSign, speedMode[abs(right)] * rightSign);
     }
     /**
      * 重置底盘所有马达编码器

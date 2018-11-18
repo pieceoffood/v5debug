@@ -7,18 +7,7 @@
  */
 
 #include "main.h"
-//任务通知测试
-// void my_task_fn(void *ign)
-// {
-//     while (pros::c::task_notify_take(true, TIMEOUT_MAX))
-//     {
-//         puts("I was unblocked!");
-//     }
-// }
 
-/**
- * 手动模块
- */
 void opcontrol()
 {
     userDisplay.delTasks();
@@ -26,13 +15,7 @@ void opcontrol()
     userDisplay.createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
-    if (_shootTask.get_state() != pros::E_TASK_STATE_DELETED)
-    {
-        _shootTask.remove();
-        std::cout << "shootTask remove" << std::endl;
-    }
-    //任务通知测试
-    //    pros::task_t my_task = pros::c::task_create(my_task_fn, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Notify me! Task");
+
     while (true)
     {
         nowTime = pros::millis();
@@ -41,25 +24,7 @@ void opcontrol()
             userDisplay.maxLoopTime = userDisplay.loopTime;
         if (userDisplay.loopTime < userDisplay.minLoopTime)
             userDisplay.minLoopTime = userDisplay.loopTime;
-        chassis.arcade(joy1.get_analog(ANALOG_LEFT_Y), joy1.get_analog(ANALOG_RIGHT_X), ROTATE_SPEED, JOY_THRESHOLD);
-#if defined(ROBOT_ALMIGHTY)
-        shoot.joyControl(joy1.get_digital(DIGITAL_A));
-        lift.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2));
-        intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
-        capIntake.joyControl(joy1.get_digital(DIGITAL_X), joy1.get_digital(DIGITAL_Y));
-#elif defined(ROBOT_CAP)
-
-#else
-        shoot.joyControl(joy1.get_digital(DIGITAL_L1), joy1.get_digital(DIGITAL_L2), joy1.get_digital(DIGITAL_A));
-        intake.joyControl(joy1.get_digital(DIGITAL_R1), joy1.get_digital(DIGITAL_R2));
-#endif
-        //std::cout << vision.get_by_sig(0, 1).signature << "," << vision.get_object_count() << std::endl;
-        //视觉传感器测试
-        //多线程测试
-        // if (pros::c::joy1_get_digital(joy1_MASTER, DIGITAL_L1))
-        // {
-        //     pros::c::task_notify(my_task);
-        // }
+        //TODO
         lastTime = nowTime;
         pros::c::task_delay_until(&nowTime, 10);
     }
