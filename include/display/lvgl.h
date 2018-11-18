@@ -7,10 +7,11 @@
 #define LVGL_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/*********************
+    /*********************
  *      INCLUDES
  *********************/
 
@@ -59,17 +60,17 @@ extern "C" {
 #define LVGL_VERSION_MAJOR 5
 #define LVGL_VERSION_MINOR 1
 #define LVGL_VERSION_PATCH 0
-#define LVGL_VERSION_INFO ""
+#define LVGL_VERSION_INFO "5.1.0"
 
-/**********************
+    /**********************
  *      TYPEDEFS
  **********************/
 
-/**********************
+    /**********************
  * GLOBAL PROTOTYPES
  **********************/
 
-/**********************
+    /**********************
  *      MACROS
  **********************/
 

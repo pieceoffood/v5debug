@@ -1,10 +1,11 @@
 /**
- * @Author: yan
- * @Date:   2018-10-16T10:25:11+08:00
- * @Email:  358079046@qq.com
+ * @Author: 陈昱安
+ * @Date:   2018-10-22T22:01:37+08:00
+ * @Email:  31612534@qq.com
  * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-23T23:43:01+08:00
+ * @Last modified time: 2018-10-28T22:09:02+08:00
  */
+
 #include "main.h"
 
 UserDisplay::UserDisplay()
@@ -16,64 +17,62 @@ UserDisplay::UserDisplay()
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
 }
-
+void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, lv_obj_t *parent, const char *labText)
+{
+    if (displayObj[objname] == nullptr)
+    {
+        displayObj[objname] = lv_obj_create(parent, nullptr);
+        std::cout << "obj:" << terminalText << " create successful" << std::endl;
+    }
+    else
+    {
+        std::cout << "obj:" << terminalText << " already exist" << std::endl;
+    }
+    if (isSrcLoad)
+        lv_scr_load(displayObj[objname]);
+    if (labText != nullptr)
+    {
+        lv_obj_t *lab = lv_label_create(userDisplay.displayObj[objname], nullptr);
+        lv_label_set_text(lab, labText);
+    }
+}
+void UserDisplay::createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText)
+{
+    if (displayTask[taskName] == nullptr)
+    {
+        displayTask[taskName] = lv_task_create(task, loopTime, LV_TASK_PRIO_LOW, nullptr);
+        std::cout << "task:" << terminalText << " create successful" << std::endl;
+    }
+    else
+    {
+        std::cout << "task:" << terminalText << " already exist" << std::endl;
+    }
+}
+void UserDisplay::delTasks()
+{
+    unsigned int flag = 1;
+    for (auto &it : userDisplay.displayTask)
+    {
+        if (it != nullptr)
+        {
+            lv_task_del(it);
+            it = nullptr;
+            std::cout << "del task:" << flag << std::endl;
+            flag++;
+        }
+    }
+}
 void UserDisplay::delObjs()
 {
-
-    if (loop_task != nullptr)
+    unsigned int flag = 1;
+    for (auto &it : userDisplay.displayObj)
     {
-        lv_task_del(loop_task);
-        loop_task = nullptr;
-        std::cout << "del loop_task" << std::endl;
-    }
-    if (refr_task != nullptr)
-    {
-        lv_task_del(refr_task);
-        refr_task = nullptr;
-        std::cout << "del SensorsInfoTask" << std::endl;
-    }
-    if (startBTNM != nullptr)
-    {
-        lv_obj_del(startBTNM);
-        startBTNM = nullptr;
-        std::cout << "del startBTNM" << std::endl;
-    }
-    if (sensorsInfoObj != nullptr)
-    {
-        lv_obj_del(sensorsInfoObj);
-        sensorsInfoObj = nullptr;
-        std::cout << "del SensorsInfoWin" << std::endl;
-    }
-    if (disabledObj != nullptr)
-    {
-        lv_obj_del(disabledObj);
-        disabledObj = nullptr;
-        std::cout << "del disabledObj" << std::endl;
-    }
-    if (competitionObj != nullptr)
-    {
-        lv_obj_del(competitionObj);
-        competitionObj = nullptr;
-        std::cout << "del competitionObj" << std::endl;
-    }
-    if (confirmObj != nullptr)
-    {
-        lv_obj_del(confirmObj);
-        confirmObj = nullptr;
-        std::cout << "del confirmObj" << std::endl;
-    }
-    if (opcontrolObj != nullptr)
-    {
-        lv_obj_del(opcontrolObj);
-        opcontrolObj = nullptr;
-        startBTNM = nullptr;
-        loopLab = nullptr;
-        std::cout << "del autoObj" << std::endl;
-    }
-    if (autonomousObj != nullptr)
-    {
-        lv_obj_del(autonomousObj);
-        autonomousObj = nullptr;
-        std::cout << "del opObj" << std::endl;
+        if (it != nullptr)
+        {
+            lv_obj_del(it);
+            it = nullptr;
+            std::cout << "del Obj:" << flag << std::endl;
+            flag++;
+        }
     }
 }

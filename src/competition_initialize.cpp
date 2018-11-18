@@ -1,16 +1,6 @@
-/**
- * @Author: yan
- * @Date:   2018-10-14T14:25:38+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-16T12:51:27+08:00
- */
 #include "main.h"
-static lv_obj_t *frSw;         //创建前后场开关
-static lv_obj_t *shootSw;      //创建射高中旗开关
-static lv_obj_t *midShootSw;   //创建是否射中间杆子旗子开关
-static lv_obj_t *platformSw;   //创建是否开台开关
-static lv_obj_t *bumperFlagSw; //创建是否撞中间旗开关
+
+std::array<lv_obj_t *, AUTO_NUMS> compSw;
 /**
  * 自动赛选择时候的确认按钮的动作
  * @param  btn 要实现动作的按钮的指针
@@ -18,36 +8,32 @@ static lv_obj_t *bumperFlagSw; //创建是否撞中间旗开关
  */
 static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
 {
+    int i = 0;
     //获取开关状态
-    sysData.autoIsFR = lv_sw_get_state(frSw);                 //前场后场
-    sysData.autoIsFlag = lv_sw_get_state(shootSw);            //高旗中旗
-    sysData.autoIsShootFlag = lv_sw_get_state(midShootSw);    //是否射中间旗子
-    sysData.autoIsRunPlat = lv_sw_get_state(platformSw);      //是否开台
-    sysData.autoIsBumperFlag = lv_sw_get_state(bumperFlagSw); //是否撞旗
+    for (auto &it : sysData.autoFlags)
+    {
+        it = lv_sw_get_state(compSw[i]);
+        i++;
+    }
     char autoInfo[256];
-    const char *side;
-    const char *fr;
-    const char *shootH_M;
-    const char *isShootMid;
-    const char *plat;
-    const char *bumper;
+    const char *side, *fr, *shootH_M, *isShootMid, *plat, *bumper;
     sysData.autoSide == 0 ? side = "红方" : side = "蓝方";
-    sysData.autoIsFR == 0 ? fr = "前场" : fr = "后场";
-    sysData.autoIsFlag == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
-    sysData.autoIsShootFlag == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
-    sysData.autoIsRunPlat == 0 ? plat = "不开台" : plat = "开台";
-    sysData.autoIsBumperFlag == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
+    sysData.autoFlags[AUTO_FR] == 0 ? fr = "前场" : fr = "后场";
+    sysData.autoFlags[AUTO_SHOOT] == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
+    sysData.autoFlags[AUTO_MID_SHOOT] == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
+    sysData.autoFlags[AUTO_PLATFORM] == 0 ? plat = "不开台" : plat = "开台";
+    sysData.autoFlags[AUTO_BUMPERFLAG] == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
+    //创建确认页面
+    userDisplay.delTasks();
     userDisplay.delObjs();
-    if (userDisplay.confirmObj == nullptr)
-        userDisplay.confirmObj = lv_obj_create(nullptr, nullptr);
-    //显示自动赛选项
-    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.confirmObj, NULL);
+    userDisplay.createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
+    // //显示自动赛选项
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], nullptr);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
-    //TODO 传感器页面
-    userDisplay.creartSensorsInfo(userDisplay.confirmObj, LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
-    lv_obj_align(userDisplay.sensorsInfoObj, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
-
+    // 传感器页面创建
+    userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
+    lv_obj_align(userDisplay.displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
 }
@@ -86,9 +72,15 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
  */
 void competition_initialize()
 {
+<<<<<<< HEAD
     userDisplay.createCompObj();
+=======
+    userDisplay.delTasks();
+    userDisplay.delObjs();
+    userDisplay.createUserObj(OBJ_COMPETITION, true, "obj_competition");
+>>>>>>> dev
     //创建标签栏
-    lv_obj_t *tab = lv_tabview_create(userDisplay.competitionObj, NULL);
+    lv_obj_t *tab = lv_tabview_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
     userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
     lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                  //设置位置
     lv_obj_t *redTab = lv_tabview_add_tab(tab, "红方");
@@ -97,56 +89,47 @@ void competition_initialize()
 
     /*当选项卡按下后进行的操作*/
     lv_tabview_set_tab_load_action(tab, tabChose);
-    //创建选项
-    frSw = lv_sw_create(userDisplay.competitionObj, NULL);         //创建前后场开关
-    shootSw = lv_sw_create(userDisplay.competitionObj, NULL);      //创建射高中旗开关
-    midShootSw = lv_sw_create(userDisplay.competitionObj, NULL);   //创建是否射中间杆子旗子开关
-    platformSw = lv_sw_create(userDisplay.competitionObj, NULL);   //创建是否开台开关
-    bumperFlagSw = lv_sw_create(userDisplay.competitionObj, NULL); //创建是否撞中间旗开关
+    //创建各种开关
+    for (auto &it : compSw)
+        it = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr);
+    //创建开关后面的文本条
+    std::array<lv_obj_t *, AUTO_NUMS> compLab;
+    for (auto &it : compLab)
+        it = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr);
+    //确认按钮
+    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
+    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                            //创建确认开关文本 这里设置按钮为父级
 
-    lv_obj_t *frLab = lv_label_create(userDisplay.competitionObj, NULL);          //创建前后场开关文本条
-                                                                                  //    lv_label_set_style(frLab, &userDisplay.fontStyle);
-    lv_obj_t *shootLab = lv_label_create(userDisplay.competitionObj, frLab);      //创建射高旗中旗开关文本条
-    lv_obj_t *midShootLab = lv_label_create(userDisplay.competitionObj, frLab);   //创建是否射中间杆子旗子文本条
-    lv_obj_t *platformLab = lv_label_create(userDisplay.competitionObj, frLab);   //创建是否开台开关文本条
-    lv_obj_t *bumperFlagLab = lv_label_create(userDisplay.competitionObj, frLab); //创建是否撞中间旗开关文本条
-    //
-    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.competitionObj, NULL);    //创建确认文本开关
-    lv_obj_t *confirmLab = lv_label_create(userDisplay.competitionObj, frLab); //创建是否撞中间旗开关文本条
-
-    lv_label_set_text(frLab, "前场&后场");
-    lv_label_set_text(shootLab, "高旗&中旗");
-    lv_label_set_text(midShootLab, "是否二次射旗");
-    lv_label_set_text(platformLab, "是否开台");
-    lv_label_set_text(bumperFlagLab, "是否二次撞旗");
+    lv_label_set_text(compLab[AUTO_FR], "前场&后场");
+    lv_label_set_text(compLab[AUTO_SHOOT], "高旗&中旗");
+    lv_label_set_text(compLab[AUTO_MID_SHOOT], "是否二次射旗");
+    lv_label_set_text(compLab[AUTO_PLATFORM], "是否开台");
+    lv_label_set_text(compLab[AUTO_BUMPERFLAG], "是否二次撞旗");
     lv_label_set_text(confirmLab, "确认");
     //大小设置
     lv_obj_set_size(confirmBtn, 200, 50);
     //位置设置
-    lv_obj_align(frSw, tab, LV_ALIGN_IN_TOP_LEFT, 10, 70);
-    lv_obj_align(shootSw, frSw, LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(midShootSw, shootSw, LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(frLab, frSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);       //前后 文本框对齐开关
-    lv_obj_align(shootLab, shootSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0); //高中旗 文本框对齐开关
-    lv_obj_align(midShootLab, midShootSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-
-    lv_obj_align(platformSw, frLab, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(bumperFlagSw, platformSw, LV_ALIGN_OUT_TOP_LEFT, 0, 100);
-    lv_obj_align(platformLab, platformSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(bumperFlagLab, bumperFlagSw, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-    lv_obj_align(confirmBtn, bumperFlagLab, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
-    lv_obj_align(confirmLab, confirmBtn, LV_ALIGN_IN_BOTTOM_MID, 0, -15);
+    int xFlag = 10, yFlag = 80, countForSw = 1, countForLab = 0;
+    //设置开关和匹配文本的位置
+    for (auto &it : compSw)
+    {
+        lv_obj_set_pos(it, xFlag, yFlag);
+        lv_obj_align(compLab[countForLab], it, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+        yFlag += 50;
+        countForSw++;
+        countForLab++;
+        if (countForSw >= 4)
+        {
+            xFlag = 250;
+            yFlag = 80;
+            countForSw = 0;
+        }
+    }
+    //设置确定按钮和其文本框的位置
+    lv_obj_set_pos(confirmBtn, LV_HOR_RES - 200, LV_VER_RES - 50);
     //确认按钮的动作
     lv_btn_set_action(confirmBtn, LV_BTN_ACTION_PR, confirmBtnIncomp);
 
     //调用按钮页面
     //TODO 技能赛的动作
-}
-void UserDisplay::createCompObj()
-{
-    delObjs();
-    if (competitionObj == nullptr)
-        competitionObj = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(competitionObj);
-    std::cout << "create CompObj" << std::endl;
 }
