@@ -10,30 +10,30 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
 {
     int i = 0;
     //获取开关状态
-    for (auto &it : sysData.autoFlags)
+    for (auto &it : sysData->autoFlags)
     {
         it = lv_sw_get_state(compSw[i]);
         i++;
     }
     char autoInfo[256];
     const char *side, *fr, *shootH_M, *isShootMid, *plat, *bumper;
-    sysData.autoSide == 0 ? side = "红方" : side = "蓝方";
-    sysData.autoFlags[AUTO_FR] == 0 ? fr = "前场" : fr = "后场";
-    sysData.autoFlags[AUTO_SHOOT] == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
-    sysData.autoFlags[AUTO_MID_SHOOT] == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
-    sysData.autoFlags[AUTO_PLATFORM] == 0 ? plat = "不开台" : plat = "开台";
-    sysData.autoFlags[AUTO_BUMPERFLAG] == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
+    sysData->autoSide == 0 ? side = "红方" : side = "蓝方";
+    sysData->autoFlags[AUTO_FR] == 0 ? fr = "前场" : fr = "后场";
+    sysData->autoFlags[AUTO_SHOOT] == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
+    sysData->autoFlags[AUTO_MID_SHOOT] == 0 ? isShootMid = "不二次射旗" : isShootMid = "二次射旗";
+    sysData->autoFlags[AUTO_PLATFORM] == 0 ? plat = "不开台" : plat = "开台";
+    sysData->autoFlags[AUTO_BUMPERFLAG] == 0 ? bumper = "不二次撞旗" : bumper = "二次撞旗";
     //创建确认页面
-    userDisplay.delTasks();
-    userDisplay.delObjs();
-    userDisplay.createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
+    userDisplay->delTasks();
+    userDisplay->delObjs();
+    userDisplay->createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
     // //显示自动赛选项
-    lv_obj_t *autoinfoLab = lv_label_create(userDisplay.displayObj[OBJ_CONFIRM], nullptr);
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay->displayObj[OBJ_CONFIRM], nullptr);
     sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
     lv_label_set_text(autoinfoLab, autoInfo);
     // 传感器页面创建
-    userDisplay.creartSensorsInfo(userDisplay.displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
-    lv_obj_align(userDisplay.displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
+    userDisplay->creartSensorsInfo(userDisplay->displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
+    lv_obj_align(userDisplay->displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
 }
@@ -46,21 +46,21 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
 {
     if (x == 0)
     {
-        sysData.autoIsMode = 0; //普通自动赛模式
-        sysData.autoSide = 0;   //红方0
-        userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED;
+        sysData->autoIsMode = 0; //普通自动赛模式
+        sysData->autoSide = 0;   //红方0
+        userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED;
     }
     else if (x == 1)
     {
-        sysData.autoIsMode = 0; //普通自动赛模式
-        sysData.autoSide = 360; //蓝方360
-        userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_BLUE;
+        sysData->autoIsMode = 0; //普通自动赛模式
+        sysData->autoSide = 360; //蓝方360
+        userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_BLUE;
     }
     else if (x == 2)
     {
-        sysData.autoIsMode = 1; //纯自动
-        sysData.autoSide = 0;   //技能赛默认红方
-        userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_BLACK;
+        sysData->autoIsMode = 1; //纯自动
+        sysData->autoSide = 0;   //技能赛默认红方
+        userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_BLACK;
     }
 }
 /**
@@ -72,13 +72,13 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
  */
 void competition_initialize()
 {
-    userDisplay.delTasks();
-    userDisplay.delObjs();
-    userDisplay.createUserObj(OBJ_COMPETITION, true, "obj_competition");
+    userDisplay->delTasks();
+    userDisplay->delObjs();
+    userDisplay->createUserObj(OBJ_COMPETITION, true, "obj_competition");
     //创建标签栏
-    lv_obj_t *tab = lv_tabview_create(userDisplay.displayObj[OBJ_COMPETITION], NULL);
-    userDisplay.theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
-    lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                  //设置位置
+    lv_obj_t *tab = lv_tabview_create(userDisplay->displayObj[OBJ_COMPETITION], NULL);
+    userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
+    lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                   //设置位置
     lv_obj_t *redTab = lv_tabview_add_tab(tab, "红方");
     lv_obj_t *blueTab = lv_tabview_add_tab(tab, "蓝方");
     lv_obj_t *skillAutoTab = lv_tabview_add_tab(tab, "技能赛");
@@ -87,14 +87,14 @@ void competition_initialize()
     lv_tabview_set_tab_load_action(tab, tabChose);
     //创建各种开关
     for (auto &it : compSw)
-        it = lv_sw_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr);
+        it = lv_sw_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
     //创建开关后面的文本条
     std::array<lv_obj_t *, AUTO_NUMS> compLab;
     for (auto &it : compLab)
-        it = lv_label_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr);
+        it = lv_label_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
     //确认按钮
-    lv_obj_t *confirmBtn = lv_btn_create(userDisplay.displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
-    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                            //创建确认开关文本 这里设置按钮为父级
+    lv_obj_t *confirmBtn = lv_btn_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
+    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                             //创建确认开关文本 这里设置按钮为父级
 
     lv_label_set_text(compLab[AUTO_FR], "前场&后场");
     lv_label_set_text(compLab[AUTO_SHOOT], "高旗&中旗");

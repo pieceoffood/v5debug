@@ -8,8 +8,8 @@
 
 #include "main.h"
 //全局变量和类
-systemData sysData;      //系统数据类
-UserDisplay userDisplay; //图像数据类
+systemData *sysData;      //系统数据类
+UserDisplay *userDisplay; //图像数据类
 
 //全局初始化构造函数
 Config config("/usd/configUTF8.txt");
@@ -38,6 +38,8 @@ void initialize()
     lv_obj_t *lab2 = lv_label_create(initObj, nullptr);
     lv_obj_set_y(lab2, 20);
     lv_label_set_text(lab1, "机器人初始化中...");
+    sysData = new systemData("robotstyle", "username", "temnumber"); //系统数据类
+    userDisplay = new UserDisplay;                                   //图像数据类
     //底盘初始化
     lv_label_set_text(lab2, "底盘校准中...");
 

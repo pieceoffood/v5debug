@@ -32,7 +32,7 @@ void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *te
         lv_scr_load(displayObj[objname]);
     if (labText != nullptr)
     {
-        lv_obj_t *lab = lv_label_create(userDisplay.displayObj[objname], nullptr);
+        lv_obj_t *lab = lv_label_create(userDisplay->displayObj[objname], nullptr);
         lv_label_set_text(lab, labText);
     }
 }
@@ -51,7 +51,7 @@ void UserDisplay::createUserTask(task_flag taskName, void (*task)(void *), uint3
 void UserDisplay::delTasks()
 {
     unsigned int flag = 1;
-    for (auto &it : userDisplay.displayTask)
+    for (auto &it : userDisplay->displayTask)
     {
         if (it != nullptr)
         {
@@ -65,7 +65,7 @@ void UserDisplay::delTasks()
 void UserDisplay::delObjs()
 {
     unsigned int flag = 1;
-    for (auto &it : userDisplay.displayObj)
+    for (auto &it : userDisplay->displayObj)
     {
         if (it != nullptr)
         {

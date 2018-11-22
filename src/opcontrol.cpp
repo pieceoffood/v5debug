@@ -10,20 +10,20 @@
 
 void opcontrol()
 {
-    userDisplay.delTasks();
-    userDisplay.delObjs();
-    userDisplay.createOpObj();
+    userDisplay->delTasks();
+    userDisplay->delObjs();
+    userDisplay->createOpObj();
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
 
     while (true)
     {
         nowTime = pros::millis();
-        userDisplay.loopTime = nowTime - lastTime;
-        if (userDisplay.loopTime > userDisplay.maxLoopTime)
-            userDisplay.maxLoopTime = userDisplay.loopTime;
-        if (userDisplay.loopTime < userDisplay.minLoopTime)
-            userDisplay.minLoopTime = userDisplay.loopTime;
+        userDisplay->loopTime = nowTime - lastTime;
+        if (userDisplay->loopTime > userDisplay->maxLoopTime)
+            userDisplay->maxLoopTime = userDisplay->loopTime;
+        if (userDisplay->loopTime < userDisplay->minLoopTime)
+            userDisplay->minLoopTime = userDisplay->loopTime;
         //TODO
         lastTime = nowTime;
         pros::c::task_delay_until(&nowTime, 10);
@@ -34,8 +34,8 @@ static void loopTask(void *param)
     (void)param; /*Unused*/
     char loopInfo[256];
     sprintf(loopInfo, "loop:%u max:%u min:%u\n",
-            userDisplay.loopTime, userDisplay.maxLoopTime, userDisplay.minLoopTime);
-    lv_label_set_text(userDisplay.loopLab, loopInfo);
+            userDisplay->loopTime, userDisplay->maxLoopTime, userDisplay->minLoopTime);
+    lv_label_set_text(userDisplay->loopLab, loopInfo);
 }
 
 void UserDisplay::createOpObj()

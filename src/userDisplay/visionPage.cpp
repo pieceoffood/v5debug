@@ -3,10 +3,10 @@
 static lv_res_t btn_close_action(lv_obj_t *btn)
 {
     (void)btn; /*Unused*/
-    lv_obj_del(userDisplay.displayObj[OBJ_VISION]);
-    userDisplay.displayObj[OBJ_VISION] = nullptr;
-    lv_task_del(userDisplay.displayTask[TASK_VISON]);
-    userDisplay.displayTask[TASK_VISON] = nullptr;
+    lv_obj_del(userDisplay->displayObj[OBJ_VISION]);
+    userDisplay->displayObj[OBJ_VISION] = nullptr;
+    lv_task_del(userDisplay->displayTask[TASK_VISON]);
+    userDisplay->displayTask[TASK_VISON] = nullptr;
     return LV_RES_INV;
 }
 
@@ -15,7 +15,7 @@ static void visionTask(void *param)
     (void)param; /*Unused*/
     char visionInfo[256];
 
-    lv_label_set_text(userDisplay.visionLab, visionInfo);
+    lv_label_set_text(userDisplay->visionLab, visionInfo);
 }
 
 void UserDisplay::creartVision(lv_obj_t *parent)

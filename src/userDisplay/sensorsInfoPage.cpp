@@ -11,10 +11,10 @@
 static lv_res_t btn_close_action(lv_obj_t *btn)
 {
     (void)btn; /*Unused*/
-    lv_obj_del(userDisplay.displayObj[OBJ_SENSORSINFO]);
-    userDisplay.displayObj[OBJ_SENSORSINFO] = nullptr;
-    lv_task_del(userDisplay.displayTask[TASK_REFR]);
-    userDisplay.displayTask[TASK_REFR] = nullptr;
+    lv_obj_del(userDisplay->displayObj[OBJ_SENSORSINFO]);
+    userDisplay->displayObj[OBJ_SENSORSINFO] = nullptr;
+    lv_task_del(userDisplay->displayTask[TASK_REFR]);
+    userDisplay->displayTask[TASK_REFR] = nullptr;
     return LV_RES_INV;
 }
 
@@ -23,7 +23,7 @@ static void sensorsTask(void *param)
     (void)param; /*Unused*/
     char sensorsInfo[256];
     //sprintf(char *, const char *, ...)
-    lv_label_set_text(userDisplay.sensorsLab, sensorsInfo);
+    lv_label_set_text(userDisplay->sensorsLab, sensorsInfo);
 }
 
 void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)

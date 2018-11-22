@@ -3,8 +3,8 @@
 static lv_res_t btn_close_action(lv_obj_t *btn)
 {
     (void)btn; /*Unused*/
-    lv_obj_del(userDisplay.displayObj[OBJ_CHECKLIST]);
-    userDisplay.displayObj[OBJ_CHECKLIST] = nullptr;
+    lv_obj_del(userDisplay->displayObj[OBJ_CHECKLIST]);
+    userDisplay->displayObj[OBJ_CHECKLIST] = nullptr;
     return LV_RES_INV;
 }
 void UserDisplay::creartCheckList(lv_obj_t *parent)

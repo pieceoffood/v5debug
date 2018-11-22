@@ -1,16 +1,9 @@
-/**
- * @Author: 陈昱安
- * @Date:   2018-10-11T21:09:49+08:00
- * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-28T21:54:48+08:00
- */
-
-#ifndef USERDISPLAY_HPP_
-#define USERDISPLAY_HPP_
+#pragma once
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
 #include <array>
+#include <sstream>
+
 extern lv_font_t myfont;
 typedef enum obj_flag
 {
@@ -40,13 +33,13 @@ class UserDisplay
   public:
     //样式
     lv_theme_t *theme;
+    lv_style_t style;
     std::array<lv_obj_t *, 11> displayObj = {nullptr};  //对象
     std::array<lv_task_t *, 3> displayTask = {nullptr}; //线程
     //标题栏
     lv_obj_t *sensorsLab = nullptr;
     lv_obj_t *loopLab = nullptr;
     lv_obj_t *visionLab = nullptr;
-
     //时间变量
     uint32_t loopTime = 0;
     uint32_t maxLoopTime = 0;
@@ -63,7 +56,6 @@ class UserDisplay
     void creartCheckList(lv_obj_t *parent);
     void creartConfig(lv_obj_t *parent);
     void creartVision(lv_obj_t *parent);
+    std::ostringstream ostr;
 };
-extern UserDisplay userDisplay;
-
-#endif /* end of include guard: USERDISPLAY_HPP_ */
+extern UserDisplay *userDisplay;
