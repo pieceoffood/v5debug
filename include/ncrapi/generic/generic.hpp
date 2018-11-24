@@ -1,14 +1,5 @@
-/**
- * @Author: 陈昱安
- * @Date:   2018-10-23T22:43:01+08:00
- * @Email:  31612534@qq.com
- * @Last modified by:   陈昱安
- * @Last modified time: 2018-10-27T22:25:03+08:00
- */
-
-#ifndef GENERIC_HPP_
-#define GENERIC_HPP_
-
+#pragma once
+#include "../userDisplay/userDisplay.hpp"
 #include "api.h"
 #include <array>
 #include <memory>
@@ -23,20 +14,24 @@ class Generic
 {
   protected:
     const std::array<pros::Motor, _nums> _motorList;
+    const std::string _name;
     const int _holdVal;
     float _holdingFlag = 0;
     int _pwm = 0;
     size_t _safeModeFlags = 0;
+    bool _isAuto; //1 无遥控器控制 0遥控器控制
 
   public:
-    Generic(const std::array<pros::Motor, _nums> &motorList, const int hold = 0) : _motorList(motorList), _holdVal(hold)
+    Generic(const std::array<pros::Motor, _nums> &motorList, const std::string name, const int hold = 0) : _motorList(motorList), _name(name), _holdVal(hold)
     {
+        pros::delay(100);
         resetEnc();
     }
     virtual void set(const int pwm)
     {
+        _pwm = pwm;
         for (auto &it : _motorList)
-            it.move(pwm);
+            it.move(_pwm);
     }
     virtual void stop()
     {
@@ -47,21 +42,52 @@ class Generic
     {
         set(_holdVal * _holdingFlag);
     }
-
-    virtual void joyControl(const bool up, const bool down)
+    /**
+     * 设置自动或者手动模式 
+     * @param 0 自动模式 1手动模式 自动模式就是关闭停止 
+     */
+    virtual void setAutoMode(const bool flag)
     {
-        if (up)
+        _isAuto = flag;
+    }
+    /**
+     * 设置马达正转反转
+     * @param flag 1正转 0 悬停 -1 反转
+     */
+    virtual void setMode(const int flag)
+    {
+        bool temp = isSafeMode();
+
+        if (flag == 1 && !temp)
         {
             set(127);
             _holdingFlag = 1;
         }
-        else if (down)
+        else if (flag == -1 && !temp)
         {
             set(-127);
             _holdingFlag = -1;
         }
         else
             holding();
+    }
+    virtual void joyControl(const bool up, const bool down)
+    {
+        if (up)
+        {
+            setMode(1);
+            _isAuto = 0;
+        }
+        else if (down)
+        {
+            setMode(-1);
+            _isAuto = 0;
+        }
+        else
+        {
+            if (!_isAuto)
+                setMode(0);
+        }
     }
     /**
     * 重置马达编码器
@@ -154,11 +180,14 @@ class Generic
      */
     virtual bool isSafeMode()
     {
-        if (getSpeed() == 0 && getCurrent() >= 100)
+        if (fabs(getSpeed()) <= 20 && abs(_pwm) > _holdVal + 10)
         {
             _safeModeFlags++;
-            if (_safeModeFlags > 5)
+            if (_safeModeFlags > 10)
+            {
+                std::cerr << _name << ":isSafeMode" << std::endl;
                 return true;
+            }
             else
                 return false;
         }
@@ -177,5 +206,11 @@ class Generic
         for (auto &it : _motorList)
             it.set_brake_mode(mode);
     }
+    /**
+     * 显示传感器数据到屏幕 ostringstream ostr流
+     */
+    virtual void showSensor()
+    {
+        userDisplay->ostr << _name << ": enc:" << getEnc() << " Temper:" << getTemperature() << std::endl;
+    }
 };
-#endif

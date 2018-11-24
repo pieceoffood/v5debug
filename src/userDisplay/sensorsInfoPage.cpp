@@ -21,9 +21,15 @@ static lv_res_t btn_close_action(lv_obj_t *btn)
 static void sensorsTask(void *param)
 {
     (void)param; /*Unused*/
-    char sensorsInfo[256];
-    //sprintf(char *, const char *, ...)
-    lv_label_set_text(userDisplay->sensorsLab, sensorsInfo);
+    // char sensorsInfo[256];
+    userDisplay->ostr.clear();                                               //1：调用clear()清除当前错误控制状态，其原型为 void clear (iostate state=goodbit);
+    userDisplay->ostr.str("");                                               //2：调用str("")将缓冲区清零，清除脏数据
+    userDisplay->ostr << std::fixed << std::setprecision(1) << std::setw(6); //流操纵算子
+
+    //这里添加类的显示函数
+
+    std::string temp = userDisplay->ostr.str();
+    lv_label_set_text(userDisplay->sensorsLab, temp.c_str());
 }
 
 void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
@@ -32,11 +38,7 @@ void UserDisplay::creartSensorsInfo(lv_obj_t *parent, int width)
     createUserObj(OBJ_SENSORSINFO, false, "sensorInfo", parent);
 
     lv_obj_set_size(displayObj[OBJ_SENSORSINFO], width, LV_VER_RES); //设置页面大小
-    lv_obj_t *exitBtn = lv_btn_create(displayObj[OBJ_SENSORSINFO], nullptr);
-    lv_obj_set_pos(exitBtn, width - 75, LV_VER_RES - 75);
-    lv_obj_set_size(exitBtn, 50, 25);
-    lv_obj_t *exitLab = lv_label_create(exitBtn, nullptr);
-    lv_label_set_text(exitLab, "exit");
+
     sensorsLab = lv_label_create(displayObj[OBJ_SENSORSINFO], nullptr); //创建基于INFOObj的标签
     lv_btn_set_action(exitBtn, LV_BTN_ACTION_CLICK, btn_close_action);
     sensorsTask(nullptr); //刷新标签栏

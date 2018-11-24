@@ -1,14 +1,8 @@
-/**
- * @Author: yan
- * @Date:   2018-10-15T14:29:17+08:00
- * @Email:  358079046@qq.com
- * @Last modified by:   yan
- * @Last modified time: 2018-10-26T09:25:41+08:00
- */
-#ifndef CHASSIS_HPP_
-#define CHASSIS_HPP_
+#pragma once
+#include "../userDisplay/userDisplay.hpp"
 #include "api.h"
 #include <array>
+
 constexpr int realSpeed[128] = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
     24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
@@ -29,9 +23,11 @@ class Chassis
   public:
     Chassis(const std::array<pros::Motor, 4> &motorList, const pros::ADIGyro &gyro) : _motorList(motorList), _gyro(gyro)
     {
+        pros::delay(100);
         resetEnc();
+        pros::delay(100);
+        resetGyro();
     }
-    ~Chassis() {}
     void set(const int left, const int right)
     {
         for (size_t i = 0; i < 2; i++)
@@ -162,5 +158,13 @@ class Chassis
     {
         return _gyro.get_value();
     }
+    /**
+     * 显示传感器数据到屏幕 ostringstream ostr流
+     */
+    void showSensor()
+    {
+        userDisplay->ostr << "GYRO:" << getGyro() << "\n"
+                          << "CHS_L: enc:" << getEncLeft() << " Temper:" << getTemperatureLeft() << "\n"
+                          << "CHS_R: enc:" << getEncRight() << " Temper:" << getTemperatureRight() << std::endl;
+    }
 };
-#endif /* end of include guard: CHASSIS_HPP_ */

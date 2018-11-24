@@ -31,11 +31,12 @@ void opcontrol()
 }
 static void loopTask(void *param)
 {
-    (void)param; /*Unused*/
-    char loopInfo[256];
-    sprintf(loopInfo, "loop:%u max:%u min:%u\n",
-            userDisplay->loopTime, userDisplay->maxLoopTime, userDisplay->minLoopTime);
-    lv_label_set_text(userDisplay->loopLab, loopInfo);
+    (void)param;               /*Unused*/
+    userDisplay->ostr.clear(); //1：调用clear()清除当前错误控制状态，其原型为 void clear (iostate state=goodbit);
+    userDisplay->ostr.str(""); //2：调用str("")将缓冲区清零，清除脏数据
+    userDisplay->ostr << "loop:" << userDisplay->loopTime << "max:" << userDisplay->maxLoopTime << "min:" << userDisplay->minLoopTime << std::endl;
+    std::string temp = userDisplay->ostr.str();
+    lv_label_set_text(userDisplay->loopLab, temp.c_str());
 }
 
 void UserDisplay::createOpObj()
@@ -46,6 +47,11 @@ void UserDisplay::createOpObj()
     createUserObj(OBJ_OPCONTROL, true, "opControl");
     if (!pros::competition::is_connected()) //没插场控
         createStartObj();
+
+    lv_obj_t *robotInfoLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
+    lv_obj_set_x(robotInfoLab, LV_HOR_RES / 2 - 30);
+    lv_label_set_text(robotInfoLab, sysData->robotInfo.c_str());
+
     loopLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
     loopTask(nullptr);
 }

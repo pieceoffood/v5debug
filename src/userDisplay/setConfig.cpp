@@ -12,11 +12,7 @@ void UserDisplay::creartConfig(lv_obj_t *parent)
     createUserObj(OBJ_CONFIG, false, "configPage", parent);
     lv_obj_set_size(displayObj[OBJ_CONFIG], LV_HOR_RES, LV_VER_RES); //设置页面大小
     //创建退出按钮
-    lv_obj_t *exitBtn = lv_btn_create(displayObj[OBJ_CONFIG], NULL);
-    lv_obj_set_pos(exitBtn, LV_HOR_RES - 75, LV_VER_RES - 75);
-    lv_obj_set_size(exitBtn, 50, 25);
-    lv_obj_t *exitLab = lv_label_create(exitBtn, NULL);
-    lv_label_set_text(exitLab, "exit");
+
     //创建保存按钮
 
     //读取SD卡内容

@@ -17,19 +17,33 @@ UserDisplay::UserDisplay()
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
 }
-void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, lv_obj_t *parent, const char *labText)
+void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText,
+                                lv_obj_t *parent, const char *labText)
 {
     if (displayObj[objname] == nullptr)
     {
-        displayObj[objname] = lv_obj_create(parent, nullptr);
+        if (isSrcLoad)
+        {
+            displayObj[objname] = lv_obj_create(parent, nullptr);
+            lv_scr_load(displayObj[objname]);
+        }
+        else
+        {
+            displayObj[objname] = lv_page_create(parent, nullptr);
+            exitBtn = lv_btn_create(displayObj[objname], nullptr);
+            lv_obj_set_pos(exitBtn, LV_HOR_RES - 80, LV_VER_RES - 50);
+            lv_obj_set_size(exitBtn, 50, 25);
+            lv_obj_t *exitLab = lv_label_create(exitBtn, nullptr);
+            lv_label_set_text(exitLab, "exit");
+        }
+
         std::cout << "obj:" << terminalText << " create successful" << std::endl;
     }
     else
     {
-        std::cout << "obj:" << terminalText << " already exist" << std::endl;
+        std::cerr << "obj:" << terminalText << " already exist" << std::endl;
     }
-    if (isSrcLoad)
-        lv_scr_load(displayObj[objname]);
+
     if (labText != nullptr)
     {
         lv_obj_t *lab = lv_label_create(userDisplay->displayObj[objname], nullptr);

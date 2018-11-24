@@ -40,6 +40,8 @@ class UserDisplay
     lv_obj_t *sensorsLab = nullptr;
     lv_obj_t *loopLab = nullptr;
     lv_obj_t *visionLab = nullptr;
+    //退出按钮
+    lv_obj_t *exitBtn = nullptr;
     //时间变量
     uint32_t loopTime = 0;
     uint32_t maxLoopTime = 0;

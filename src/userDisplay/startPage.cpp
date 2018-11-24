@@ -37,8 +37,9 @@ void UserDisplay::createStartObj()
                                      "ODOM测试", "版本号", ""};
     if (displayObj[BTNM_START] == nullptr)
         displayObj[BTNM_START] = lv_btnm_create(userDisplay->displayObj[OBJ_OPCONTROL], nullptr); //创建按钮集群
+
     lv_btnm_set_map(displayObj[BTNM_START], btnm_map);
-    lv_obj_set_size(displayObj[BTNM_START], LV_HOR_RES, LV_VER_RES - 30);
-    lv_obj_set_y(displayObj[BTNM_START], 30);
+    lv_obj_set_size(displayObj[BTNM_START], LV_HOR_RES, LV_VER_RES - 20);
+    lv_obj_set_y(displayObj[BTNM_START], 20);
     lv_btnm_set_action(displayObj[BTNM_START], btnm_action);
 }

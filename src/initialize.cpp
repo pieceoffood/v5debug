@@ -37,16 +37,13 @@ void initialize()
     lv_obj_t *lab1 = lv_label_create(initObj, nullptr);
     lv_obj_t *lab2 = lv_label_create(initObj, nullptr);
     lv_obj_set_y(lab2, 20);
-    lv_label_set_text(lab1, "机器人初始化中...");
-    sysData = new systemData("robotstyle", "username", "temnumber"); //系统数据类
-    userDisplay = new UserDisplay;                                   //图像数据类
-    //底盘初始化
-    lv_label_set_text(lab2, "底盘校准中...");
 
-    if (pros::competition::get_status() != COMPETITION_CONNECTED)
-    {
-        //TODO
-    }
+    //系统初始化
+    lv_label_set_text(lab2, "系统初始化中...");
+
+    //显示初始化
+    userDisplay = new UserDisplay;
+
     lv_label_set_text(lab1, "机器人初始化完毕...");
     lv_obj_del(initObj);
 }

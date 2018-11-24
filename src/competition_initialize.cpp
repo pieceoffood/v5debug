@@ -15,8 +15,8 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
         it = lv_sw_get_state(compSw[i]);
         i++;
     }
-    char autoInfo[256];
-    const char *side, *fr, *shootH_M, *isShootMid, *plat, *bumper;
+
+    std::string side, fr, shootH_M, isShootMid, plat, bumper;
     sysData->autoSide == 0 ? side = "红方" : side = "蓝方";
     sysData->autoFlags[AUTO_FR] == 0 ? fr = "前场" : fr = "后场";
     sysData->autoFlags[AUTO_SHOOT] == 0 ? shootH_M = "射高旗" : shootH_M = "射中旗";
@@ -27,10 +27,18 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     userDisplay->delTasks();
     userDisplay->delObjs();
     userDisplay->createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
-    // //显示自动赛选项
-    lv_obj_t *autoinfoLab = lv_label_create(userDisplay->displayObj[OBJ_CONFIRM], nullptr);
-    sprintf(autoInfo, " %s\n %s\n %s\n %s\n %s\n %s", side, fr, shootH_M, isShootMid, plat, bumper);
-    lv_label_set_text(autoinfoLab, autoInfo);
+    //显示自动赛选项
+    lv_obj_t *autoinfoLab = lv_label_create(userDisplay->displayObj[OBJ_CONFIRM], nullptr); //创建LAB条
+    userDisplay->ostr.clear();                                                              //1：调用clear()清除当前错误控制状态，其原型为 void clear (iostate state=goodbit);
+    userDisplay->ostr.str("");                                                              //2：调用str("")将缓冲区清零，清除脏数据
+    userDisplay->ostr << side << '\n'
+                      << fr << '\n'
+                      << shootH_M << '\n'
+                      << isShootMid << '\n'
+                      << plat << '\n'
+                      << bumper << std::endl;
+    std::string temp = userDisplay->ostr.str();
+    lv_label_set_text(autoinfoLab, temp.c_str());
     // 传感器页面创建
     userDisplay->creartSensorsInfo(userDisplay->displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
     lv_obj_align(userDisplay->displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
@@ -91,10 +99,10 @@ void competition_initialize()
     //创建开关后面的文本条
     std::array<lv_obj_t *, AUTO_NUMS> compLab;
     for (auto &it : compLab)
-        it = lv_label_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
+        it = lv_label_create(tab, nullptr);
     //确认按钮
-    lv_obj_t *confirmBtn = lv_btn_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
-    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                             //创建确认开关文本 这里设置按钮为父级
+    lv_obj_t *confirmBtn = lv_btn_create(tab, nullptr);          //创建确认开关
+    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr); //创建确认开关文本 这里设置按钮为父级
 
     lv_label_set_text(compLab[AUTO_FR], "前场&后场");
     lv_label_set_text(compLab[AUTO_SHOOT], "高旗&中旗");
