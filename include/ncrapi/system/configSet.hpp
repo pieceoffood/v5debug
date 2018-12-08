@@ -1,6 +1,5 @@
-#ifndef CONFIGSET_HPP_
-#define CONFIGSET_HPP_
-
+#pragma once
+#include "../userDisplay/userDisplay.hpp"
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
@@ -114,7 +113,7 @@ class Config
     void showConfig()
     {
         for (auto &it : _data)
-            std::cout << it.first << "=" << it.second << std::endl;
+            userDisplay->ostr << it.first << "=" << it.second << std::endl;
     }
     /**
      * 查找函数
@@ -211,6 +210,7 @@ T Config::stringToNum(const std::string &str)
     iss >> num;
     return num;
 }
+extern Config *config;
 //
 // /* static */
 // template <class T>
@@ -261,4 +261,3 @@ T Config::stringToNum(const std::string &str)
 //         b = false;
 //     return b;
 // }
-#endif /* end of include guard: CONFIGSET_HPP_ */

@@ -11,33 +11,7 @@ typedef enum auto_flag
     AUTO_BUMPERFLAG //0不撞中间旗 1 撞中间旗子
 } auto_flag;
 //旗子枚举
-typedef enum flagPosName
-{
-    leftHighFlag = 0,
-    leftMiddleFlag,
-    leftLowFlag,
-    middleHighFlag,
-    middleMiddleFlag,
-    middleLowFlag,
-    rightHighFlag,
-    rightMiddleFlag,
-    rightLowFlag
-} flagPosName;
-/**
-  * 普通自动赛的旗子坐标 和 纯自动的旗子的坐标 两者不同
-  * X =autoMode 普通自动赛=0,纯自动=1
-  * y = flagPosName
-  */
-struct flagCoordinate
-{
-    int x, y, z;
-};
-//盘子的坐标 红方基准
-struct capCoordinate
-{
-    int x, y;
-};
-struct systemData
+struct SystemData
 {
     //机器人初始参数
     const std::string robotStyle;
@@ -50,7 +24,7 @@ struct systemData
     std::array<bool, AUTO_NUMS> autoFlags;
     //传感器数据
     //构造函数
-    systemData(const std::string style, const std::string name, const std::string num) : robotStyle(style), userName(name), teamNum(num)
+    SystemData(const std::string style, const std::string name, const std::string num) : robotStyle(style), userName(name), teamNum(num)
     {
         // Config config("/usd/configUTF8.txt");
         robotInfo.append(robotStyle);
@@ -60,4 +34,4 @@ struct systemData
         robotInfo.append(teamNum);
     }
 };
-extern systemData *sysData;
+extern SystemData *sysData;

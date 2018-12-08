@@ -211,6 +211,6 @@ class Generic
      */
     virtual void showSensor()
     {
-        userDisplay->ostr << _name << ": enc:" << getEnc() << " Temper:" << getTemperature() << std::endl;
+        userDisplay->ostr << _name << ": 编码器:" << getEnc() << " 温度:" << getTemperature() << std::endl;
     }
 };

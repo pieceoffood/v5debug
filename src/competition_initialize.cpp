@@ -41,7 +41,7 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     lv_label_set_text(autoinfoLab, temp.c_str());
     // 传感器页面创建
     userDisplay->creartSensorsInfo(userDisplay->displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
-    lv_obj_align(userDisplay->displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
+    lv_obj_align(userDisplay->displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, -40);
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
 }
@@ -84,7 +84,7 @@ void competition_initialize()
     userDisplay->delObjs();
     userDisplay->createUserObj(OBJ_COMPETITION, true, "obj_competition");
     //创建标签栏
-    lv_obj_t *tab = lv_tabview_create(userDisplay->displayObj[OBJ_COMPETITION], NULL);
+    lv_obj_t *tab = lv_tabview_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
     userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
     lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                   //设置位置
     lv_obj_t *redTab = lv_tabview_add_tab(tab, "红方");
@@ -101,8 +101,8 @@ void competition_initialize()
     for (auto &it : compLab)
         it = lv_label_create(tab, nullptr);
     //确认按钮
-    lv_obj_t *confirmBtn = lv_btn_create(tab, nullptr);          //创建确认开关
-    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr); //创建确认开关文本 这里设置按钮为父级
+    lv_obj_t *confirmBtn = lv_btn_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
+    lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                             //创建确认开关文本 这里设置按钮为父级
 
     lv_label_set_text(compLab[AUTO_FR], "前场&后场");
     lv_label_set_text(compLab[AUTO_SHOOT], "高旗&中旗");

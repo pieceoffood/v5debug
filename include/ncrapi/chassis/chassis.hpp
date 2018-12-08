@@ -163,8 +163,8 @@ class Chassis
      */
     void showSensor()
     {
-        userDisplay->ostr << "GYRO:" << getGyro() << "\n"
-                          << "CHS_L: enc:" << getEncLeft() << " Temper:" << getTemperatureLeft() << "\n"
-                          << "CHS_R: enc:" << getEncRight() << " Temper:" << getTemperatureRight() << std::endl;
+        userDisplay->ostr << "陀螺仪:" << getGyro() << "\n"
+                          << "左底盘: 编码器:" << getEncLeft() << " 温度:" << getTemperatureLeft() << "\n"
+                          << "右底盘: 编码器:" << getEncRight() << " 温度:" << getTemperatureRight() << std::endl;
     }
 };

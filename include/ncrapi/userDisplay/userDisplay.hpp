@@ -7,6 +7,7 @@
 extern lv_font_t myfont;
 typedef enum obj_flag
 {
+    OBJ_CUSTOMTEST,  //自定义测试页面
     OBJ_VISION,      //视觉传感器页面
     OBJ_CONFIG,      //全局参数设置
     OBJ_CHECKLIST,   //检查清单
@@ -34,7 +35,7 @@ class UserDisplay
     //样式
     lv_theme_t *theme;
     lv_style_t style;
-    std::array<lv_obj_t *, 11> displayObj = {nullptr};  //对象
+    std::array<lv_obj_t *, 12> displayObj = {nullptr};  //对象
     std::array<lv_task_t *, 3> displayTask = {nullptr}; //线程
     //标题栏
     lv_obj_t *sensorsLab = nullptr;
@@ -58,6 +59,7 @@ class UserDisplay
     void creartCheckList(lv_obj_t *parent);
     void creartConfig(lv_obj_t *parent);
     void creartVision(lv_obj_t *parent);
+    void creartCustomTest(lv_obj_t *parent);
     std::ostringstream ostr;
 };
 extern UserDisplay *userDisplay;
