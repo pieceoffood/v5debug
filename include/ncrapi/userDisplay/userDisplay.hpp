@@ -2,18 +2,15 @@
 #include "display/lv_conf.h"
 #include "display/lvgl.h"
 #include <array>
+#include <iostream>
 #include <sstream>
-
-extern lv_font_t myfont;
+extern lv_font_t ncrfont10;
+// extern lv_img_t field;
+LV_IMG_DECLARE(field); //声明一个场地图像变量
 typedef enum obj_flag
 {
-    OBJ_CUSTOMTEST,  //自定义测试页面
-    OBJ_VISION,      //视觉传感器页面
-    OBJ_CONFIG,      //全局参数设置
-    OBJ_CHECKLIST,   //检查清单
-    OBJ_VERSION,     //版本号页面
-    OBJ_SENSORSINFO, //传感器页面 为了防止误删除 需要放前面
-    BTNM_START,      //按钮阵列 为了防止重复删除 这个也要放前面
+    OBJ_BTNM_SON, //起始页面下的选项
+    BTNM_START,   //按钮阵列 为了防止重复删除 这个也要放前面
 
     OBJ_COMPETITION,
     OBJ_DISABLED,
@@ -24,10 +21,11 @@ typedef enum obj_flag
 
 typedef enum task_flag
 {
-    TASK_VISON, //视觉检测的TASK
-    TASK_REFR,  //传感器页面的TASK
-    TASK_LOOP   //记录遥控模式下LOOP的TASK
+    TASK_LOOP, //记录遥控模式下LOOP的TASK
+    TASK_OTHER //其他模式下的线程
 } task_flag;
+namespace ncrapi
+{
 
 class UserDisplay
 {
@@ -35,12 +33,11 @@ class UserDisplay
     //样式
     lv_theme_t *theme;
     lv_style_t style;
-    std::array<lv_obj_t *, 12> displayObj = {nullptr};  //对象
-    std::array<lv_task_t *, 3> displayTask = {nullptr}; //线程
+    std::array<lv_obj_t *, 8> displayObj = {nullptr};   //对象
+    std::array<lv_task_t *, 2> displayTask = {nullptr}; //线程
     //标题栏
-    lv_obj_t *sensorsLab = nullptr;
+    lv_obj_t *otherLab = nullptr;
     lv_obj_t *loopLab = nullptr;
-    lv_obj_t *visionLab = nullptr;
     //退出按钮
     lv_obj_t *exitBtn = nullptr;
     //时间变量
@@ -54,12 +51,17 @@ class UserDisplay
     void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
     void createOpObj();
     void createStartObj();
-    void creartSensorsInfo(lv_obj_t *parent, int width);
     void creartVersion(lv_obj_t *parent);
-    void creartCheckList(lv_obj_t *parent);
     void creartConfig(lv_obj_t *parent);
     void creartVision(lv_obj_t *parent);
     void creartCustomTest(lv_obj_t *parent);
+    void creartSysInfo(lv_obj_t *parent);
+    void creartPid(lv_obj_t *parent);
+    void creartOdom(lv_obj_t *parent);
+    void creartDebug(lv_obj_t *parent);
+    static lv_res_t closeAction(lv_obj_t *btn); //退出按钮的动作
+
     std::ostringstream ostr;
 };
-extern UserDisplay *userDisplay;
+} // namespace ncrapi
+extern ncrapi::UserDisplay *userDisplay;

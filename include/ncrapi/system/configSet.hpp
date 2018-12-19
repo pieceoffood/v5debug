@@ -8,14 +8,15 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+namespace ncrapi
+{
 #define MAX_BUF_LEN 1024
 #define MAX_KEY_LEN 64
 #define MAX_VAL_LEN 256
 class Config
 {
   private:
-    std::vector<std::pair<std::string, std::string>> _data;
+    std::vector<std::pair<std::string, std::string>> *_data;
     typedef std::vector<std::pair<std::string, std::string>>::const_iterator iter;
     bool _changeFlag = false;
     bool _openFlag = false;
@@ -31,7 +32,7 @@ class Config
     }
 
   public:
-    Config(const std::string &filePath) : _filePath(filePath)
+    Config(std::vector<std::pair<std::string, std::string>> *data, const std::string &filePath) : _data(data), _filePath(filePath)
     {
         FILE *file = fopen(_filePath.c_str(), "r");
         if (file == NULL)
@@ -101,7 +102,7 @@ class Config
                 }
                 if (strcmp(_paramk, "") == 0 || strcmp(_paramv, "") == 0)
                     continue;
-                _data.push_back(std::make_pair(_paramk, _paramv));
+                _data->push_back(std::make_pair(_paramk, _paramv));
             }
             fclose(file);
             _openFlag = true;
@@ -112,7 +113,7 @@ class Config
      */
     void showConfig()
     {
-        for (auto &it : _data)
+        for (auto &it : *_data)
             userDisplay->ostr << it.first << "=" << it.second << std::endl;
     }
     /**
@@ -122,13 +123,13 @@ class Config
      */
     iter find(std::string key)
     {
-        iter it = _data.begin();
-        for (; it != _data.end(); it++)
+        iter it = _data->begin();
+        for (; it != _data->end(); it++)
         {
             if (it->first == key)
                 return it;
         }
-        return _data.end();
+        return _data->end();
     }
 
     /**
@@ -140,7 +141,7 @@ class Config
     T read(std::string key)
     {
         iter it = find(key);
-        if (it == _data.end())
+        if (it == _data->end())
             std::cerr << "Key not found" << std::endl;
         else
             return stringToNum<T>(it->second);
@@ -156,13 +157,13 @@ class Config
         if (_openFlag == false)
             return false;
         _changeFlag = true;
-        for (auto &it : _data)
+        for (auto &it : *_data)
             if (it.first == key)
             {
                 it.second = value; //如果找到了就修改
                 return true;
             }
-        _data.push_back(std::pair<std::string, std::string>(key, value)); //如果没找到就新增
+        _data->push_back(std::pair<std::string, std::string>(key, value)); //如果没找到就新增
 
         return true;
     }
@@ -186,7 +187,7 @@ class Config
             std::cerr << "file open error" << std::endl;
             return false;
         }
-        for (auto &it : _data)
+        for (auto &it : *_data)
         {
             fprintf(file, "%s = %s\n", it.first.c_str(), it.second.c_str());
         }
@@ -210,7 +211,8 @@ T Config::stringToNum(const std::string &str)
     iss >> num;
     return num;
 }
-extern Config *config;
+} // namespace ncrapi
+//extern ncrapi::Config *config;
 //
 // /* static */
 // template <class T>
