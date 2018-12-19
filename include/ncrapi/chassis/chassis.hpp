@@ -273,24 +273,6 @@ class Chassis : public Obj
     }
 
     /**
-     * 自瞄算法
-     * @param data
-     */
-    void autoAimingCalc(pros::vision_object_s_t &data)
-    {
-        int error = 0;
-        error = (VISION_FOV_WIDTH / 2) - data.left_coord + _shootPosVal;
-        int sign = static_cast<int>(copysign(1.0, static_cast<float>(error)));
-        if (abs(error) >= 100)
-            error = 100 * sign;
-        else if (abs(error) > 10 && abs(error) < 100)
-            error = _shootSpeed * sign;
-        else if (abs(error) <= 10)
-            error = 0;
-        // std::cout << error << std::endl;
-        rotateVelocity(error);
-    }
-    /**
      * 显示传感器数据到屏幕 ostringstream ostr流
      */
     virtual void showSensor()
