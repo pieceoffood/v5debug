@@ -10,7 +10,7 @@
 //全局变量和类
 ncrapi::SystemData *sysData;      //系统数据类
 ncrapi::UserDisplay *userDisplay; //图像数据类
-ncrapi::Config *config;           //SD卡读取类
+
 //全局初始化构造函数
 
 /**
