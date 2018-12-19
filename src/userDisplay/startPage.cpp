@@ -6,7 +6,8 @@
  * @Last modified time: 2018-10-28T22:09:06+08:00
  */
 
-#include "main.h"
+#include "ncrapi/userDisplay/userDisplay.hpp"
+
 /**
  * 按钮阵列的动作
  * @param  btnm 按钮阵列
@@ -17,8 +18,8 @@ static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
 {
     (void)btnm; /*Unused*/
     //TODO 做一个字符串判断
-    if (!strcmp(txt, "传感器信息"))
-        userDisplay->creartSensorsInfo(userDisplay->displayObj[BTNM_START], LV_HOR_RES);
+    if (!strcmp(txt, "系统信息"))
+        userDisplay->creartSysInfo(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "全局参数设置"))
         userDisplay->creartConfig(userDisplay->displayObj[BTNM_START]); //创建CONFIGSET页面
     if (!strcmp(txt, "自定义测试"))
@@ -27,13 +28,21 @@ static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
         userDisplay->creartVision(userDisplay->displayObj[BTNM_START]); //创建视觉页面
     if (!strcmp(txt, "版本号"))
         userDisplay->creartVersion(userDisplay->displayObj[BTNM_START]);
+    if (!strcmp(txt, "机器人检测"))
+        userDisplay->creartDebug(userDisplay->displayObj[BTNM_START]);
+    if (!strcmp(txt, "PID调试"))
+        userDisplay->creartPid(userDisplay->displayObj[BTNM_START]);
+    if (!strcmp(txt, "ODOM测试"))
+        userDisplay->creartOdom(userDisplay->displayObj[BTNM_START]);
 
     printf("Key pressed: %s\n", txt);
     return LV_RES_INV;
 }
+namespace ncrapi
+{
 void UserDisplay::createStartObj()
 {
-    static const char *startBtnm[] = {"传感器信息", "机器人检测", "\n",
+    static const char *startBtnm[] = {"系统信息", "机器人检测", "\n",
                                       "全局参数设置", "自定义测试", "\n",
                                       "PID调试", "视觉传感器设置", "\n",
                                       "ODOM测试", "版本号", ""};
@@ -45,3 +54,4 @@ void UserDisplay::createStartObj()
     lv_obj_set_y(displayObj[BTNM_START], 20);
     lv_btnm_set_action(displayObj[BTNM_START], btnm_action);
 }
+} // namespace ncrapi

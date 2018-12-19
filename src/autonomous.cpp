@@ -6,7 +6,7 @@
  * @Last modified time: 2018-10-16T12:51:39+08:00
  */
 
-#include "main.h"
+#include "main.hpp"
 /**
  * 自动赛
  */

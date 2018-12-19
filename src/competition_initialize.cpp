@@ -1,4 +1,4 @@
-#include "main.h"
+#include "main.hpp"
 
 std::array<lv_obj_t *, AUTO_NUMS> compSw;
 /**
@@ -6,6 +6,17 @@ std::array<lv_obj_t *, AUTO_NUMS> compSw;
  * @param  btn 要实现动作的按钮的指针
  * @return     返回不知道啥....
  */
+static void sensorsTask(void *param)
+{
+    (void)param;                                                             /*Unused*/
+    userDisplay->ostr.clear();                                               //1：调用clear()清除当前错误控制状态，其原型为 void clear (iostate state=goodbit);
+    userDisplay->ostr.str("");                                               //2：调用str("")将缓冲区清零，清除脏数据
+    userDisplay->ostr << std::fixed << std::setprecision(1) << std::setw(6); //流操纵算子
+    for (auto &it : sysData->obj)
+        it->showSensor();
+    std::string temp = userDisplay->ostr.str();
+    lv_label_set_text(userDisplay->otherLab, temp.c_str());
+}
 static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
 {
     int i = 0;
@@ -26,7 +37,11 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     //创建确认页面
     userDisplay->delTasks();
     userDisplay->delObjs();
-    userDisplay->createUserObj(OBJ_CONFIRM, false, "obj_confirmPage");
+
+    if (userDisplay->displayObj[OBJ_CONFIRM] == nullptr)
+        userDisplay->displayObj[OBJ_CONFIRM] = lv_obj_create(nullptr, nullptr); //创建确认页面
+
+    lv_obj_set_size(userDisplay->displayObj[OBJ_CONFIRM], LV_HOR_RES, LV_VER_RES); //设置页面大小
     //显示自动赛选项
     lv_obj_t *autoinfoLab = lv_label_create(userDisplay->displayObj[OBJ_CONFIRM], nullptr); //创建LAB条
     userDisplay->ostr.clear();                                                              //1：调用clear()清除当前错误控制状态，其原型为 void clear (iostate state=goodbit);
@@ -40,8 +55,10 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     std::string temp = userDisplay->ostr.str();
     lv_label_set_text(autoinfoLab, temp.c_str());
     // 传感器页面创建
-    userDisplay->creartSensorsInfo(userDisplay->displayObj[OBJ_CONFIRM], LV_HOR_RES - lv_obj_get_width(autoinfoLab)); //总宽度-对象宽度
-    lv_obj_align(userDisplay->displayObj[OBJ_SENSORSINFO], autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, -40);
+    userDisplay->createUserTask(TASK_OTHER, sensorsTask, 100, "sensorInfo");                //创建一个线程
+    userDisplay->otherLab = lv_label_create(userDisplay->displayObj[OBJ_CONFIRM], nullptr); //创建基于INFOObj的标签
+    lv_obj_align(userDisplay->otherLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, -40);
+    sensorsTask(nullptr); //刷新标签栏
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
 }
@@ -82,9 +99,12 @@ void competition_initialize()
 {
     userDisplay->delTasks();
     userDisplay->delObjs();
+
     userDisplay->createUserObj(OBJ_COMPETITION, true, "obj_competition");
     //创建标签栏
     lv_obj_t *tab = lv_tabview_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
+    lv_tabview_set_style(tab, LV_TABVIEW_STYLE_BTN_REL, &userDisplay->style); //设置样式
+
     userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
     lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                   //设置位置
     lv_obj_t *redTab = lv_tabview_add_tab(tab, "红方");
@@ -93,13 +113,27 @@ void competition_initialize()
 
     /*当选项卡按下后进行的操作*/
     lv_tabview_set_tab_load_action(tab, tabChose);
-    //创建各种开关
-    for (auto &it : compSw)
-        it = lv_sw_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
-    //创建开关后面的文本条
     std::array<lv_obj_t *, AUTO_NUMS> compLab;
-    for (auto &it : compLab)
-        it = lv_label_create(tab, nullptr);
+    int xFlag = 10, yFlag = 50, countForSw = 1, countForLab = 0;
+    //创建各种开关和文本条 附带位置设置
+    for (auto &it : compSw)
+    {
+        it = lv_sw_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
+        compLab[countForLab] = lv_label_create(tab, nullptr); //创建开关后面的文本条
+        //位置设置
+        lv_obj_set_pos(it, xFlag, yFlag);
+        lv_obj_align(compLab[countForLab], it, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+        yFlag += 60;
+        countForSw++;
+        countForLab++;
+        if (countForSw >= 4)
+        {
+            xFlag = 250;
+            yFlag = 50;
+            countForSw = 0;
+        }
+    }
+
     //确认按钮
     lv_obj_t *confirmBtn = lv_btn_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr); //创建确认开关
     lv_obj_t *confirmLab = lv_label_create(confirmBtn, nullptr);                             //创建确认开关文本 这里设置按钮为父级
@@ -112,23 +146,7 @@ void competition_initialize()
     lv_label_set_text(confirmLab, "确认");
     //大小设置
     lv_obj_set_size(confirmBtn, 200, 50);
-    //位置设置
-    int xFlag = 10, yFlag = 80, countForSw = 1, countForLab = 0;
-    //设置开关和匹配文本的位置
-    for (auto &it : compSw)
-    {
-        lv_obj_set_pos(it, xFlag, yFlag);
-        lv_obj_align(compLab[countForLab], it, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
-        yFlag += 50;
-        countForSw++;
-        countForLab++;
-        if (countForSw >= 4)
-        {
-            xFlag = 250;
-            yFlag = 80;
-            countForSw = 0;
-        }
-    }
+
     //设置确定按钮和其文本框的位置
     lv_obj_set_pos(confirmBtn, LV_HOR_RES - 200, LV_VER_RES - 50);
     //确认按钮的动作

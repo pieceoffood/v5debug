@@ -5,7 +5,7 @@
  * @Last modified by:   陈昱安
  * @Last modified time: 2018-10-28T22:06:18+08:00
  */
-#include "main.h"
+#include "main.hpp"
 /**
  * 场控没开自动赛 没开手动 完全禁止的时候使用的函数
   */

@@ -10,6 +10,14 @@
   * X =autoMode 普通自动赛=0,纯自动=1
   * y = flagPosName
   */
+typedef enum auto_flag
+{
+    AUTO_FR,        //前场0 后场1
+    AUTO_SHOOT,     //射高旗0 射中旗1
+    AUTO_MID_SHOOT, //是否射中间的旗子 0不射 1射
+    AUTO_PLATFORM,  //0不开台 1 开台
+    AUTO_BUMPERFLAG //0不撞中间旗 1 撞中间旗子
+} auto_flag;
 struct flagCoordinate
 {
     int x, y, z;

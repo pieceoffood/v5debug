@@ -6,11 +6,11 @@
  * @Last modified time: 2018-10-28T22:49:50+08:00
  */
 
-#include "main.h"
+#include "main.hpp"
 //全局变量和类
-SystemData *sysData;      //系统数据类
-UserDisplay *userDisplay; //图像数据类
-Config *config;           //SD卡读取类
+ncrapi::SystemData *sysData;      //系统数据类
+ncrapi::UserDisplay *userDisplay; //图像数据类
+ncrapi::Config *config;           //SD卡读取类
 //全局初始化构造函数
 
 /**
@@ -28,12 +28,10 @@ void initialize()
     std::string robotStyle = "机型";
     //系统初始化
     lv_label_set_text(lab2, "系统初始化中...");
-    sysData = new SystemData(robotStyle, "USERNAME", "TEAMNUM");
-    lv_label_set_text(lab2, "文件读取中...");
-    config = new Config("/usd/config");
+    sysData = new ncrapi::SystemData(robotStyle, "USERNAME", "TEAMNUM");
     //显示初始化
     lv_label_set_text(lab2, "图形界面初始化中...");
-    userDisplay = new UserDisplay;
+    userDisplay = new ncrapi::UserDisplay;
 
     lv_label_set_text(lab1, "机器人初始化完毕...");
     lv_obj_del(initObj);
