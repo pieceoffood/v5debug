@@ -1,6 +1,4 @@
 #include "ncrapi/system/configSet.hpp"
-#include "ncrapi/userDisplay/userDisplay.hpp"
-
 namespace ncrapi
 {
 void UserDisplay::creartConfig(lv_obj_t *parent)
