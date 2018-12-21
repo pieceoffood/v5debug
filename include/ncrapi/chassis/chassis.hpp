@@ -135,7 +135,6 @@ class Chassis : public Obj
      */
     void arcade(pros::Controller *joy, pros::controller_analog_e_t verticalVal, pros::controller_analog_e_t horizontalVal, pros::controller_digital_e_t autoAimingBTN, const int rotateMaxSpeed = 127, const int threshold = 0, const int speedMode[128] = realSpeed)
     {
-
         int32_t x = joy->get_analog(verticalVal);
         int32_t y = joy->get_analog(horizontalVal);
         if (abs(x) < threshold)
@@ -150,8 +149,7 @@ class Chassis : public Obj
     /**
      * 重置底盘所有马达编码器
      */
-    void
-    resetEnc()
+    void resetEnc()
     {
         for (auto &it : _motorList)
             it.tare_position();
@@ -166,7 +164,7 @@ class Chassis : public Obj
     /**
      * 重置底盘相关传感器
      */
-    void resetSensors()
+    virtual void resetAllSensors() override
     {
         resetEnc();
         resetGyro();
@@ -271,7 +269,6 @@ class Chassis : public Obj
     {
         return _gyro.get_value() / 10;
     }
-
     /**
      * 显示传感器数据到屏幕 ostringstream ostr流
      */
@@ -295,5 +292,5 @@ class Chassis : public Obj
                           << "编码器 : " << getEnc(1) << "速度:" << getSpeed(1) << "\n"
                           << "温度 : " << getTemperature(1) << "电压 : " << getVoltage(1) << "电流 : " << getCurrent(1) << std::endl;
     }
-}; // namespace ncrapi
+};
 } // namespace ncrapi

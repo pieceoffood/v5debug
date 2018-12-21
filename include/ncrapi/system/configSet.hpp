@@ -17,9 +17,7 @@ class Config
 {
   private:
     std::vector<std::pair<std::string, std::string>> *_data;
-    typedef std::vector<std::pair<std::string, std::string>>::const_iterator iter;
-    bool _changeFlag = false;
-    bool _openFlag = false;
+
     std::string _filePath;
     void Trim(char s[])
     {
@@ -38,7 +36,6 @@ class Config
         if (file == NULL)
         {
             std::cerr << "file open error" << std::endl;
-            _openFlag = false;
         }
         else
         {
@@ -105,112 +102,15 @@ class Config
                 _data->push_back(std::make_pair(_paramk, _paramv));
             }
             fclose(file);
-            _openFlag = true;
         }
     }
-    /**
-     * 遍历显示CONFIG
-     */
-    void showConfig()
-    {
-        for (auto &it : *_data)
-            userDisplay->ostr << it.first << "=" << it.second << std::endl;
-    }
-    /**
-     * 查找函数
-     * @param  key 关键字
-     * @return     返回迭代器(在VECTOR中的位置 没找到返回END())
-     */
-    iter find(std::string key)
-    {
-        iter it = _data->begin();
-        for (; it != _data->end(); it++)
-        {
-            if (it->first == key)
-                return it;
-        }
-        return _data->end();
-    }
-
-    /**
-     * 按KEY查找CONFIG的值
-     * @param  key 关键字
-     * @return     关键字对应的值
-     */
-    template <class T>
-    T read(std::string key)
-    {
-        iter it = find(key);
-        if (it == _data->end())
-            std::cerr << "Key not found" << std::endl;
-        else
-            return stringToNum<T>(it->second);
-    }
-    /**
-     * 修改config的值
-     * @param  key   关键字
-     * @param  value 关键字对应的值
-     * @return        修改成功返回true 失败返回false
-     */
-    bool setConfig(std::string key, std::string value)
-    {
-        if (_openFlag == false)
-            return false;
-        _changeFlag = true;
-        for (auto &it : *_data)
-            if (it.first == key)
-            {
-                it.second = value; //如果找到了就修改
-                return true;
-            }
-        _data->push_back(std::pair<std::string, std::string>(key, value)); //如果没找到就新增
-
-        return true;
-    }
-    /**
-     * 遍历保存config
-     * @return 成功返回true 失败返回false
-     */
-    bool saveConfig()
-    {
-        if (_openFlag == false)
-        {
-            std::cerr << "file open error" << std::endl;
-            return false;
-        }
-        if (_changeFlag == false)
-            return true;
-
-        FILE *file = fopen(_filePath.c_str(), "w");
-        if (file == NULL)
-        {
-            std::cerr << "file open error" << std::endl;
-            return false;
-        }
-        for (auto &it : *_data)
-        {
-            fprintf(file, "%s = %s\n", it.first.c_str(), it.second.c_str());
-        }
-        fclose(file);
-        _changeFlag = false;
-        return true;
-    }
-    template <class T>
-    static T stringToNum(const std::string &str);
 
     // template <class T>
     // static std::string T_as_string(const T &t);
     // template <class T>
     // static T string_as_T(const std::string &s);
 };
-template <class T>
-T Config::stringToNum(const std::string &str)
-{
-    std::istringstream iss(str);
-    T num;
-    iss >> num;
-    return num;
-}
+
 } // namespace ncrapi
 //extern ncrapi::Config *config;
 //

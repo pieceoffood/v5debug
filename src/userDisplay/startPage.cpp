@@ -31,7 +31,7 @@ static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
     if (!strcmp(txt, "机器人检测"))
         userDisplay->creartDebug(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "PID调试"))
-        userDisplay->creartPid(userDisplay->displayObj[BTNM_START]);
+        userDisplay->creartPidTest(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "ODOM测试"))
         userDisplay->creartOdom(userDisplay->displayObj[BTNM_START]);
 

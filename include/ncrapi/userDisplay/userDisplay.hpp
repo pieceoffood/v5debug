@@ -7,6 +7,7 @@
 extern lv_font_t ncrfont10;
 // extern lv_img_t field;
 LV_IMG_DECLARE(field); //声明一个场地图像变量
+LV_IMG_DECLARE(logo);  //声明一个logo图像变量
 typedef enum obj_flag
 {
     OBJ_BTNM_SON, //起始页面下的选项
@@ -38,8 +39,6 @@ class UserDisplay
     //标题栏
     lv_obj_t *otherLab = nullptr;
     lv_obj_t *loopLab = nullptr;
-    //退出按钮
-    lv_obj_t *exitBtn = nullptr;
     //时间变量
     uint32_t loopTime = 0;
     uint32_t maxLoopTime = 0;
@@ -51,15 +50,21 @@ class UserDisplay
     void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
     void createOpObj();
     void createStartObj();
-    void creartVersion(lv_obj_t *parent);
-    void creartConfig(lv_obj_t *parent);
-    void creartVision(lv_obj_t *parent);
-    void creartCustomTest(lv_obj_t *parent);
-    void creartSysInfo(lv_obj_t *parent);
-    void creartPid(lv_obj_t *parent);
-    void creartOdom(lv_obj_t *parent);
-    void creartDebug(lv_obj_t *parent);
-    static lv_res_t closeAction(lv_obj_t *btn); //退出按钮的动作
+    void creartVersion(lv_obj_t *parent);    //1
+    void creartConfig(lv_obj_t *parent);     //2
+    void creartVision(lv_obj_t *parent);     //3
+    void creartCustomTest(lv_obj_t *parent); //4
+    void creartSysInfo(lv_obj_t *parent);    //5
+    void creartPidTest(lv_obj_t *parent);    //6
+    void creartOdom(lv_obj_t *parent);       //7
+    void creartDebug(lv_obj_t *parent);      //8
+
+    void createExitBtn(obj_flag objname, const int x = LV_HOR_RES - 80, const int y = LV_HOR_RES - 50, const int width = 50, const int high = 25); //创建退出按钮
+    void createResetBtn(obj_flag objname, const int x, const int y, const int width = 50, const int high = 25);                                    //创建重制传感器按钮
+    void createMbox(lv_obj_t *parent, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action);                              //创建一个消息框
+    static lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt);                                                                              //消息框动作
+    static lv_res_t closeAction(lv_obj_t *btn);                                                                                                    //退出按钮的动作
+    static lv_res_t resetAction(lv_obj_t *btn);                                                                                                    //退出按钮的动作
 
     std::ostringstream ostr;
 };

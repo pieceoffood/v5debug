@@ -307,6 +307,14 @@ class Generic : public Obj
         }
     }
     /**
+     * 重置所有相关传感器
+     */
+    virtual void resetAllSensors() override
+    {
+        resetEnc();
+    }
+
+    /**
      * 设置马达制动模式 使用会导致马达端口烧掉
      * @param mode 马达制动的模式 
      */

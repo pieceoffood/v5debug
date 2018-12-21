@@ -13,12 +13,8 @@ void UserDisplay::creartVersion(lv_obj_t *parent)
     userDisplay->ostr << "pros_version:" << PROS_VERSION_STRING << '\n'
                       << "oklib_version:3.3.7" << '\n'
                       << "lvgl_version:" << LVGL_VERSION_INFO << '\n'
-                      << "ncr_version:" << NCR_VERSION_STRING << '\n'
-                      << "robot_style:" << sysData->robotStyle << '\n'
-                      << "user:" << sysData->userName << '\n'
-                      << "team_number:" << sysData->teamNum << std::endl;
+                      << "ncr_version:" << NCR_VERSION_STRING << std::endl;
     std::string temp = userDisplay->ostr.str();
     lv_label_set_text(verLab, temp.c_str());
-    lv_btn_set_action(exitBtn, LV_BTN_ACTION_CLICK, closeAction);
 }
 } // namespace ncrapi

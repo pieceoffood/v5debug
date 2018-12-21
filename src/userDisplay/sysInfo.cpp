@@ -54,13 +54,11 @@ void UserDisplay::creartSysInfo(lv_obj_t *parent)
     //创建文本条
     otherLab = lv_label_create(displayObj[OBJ_BTNM_SON], nullptr); //创建基于INFOObj的标签
     lv_obj_set_y(otherLab, 30);                                    //设置文本条位置
+
+    //重置传感器按钮
+    createResetBtn(OBJ_BTNM_SON, LV_HOR_RES - 140, LV_VER_RES - 50);
     //退出按钮
-    exitBtn = lv_btn_create(displayObj[OBJ_BTNM_SON], nullptr);
-    lv_obj_set_pos(exitBtn, LV_HOR_RES - 80, LV_VER_RES - 50);
-    lv_obj_set_size(exitBtn, 50, 25);
-    lv_obj_t *exitLab = lv_label_create(exitBtn, nullptr);
-    lv_label_set_text(exitLab, "exit");
-    lv_btn_set_action(exitBtn, LV_BTN_ACTION_CLICK, closeAction);
+    createExitBtn(OBJ_BTNM_SON);
     sysInfoTask(nullptr);
 }
 } // namespace ncrapi
