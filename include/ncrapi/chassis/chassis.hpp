@@ -23,18 +23,14 @@ class Chassis : public Obj
   protected:
     const std::string _name;
     const std::array<pros::Motor, _nums> _motorList;
-    const pros::ADIGyro _gyro;
     const size_t _sideNums = _nums / 2; //半边马达数量
-    int _shootPosVal = 0;               //如果射的总是偏低 调成正数,射的总是偏高,调成负数
-    int _shootSpeed = 10;
-    int _pwm[2]; //0 左边pwm 1 右边pwm
+    int _pwm[2];                        //0 左边pwm 1 右边pwm
 
   public:
-    Chassis(const std::array<pros::Motor, _nums> &motorList, const pros::ADIGyro &gyro, const int shootPosVal, const int shootSpeed) : _motorList(motorList), _gyro(gyro), _shootPosVal(shootPosVal), _shootSpeed(shootSpeed), _name("底盘")
+    Chassis(const std::array<pros::Motor, _nums> &motorList) : _motorList(motorList), _name("底盘")
     {
         pros::delay(100);
         resetEnc();
-        resetGyro();
         sysData->addObj(this);
     }
     void set(const int left, const int right)
@@ -133,7 +129,7 @@ class Chassis : public Obj
      * @param horizontalVal    左右通道
      * @param threshold 遥控器矫正阀值
      */
-    void arcade(pros::Controller *joy, pros::controller_analog_e_t verticalVal, pros::controller_analog_e_t horizontalVal, pros::controller_digital_e_t autoAimingBTN, const int rotateMaxSpeed = 127, const int threshold = 0, const int speedMode[128] = realSpeed)
+    void arcade(pros::Controller *joy, pros::controller_analog_e_t verticalVal, pros::controller_analog_e_t horizontalVal, const int rotateMaxSpeed = 127, const int threshold = 0, const int speedMode[128] = realSpeed)
     {
         int32_t x = joy->get_analog(verticalVal);
         int32_t y = joy->get_analog(horizontalVal);
@@ -154,20 +150,13 @@ class Chassis : public Obj
         for (auto &it : _motorList)
             it.tare_position();
     }
-    /**
-     * 重置陀螺仪
-     */
-    void resetGyro()
-    {
-        _gyro.reset();
-    }
+
     /**
      * 重置底盘相关传感器
      */
     virtual void resetAllSensors() override
     {
         resetEnc();
-        resetGyro();
     }
     /**
  * @获取左边或者右边编码器值
@@ -261,21 +250,13 @@ class Chassis : public Obj
             sum += _motorList[i].get_current_draw();
         return sum / static_cast<int32_t>(_sideNums); //注意这里有坑
     }
-    /**
-     * 获取陀螺仪读数
-     * @return 陀螺仪返回值
-     */
-    double getGyro()
-    {
-        return _gyro.get_value() / 10;
-    }
+
     /**
      * 显示传感器数据到屏幕 ostringstream ostr流
      */
     virtual void showSensor()
     {
-        userDisplay->ostr << "陀螺仪:" << getGyro() << "\n"
-                          << "左底盘: 编码器:" << getEnc(0) << " 温度:" << getTemperature(0) << "电压:" << getVoltage(0) << "电流:" << getCurrent(0) << "\n"
+        userDisplay->ostr << "左底盘: 编码器:" << getEnc(0) << " 温度:" << getTemperature(0) << "电压:" << getVoltage(0) << "电流:" << getCurrent(0) << "\n"
                           << "右底盘: 编码器:" << getEnc(1) << " 温度:" << getTemperature(1) << "电压:" << getVoltage(1) << "电流:" << getCurrent(1) << std::endl;
     }
     virtual const std::string showName() const
@@ -284,8 +265,7 @@ class Chassis : public Obj
     }
     virtual void showDetailedInfo()
     {
-        userDisplay->ostr << "陀螺仪:" << getGyro() << "\n"
-                          << "左底盘pwm:" << _pwm[0] << "\n"
+        userDisplay->ostr << "左底盘pwm:" << _pwm[0] << "\n"
                           << "编码器:" << getEnc(0) << "速度:" << getSpeed(0) << "\n"
                           << "温度:" << getTemperature(0) << "电压:" << getVoltage(0) << "电流:" << getCurrent(0) << "\n"
                           << "右底盘pwm:" << _pwm[1] << "\n"

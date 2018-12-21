@@ -7,6 +7,7 @@
  */
 
 #include "api.h"
+#include "nancy.hpp"
 #include "ncrapi/ncrapi.hpp"
 
 namespace ncrapi
@@ -150,7 +151,7 @@ void UserDisplay::createOpObj()
 
     lv_obj_t *robotInfoLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
     lv_obj_set_x(robotInfoLab, LV_HOR_RES / 2 - 30);
-    // lv_label_set_text(robotInfoLab, robotInfo.c_str());
+    lv_label_set_text(robotInfoLab, robotInfo.c_str());
 
     loopLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
     loopTask(nullptr);

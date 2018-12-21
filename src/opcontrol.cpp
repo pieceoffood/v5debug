@@ -24,17 +24,12 @@ void opcontrol()
             userDisplay->maxLoopTime = userDisplay->loopTime;
         if (userDisplay->loopTime < userDisplay->minLoopTime)
             userDisplay->minLoopTime = userDisplay->loopTime;
-        //TODO
+        //demo for nancy
+        chassis->arcade(joy1, ANALOG_LEFT_Y, ANALOG_RIGHT_X, ROTATE_SPEED, JOY_THRESHOLD); //底盘遥控
+        lift->joyControl(joy1, DIGITAL_L1, DIGITAL_L2);                                    //升降
+        flipper->joyControl(joy1, DIGITAL_R1, DIGITAL_R2);                                 //旋转器
+        //demo for nancy
         lastTime = nowTime;
         pros::c::task_delay_until(&nowTime, 10);
     }
-}
-static void loopTask(void *param)
-{
-    (void)param;               /*Unused*/
-    userDisplay->ostr.clear(); //1：调用clear()清除当前错误控制状态，其原型为 void clear (iostate state=goodbit);
-    userDisplay->ostr.str(""); //2：调用str("")将缓冲区清零，清除脏数据
-    userDisplay->ostr << "loop:" << userDisplay->loopTime << "max:" << userDisplay->maxLoopTime << "min:" << userDisplay->minLoopTime << std::endl;
-    std::string temp = userDisplay->ostr.str();
-    lv_label_set_text(userDisplay->loopLab, temp.c_str());
 }

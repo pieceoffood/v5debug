@@ -57,7 +57,9 @@ static lv_res_t confirmBtnIncomp(lv_obj_t *btn)
     // 传感器页面创建
     userDisplay->createUserTask(TASK_OTHER, sensorsTask, 100, "sensorInfo");                //创建一个线程
     userDisplay->otherLab = lv_label_create(userDisplay->displayObj[OBJ_CONFIRM], nullptr); //创建基于INFOObj的标签
-    lv_obj_align(userDisplay->otherLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 0, -40);
+    lv_obj_align(userDisplay->otherLab, autoinfoLab, LV_ALIGN_OUT_RIGHT_TOP, 20, 0);        //设置传感器栏目位置
+    //重置传感器按钮
+    userDisplay->createResetBtn(OBJ_CONFIRM, LV_HOR_RES - 80, LV_VER_RES - 50);
     sensorsTask(nullptr); //刷新标签栏
     std::cout << "pressed" << std::endl;
     return LV_RES_OK;
