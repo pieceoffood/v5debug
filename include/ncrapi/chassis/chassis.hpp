@@ -117,10 +117,6 @@ class Chassis : public Obj
             left = 127 * leftSign;
         if (abs(right) > 127)
             right = 127 * rightSign;
-        if (abs(left) > 127)
-            left = 127 * leftSign;
-        if (abs(right) > 127)
-            right = 127 * rightSign;
         set(speedMode[abs(left)] * leftSign, speedMode[abs(right)] * rightSign);
     }
     /**
