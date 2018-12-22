@@ -105,7 +105,7 @@ void competition_initialize()
     userDisplay->createUserObj(OBJ_COMPETITION, true, "obj_competition");
     //创建标签栏
     lv_obj_t *tab = lv_tabview_create(userDisplay->displayObj[OBJ_COMPETITION], nullptr);
-    lv_tabview_set_style(tab, LV_TABVIEW_STYLE_BTN_REL, &userDisplay->style); //设置样式
+    lv_tabview_set_style(tab, LV_TABVIEW_STYLE_BTN_REL, &userDisplay->btnStyle); //设置样式
 
     userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED; //进来后 默认设置成红色
     lv_obj_set_size(tab, LV_HOR_RES, LV_VER_RES);                   //设置位置

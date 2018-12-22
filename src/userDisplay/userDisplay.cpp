@@ -26,16 +26,22 @@ UserDisplay::UserDisplay()
     theme = lv_theme_alien_init(100, &ncrfont10);
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
-    lv_style_copy(&style, &lv_style_btn_rel); //拷贝当前按钮样式
-    style.text.font = &ncrfont10;             //重新设置字体
+    //全局样式
+    lv_style_copy(&mainStyle, &lv_style_pretty_color); //拷贝当前按钮样式
+    mainStyle.body.main_color = LV_COLOR_BLACK;        //全局背影黑色
+
+    //按钮样式
+    lv_style_copy(&btnStyle, &lv_style_btn_rel); //拷贝当前按钮样式
+    btnStyle.text.font = &ncrfont10;             //重新设置字体
     //释放按钮的垂直填充应用于所有按钮
-    style.body.padding.ver = 5;
+    btnStyle.body.padding.ver = 5;
     logoObj = lv_img_create(displayObj[OBJ_BTNM_SON], nullptr);
+    //设置LOGO
     lv_img_set_src(logoObj, &logo); //将创建的文件设置为图像
     lv_obj_align(logoObj, displayObj[OBJ_BTNM_SON], LV_ALIGN_IN_RIGHT_MID, 0, 0);
     lv_obj_animate(logoObj, LV_ANIM_FLOAT_TOP, 3000, 100, nullptr);
-    lv_obj_set_style(displayObj[OBJ_BTNM_SON], &style);
-    displayObj[OBJ_BTNM_SON]->style_p->body.main_color = LV_COLOR_BLACK;
+    //应用全局样式
+    lv_obj_set_style(displayObj[OBJ_BTNM_SON], &mainStyle);
 }
 /**
  *自定义类创建 
@@ -58,11 +64,11 @@ void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *te
         {
             displayObj[objname] = lv_obj_create(parent, nullptr);
 
-            lv_obj_set_style(displayObj[objname], &style);
-            displayObj[objname]->style_p->body.main_color = LV_COLOR_BLACK;
-            displayObj[objname]->style_p->body.grad_color = LV_COLOR_BLACK;
+            lv_obj_set_style(displayObj[objname], &mainStyle);
+            // displayObj[objname]->style_p->body.main_color = LV_COLOR_BLACK;
+            // displayObj[objname]->style_p->body.grad_color = LV_COLOR_BLACK;
             lv_obj_set_size(displayObj[objname], LV_HOR_RES, LV_VER_RES - 10); //设置页面大小
-
+            lv_obj_set_style(displayObj[objname], &mainStyle);                 //设置样式
             //退出按钮
             createExitBtn(objname);
         }
@@ -185,27 +191,7 @@ lv_res_t UserDisplay::resetAction(lv_obj_t *btn)
         it->resetAllSensors();
     return LV_RES_INV;
 }
-//消息框动作函数
-lv_res_t UserDisplay::choseSideAction(lv_obj_t *mbox, const char *txt)
-{
-    if (!strcmp(txt, "红方"))
-    {
-        sysData->autoIsMode = 0; //普通自动赛模式
-        sysData->autoSide = 0;   //红方0
-        userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED;
-        lv_mbox_set_text(lv_mbox_get_from_btn(mbox), txt);
-        lv_obj_del(mbox);
-    }
-    if (!strcmp(txt, "蓝方"))
-    {
-        sysData->autoIsMode = 0; //普通自动赛模式
-        sysData->autoSide = 360; //蓝方360
-        userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_BLUE;
-        lv_mbox_set_text(lv_mbox_get_from_btn(mbox), txt);
-        lv_obj_del(mbox);
-    }
-    return LV_RES_OK; /*Return OK if the message box is not deleted*/
-}
+
 void UserDisplay::createMbox(obj_flag objname, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action) //创建一个消息框
 {
     lv_obj_t *mbox = lv_mbox_create(displayObj[objname], nullptr);

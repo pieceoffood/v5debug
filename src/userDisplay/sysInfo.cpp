@@ -42,7 +42,7 @@ void UserDisplay::createSysInfo(lv_obj_t *parent)
     if (displayObj[OBJ_BTNM_SON] == nullptr)
         displayObj[OBJ_BTNM_SON] = lv_tabview_create(parent, nullptr);
 
-    lv_tabview_set_style(displayObj[OBJ_BTNM_SON], LV_TABVIEW_STYLE_BTN_REL, &style); //设置样式
+    lv_tabview_set_style(displayObj[OBJ_BTNM_SON], LV_TABVIEW_STYLE_BTN_REL, &btnStyle); //设置样式
     std::vector<lv_obj_t *> tabs;
     tabs.push_back(lv_tabview_add_tab(displayObj[OBJ_BTNM_SON], "概览"));                     //先建立一个概览
     for (auto &it : sysData->obj)                                                             //遍历项目名字
