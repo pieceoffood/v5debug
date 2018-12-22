@@ -28,49 +28,42 @@ ncrapi::Generic<1> *flipper; //旋转器
  */
 
 void initialize()
-{
-    lv_obj_t *initObj = lv_obj_create(nullptr, nullptr);
-    lv_scr_load(initObj);
-    lv_obj_t *img = lv_img_create(initObj, nullptr);
-    lv_img_set_src(img, &logo); //将创建的文件设置为图像
-    lv_obj_align(img, initObj, LV_ALIGN_CENTER, 0, -20);
-    lv_obj_animate(img, LV_ANIM_FLOAT_TOP, 3000, 100, nullptr);
-    lv_obj_t *lab1 = lv_label_create(img, nullptr);
-    lv_obj_align(lab1, img, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-    //系统初始化
-    lv_label_set_text(lab1, "系统初始化中...");
+{ //系统初始化
     sysData = new ncrapi::SystemData();
-    lv_label_set_text(lab1, "文件读取中...");
     //显示初始化
-    lv_label_set_text(lab1, "图形界面初始化中...");
     userDisplay = new ncrapi::UserDisplay;
-    userDisplay->createMbox(initObj, "请选择红蓝方(默认红方)", "红方", "蓝方", ncrapi::UserDisplay::choseSideAction);
-
-    //demo for nancy
+    userDisplay->createMbox(OBJ_BTNM_SON, "请选择红蓝方(默认红方)", "红方", "蓝方", ncrapi::UserDisplay::choseSideAction);
+    lv_obj_t *lab1 = lv_label_create(userDisplay->displayObj[OBJ_BTNM_SON], nullptr);
     //遥控器初始化
     lv_label_set_text(lab1, "遥控器初始化中...");
     joy1 = new pros::Controller(CONTROLLER_MASTER);  //主遥控器
     joy2 = new pros::Controller(CONTROLLER_PARTNER); //副遥控器
     //显示用户信息
-    lv_obj_t *lab2 = lv_label_create(img, nullptr);
-    lv_obj_align(lab2, lab1, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
+    lv_obj_t *lab2 = lv_label_create(userDisplay->displayObj[OBJ_BTNM_SON], nullptr);
+    lv_obj_set_y(lab2, 30);
     std::string temp = robotInfo;
     temp += " 版本号:";
     temp += NCR_VERSION_STRING;
     lv_label_set_text(lab2, temp.c_str());
+
+    //demo for nancy
     lv_label_set_text(lab1, "底盘初始化中...");
     chassis = new ncrapi::Chassis<4>({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, LF_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
                                       pros::Motor(LB, pros::E_MOTOR_GEARSET_18, LB_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
                                       pros::Motor(RF, pros::E_MOTOR_GEARSET_18, RF_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
                                       pros::Motor(RB, pros::E_MOTOR_GEARSET_18, RB_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)});
+    pros::delay(1000);
     lv_label_set_text(lab1, "升降初始化中...");
     lift = new ncrapi::Generic<2>({pros::Motor(LIFT_LEFT, pros::E_MOTOR_GEARSET_18, LIFT_LEFT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
                                    pros::Motor(LIFT_RIGHT, pros::E_MOTOR_GEARSET_18, LIFT_RIGHT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)},
                                   "升降", 10);
+    pros::delay(1000);
+
     lv_label_set_text(lab1, "旋转器初始化中...");
     flipper = new ncrapi::Generic<1>({pros::Motor(FLIPPER, pros::E_MOTOR_GEARSET_18, FLIPPER_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)}, "旋转器", 10); //旋转器
-
+    pros::delay(1000);
     //demo for nancy
     lv_label_set_text(lab1, "机器人初始化完毕...");
-    lv_obj_del(initObj);
+    lv_obj_del(userDisplay->displayObj[OBJ_BTNM_SON]);
+    userDisplay->displayObj[OBJ_BTNM_SON] = nullptr;
 }

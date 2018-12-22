@@ -17,18 +17,25 @@ namespace ncrapi
  */
 UserDisplay::UserDisplay()
 {
+    displayObj[OBJ_BTNM_SON] = lv_obj_create(lv_scr_act(), nullptr);
+    lv_obj_set_size(displayObj[OBJ_BTNM_SON], LV_HOR_RES, LV_VER_RES); //设置页面大小
+
     //增加自定义字库
     lv_font_add(&ncrfont10, nullptr);
-
     /*初始化外星人主题*/
     theme = lv_theme_alien_init(100, &ncrfont10);
     /*设置Surand系统主题*/
     lv_theme_set_current(theme);
     lv_style_copy(&style, &lv_style_btn_rel); //拷贝当前按钮样式
     style.text.font = &ncrfont10;             //重新设置字体
-
     //释放按钮的垂直填充应用于所有按钮
     style.body.padding.ver = 5;
+    logoObj = lv_img_create(displayObj[OBJ_BTNM_SON], nullptr);
+    lv_img_set_src(logoObj, &logo); //将创建的文件设置为图像
+    lv_obj_align(logoObj, displayObj[OBJ_BTNM_SON], LV_ALIGN_IN_RIGHT_MID, 0, 0);
+    lv_obj_animate(logoObj, LV_ANIM_FLOAT_TOP, 3000, 100, nullptr);
+    lv_obj_set_style(displayObj[OBJ_BTNM_SON], &style);
+    displayObj[OBJ_BTNM_SON]->style_p->body.main_color = LV_COLOR_BLACK;
 }
 /**
  *自定义类创建 
@@ -181,29 +188,32 @@ lv_res_t UserDisplay::resetAction(lv_obj_t *btn)
 //消息框动作函数
 lv_res_t UserDisplay::choseSideAction(lv_obj_t *mbox, const char *txt)
 {
-    printf("Mbox button: %s\n", txt);
     if (!strcmp(txt, "红方"))
     {
         sysData->autoIsMode = 0; //普通自动赛模式
         sysData->autoSide = 0;   //红方0
         userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED;
+        lv_mbox_set_text(lv_mbox_get_from_btn(mbox), txt);
+        lv_obj_del(mbox);
     }
     if (!strcmp(txt, "蓝方"))
     {
         sysData->autoIsMode = 0; //普通自动赛模式
         sysData->autoSide = 360; //蓝方360
         userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_BLUE;
+        lv_mbox_set_text(lv_mbox_get_from_btn(mbox), txt);
+        lv_obj_del(mbox);
     }
     return LV_RES_OK; /*Return OK if the message box is not deleted*/
 }
-void UserDisplay::createMbox(lv_obj_t *parent, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action) //创建一个消息框
+void UserDisplay::createMbox(obj_flag objname, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action) //创建一个消息框
 {
-    lv_obj_t *mbox = lv_mbox_create(parent, nullptr);
+    lv_obj_t *mbox = lv_mbox_create(displayObj[objname], nullptr);
     lv_mbox_set_text(mbox, txt1);
     static const char *btns[] = {txt2, txt3, ""}; /*Button description. '\221' lv_btnm like control char*/
     lv_mbox_add_btns(mbox, btns, nullptr);
     lv_obj_set_width(mbox, 250);
-    lv_obj_align(mbox, parent, LV_ALIGN_IN_TOP_LEFT, 10, 10); /*Align to the corner*/
+    lv_obj_align(mbox, displayObj[objname], LV_ALIGN_IN_LEFT_MID, 0, 20); /*Align to the corner*/
     lv_mbox_set_action(mbox, action);
 }
 

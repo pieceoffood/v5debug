@@ -39,6 +39,8 @@ class UserDisplay
     //标题栏
     lv_obj_t *otherLab = nullptr;
     lv_obj_t *loopLab = nullptr;
+    lv_obj_t *logoObj = nullptr;
+
     //时间变量
     uint32_t loopTime = 0;
     uint32_t maxLoopTime = 0;
@@ -61,10 +63,11 @@ class UserDisplay
 
     void createExitBtn(obj_flag objname, const int x = LV_HOR_RES - 80, const int y = LV_VER_RES - 50, const int width = 50, const int high = 25); //创建退出按钮
     void createResetBtn(obj_flag objname, const int x, const int y, const int width = 50, const int high = 25);                                    //创建重制传感器按钮
-    void createMbox(lv_obj_t *parent, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action);                              //创建一个消息框
-    static lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt);                                                                              //消息框动作
-    static lv_res_t closeAction(lv_obj_t *btn);                                                                                                    //退出按钮的动作
-    static lv_res_t resetAction(lv_obj_t *btn);                                                                                                    //退出按钮的动作
+    void createMbox(obj_flag objname, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action);                              //创建一个消息框
+
+    static lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt); //消息框动作
+    static lv_res_t closeAction(lv_obj_t *btn);                       //退出按钮的动作
+    static lv_res_t resetAction(lv_obj_t *btn);                       //退出按钮的动作
 
     std::ostringstream ostr;
 };
