@@ -2,7 +2,7 @@
 
 namespace ncrapi
 {
-void UserDisplay::creartDebug(lv_obj_t *parent)
+void UserDisplay::createDebug(lv_obj_t *parent)
 {
 
     createUserObj(OBJ_BTNM_SON, false, "DebugPage", parent);

@@ -10,7 +10,7 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
 }
 namespace ncrapi
 {
-void UserDisplay::creartPidTest(lv_obj_t *parent)
+void UserDisplay::createPidTest(lv_obj_t *parent)
 {
     if (displayObj[OBJ_BTNM_SON] == nullptr)
         displayObj[OBJ_BTNM_SON] = lv_tabview_create(parent, nullptr);

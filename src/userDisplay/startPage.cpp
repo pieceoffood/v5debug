@@ -19,21 +19,21 @@ static lv_res_t btnm_action(lv_obj_t *btnm, const char *txt)
     (void)btnm; /*Unused*/
     //TODO 做一个字符串判断
     if (!strcmp(txt, "系统信息"))
-        userDisplay->creartSysInfo(userDisplay->displayObj[BTNM_START]);
+        userDisplay->createSysInfo(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "全局参数设置"))
-        userDisplay->creartConfig(userDisplay->displayObj[BTNM_START]); //创建CONFIGSET页面
+        userDisplay->createConfig(userDisplay->displayObj[BTNM_START]); //创建CONFIGSET页面
     if (!strcmp(txt, "自定义测试"))
-        userDisplay->creartCustomTest(userDisplay->displayObj[BTNM_START]);
+        userDisplay->createCustomTest(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "视觉传感器设置"))
-        userDisplay->creartVision(userDisplay->displayObj[BTNM_START]); //创建视觉页面
+        userDisplay->createVision(userDisplay->displayObj[BTNM_START]); //创建视觉页面
     if (!strcmp(txt, "版本号"))
-        userDisplay->creartVersion(userDisplay->displayObj[BTNM_START]);
+        userDisplay->createVersion(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "机器人检测"))
-        userDisplay->creartDebug(userDisplay->displayObj[BTNM_START]);
+        userDisplay->createDebug(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "PID调试"))
-        userDisplay->creartPidTest(userDisplay->displayObj[BTNM_START]);
+        userDisplay->createPidTest(userDisplay->displayObj[BTNM_START]);
     if (!strcmp(txt, "ODOM测试"))
-        userDisplay->creartOdom(userDisplay->displayObj[BTNM_START]);
+        userDisplay->createOdom(userDisplay->displayObj[BTNM_START]);
 
     printf("Key pressed: %s\n", txt);
     return LV_RES_INV;

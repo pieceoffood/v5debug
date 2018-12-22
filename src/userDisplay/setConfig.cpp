@@ -1,7 +1,7 @@
 #include "ncrapi/system/configSet.hpp"
 namespace ncrapi
 {
-void UserDisplay::creartConfig(lv_obj_t *parent)
+void UserDisplay::createConfig(lv_obj_t *parent)
 {
 
     createUserObj(OBJ_BTNM_SON, false, "configPage", parent);

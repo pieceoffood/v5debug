@@ -3,7 +3,7 @@
 
 namespace ncrapi
 {
-void UserDisplay::creartVision(lv_obj_t *parent)
+void UserDisplay::createVision(lv_obj_t *parent)
 {
 
     if (displayObj[OBJ_BTNM_SON] == nullptr)

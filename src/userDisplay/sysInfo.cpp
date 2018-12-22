@@ -35,7 +35,7 @@ static void tabChose(lv_obj_t *tab, uint16_t x)
 }
 namespace ncrapi
 {
-void UserDisplay::creartSysInfo(lv_obj_t *parent)
+void UserDisplay::createSysInfo(lv_obj_t *parent)
 {
 
     createUserTask(TASK_OTHER, sysInfoTask, 100, "sysInfo");

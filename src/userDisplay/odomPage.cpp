@@ -2,7 +2,7 @@
 
 namespace ncrapi
 {
-void UserDisplay::creartOdom(lv_obj_t *parent)
+void UserDisplay::createOdom(lv_obj_t *parent)
 {
     createUserObj(OBJ_BTNM_SON, false, "odomPage", parent);
     //创建图像

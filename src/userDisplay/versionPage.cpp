@@ -2,7 +2,7 @@
 
 namespace ncrapi
 {
-void UserDisplay::creartVersion(lv_obj_t *parent)
+void UserDisplay::createVersion(lv_obj_t *parent)
 {
 
     createUserObj(OBJ_BTNM_SON, false, "versionPage", parent);

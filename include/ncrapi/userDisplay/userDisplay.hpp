@@ -50,16 +50,16 @@ class UserDisplay
     void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
     void createOpObj();
     void createStartObj();
-    void creartVersion(lv_obj_t *parent);    //1
-    void creartConfig(lv_obj_t *parent);     //2
-    void creartVision(lv_obj_t *parent);     //3
-    void creartCustomTest(lv_obj_t *parent); //4
-    void creartSysInfo(lv_obj_t *parent);    //5
-    void creartPidTest(lv_obj_t *parent);    //6
-    void creartOdom(lv_obj_t *parent);       //7
-    void creartDebug(lv_obj_t *parent);      //8
+    void createVersion(lv_obj_t *parent);    //1
+    void createConfig(lv_obj_t *parent);     //2
+    void createVision(lv_obj_t *parent);     //3
+    void createCustomTest(lv_obj_t *parent); //4
+    void createSysInfo(lv_obj_t *parent);    //5
+    void createPidTest(lv_obj_t *parent);    //6
+    void createOdom(lv_obj_t *parent);       //7
+    void createDebug(lv_obj_t *parent);      //8
 
-    void createExitBtn(obj_flag objname, const int x = LV_HOR_RES - 80, const int y = LV_HOR_RES - 50, const int width = 50, const int high = 25); //创建退出按钮
+    void createExitBtn(obj_flag objname, const int x = LV_HOR_RES - 80, const int y = LV_VER_RES - 50, const int width = 50, const int high = 25); //创建退出按钮
     void createResetBtn(obj_flag objname, const int x, const int y, const int width = 50, const int high = 25);                                    //创建重制传感器按钮
     void createMbox(lv_obj_t *parent, const char *txt1, const char *txt2, const char *txt3, lv_btnm_action_t action);                              //创建一个消息框
     static lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt);                                                                              //消息框动作
