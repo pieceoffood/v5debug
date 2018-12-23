@@ -13,5 +13,5 @@ void disabled()
 {
     userDisplay->delTasks();
     userDisplay->delObjs();
-    userDisplay->createUserObj(OBJ_DISABLED, true, "obj_disabled", nullptr, "场控关闭状态");
+    userDisplay->createUserObj(OBJ_DISABLED, true, "obj_disabled", nullptr, "field Controller off 场控关闭状态");
 }
