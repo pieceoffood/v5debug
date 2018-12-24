@@ -19,10 +19,10 @@ const uint8_t RB = 4;
 const bool RB_REVERSE = 0;
 
 const uint8_t LIFT_LEFT = 11;
-const bool LIFT_LEFT_REVERSE = 0;
+const bool LIFT_LEFT_REVERSE = 1;
 const uint8_t LIFT_RIGHT = 12;
-const bool LIFT_RIGHT_REVERSE = 1;
-const uint8_t FLIPPER = 7;
+const bool LIFT_RIGHT_REVERSE = 0;
+const uint8_t FLIPPER = 8;
 const bool FLIPPER_REVERSE = 0;
 
 const int JOY_THRESHOLD = 10; //deadzone for Controller 遥控器矫正阀值
