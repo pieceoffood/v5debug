@@ -8,7 +8,6 @@ void UserDisplay::createVision(lv_obj_t *parent)
 
     if (displayObj[OBJ_BTNM_SON] == nullptr)
         displayObj[OBJ_BTNM_SON] = lv_tabview_create(parent, nullptr);
-    lv_tabview_set_style(displayObj[OBJ_BTNM_SON], LV_TABVIEW_STYLE_BTN_REL, &style); //设置样式
     lv_obj_t *builtInSigTab = lv_tabview_add_tab(displayObj[OBJ_BTNM_SON], "内置签名");
 
     lv_obj_t *getSigTab = lv_tabview_add_tab(displayObj[OBJ_BTNM_SON], "按数据0");
