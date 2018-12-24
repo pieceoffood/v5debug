@@ -20,8 +20,7 @@ static void sysInfoTask(void *param)
             it->showSensor();
     else
         sysData->obj[temp - 1]->showDetailedInfo();
-    std::string tempStr = userDisplay->ostr.str();
-    lv_label_set_text(userDisplay->otherLab, tempStr.c_str());
+    lv_label_set_text(userDisplay->otherLab, userDisplay->ostr.str().c_str());
 }
 
 /**
@@ -41,8 +40,6 @@ void UserDisplay::createSysInfo(lv_obj_t *parent)
     createUserTask(TASK_OTHER, sysInfoTask, 100, "sysInfo");
     if (displayObj[OBJ_BTNM_SON] == nullptr)
         displayObj[OBJ_BTNM_SON] = lv_tabview_create(parent, nullptr);
-
-    lv_tabview_set_style(displayObj[OBJ_BTNM_SON], LV_TABVIEW_STYLE_BTN_REL, &btnStyle); //设置样式
     std::vector<lv_obj_t *> tabs;
     tabs.push_back(lv_tabview_add_tab(displayObj[OBJ_BTNM_SON], "概览"));                     //先建立一个概览
     for (auto &it : sysData->obj)                                                             //遍历项目名字

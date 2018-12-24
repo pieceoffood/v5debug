@@ -34,7 +34,6 @@ class UserDisplay
     //样式
     lv_theme_t *theme;
     lv_style_t mainStyle;
-    lv_style_t btnStyle;
     std::array<lv_obj_t *, 8> displayObj = {nullptr};   //对象
     std::array<lv_task_t *, 2> displayTask = {nullptr}; //线程
     //标题栏
@@ -45,11 +44,14 @@ class UserDisplay
     uint32_t loopTime = 0;
     uint32_t maxLoopTime = 0;
     uint32_t minLoopTime = 20;
+    //自动赛选项按钮
+
     UserDisplay();
     void delObjs();
     void delTasks();
     void createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, lv_obj_t *parent = nullptr, const char *labText = nullptr);
     void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
+    void createCompe();
     void createOpObj();
     void createStartObj();
     void createVersion(lv_obj_t *parent);    //1

@@ -89,3 +89,23 @@ void initialize()
     lv_obj_del(userDisplay->displayObj[OBJ_BTNM_SON]);
     userDisplay->displayObj[OBJ_BTNM_SON] = nullptr;
 }
+/**
+*在初始化initialize()之后运行，并且在连接到场控之前自动运行
+*管理系统或VEX竞争交换机。这是为了特定于竞争的初始化例程，例如自主选择器在液晶显示器上。
+*此任务将在机器人启用和自动赛或手动赛时开始。
+*选择自动赛 设置参数的地方
+*经简易场控测试 是先接上场控,然后再开机,才会执行.已经开机再接场控 不会执行
+ */
+void competition_initialize()
+{
+    userDisplay->createCompe();
+}
+/**
+ * 场控没开自动赛 没开手动 完全禁止的时候使用的函数
+  */
+void disabled()
+{
+    userDisplay->delTasks();
+    userDisplay->delObjs();
+    userDisplay->createUserObj(OBJ_DISABLED, true, "obj_disabled", nullptr, "场控关闭状态");
+}

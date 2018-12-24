@@ -7,6 +7,6 @@
 
 //版本号
 #define NCR_VERSION_MAJOR 7 //主要版本号
-#define NCR_VERSION_MINOR 2 //辅助版本号
+#define NCR_VERSION_MINOR 3 //辅助版本号
 #define NCR_VERSION_PATCH 0 //补丁版本号
-#define NCR_VERSION_STRING "7.2.0"
+#define NCR_VERSION_STRING "7.3.0"
