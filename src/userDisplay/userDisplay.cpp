@@ -6,7 +6,8 @@
  * @Last modified time: 2018-10-28T22:09:02+08:00
  */
 
-#include "main.hpp"
+#include "api.h"
+#include "ncrapi/system/systemData.hpp"
 
 namespace ncrapi
 {
@@ -64,8 +65,6 @@ void UserDisplay::createUserObj(obj_flag objname, bool isSrcLoad, const char *te
             displayObj[objname] = lv_obj_create(parent, nullptr);
 
             lv_obj_set_style(displayObj[objname], &mainStyle);
-            // displayObj[objname]->style_p->body.main_color = LV_COLOR_BLACK;
-            // displayObj[objname]->style_p->body.grad_color = LV_COLOR_BLACK;
             lv_obj_set_size(displayObj[objname], LV_HOR_RES, LV_VER_RES - 10); //设置页面大小
             lv_obj_set_style(displayObj[objname], &mainStyle);                 //设置样式
             //退出按钮
@@ -151,7 +150,7 @@ static void loopTask(void *param)
 /**
  * 创建遥控模块页面 
  */
-void UserDisplay::createOpObj()
+void UserDisplay::createOpObj(const std::string &userInfo)
 {
     delTasks();
     createUserTask(TASK_LOOP, loopTask, 100, "loopLab");
@@ -162,8 +161,7 @@ void UserDisplay::createOpObj()
 
     lv_obj_t *robotInfoLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
     lv_obj_set_x(robotInfoLab, LV_HOR_RES / 2 - 30);
-    lv_label_set_text(robotInfoLab, robotInfo.c_str());
-
+    lv_label_set_static_text(robotInfoLab, userInfo.c_str());
     loopLab = lv_label_create(displayObj[OBJ_OPCONTROL], nullptr);
     loopTask(nullptr);
 }

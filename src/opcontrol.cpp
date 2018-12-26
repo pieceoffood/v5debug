@@ -10,7 +10,7 @@
 
 void opcontrol()
 {
-    userDisplay->createOpObj();
+    userDisplay->createOpObj(robotInfo);
     uint32_t nowTime = pros::millis();
     uint32_t lastTime = pros::millis();
 

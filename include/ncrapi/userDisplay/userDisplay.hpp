@@ -52,7 +52,7 @@ class UserDisplay
     void createUserObj(obj_flag objname, bool isSrcLoad, const char *terminalText, lv_obj_t *parent = nullptr, const char *labText = nullptr);
     void createUserTask(task_flag taskName, void (*task)(void *), uint32_t loopTime, const char *terminalText);
     void createCompe();
-    void createOpObj();
+    void createOpObj(const std::string &userInfo);
     void createStartObj();
     void createVersion(lv_obj_t *parent);    //1
     void createConfig(lv_obj_t *parent);     //2
