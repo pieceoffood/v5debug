@@ -54,11 +54,7 @@ void initialize()
     sysData = new ncrapi::SystemData();
     //显示初始化
     userDisplay = new ncrapi::UserDisplay;
-<<<<<<< HEAD
     userDisplay->createMbox(OBJ_BTNM_SON, "select red/blue (default red)", "red", "blue", ncrapi::UserDisplay::choseSideAction);
-=======
-    userDisplay->createMbox(OBJ_BTNM_SON, "请选择红蓝方(默认红方)", "红方", "蓝方", choseSideAction);
->>>>>>> bffe0fa8e1f91bf059defb0f2c184e018ec1debb
     lv_obj_t *lab1 = lv_label_create(userDisplay->displayObj[OBJ_BTNM_SON], nullptr);
     //遥控器初始化
     lv_label_set_text(lab1, "Controller initialize ...");
@@ -82,11 +78,11 @@ void initialize()
     lv_label_set_text(lab1, "lift initialize...");
     lift = new ncrapi::Generic<2>({pros::Motor(LIFT_LEFT, pros::E_MOTOR_GEARSET_18, LIFT_LEFT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
                                    pros::Motor(LIFT_RIGHT, pros::E_MOTOR_GEARSET_18, LIFT_RIGHT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)},
-                                  "升降", 10);
+                                  "lift arm", 10);
     pros::delay(1000);
 
     lv_label_set_text(lab1, "flipper initialize ...");
-    flipper = new ncrapi::Generic<1>({pros::Motor(FLIPPER, pros::E_MOTOR_GEARSET_18, FLIPPER_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)}, "旋转器", 10); //旋转器
+    flipper = new ncrapi::Generic<1>({pros::Motor(FLIPPER, pros::E_MOTOR_GEARSET_18, FLIPPER_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)}, "flipper", 10); //旋转器
     pros::delay(1000);
     //demo for nancy
     lv_label_set_text(lab1, "robot initialize done ...");

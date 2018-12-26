@@ -23,7 +23,7 @@ void opcontrol()
         if (userDisplay->loopTime < userDisplay->minLoopTime)
             userDisplay->minLoopTime = userDisplay->loopTime;
         //demo for nancy
-        chassis->arcade(joy1, ANALOG_LEFT_Y, ANALOG_LEFT_X, ROTATE_SPEED, JOY_THRESHOLD); //底盘遥控
+        chassis->arcade(joy1, ANALOG_LEFT_Y, ANALOG_RIGHT_X, ROTATE_SPEED, JOY_THRESHOLD); //底盘遥控
         lift->joyControl(joy1, DIGITAL_R1, DIGITAL_R2);                                    //升降
         flipper->joyControl(joy1, DIGITAL_L1, DIGITAL_L2);                                 //旋转器
         //demo for nancy
