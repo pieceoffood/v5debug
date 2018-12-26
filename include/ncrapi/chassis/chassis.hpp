@@ -63,6 +63,21 @@ class Chassis : public Obj
     }
 
     /**
+*设置要移动到的电机的相对目标位置。
+*此运动与pros :: Motor :: motor_get_position（）中给出的电机当前位置有关。提供10.0作为位置参数将导致电机顺时针移动10个单位，无论当前位置如何。
+*注意此功能只是设置电机的目标，它不会阻止程序执行直到运动结束。
+*@ param leftPos rightPos 左右电机的要移动的距离 相对于上次resetEnc()
+*@ param velocity 以RPM为单位的最大运动速度
+*/
+    void moveRelative(const double leftPos, const double rightPos, const std::int32_t velocity)
+    {
+        for (size_t i = 0; i < _sideNums; i++)
+            _motorList[i].move_relative(leftPos, velocity);
+        for (size_t i = _sideNums; i < _nums; i++)
+            _motorList[i].move_relative(rightPos, velocity);
+    }
+
+    /**
      * 普通前进后退 开环控制
      * @param pwm  前进+ 后退- 范围:+-127
      */
@@ -79,6 +94,15 @@ class Chassis : public Obj
         moveVelocity(velocity, velocity);
     }
     /**
+     *使用电机内置闭环 让底盘前进或者后退        
+     * @param pos 前进的距离 电机一圈360 自己换算
+     * @param velocity 速度 红尺寸+100 绿齿轮最大速度+200 蓝齿轮+600 
+     */
+    void forwardRelative(const double pos, const std::int32_t velocity)
+    {
+        moveRelative(pos, pos, velocity);
+    }
+    /**
      * 普通旋转 开环控制
      * @param pwm 左转- 右转+ 范围:+-127
      */
@@ -93,6 +117,15 @@ class Chassis : public Obj
     void rotateVelocity(const int32_t velocity)
     {
         moveVelocity(velocity, -velocity);
+    }
+    /**
+     *使用电机内置闭环 让底盘左转或者右转 
+     * @param pos 转动的位置 电机一圈360 自己换算 左转- 右转+
+     * @param velocity 速度 红尺寸+100 绿齿轮最大速度+200 蓝齿轮+600 
+     */
+    void rotateReative(const double pos, const std::int32_t velocity)
+    {
+        moveRelative(pos, -pos, velocity);
     }
     /**
      * 底盘马达停转
