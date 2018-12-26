@@ -29,6 +29,7 @@ lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt)
         sysData->autoIsMode = 0; //普通自动赛模式
         sysData->autoSide = 0;   //红方0
         userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_RED;
+        userDisplay->theme->mbox.bg->body.main_color = LV_COLOR_RED;
         userDisplay->mainStyle.body.main_color = LV_COLOR_RED;
         lv_mbox_set_text(lv_mbox_get_from_btn(mbox), txt);
         lv_obj_del(mbox);
@@ -38,6 +39,7 @@ lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt)
         sysData->autoIsMode = 0; //普通自动赛模式
         sysData->autoSide = 360; //蓝方360
         userDisplay->theme->tabview.bg->body.main_color = LV_COLOR_BLUE;
+        userDisplay->theme->mbox.bg->body.main_color = LV_COLOR_BLUE;
         userDisplay->mainStyle.body.main_color = LV_COLOR_BLUE;
         lv_mbox_set_text(lv_mbox_get_from_btn(mbox), txt);
         lv_obj_del(mbox);
