@@ -56,7 +56,7 @@ void initialize()
     sysData = new ncrapi::SystemData();
     //显示初始化
     userDisplay = new ncrapi::UserDisplay;
-    userDisplay->createMbox(OBJ_BTNM_SON, "select red/blue (default red)", "red", "blue", ncrapi::UserDisplay::choseSideAction);
+    userDisplay->createMbox(OBJ_BTNM_SON, "select red/blue (default red)", "red", "blue", choseSideAction);
     lv_obj_t *lab1 = lv_label_create(userDisplay->displayObj[OBJ_BTNM_SON], nullptr);
     //遥控器初始化
     lv_label_set_text(lab1, "Controller initialize ...");
