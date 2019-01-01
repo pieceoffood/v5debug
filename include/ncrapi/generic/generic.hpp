@@ -2,8 +2,8 @@
 #include "../userDisplay/userDisplay.hpp"
 #include "api.h"
 #include "ncrapi/system/systemData.hpp"
-#include <array>
 #include <memory>
+#include <vector>
 
 namespace ncrapi
 {
@@ -12,11 +12,11 @@ namespace ncrapi
  * @param a    马达对象
  * @param hold 悬停值
  */
-template <size_t _nums>
+
 class Generic : public Obj
 {
   protected:
-    const std::array<pros::Motor, _nums> _motorList;
+    const std::vector<pros::Motor> _motorList;
     const std::string _name;
     const int _holdVal;
     float _holdingFlag = 0;
@@ -25,12 +25,16 @@ class Generic : public Obj
     int _state = 0; //-1降 0 悬停 1 升
     int32_t _isMotorReady = 0;
     uint8_t _motorCount = 0;
-    int _mode = 0;   //1 系统正传 0悬停 -1 系统反转 2使用原厂PID控制
-    size_t _gearing; //齿轮最大速度
+    int _mode = 0;    //1 系统正传 0悬停 -1 系统反转 2使用原厂PID控制
+    size_t _gearing;  //齿轮最大速度
+    size_t _nums = 0; //马达总数
 
   public:
-    Generic(const std::array<pros::Motor, _nums> &motorList, const std::string name, const int hold = 0) : _motorList(motorList), _name(name), _holdVal(hold)
+    Generic(const std::vector<pros::Motor> &motorList, const std::string name, const int hold = 0) : _motorList(motorList), _name(name), _holdVal(hold)
     {
+        _nums = _motorList.size();
+        if (_nums == 0)
+            std::cerr << "chassis side nums error" << std::endl;
         pros::delay(100);
         resetEnc();
         size_t temp = _motorList.begin()->get_gearing();

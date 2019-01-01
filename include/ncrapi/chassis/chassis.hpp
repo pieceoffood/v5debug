@@ -2,7 +2,6 @@
 #include "../userDisplay/userDisplay.hpp"
 #include "api.h"
 #include "ncrapi/system/systemData.hpp"
-#include <array>
 
 namespace ncrapi
 {
@@ -17,18 +16,20 @@ constexpr int realSpeed[128] = {
  * 基础开环控制(无传感器马达类)
  * @param motorList 马达类别 注意加{}
  */
-template <size_t _nums>
 class Chassis : public Obj
 {
   protected:
     const std::string _name;
-    const std::array<pros::Motor, _nums> _motorList;
-    const size_t _sideNums = _nums / 2; //半边马达数量
-    int _pwm[2];                        //0 左边pwm 1 右边pwm
+    const std::vector<pros::Motor> _motorList;
+    size_t _sideNums = 0; //半边马达数量
+    int _pwm[2];          //0 左边pwm 1 右边pwm
 
   public:
-    Chassis(const std::array<pros::Motor, _nums> &motorList) : _motorList(motorList), _name("底盘")
+    Chassis(const std::vector<pros::Motor> &motorList) : _motorList(motorList), _name("底盘")
     {
+        _sideNums = _motorList.size() / 2;
+        if (_sideNums % 2 != 0 || _sideNums == 0)
+            std::cerr << "chassis side nums error" << std::endl;
         pros::delay(100);
         resetEnc();
         sysData->addObj(this);
@@ -39,7 +40,7 @@ class Chassis : public Obj
         _pwm[1] = right;
         for (size_t i = 0; i < _sideNums; i++)
             _motorList[i].move(_pwm[0]);
-        for (size_t i = _sideNums; i < _nums; i++)
+        for (size_t i = _sideNums; i < _motorList.size(); i++)
             _motorList[i].move(_pwm[1]);
     }
     /**
@@ -58,7 +59,7 @@ class Chassis : public Obj
     {
         for (size_t i = 0; i < _sideNums; i++)
             _motorList[i].move_velocity(left);
-        for (size_t i = _sideNums; i < _nums; i++)
+        for (size_t i = _sideNums; i < _motorList.size(); i++)
             _motorList[i].move_velocity(right);
     }
 
@@ -73,7 +74,7 @@ class Chassis : public Obj
     {
         for (size_t i = 0; i < _sideNums; i++)
             _motorList[i].move_relative(leftPos, velocity);
-        for (size_t i = _sideNums; i < _nums; i++)
+        for (size_t i = _sideNums; i < _motorList.size(); i++)
             _motorList[i].move_relative(rightPos, velocity);
     }
 
@@ -199,7 +200,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         double sum = 0;
         for (; i < max; i++)
@@ -218,7 +219,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         double sum = 0;
         for (; i < max; i++)
@@ -238,7 +239,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         double sum = 0;
         for (; i < max; i++)
@@ -257,7 +258,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         int32_t sum = 0;
         for (; i < max; i++)
@@ -272,7 +273,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         int32_t sum = 0;
         for (; i < max; i++)
