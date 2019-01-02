@@ -17,9 +17,15 @@ ncrapi::UserDisplay *userDisplay; //图像数据类
 pros::Controller *joy1; // master Controller 主遥控器
 pros::Controller *joy2; //partner Controller 副遥控器
 
+<<<<<<< HEAD
 ncrapi::Chassis<4> *chassis; //底盘
 ncrapi::Generic<2> *lift;    //lift arm 升降臂
 ncrapi::Generic<1> *flipper; //旋转器
+=======
+ncrapi::Chassis *chassis; //底盘
+ncrapi::Generic *lift;    //旋转器
+ncrapi::Generic *flipper; //旋转器
+>>>>>>> upstream/master
 
 //消息框动作函数
 lv_res_t choseSideAction(lv_obj_t *mbox, const char *txt)
@@ -71,6 +77,7 @@ void initialize()
     lv_label_set_text(lab2, temp.c_str());
 
     //demo for nancy
+<<<<<<< HEAD
     lv_label_set_text(lab1, "chassis initialize ...");
     chassis = new ncrapi::Chassis<4>({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, LF_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
                                       pros::Motor(LB, pros::E_MOTOR_GEARSET_18, LB_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
@@ -85,6 +92,22 @@ void initialize()
 
     lv_label_set_text(lab1, "flipper initialize ...");
     flipper = new ncrapi::Generic<1>({pros::Motor(FLIPPER, pros::E_MOTOR_GEARSET_18, FLIPPER_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)}, "flipper", 10); //旋转器
+=======
+    lv_label_set_text(lab1, "底盘初始化中...");
+    chassis = new ncrapi::Chassis({pros::Motor(LF, pros::E_MOTOR_GEARSET_18, LF_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
+                                   pros::Motor(LB, pros::E_MOTOR_GEARSET_18, LB_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
+                                   pros::Motor(RF, pros::E_MOTOR_GEARSET_18, RF_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
+                                   pros::Motor(RB, pros::E_MOTOR_GEARSET_18, RB_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)});
+    pros::delay(1000);
+    lv_label_set_text(lab1, "升降初始化中...");
+    lift = new ncrapi::Generic({pros::Motor(LIFT_LEFT, pros::E_MOTOR_GEARSET_18, LIFT_LEFT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES),
+                                pros::Motor(LIFT_RIGHT, pros::E_MOTOR_GEARSET_18, LIFT_RIGHT_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)},
+                               "升降", 10);
+    pros::delay(1000);
+
+    lv_label_set_text(lab1, "旋转器初始化中...");
+    flipper = new ncrapi::Generic({pros::Motor(FLIPPER, pros::E_MOTOR_GEARSET_18, FLIPPER_REVERSE, pros::E_MOTOR_ENCODER_DEGREES)}, "旋转器", 10); //旋转器
+>>>>>>> upstream/master
     pros::delay(1000);
     //demo for nancy
     lv_label_set_text(lab1, "robot initialize done ...");

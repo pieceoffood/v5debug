@@ -2,8 +2,8 @@
 #include "../userDisplay/userDisplay.hpp"
 #include "api.h"
 #include "ncrapi/system/systemData.hpp"
-#include <array>
 #include <memory>
+#include <vector>
 
 namespace ncrapi
 {
@@ -12,25 +12,16 @@ namespace ncrapi
  * @param a    马达对象
  * @param hold 悬停值
  */
-template <size_t _nums>
+
 class Generic : public Obj
 {
-  protected:
-    const std::array<pros::Motor, _nums> _motorList;
-    const std::string _name;
-    const int _holdVal;
-    float _holdingFlag = 0;
-    int _pwm = 0;
-    size_t _safeModeFlags = 0;
-    int _state = 0; //-1降 0 悬停 1 升
-    int32_t _isMotorReady = 0;
-    uint8_t _motorCount = 0;
-    int _mode = 0;   //1 系统正传 0悬停 -1 系统反转 2使用原厂PID控制
-    size_t _gearing; //齿轮最大速度
 
   public:
-    Generic(const std::array<pros::Motor, _nums> &motorList, const std::string name, const int hold = 0) : _motorList(motorList), _name(name), _holdVal(hold)
+    explicit Generic(const std::vector<pros::Motor> &motorList, const std::string name, const int hold = 0) : _motorList(motorList), _name(name), _holdVal(hold)
     {
+        _nums = _motorList.size();
+        if (_nums == 0)
+            std::cerr << "chassis side nums error" << std::endl;
         pros::delay(100);
         resetEnc();
         size_t temp = _motorList.begin()->get_gearing();
@@ -326,20 +317,34 @@ class Generic : public Obj
     /**
      * 显示传感器数据到屏幕 ostringstream ostr流
      */
-    virtual void showSensor()
+    virtual void showSensor() override
     {
         userDisplay->ostr << _name << ":编码器:" << getEnc() << "温度:" << getTemperature()
                           << "电压:" << getVoltage() << "电流:" << getCurrent() << std::endl;
     }
-    virtual const std::string showName() const
+    virtual const std::string showName() const override
     {
         return _name;
     }
-    virtual void showDetailedInfo()
+    virtual void showDetailedInfo() override
     {
         userDisplay->ostr << _name << "pwm:" << _pwm << "\n"
                           << "编码器:" << getEnc() << "速度:" << getSpeed() << "\n"
                           << "温度:" << getTemperature() << "电压:" << getVoltage() << "电流:" << getCurrent() << std::endl;
     }
-}; // namespace ncrapi
+
+  protected:
+    const std::vector<pros::Motor> _motorList;
+    const std::string _name;
+    const int _holdVal;
+    float _holdingFlag = 0;
+    int _pwm = 0;
+    size_t _safeModeFlags = 0;
+    int _state = 0; //-1降 0 悬停 1 升
+    int32_t _isMotorReady = 0;
+    uint8_t _motorCount = 0;
+    int _mode = 0;    //1 系统正传 0悬停 -1 系统反转 2使用原厂PID控制
+    size_t _gearing;  //齿轮最大速度
+    size_t _nums = 0; //马达总数
+};                    // namespace ncrapi
 } // namespace ncrapi

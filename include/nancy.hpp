@@ -30,7 +30,14 @@ const int ROTATE_SPEED = 127; //maxium speed 底盘最大旋转速度
 
 extern pros::Controller *joy1;
 extern pros::Controller *joy2;
+<<<<<<< HEAD
 extern ncrapi::Chassis<4> *chassis;
 extern ncrapi::Generic<2> *lift;
 extern ncrapi::Generic<1> *flipper;
 //demo for nancy
+=======
+extern ncrapi::Chassis *chassis;
+extern ncrapi::Generic *lift;
+extern ncrapi::Generic *flipper;
+//demo for nancy
+>>>>>>> upstream/master

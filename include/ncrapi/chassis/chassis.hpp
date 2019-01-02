@@ -2,7 +2,6 @@
 #include "../userDisplay/userDisplay.hpp"
 #include "api.h"
 #include "ncrapi/system/systemData.hpp"
-#include <array>
 
 namespace ncrapi
 {
@@ -17,18 +16,15 @@ constexpr int realSpeed[128] = {
  * 基础开环控制(无传感器马达类)
  * @param motorList 马达类别 注意加{}
  */
-template <size_t _nums>
 class Chassis : public Obj
 {
-  protected:
-    const std::string _name;
-    const std::array<pros::Motor, _nums> _motorList;
-    const size_t _sideNums = _nums / 2; //半边马达数量
-    int _pwm[2];                        //0 左边pwm 1 右边pwm
 
   public:
-    Chassis(const std::array<pros::Motor, _nums> &motorList) : _motorList(motorList), _name("底盘")
+    explicit Chassis(const std::vector<pros::Motor> &motorList) : _motorList(motorList), _name("底盘")
     {
+        _sideNums = _motorList.size() / 2;
+        if (_sideNums % 2 != 0 || _sideNums == 0)
+            std::cerr << "chassis side nums error" << std::endl;
         pros::delay(100);
         resetEnc();
         sysData->addObj(this);
@@ -39,7 +35,7 @@ class Chassis : public Obj
         _pwm[1] = right;
         for (size_t i = 0; i < _sideNums; i++)
             _motorList[i].move(_pwm[0]);
-        for (size_t i = _sideNums; i < _nums; i++)
+        for (size_t i = _sideNums; i < _motorList.size(); i++)
             _motorList[i].move(_pwm[1]);
     }
     /**
@@ -58,7 +54,7 @@ class Chassis : public Obj
     {
         for (size_t i = 0; i < _sideNums; i++)
             _motorList[i].move_velocity(left);
-        for (size_t i = _sideNums; i < _nums; i++)
+        for (size_t i = _sideNums; i < _motorList.size(); i++)
             _motorList[i].move_velocity(right);
     }
 
@@ -73,7 +69,7 @@ class Chassis : public Obj
     {
         for (size_t i = 0; i < _sideNums; i++)
             _motorList[i].move_relative(leftPos, velocity);
-        for (size_t i = _sideNums; i < _nums; i++)
+        for (size_t i = _sideNums; i < _motorList.size(); i++)
             _motorList[i].move_relative(rightPos, velocity);
     }
 
@@ -199,7 +195,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         double sum = 0;
         for (; i < max; i++)
@@ -218,7 +214,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         double sum = 0;
         for (; i < max; i++)
@@ -238,7 +234,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         double sum = 0;
         for (; i < max; i++)
@@ -257,7 +253,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         int32_t sum = 0;
         for (; i < max; i++)
@@ -272,7 +268,7 @@ class Chassis : public Obj
         if (side == 1)
         {
             i = _sideNums;
-            max = _nums;
+            max = _motorList.size();
         }
         int32_t sum = 0;
         for (; i < max; i++)
@@ -283,16 +279,16 @@ class Chassis : public Obj
     /**
      * 显示传感器数据到屏幕 ostringstream ostr流
      */
-    virtual void showSensor()
+    virtual void showSensor() override
     {
         userDisplay->ostr << "左底盘: 编码器:" << getEnc(0) << " 温度:" << getTemperature(0) << "电压:" << getVoltage(0) << "电流:" << getCurrent(0) << "\n"
                           << "右底盘: 编码器:" << getEnc(1) << " 温度:" << getTemperature(1) << "电压:" << getVoltage(1) << "电流:" << getCurrent(1) << std::endl;
     }
-    virtual const std::string showName() const
+    virtual const std::string showName() const override
     {
         return _name;
     }
-    virtual void showDetailedInfo()
+    virtual void showDetailedInfo() override
     {
         userDisplay->ostr << "左底盘pwm:" << _pwm[0] << "\n"
                           << "编码器:" << getEnc(0) << "速度:" << getSpeed(0) << "\n"
@@ -301,5 +297,11 @@ class Chassis : public Obj
                           << "编码器 : " << getEnc(1) << "速度:" << getSpeed(1) << "\n"
                           << "温度 : " << getTemperature(1) << "电压 : " << getVoltage(1) << "电流 : " << getCurrent(1) << std::endl;
     }
+
+  protected:
+    const std::string _name;
+    const std::vector<pros::Motor> _motorList;
+    size_t _sideNums = 0; //半边马达数量
+    int _pwm[2];          //0 左边pwm 1 右边pwm
 };
 } // namespace ncrapi
