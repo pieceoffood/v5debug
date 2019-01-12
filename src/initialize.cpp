@@ -14,8 +14,8 @@ ncrapi::UserDisplay *userDisplay; //图像数据类
 //全局初始化构造函数
 //部件类初始化
 //demo for nancy
-pros::Controller *joy1; // master Controller 主遥控器
-pros::Controller *joy2; //partner Controller 副遥控器
+pros::Controller *joy1; //主遥控器
+pros::Controller *joy2; //副遥控器
 
 ncrapi::Chassis *chassis; //底盘
 ncrapi::Generic *lift;    //旋转器

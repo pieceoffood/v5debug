@@ -1,5 +1,5 @@
 #pragma once
-
+#include "api.h"
 #include "configSet.hpp"
 #include "object.hpp"
 #include <array>
@@ -37,7 +37,8 @@ class SystemData
     using citer = std::vector<std::pair<std::string, std::string>>::const_iterator; //迭代器别名
 
     dataType _pidData;
-    dataType _robotData;
+    FILE *debugFile = nullptr;
+
     std::vector<Obj *> obj; //存储机器人部件的名字
 
     //自动赛参数
@@ -48,10 +49,15 @@ class SystemData
     //构造函数
     SystemData()
     {
-        Config pid(&_pidData, "/usd/pid.txt"); //读取PID配置
+        Config pid(&_pidData, "/usd/pid.txt");    //读取PID配置
+        debugFile = fopen("/usd/debug.txt", "a"); //以附加方式打开
+        if (debugFile == nullptr)
+        {
+            std::cerr << "debug 文件打开错误,请检查SD卡!" << std::endl;
+        }
     }
     /**
-    *增加部件名字 
+    *增加部件名字
     * @param str 部件的名字
     */
     void
@@ -60,15 +66,57 @@ class SystemData
         obj.push_back(generic);
     }
     /**
-     *获取当前机器人部件总数 
+     *获取当前机器人部件总数
      * @return size_t 部件总数
      */
     size_t getObjNums()
     {
         return obj.size();
     }
+    void addDebugData(std::initializer_list<std::string> val)
+    {
+        std::string str;
+        for (auto &it : val)
+            str += it;
+        if (debugFile != nullptr)
+        {
+            std::cerr << str << std::endl;
+            uint32_t nowTime = pros::millis();
+            uint32_t minutes = (nowTime % (1000 * 60 * 60)) / 60000;
+            uint32_t seconds = (nowTime % (1000 * 60)) / 1000;
+            std::string time;
+            time += std::to_string(minutes);
+            time += ":";
+            time += std::to_string(seconds);
+            fprintf(debugFile, "%s  %s\n", time.c_str(), str.c_str());
+        }
+        else
+            std::cerr << "debug 文件打开错误,请检查SD卡!" << std::endl;
+    }
+    void showDebugData(std::string &str)
+    {
+        if (debugFile != nullptr)
+        {
+            fclose(debugFile);
+            debugFile = fopen("/usd/debug.txt", "r"); //先关闭写模式再以读模式打开
+            char buf[MAX_BUF_LEN];
+            while (fgets(buf, MAX_BUF_LEN, debugFile) != nullptr)
+                str += buf;
+            fclose(debugFile);                        //先关闭读模式
+            debugFile = fopen("/usd/debug.txt", "a"); //再继续以写模式打开
+        }
+        else
+            std::cerr << "debug 文件打开错误,请检查SD卡!" << std::endl;
+    }
+    void closeDebugData()
+    {
+        if (debugFile != nullptr)
+            fclose(debugFile);
+        else
+            std::cerr << "debug 文件打开错误,请检查SD卡!" << std::endl;
+    }
     /**
-     * 打印数据库到CMD 
+     * 打印数据库到CMD
      * @param data 要打印的数据库
      */
     void showData(dataType &data)
