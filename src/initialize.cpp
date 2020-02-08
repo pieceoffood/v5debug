@@ -7,6 +7,7 @@
  */
 
 #include "main.hpp"
+#include "ncrapi/ncrapi.hpp"
 //全局变量和类
 ncrapi::SystemData *sysData;      //系统数据类
 ncrapi::UserDisplay *userDisplay; //图像数据类

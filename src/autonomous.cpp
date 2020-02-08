@@ -7,6 +7,7 @@
  */
 
 #include "main.hpp"
+#include "ncrapi/ncrapi.hpp"
 /**
  * 自动赛
  */
